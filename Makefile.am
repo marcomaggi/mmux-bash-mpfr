@@ -129,11 +129,13 @@ mmux_bashlibdir		= $(datadir)/bash
 EXTRA_DIST		+= \
 	tests/version.test.m4			\
 	tests/init.test.m4			\
+	tests/setters.test.m4			\
 	tests/conversion.test.m4
 
 MMUX_CHECK_BUILT_TESTS	= \
 	tests/version.test			\
 	tests/init.test				\
+	tests/setters.test			\
 	tests/conversion.test
 
 if MMUX_TESTING_ENABLED

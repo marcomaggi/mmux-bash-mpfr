@@ -111,6 +111,7 @@ mmux_bash_mpfr_decl int		mmux_bash_mpfr_version_interface_age		(void);
  ** ----------------------------------------------------------------- */
 
 mmux_bash_mpfr_decl int	mmux_bash_mpfr_parse_mpfr_rnd (mpfr_rnd_t * p_data, char const * const s_arg, char const * const caller_name);
+mmux_bash_mpfr_decl int mmux_bash_mpfr_parse_mpfr_exp (mpfr_exp_t * p_data, char const * const s_arg, char const * const caller_name);
 mmux_bash_mpfr_decl int mmux_bash_mpfr_set_MPFR_RV (int rv);
 
 

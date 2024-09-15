@@ -80,7 +80,7 @@ mpfr_get_str_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
        (Marco Maggi; Sep 9, 2024) */
     int		flags = 0;
 
-    mmux_bash_pointers_sprint_intmax(strexp, LEN, (intmax_t)exp);
+    mmux_bash_pointers_sprint_sintmax(strexp, LEN, (intmax_t)exp);
     v = bind_variable(argv[2], strexp, flags);
   }
   return EXECUTION_SUCCESS;

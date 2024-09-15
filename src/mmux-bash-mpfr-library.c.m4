@@ -99,6 +99,26 @@ mmux_bash_mpfr_parse_mpfr_rnd (mpfr_rnd_t * p_data, char const * const s_arg, ch
 {
   return mmux_bash_pointers_parse_sint(p_data, s_arg, caller_name);
 }
+int
+mmux_bash_mpfr_parse_mpfr_exp (mpfr_exp_t * p_data, char const * const s_arg, char const * const caller_name)
+{
+  if (sizeof(mpfr_exp_t) == sizeof(signed int)) {
+    return mmux_bash_pointers_parse_sint(p_data, s_arg, caller_name);
+  } else
+  if (sizeof(mpfr_exp_t) == sizeof(signed long)) {
+    return mmux_bash_pointers_parse_slong(p_data, s_arg, caller_name);
+  } else
+#if ((defined HAVE_LONG_LONG_INT) && (1 == HAVE_LONG_LONG_INT))
+  if (sizeof(mpfr_exp_t) == sizeof(signed long long int)) {
+    return mmux_bash_pointers_parse_sllong(p_data, s_arg, caller_name);
+  } else
+#endif
+  if (sizeof(mpfr_exp_t) == sizeof(intmax_t)) {
+    return mmux_bash_pointers_parse_sintmax(p_data, s_arg, caller_name);
+  } else {
+    return EXECUTION_FAILURE;
+  }
+}
 
 
 /** --------------------------------------------------------------------
