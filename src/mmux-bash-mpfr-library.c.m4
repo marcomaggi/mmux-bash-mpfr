@@ -91,20 +91,13 @@ mmux_bash_mpfr_set_MPFR_RV (int rv)
 
 
 /** --------------------------------------------------------------------
- ** Type printers.
+ ** Parsers.
  ** ----------------------------------------------------------------- */
 
 int
-mmux_bash_mpfr_print_MPFR_PTR (mpfr_ptr X)
+mmux_bash_mpfr_parse_mpfr_rnd (mpfr_rnd_t * p_data, char const * const s_arg, char const * const caller_name)
 {
-  int	rv = printf("#<pointer %p>", (void *)X);
-  return (0 < rv)? EXECUTION_SUCCESS : EXECUTION_FAILURE;
-}
-int
-mmux_bash_mpfr_sprint_MPFR_PTR (char * str, size_t len, mpfr_ptr value)
-{
-  snprintf(str, len, "#<pointer %p>", (void *)value);
-  return EXECUTION_SUCCESS;
+  return mmux_bash_pointers_parse_sint(p_data, s_arg, caller_name);
 }
 
 

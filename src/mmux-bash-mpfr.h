@@ -85,9 +85,9 @@ extern "C" {
  ** Headers.
  ** ----------------------------------------------------------------- */
 
-#include <mpfr.h>
 #include <stdint.h>
 #include <inttypes.h>
+#include <mpfr.h>
 
 
 /** --------------------------------------------------------------------
@@ -107,10 +107,10 @@ mmux_bash_mpfr_decl int		mmux_bash_mpfr_version_interface_age		(void);
 
 
 /** --------------------------------------------------------------------
- ** Printing functions.
+ ** Misc functions.
  ** ----------------------------------------------------------------- */
 
-mmux_bash_mpfr_decl int mmux_bash_mpfr_sprint_MPFR_PTR (char * str, size_t len, mpfr_ptr value);
+mmux_bash_mpfr_decl int	mmux_bash_mpfr_parse_mpfr_rnd (mpfr_rnd_t * p_data, char const * const s_arg, char const * const caller_name);
 
 
 /** --------------------------------------------------------------------

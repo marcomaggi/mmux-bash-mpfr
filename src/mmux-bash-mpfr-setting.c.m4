@@ -1,11 +1,11 @@
 /*
   Part of: MMUX Bash MPFR
-  Contents: implementation of initialisation and finalisation builtins
+  Contents: implementation of setting builtins
   Date: Sep 15, 2024
 
   Abstract
 
-	This module implements initialisation and finalisation builtins.
+	This module implements setting builtins.
 
   Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
 
@@ -30,47 +30,34 @@
 
 
 /** --------------------------------------------------------------------
- ** Basic initialisation and finalisation.
+ ** Basic setting.
  ** ----------------------------------------------------------------- */
 
 static int
-mpfr_init_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+mpfr_set_d_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
 #undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_init"
+#define MMUX_BUILTIN_NAME	"mpfr_set_d"
 {
-  mpfr_ptr	ptr;
+  double	value;
+  mpfr_ptr	rop;
+  mpfr_rnd_t	rnd;
   int		rv;
 
-  rv = mmux_bash_pointers_parse_pointer((void **)&ptr, argv[1], MMUX_BUILTIN_NAME);
+  rv = mmux_bash_pointers_parse_pointer((void **)&rop, argv[1], MMUX_BUILTIN_NAME);
   if (EXECUTION_SUCCESS != rv) { return rv; }
 
-  mpfr_init(ptr);
-  return EXECUTION_SUCCESS;
-}
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_init]]],
-    [[[(2 == argc)]]],
-    [[["mpfr_init MPFR_PTRVAR"]]],
-    [[["Initialise an already allocated MPFR number."]]])
-
-/* ------------------------------------------------------------------ */
-
-static int
-mpfr_clear_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_clear"
-{
-  mpfr_ptr	ptr;
-  int		rv;
-
-  rv = mmux_bash_pointers_parse_pointer((void **)&ptr, argv[1], MMUX_BUILTIN_NAME);
+  rv = mmux_bash_pointers_parse_double(&value, argv[2], MMUX_BUILTIN_NAME);
   if (EXECUTION_SUCCESS != rv) { return rv; }
 
-  mpfr_clear(ptr);
+  rv = mmux_bash_mpfr_parse_mpfr_rnd(&rnd, argv[3], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  mpfr_set_d(rop, value, rnd);
   return EXECUTION_SUCCESS;
 }
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_clear]]],
-    [[[(2 == argc)]]],
-    [[["mpfr_clear MPFR_PTR"]]],
-    [[["Finalis a MPFR number."]]])
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_d]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_set_d MPFR_PTR DOUBLE MPFR_RND"]]],
+    [[["Set an already initialised MPFR number to the given DOUBLE."]]])
 
 /* end of file */

@@ -1,11 +1,11 @@
 /*
   Part of: MMUX Bash MPFR
-  Contents: implementation of initialisation and finalisation builtins
+  Contents: implementation of output builtins
   Date: Sep 15, 2024
 
   Abstract
 
-	This module implements initialisation and finalisation builtins.
+	This module implements output builtins.
 
   Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
 
@@ -30,47 +30,26 @@
 
 
 /** --------------------------------------------------------------------
- ** Basic initialisation and finalisation.
+ ** Output to/from ASCIIZ strings.
  ** ----------------------------------------------------------------- */
 
 static int
-mpfr_init_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+mpfr_dump_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
 #undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_init"
+#define MMUX_BUILTIN_NAME	"mpfr_dump"
 {
-  mpfr_ptr	ptr;
+  mpfr_ptr	op;
   int		rv;
 
-  rv = mmux_bash_pointers_parse_pointer((void **)&ptr, argv[1], MMUX_BUILTIN_NAME);
+  rv = mmux_bash_pointers_parse_pointer((void **)&op, argv[1], MMUX_BUILTIN_NAME);
   if (EXECUTION_SUCCESS != rv) { return rv; }
 
-  mpfr_init(ptr);
+  mpfr_dump(op);
   return EXECUTION_SUCCESS;
 }
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_init]]],
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_dump]]],
     [[[(2 == argc)]]],
-    [[["mpfr_init MPFR_PTRVAR"]]],
-    [[["Initialise an already allocated MPFR number."]]])
-
-/* ------------------------------------------------------------------ */
-
-static int
-mpfr_clear_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_clear"
-{
-  mpfr_ptr	ptr;
-  int		rv;
-
-  rv = mmux_bash_pointers_parse_pointer((void **)&ptr, argv[1], MMUX_BUILTIN_NAME);
-  if (EXECUTION_SUCCESS != rv) { return rv; }
-
-  mpfr_clear(ptr);
-  return EXECUTION_SUCCESS;
-}
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_clear]]],
-    [[[(2 == argc)]]],
-    [[["mpfr_clear MPFR_PTR"]]],
-    [[["Finalis a MPFR number."]]])
+    [[["mpfr_dump MPFR_OP"]]],
+    [[["Print to stdout a string representation of the numbe."]]])
 
 /* end of file */

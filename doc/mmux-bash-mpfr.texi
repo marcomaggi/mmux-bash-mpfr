@@ -100,19 +100,8 @@ This document describes version @value{VERSION} of @value{PACKAGE}, a package im
 additional builtin commands for the @gnu{} Bash shell; to do so it installs a C language library and
 a shell script which is meant to be sourced in a Bash session or script.
 
-This package implements an interface to the library MPFR:
-
-@example
-declare X
-
-libc_malloc X mpfr_SIZEOF_MPFR
-mpfr_init $X
-@{
-  ...
-@}
-mpfr_clear $X
-libc_free $X
-@end example
+This package implements an interface to the @emph{Multiple Precision Floating--Point Reliable
+Library}, @mpfr{}.
 
 The package targets @posix{} platforms.  This package depends on the external package: @mmux{} Bash
 Pointers.  Only for testing: this package depends on the external package @acronym{MBFL} (at least
@@ -178,6 +167,8 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * overview::                    Overview of the package.
 * variables::                   Global variables.
 * init::                        Initialisation and finalisation.
+* conversion::                  Converting numbers to/from other representations.
+* output::                      Printing numbers.
 
 Appendices
 
@@ -204,16 +195,15 @@ This document describes version @value{VERSION} of @value{PACKAGE}, a package im
 additional builtin commands for the @gnu{} Bash shell; to do so it installs a C language library and
 a shell script which is meant to be sourced in a Bash session or script.
 
-This package implements an interface to the library MPFR:
+This package implements an interface to the @emph{Multiple Precision Floating--Point Reliable
+Library}, @mpfr{}.
 
 @example
 declare X
 
 libc_malloc X mpfr_SIZEOF_MPFR
 mpfr_init $X
-@{
-  ...
-@}
+mpfr_set_d $X '1.23' $MPFR_RNDN
 mpfr_clear $X
 libc_free $X
 @end example
@@ -264,17 +254,21 @@ The following naming conventions for builtin and function parameters are used in
 
 @table @var
 @item MPFR_PTR
+@itemx MPFR_OP
 A string representation of a pointer referencing an instance of @objtype{__mpfr_struct}.
 
 @item MPFR_PTRVAR
 The string representation of a shell variable name: the function taking it as parameter, when
-successful, will store in the variable alA string representation of a pointer referencing an
-instance of @objtype{__mpfr_struct}.  If the function fails: the shell variable is left untouched.
+successful, will store in the variable a string representation of a pointer referencing an instance
+of @objtype{__mpfr_struct}.  If the function fails: the shell variable is left untouched.
 
 @item MPFR_RND
 A string representation of one of the @mpfr{} constants @samp{MPFR_RND*}.
-@end table
 
+@item STRVAR
+The string representation of a shell variable name: the function taking it as parameter, when
+successful, will store in the variable a generated string.
+@end table
 
 @c page
 @node variables
@@ -383,6 +377,71 @@ Interface to the C language function @cfunc{mpfr_init}.  When successful: return
 return false.
 @end deffn
 
+
+@c page
+@node conversion
+@chapter Converting numbers to/from other representations
+
+
+@deffn Builtin mpfr_get_str @var{MANTISSA_VAR} @var{EXPPONENT_VAR} @var{BASE} @var{NDIGITS} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_get_str}.  When successful: return true; otherwise
+return false.
+
+The argument @var{MANTISSA_VAR} must be a string representing a shell variable name; when
+successful, this function stores a string representation of the mantissa in this variable; if an
+error occurs, the variable is left untouched.
+
+The argument @var{EXPONENT_VAR} must be a string representing a shell variable name; when
+successful, this function stores a string representation of the exponent in this variable; if an
+error occurs, the variable is left untouched.
+
+@example
+declare OP MAN EXP
+declare -ri BASE=10 NDIGITS=0
+
+libc_calloc OP $mpfr_SIZEOF_MPFR 1
+@{
+  mpfr_init $OP
+  @{
+    mpfr_set_d $OP '1.23' $MPFR_RNDN
+    mpfr_get_str MAN EXP $BASE $NDIGITS $OP $MPFR_RNDN
+  @}
+  mpfr_clear $OP
+@}
+libc_free $OP
+
+$MAN            @result{} 12300000000000000
+$EXP            @result{} 1
+@end example
+@end deffn
+
+@c page
+@node output
+@chapter Printing numbers
+
+
+@deffn mpfr_dump @var{MPFR_PTR}
+Interface to the C language function @cfunc{mpfr_dump}.  When successful: return true; otherwise
+return false.
+
+Printing an initialised but unset number:
+
+@example
+libc_calloc OP $mpfr_SIZEOF_MPFR 1
+mpfr_init $OP
+mpfr_dump $OP   @print{} @@NaN@@
+@end example
+
+Printing an initialised and set number:
+
+@example
+libc_calloc OP $mpfr_SIZEOF_MPFR 1
+mpfr_init $OP
+mpfr_set_d $OP '2.0'
+mpfr_dump $OP
+@print{} 0.10000000000000000000000000000000000000000000000000000E2
+@end example
+@end deffn
 
 @c page
 @c ------------------------------------------------------------

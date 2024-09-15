@@ -1,13 +1,13 @@
 #!#
 #!# Part of: MMUX Bash MPFR
-#!# Contents: tests for initialisation and finalisation builtins
+#!# Contents: tests for conversion functions
 #!# Date: Sep 15, 2024
 #!#
 #!# Abstract
 #!#
 #!#	This file must be executed with one among:
 #!#
-#!#		$ make all check TESTS=tests/init.bash ; less tests/init.log
+#!#		$ make all check TESTS=tests/conversion.bash ; less tests/conversion.log
 #!#
 #!#	that will select these tests.
 #!#
@@ -49,70 +49,48 @@ mbfl_linker_source_library_by_stem(tests)
 source "$MMUX_LIBRARY"
 
 
-#### basic initialisation and finalisation
+#### conversion to string
 
-function mpfr-init-1.1 () {
+function conversion-to-string-1.1 () {
     # We print an uninitialised but unset number.
-    declare -r EXPECTED_RESULT='@NaN@'
-    declare OP RESULT
+    declare -r EXPECTED_MAN_RESULT='12300000000000000' EXPECTED_EXP_RESULT='1'
+    declare MPFR_OP MAN_RESULT EXP_RESULT
+    declare -ri BASE=10 NDIGITS=0
 
     #dotest-set-debug
     dotest-debug mpfr_SIZEOF_MPFR=$mpfr_SIZEOF_MPFR
 
     mbfl_location_enter
     {
-	if libc_calloc OP $mpfr_SIZEOF_MPFR 1
-	then mbfl_location_handler "libc_free $OP"
+	if libc_calloc MPFR_OP $mpfr_SIZEOF_MPFR 1
+	then mbfl_location_handler "libc_free $MPFR_OP"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug OP=$OP
+	dotest-debug OP=$MPFR_OP
 
-	if mpfr_init $OP
-	then mbfl_location_handler "mpfr_clear $OP"
+	if mpfr_init $MPFR_OP
+	then mbfl_location_handler "mpfr_clear $MPFR_OP"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	RESULT=$(mpfr_dump $OP)
+	if ! mpfr_set_d $MPFR_OP '1.23' $MPFR_RNDN
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_get_str MAN_RESULT EXP_RESULT $BASE $NDIGITS $MPFR_OP $MPFR_RNDN
+	then mbfl_location_leave_then_return_failure
+	fi
     }
     mbfl_location_leave
-    dotest-equal QQ(EXPECTED_RESULT) QQ(RESULT)
-}
-
-function mpfr-init-1.2 () {
-    # We print an uninitialised but unset number.
-    declare -r EXPECTED_RESULT='0.10000000000000000000000000000000000000000000000000000E2'
-    declare OP RESULT
-
-    #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=$mpfr_SIZEOF_MPFR
-
-    mbfl_location_enter
-    {
-	if libc_calloc OP $mpfr_SIZEOF_MPFR 1
-	then mbfl_location_handler "libc_free $OP"
-	else mbfl_location_leave_then_return_failure
-	fi
-
-	dotest-debug OP=$OP
-
-	if mpfr_init $OP
-	then mbfl_location_handler "mpfr_clear $OP"
-	else mbfl_location_leave_then_return_failure
-	fi
-
-	mpfr_set_d $OP '2.0' $MPFR_RNDN
-
-	RESULT=$(mpfr_dump $OP)
-    }
-    mbfl_location_leave
-    dotest-equal QQ(EXPECTED_RESULT) QQ(RESULT)
+    dotest-equal QQ(EXPECTED_MAN_RESULT) QQ(MAN_RESULT) &&
+	dotest-equal QQ(EXPECTED_EXP_RESULT) QQ(EXP_RESULT)
 }
 
 
 #### let's go
 
-dotest mpfr-
+dotest conversion-
 dotest-final-report
 
 ### end of file

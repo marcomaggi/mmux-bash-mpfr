@@ -78,11 +78,17 @@ install-html-local:
 
 EXTRA_DIST	+= \
 	src/mmux-bash-mpfr-library.c.m4		\
-	src/mmux-bash-mpfr-init.c.m4
+	src/mmux-bash-mpfr-init.c.m4		\
+	src/mmux-bash-mpfr-setting.c.m4		\
+	src/mmux-bash-mpfr-conversion.c.m4	\
+	src/mmux-bash-mpfr-output.c.m4
 
 CLEANFILES	+=
 	src/mmux-bash-mpfr-library.c		\
-	src/mmux-bash-mpfr-init.c
+	src/mmux-bash-mpfr-init.c		\
+	src/mmux-bash-mpfr-setting.c		\
+	src/mmux-bash-mpfr-conversion.c		\
+	src/mmux-bash-mpfr-output.c
 
 mmux_bash_mpfr_CURRENT		= @mmux_bash_mpfr_VERSION_INTERFACE_CURRENT@
 mmux_bash_mpfr_REVISION		= @mmux_bash_mpfr_VERSION_INTERFACE_REVISION@
@@ -96,11 +102,14 @@ libmmux_bash_mpfr_la_CPPFLAGS	= $(AM_CPPFLAGS)
 libmmux_bash_mpfr_la_CFLAGS	= $(AM_CFLAGS) $(BASH_CFLAGS) $(MPFR_CFLAGS) $(MMUX_BASH_POINTERS_CFLAGS)
 libmmux_bash_mpfr_la_LDFLAGS	= $(mmux_bash_mpfr_LINKER_VERSION) $(AM_LDFLAGS)
 libmmux_bash_mpfr_la_LDFLAGS	+= $(BASH_LIBS) $(MPFR_LIBS) $(MMUX_BASH_POINTERS_LIBS)
-libmmux_bash_mpfr_la_SOURCES	=	\
-	src/mmux-bash-mpfr.h		\
-	src/mmux-bash-mpfr-internals.h	\
-	src/mmux-bash-mpfr-library.c	\
-	src/mmux-bash-mpfr-init.c
+libmmux_bash_mpfr_la_SOURCES	= \
+	src/mmux-bash-mpfr.h			\
+	src/mmux-bash-mpfr-internals.h		\
+	src/mmux-bash-mpfr-library.c		\
+	src/mmux-bash-mpfr-init.c		\
+	src/mmux-bash-mpfr-setting.c		\
+	src/mmux-bash-mpfr-conversion.c		\
+	src/mmux-bash-mpfr-output.c
 
 .PHONY: library
 
@@ -119,11 +128,13 @@ mmux_bashlibdir		= $(datadir)/bash
 
 EXTRA_DIST		+= \
 	tests/version.test.m4			\
-	tests/init.test.m4
+	tests/init.test.m4			\
+	tests/conversion.test.m4
 
 MMUX_CHECK_BUILT_TESTS	= \
 	tests/version.test			\
-	tests/init.test
+	tests/init.test				\
+	tests/conversion.test
 
 if MMUX_TESTING_ENABLED
 TESTS			= $(MMUX_CHECK_BUILT_TESTS)
