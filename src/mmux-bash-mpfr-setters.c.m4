@@ -62,19 +62,22 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[["Set an already initialised MPFR number to the given $3."]]])
 ]]])
 
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_si]]],		[[[sint]]],	[[[SINT]]],	[[[signed int]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ui]]],		[[[uint]]],	[[[UINT]]],	[[[unsigned int]]])
-
-
-
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_si]]],		[[[slong]]],	[[[SLONG]]],	[[[signed long int]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ui]]],		[[[ulong]]],	[[[ULONG]]],	[[[unsigned long int]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_sj]]],		[[[intmax]]],	[[[SINTMAX]]],	[[[intmax_t]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_uj]]],		[[[uintmax]]],	[[[UINTMAX]]],	[[[uintmax_t]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_flt]]],	[[[float]]],	[[[FLOAT]]],	[[[float]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_d]]],		[[[double]]],	[[[DOUBLE]]],	[[[double]]])
+#if ((defined HAVE_LONG_double) && (1 == HAVE_LONG_DOUBLE))
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ld]]],		[[[ldouble]]],	[[[LDOUBLE]]],	[[[long double]]])
+#endif
 
 /* ------------------------------------------------------------------ */
 
 int
-mfpr_set_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+mpfr_set_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
 #undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mfpr_set"
+#define MMUX_BUILTIN_NAME	"mpfr_set"
 {
   mpfr_ptr	rop, op;
   mpfr_rnd_t	rnd;
@@ -92,5 +95,96 @@ mfpr_set_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
   rv = mpfr_set(rop, op, rnd);
   return mmux_bash_mpfr_set_MPFR_RV(rv);
 }
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_set MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Set an already initialised MPFR number to the given MPFR number."]]])
+
+/* ------------------------------------------------------------------ */
+
+int
+mpfr_set_z_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_set_z"
+{
+  mpfr_ptr	rop;
+  mpz_ptr	op;
+  mpfr_rnd_t	rnd;
+  int		rv;
+
+  rv = mmux_bash_pointers_parse_pointer((void **)&rop, argv[1], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  rv = mmux_bash_pointers_parse_pointer((void **)&op, argv[2], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  rv = mmux_bash_mpfr_parse_mpfr_rnd(&rnd, argv[3], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  rv = mpfr_set_z(rop, op, rnd);
+  return mmux_bash_mpfr_set_MPFR_RV(rv);
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_z]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_set_z MPFR_ROP GMP_MPZ MPFR_RND"]]],
+    [[["Set an already initialised MPFR number to the given GMP number."]]])
+
+/* ------------------------------------------------------------------ */
+
+int
+mpfr_set_q_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_set_q"
+{
+  mpfr_ptr	rop;
+  mpq_ptr	op;
+  mpfr_rnd_t	rnd;
+  int		rv;
+
+  rv = mmux_bash_pointers_parse_pointer((void **)&rop, argv[1], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  rv = mmux_bash_pointers_parse_pointer((void **)&op, argv[2], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  rv = mmux_bash_mpfr_parse_mpfr_rnd(&rnd, argv[3], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  rv = mpfr_set_q(rop, op, rnd);
+  return mmux_bash_mpfr_set_MPFR_RV(rv);
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_q]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_set_q MPFR_ROP GMP_MPQ MPFR_RND"]]],
+    [[["Set an already initialised MPFR number to the given GMP number."]]])
+
+/* ------------------------------------------------------------------ */
+
+int
+mpfr_set_f_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_set_f"
+{
+  mpfr_ptr	rop;
+  mpf_ptr	op;
+  mpfr_rnd_t	rnd;
+  int		rv;
+
+  rv = mmux_bash_pointers_parse_pointer((void **)&rop, argv[1], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  rv = mmux_bash_pointers_parse_pointer((void **)&op, argv[2], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  rv = mmux_bash_mpfr_parse_mpfr_rnd(&rnd, argv[3], MMUX_BUILTIN_NAME);
+  if (EXECUTION_SUCCESS != rv) { return rv; }
+
+  rv = mpfr_set_f(rop, op, rnd);
+  return mmux_bash_mpfr_set_MPFR_RV(rv);
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_f]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_set_f MPFR_ROP GMP_MPF MPFR_RND"]]],
+    [[["Set an already initialised MPFR number to the given GMP number."]]])
 
 /* end of file */
