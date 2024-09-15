@@ -1,0 +1,85 @@
+#
+# Part of: MMUX Bash Mpfr
+# Contents: core library
+# Date: Sep 15, 2024
+#
+# Abstract
+#
+#	This library  must be  sourced from an  interactive shell  or from a  script.  It  loads the
+#	shared library and enables the implemented builtins.
+#
+#	The Bash builtin "enable" will search the shared library file in the usual places, including
+#	the directories from "LD_LIBRARY_PATH".
+#
+# Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# Lesser General Public  License as published by  the Free Software Foundation, either  version 3 of
+# the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that  it will be useful, but WITHOUT ANY WARRANTY; without
+# even the  implied warranty of MERCHANTABILITY  or FITNESS FOR  A PARTICULAR PURPOSE.  See  the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the  GNU Lesser General Public License along with this program.
+# If not, see <http://www.gnu.org/licenses/>.
+#
+
+function mmux-bash-mpfr-library-load () {
+    declare -g  MMUX_BASH_MPFR_LIBRARY=libmmux-bash-mpfr.so
+    declare -g  MMUX_BASH_MPFR_CURRENT=@mmux_bash_mpfr_VERSION_INTERFACE_CURRENT@
+    declare -g  MMUX_BASH_MPFR_REVISION=@mmux_bash_mpfr_VERSION_INTERFACE_REVISION@
+    declare -g  MMUX_BASH_MPFR_AGE=@mmux_bash_mpfr_VERSION_INTERFACE_AGE@
+    declare -ga MMUX_BASH_MPFR_BUILTINS=(mpfr_init mpfr_clear)
+
+    enable -f "$MMUX_BASH_MPFR_LIBRARY" mmux_bash_mpfr_library_init
+
+    # This initialises the library.
+    if mmux_bash_mpfr_library_init
+    then
+	declare -i IDX
+	declare NAME
+
+	for ((IDX=0; IDX < ${#MMUX_BASH_MPFR_BUILTINS[@]}; ++IDX))
+	do enable -f "$MMUX_BASH_MPFR_LIBRARY" "${MMUX_BASH_MPFR_BUILTINS[$IDX]}"
+	done
+    fi
+}
+
+function mmux-bash-mpfr-library-unload () {
+    declare -i IDX
+
+    enable -d mmux_bash_mpfr_library_init
+
+    for ((IDX=0; IDX < ${#MMUX_BASH_MPFR_BUILTINS[@]}; ++IDX))
+    do enable -d "${MMUX_BASH_MPFR_BUILTINS[$IDX]}"
+    done
+
+    enable -d "$MMUX_BASH_MPFR_LIBRARY" 'mmux_bash_mpfr_errno_to_string'
+
+    unset -v MMUX_BASH_MPFR_LIBRARY
+    unset -v MMUX_BASH_MPFR_CURRENT
+    unset -v MMUX_BASH_MPFR_REVISION
+    unset -v MMUX_BASH_MPFR_AGE
+    unset -v MMUX_BASH_MPFR_BUILTINS
+
+    # FIXME  For a  perfect cleanup  we should  also unset  the global  variables defined  by the  C
+    # language library  initialisation builtin,  like "libc_SIZEOF_POINTER"  and all  those.  (Marco
+    # Maggi; Sep 15, 2024)
+}
+
+#page
+#### let's go
+
+if test -v MMUX_BASH_POINTERS_LIBRARY -a -n "$MMUX_BASH_POINTERS_LIBRARY"
+then true
+     # Not loaded yet.  So load it.
+else source "@MMUX_BASH_POINTERS_LIBRARY@"
+fi
+
+mmux-bash-mpfr-library-load
+
+### end of file
+# Local Variables:
+# mode: sh
+# End:

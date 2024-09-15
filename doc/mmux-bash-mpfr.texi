@@ -1,0 +1,496 @@
+\input texinfo.tex
+@c %**start of header
+@setfilename mmux-bash-mpfr.info
+@settitle MMUX Bash MPFR
+@c %**end of header
+
+@include version.texi
+@include macros.texi
+
+@c page
+@c ------------------------------------------------------------
+@c Local macros.
+@c ------------------------------------------------------------
+
+@ifinfo
+@macro mbfl{}
+@acronym{MBFL}
+@end macro
+@end ifinfo
+@ifnotinfo
+@macro mbfl{}
+@acronym{mbfl}
+@end macro
+@end ifnotinfo
+
+@ifinfo
+@macro mmux{}
+@acronym{MMUX}
+@end macro
+@end ifinfo
+@ifnotinfo
+@macro mmux{}
+@acronym{mmux}
+@end macro
+@end ifnotinfo
+
+@ifinfo
+@macro mpfr{}
+@acronym{MPFR}
+@end macro
+@end ifinfo
+@ifnotinfo
+@macro mpfr{}
+@acronym{mpfr}
+@end macro
+@end ifnotinfo
+
+@c page
+@c ------------------------------------------------------------
+@c Values.
+@c ------------------------------------------------------------
+
+@set TITLE                      @mmux{} Bash @mpfr{}
+
+@c To be used as @value{PACKAGE} whenever we need to include the full
+@c name of this package.
+@set PACKAGE                    @mmux{} Bash @mpfr{}
+
+@c To be used as @value{PACKAGE} whenever we need to include the
+@c nickname of the project: the name that is used to compose the
+@c distribution tarball or the web address.
+@set PACKAGE_NICKNAME           mmux-bash-mpfr
+
+@c To be used as @value{AUTHOR} whenever we need to include the list of
+@c authors of this document.
+@set AUTHOR                     Marco Maggi
+
+@c To be used as @value{AUTHOR_EMAIL} whenever we need to include the
+@c email of the *single* author of this document.
+@set AUTHOR_EMAIL               @email{mrc.mgg@@gmail.com}
+
+@c To be used as @value{COPYRIGHT_YEARS} whenever we need to include the
+@c list of copyright years.
+@set COPYRIGHT_YEARS            2024
+
+@c ------------------------------------------------------------
+
+@set PackageAutoconfPrefix              MMUX_BASH_MPFR
+@set PackagePkgconfigModule             mmux-bash-mpfr
+@set PackageLibsVar                     @env{MMUX_BASH_MPFR_LIBS}
+@set PackageCflagsVar                   @env{MMUX_BASH_MPFR_CFLAGS}
+@c This is the stem of the library in "libmmux-bash-mpfr.so".
+@set PackageLibstem                     mmux-bash-mpfr
+@set PackageApiPrefixLower              mmux_bash_mpfr_
+@set PackageApiPrefixUpper              MMUX_BASH_MPFR_
+
+@set PackageHeader                      mmux-bash-mpfr.h
+@set PackageHeaderFile                  @file{@value{PackageHeader}}
+
+@set GithubUrl                 @url{https://github.com/marcomaggi/@value{PACKAGE_NICKNAME}}
+@set DocumentationUrl          @url{https://marcomaggi.github.io/docs/@value{PACKAGE_NICKNAME}.html}
+
+@c page
+@c ------------------------------------------------------------
+@c Copyright notice.
+@c ------------------------------------------------------------
+
+@copying
+This document describes version @value{VERSION} of @value{PACKAGE}, a package implementing
+additional builtin commands for the @gnu{} Bash shell; to do so it installs a C language library and
+a shell script which is meant to be sourced in a Bash session or script.
+
+This package implements an interface to the library MPFR:
+
+@example
+declare X
+
+libc_malloc X mpfr_SIZEOF_MPFR
+mpfr_init $X
+@{
+  ...
+@}
+mpfr_clear $X
+libc_free $X
+@end example
+
+The package targets @posix{} platforms.  This package depends on the external package: @mmux{} Bash
+Pointers.  Only for testing: this package depends on the external package @acronym{MBFL} (at least
+version @samp{v3.0.0-devel.9}).
+
+This package is distributed under the terms of the @gnu{} Lesser General Public License (@lgpl{}).
+
+Development of this package takes place at:
+
+@center @value{GithubUrl}
+
+@noindent
+Copyright @copyright{} @value{COPYRIGHT_YEARS} by @value{AUTHOR} @value{AUTHOR_EMAIL}
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document under the terms of the @gnu{}
+Free Documentation License, Version 1.3 or any later version published by the Free Software
+Foundation; with Invariant Sections being ``@gnu{} Free Documentation License'' and ``@gnu{} Lesser
+General Public License'', no Front--Cover Texts, and no Back--Cover Texts.  A copy of the license is
+included in the section entitled ``@gnu{} Free Documentation License''.
+@end quotation
+@end copying
+
+@c page
+@c ------------------------------------------------------------
+@c Headers.
+@c ------------------------------------------------------------
+
+@titlepage
+@title @value{TITLE}
+@subtitle Revision @value{VERSION}
+@author @value{AUTHOR} @value{AUTHOR_EMAIL}
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@c ------------------------------------------------------------
+
+@ifinfo
+@dircategory Development
+@direntry
+* mmux-bash-mpfr: (mmux-bash-mpfr).     Additional GNU Bash builtins.
+@end direntry
+@end ifinfo
+
+@c ------------------------------------------------------------
+
+@ignore
+@syncodeindex tp cp
+@syncodeindex vr cp
+@syncodeindex fn cp
+@end ignore
+
+@c page
+@ifnottex
+@node Top
+@top @value{TITLE}
+
+@insertcopying
+
+@menu
+* overview::                    Overview of the package.
+* variables::                   Global variables.
+* init::                        Initialisation and finalisation.
+
+Appendices
+
+* Package License::             GNU Lesser General Public License.
+* Documentation License::       GNU Free Documentation License.
+* shared library::              Using the shared library.
+* references::                  Bibliography and references.
+
+Indexes
+
+* concept index::               An entry for each concept.
+* function index::              An entry for each function.
+* variable index::              An entry for each variable.
+* type index::                  An entry for each type.
+@end menu
+@end ifnottex
+
+@c page
+@node overview
+@chapter Overview of the package
+
+
+This document describes version @value{VERSION} of @value{PACKAGE}, a package implementing
+additional builtin commands for the @gnu{} Bash shell; to do so it installs a C language library and
+a shell script which is meant to be sourced in a Bash session or script.
+
+This package implements an interface to the library MPFR:
+
+@example
+declare X
+
+libc_malloc X mpfr_SIZEOF_MPFR
+mpfr_init $X
+@{
+  ...
+@}
+mpfr_clear $X
+libc_free $X
+@end example
+
+@menu
+* overview install::            Installed files.
+* overview linking::            Linking code with the library.
+* overview conventions::        Conventions used in this documentation.
+@end menu
+
+@c page
+@node overview install
+@section Installed files
+
+
+@value{PACKAGE} installs a shell script, a ``shell library'', under @code{$datavar/bash}; for
+example:
+
+@center @file{/usr/local/share/bash/libmmux-bash-mpfr.bash}
+
+@noindent
+to use the builtins, we have to load the shell library using Bash's builtin @code{source}.  A shared
+library, actually implementing the builtins, is installed under @code{$libdir}; for example:
+
+@center @file{/usr/local/lib64/libmmux-bash-mpfr.so}
+
+@noindent
+the shared library is automatically loaded by the shell library.
+
+A C language header file is also installed under @code{$includedir}, for example:
+
+@center @file{/usr/local/include/libmmux-bash-mpfr.h}
+
+@noindent
+we can write code that links to the shared library to reuse some of its facilities.
+
+@c page
+@c external documents
+
+@include overview-linking.texi
+
+@c page
+@node overview conventions
+@section Conventions used in this documentation
+
+
+The following naming conventions for builtin and function parameters are used in this documentation:
+
+@table @var
+@item MPFR_PTR
+A string representation of a pointer referencing an instance of @objtype{__mpfr_struct}.
+
+@item MPFR_PTRVAR
+The string representation of a shell variable name: the function taking it as parameter, when
+successful, will store in the variable alA string representation of a pointer referencing an
+instance of @objtype{__mpfr_struct}.  If the function fails: the shell variable is left untouched.
+
+@item MPFR_RND
+A string representation of one of the @mpfr{} constants @samp{MPFR_RND*}.
+@end table
+
+
+@c page
+@node variables
+@chapter Global variables
+
+
+The shell library installed by @value{PACKAGE} defines global variables to allow inspection of the
+underlying C language platform.
+
+@menu
+* variables version::           Version variables.
+* variables sizeof::            C language type sizes.
+* variables constants::         C language constants.
+@end menu
+
+@c page
+@node variables version
+@section Version variables
+
+
+The installed libraries follow version numbering as established by the @gnu{} Autotools.  For an
+explanation of interface numbers as managed by @gnu{} Libtool @xref{Libtool versioning, interface,
+Libtool's versioning system, libtool, Shared library support for @gnu{}}.
+
+
+@defvr {Shell Variable} MMUX_BASH_MPFR_CURRENT
+An integer representing the library interface current number.
+@end defvr
+
+
+@defvr {Shell Variable} MMUX_BASH_MPFR_REVISION
+An integer representing the library interface current revision number.
+@end defvr
+
+
+@defvr {Shell Variable} MMUX_BASH_MPFR_AGE
+An integer representing the library interface current age.
+@end defvr
+
+@c page
+@node variables sizeof
+@section C language type sizes
+
+
+If a C language type referenced by one of the following variables is undefined: the corresponding
+Bash variable is undefined; we can test this condition with @code{test -v}; to test if the
+underlying platform implements the type @code{long long}, we can do:
+
+@example
+if test -v mpfr_SIZEOF_MPFR
+then # implemented
+else # not implemented
+fi
+@end example
+
+@macro MmuxDefineGlobalVarSizeof{NAME,TYPE}
+@defvar mpfr_SIZEOF_\NAME\
+Global variable holding the size, measured in bytes, of the C language type @code{\TYPE\}.
+@end defvar
+
+@end macro
+
+@MmuxDefineGlobalVarSizeof{MPFR, __mpfr_struct}
+
+@c page
+@node variables constants
+@section C language constants
+
+
+If a C language constant referenced by one of the following variables is undefined: the
+corresponding Bash variable is undefined; we can test this condition with @code{test -v}; to test if
+the underlying platform implements the constant @code{MPFR_RNDN}, we can do:
+
+@example
+if test -v MPFR_RNDN
+then # implemented
+else # not implemented
+fi
+@end example
+
+@macro MmuxDefineGlobalVarConstant{NAME}
+@defvar \NAME\
+Global variable holding the value of the C language constant @code{\NAME\}.
+@end defvar
+
+@end macro
+
+@MmuxDefineGlobalVarConstant{MPFR_RNDN}
+@MmuxDefineGlobalVarConstant{MPFR_RNDZ}
+@MmuxDefineGlobalVarConstant{MPFR_RNDU}
+@MmuxDefineGlobalVarConstant{MPFR_RNDD}
+@MmuxDefineGlobalVarConstant{MPFR_RNDA}
+@MmuxDefineGlobalVarConstant{MPFR_RNDF}
+@MmuxDefineGlobalVarConstant{MPFR_RNDNA}
+
+@c page
+@node init
+@chapter Initialisation and finalisation
+
+
+@ref{overview conventions, Conventions used in this documentation}.
+
+
+@deffn Builtin mpfr_init @var{MPFR_PTR}
+Interface to the C language function @cfunc{mpfr_init}.  When successful: return true; otherwise
+return false.
+@end deffn
+
+
+@c page
+@c ------------------------------------------------------------
+@c Appendices.
+@c ------------------------------------------------------------
+
+@include lgpl-3.0.texi
+@include fdl-1.3.texi
+
+@c page
+@node shared library
+@appendix Using the shared library
+
+
+@value{PACKAGE} installs a shared library:
+
+@center @file{libmmux-bash-mpfr.so}
+
+@noindent
+and a C language header:
+
+@center @file{libmmux-bash-mpfr.h}
+
+@noindent
+we can write code that links to the shared library to reuse some of its facilities.  @ref{overview
+linking} for details.
+
+@menu
+* shared library version::      Version functions.
+@end menu
+
+@c page
+@node shared library version
+@appendixsec Version functions
+
+
+The installed libraries follow version numbering as established by the @gnu{} Autotools.  For an
+explanation of interface numbers as managed by @gnu{} Libtool @xref{Libtool versioning, interface,
+Libtool's versioning system, libtool, Shared library support for @gnu{}}.
+
+
+@deftypefun {char const *} mmux_bash_mpfr_version_string (void)
+Return a pointer to a statically allocated @asciiz{} string representing the interface version
+number.
+@end deftypefun
+
+
+@deftypefun int mmux_bash_mpfr_version_interface_current (void)
+Return an integer representing the library interface current number.
+@end deftypefun
+
+
+@deftypefun int mmux_bash_mpfr_version_interface_revision (void)
+Return an integer representing the library interface current revision number.
+@end deftypefun
+
+
+@deftypefun int mmux_bash_mpfr_version_interface_age (void)
+Return an integer representing the library interface current age.
+@end deftypefun
+
+@c page
+@node references
+@appendix Bibliography and references
+
+
+The documentation of @value{PACKAGE} is available online:
+
+@center @value{DocumentationUrl}
+
+@noindent
+development takes place at:
+
+@center @value{GithubUrl}
+
+@noindent
+the package @mmux{} Bash Pointers is available online:
+
+@center @url{http://github.com/marcomaggi/mmux-bash-pointers/}
+
+@noindent
+the package @mbfl{} is available online:
+
+@center @url{http://github.com/marcomaggi/mbfl/}
+
+@c page
+@node concept index
+@appendix An entry for each concept
+
+@printindex cp
+
+@node function index
+@appendix An entry for each function.
+
+@printindex fn
+
+@node variable index
+@appendix An entry for each variable.
+
+@printindex vr
+
+@node type index
+@appendix An entry for each type.
+
+@printindex tp
+
+@contents
+@bye
+
+@c end of file
+
