@@ -79,14 +79,14 @@ install-html-local:
 EXTRA_DIST	+= \
 	src/mmux-bash-mpfr-library.c.m4		\
 	src/mmux-bash-mpfr-init.c.m4		\
-	src/mmux-bash-mpfr-setting.c.m4		\
+	src/mmux-bash-mpfr-setters.c.m4		\
 	src/mmux-bash-mpfr-conversion.c.m4	\
 	src/mmux-bash-mpfr-output.c.m4
 
 CLEANFILES	+=
 	src/mmux-bash-mpfr-library.c		\
 	src/mmux-bash-mpfr-init.c		\
-	src/mmux-bash-mpfr-setting.c		\
+	src/mmux-bash-mpfr-setters.c		\
 	src/mmux-bash-mpfr-conversion.c		\
 	src/mmux-bash-mpfr-output.c
 
@@ -107,7 +107,7 @@ libmmux_bash_mpfr_la_SOURCES	= \
 	src/mmux-bash-mpfr-internals.h		\
 	src/mmux-bash-mpfr-library.c		\
 	src/mmux-bash-mpfr-init.c		\
-	src/mmux-bash-mpfr-setting.c		\
+	src/mmux-bash-mpfr-setters.c		\
 	src/mmux-bash-mpfr-conversion.c		\
 	src/mmux-bash-mpfr-output.c
 

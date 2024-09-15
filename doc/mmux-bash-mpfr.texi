@@ -255,6 +255,7 @@ The following naming conventions for builtin and function parameters are used in
 @table @var
 @item MPFR_PTR
 @itemx MPFR_OP
+@itemx MPFR_ROP
 A string representation of a pointer referencing an instance of @objtype{__mpfr_struct}.
 
 @item MPFR_PTRVAR
