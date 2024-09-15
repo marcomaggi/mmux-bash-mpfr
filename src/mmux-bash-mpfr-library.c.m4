@@ -95,15 +95,15 @@ mmux_bash_mpfr_set_MPFR_RV (int rv)
  ** ----------------------------------------------------------------- */
 
 int
-mmux_bash_mpfr_print_MPFR_PTR (mpfr_ptr * X)
+mmux_bash_mpfr_print_MPFR_PTR (mpfr_ptr X)
 {
-  int	rv = printf("#<pointer %p>", X);
+  int	rv = printf("#<pointer %p>", (void *)X);
   return (0 < rv)? EXECUTION_SUCCESS : EXECUTION_FAILURE;
 }
 int
 mmux_bash_mpfr_sprint_MPFR_PTR (char * str, size_t len, mpfr_ptr value)
 {
-  snprintf(str, len, "#<pointer %p>", value);
+  snprintf(str, len, "#<pointer %p>", (void *)value);
   return EXECUTION_SUCCESS;
 }
 
