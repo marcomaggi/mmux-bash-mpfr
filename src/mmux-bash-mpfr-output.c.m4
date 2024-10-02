@@ -34,18 +34,19 @@
  ** ----------------------------------------------------------------- */
 
 static int
-mpfr_dump_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+mpfr_dump_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
 #undef  MMUX_BUILTIN_NAME
 #define MMUX_BUILTIN_NAME	"mpfr_dump"
 {
   mpfr_ptr	op;
-  int		rv;
 
-  rv = mmux_bash_pointers_parse_pointer((void **)&op, argv[1], MMUX_BUILTIN_NAME);
-  if (EXECUTION_SUCCESS != rv) { return rv; }
-
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
   mpfr_dump(op);
-  return EXECUTION_SUCCESS;
+  return MMUX_SUCCESS;
+
+ argument_parse_error:
+  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
+  return MMUX_FAILURE;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_dump]]],
     [[[(2 == argc)]]],

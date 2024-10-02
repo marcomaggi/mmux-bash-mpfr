@@ -7,7 +7,7 @@
 #!#
 #!#	This file must be executed with one among:
 #!#
-#!#		$ make all check TESTS=tests/setters.bash ; less tests/setters.log
+#!#		$ make all check TESTS=tests/setters.test ; less tests/setters.log
 #!#
 #!#	that will select these tests.
 #!#
@@ -48,38 +48,48 @@ mbfl_linker_source_library_by_stem(tests)
 
 source "$MMUX_LIBRARY"
 
+function mpfr_just_printit_dammit () {
+    declare OP=${1:?"missing mandatory parameter MPFR_PTR in call to '$FUNCNAME'"}
+    declare -ri BASE=10 NDIGITS=6
+    declare MAN EXP
+
+    mpfr_get_str MAN EXP WW(BASE) WW(NDIGITS) WW(OP) WW(MPFR_RNDN)
+    printf '0.%se%s\n' WW(MAN) WW(EXP)
+}
+
 
 #### setters: slong
 
 function mpfr-set-slong-1.1 () {
-    declare -r EXPECTED_RESULT='0.10000000000000000000000000000000000000000000000000000E2'
+    declare -r EXPECTED_RESULT='0.123000e3'
     declare OP RESULT
 
-    #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=$mpfr_SIZEOF_MPFR
+    dotest-unset-debug
+    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
 
     mbfl_location_enter
     {
-	if libc_calloc OP $mpfr_SIZEOF_MPFR 1
-	then mbfl_location_handler "libc_free $OP"
+	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug OP=$OP
+	dotest-debug OP=WW(OP)
 
-	if mpfr_init $OP
-	then mbfl_location_handler "mpfr_clear $OP"
+	if mpfr_init WW(OP)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	if ! mpfr_set_si $OP '123' $MPFR_RNDN
+	if ! mpfr_set_si WW(OP) '123' WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	RESULT=$(mpfr_dump $OP)
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+	dotest-debug WW(RESULT)
     }
     mbfl_location_leave
-    dotest-equal QQ(EXPECTED_RESULT) QQ(RESULT)
+    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
 }
 
 
@@ -90,30 +100,31 @@ function mpfr-set-double-1.1 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=$mpfr_SIZEOF_MPFR
+    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
 
     mbfl_location_enter
     {
-	if libc_calloc OP $mpfr_SIZEOF_MPFR 1
-	then mbfl_location_handler "libc_free $OP"
+	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug OP=$OP
+	dotest-debug OP=WW(OP)
 
-	if mpfr_init $OP
-	then mbfl_location_handler "mpfr_clear $OP"
+	if mpfr_init WW(OP)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	if ! mpfr_set_d $OP '2.0' $MPFR_RNDN
+	if ! mpfr_set_d WW(OP) '2.0' WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	RESULT=$(mpfr_dump $OP)
+	RESULT=$(mpfr_dump WW(OP))
+	dotest-debug WW(RESULT)
     }
     mbfl_location_leave
-    dotest-equal QQ(EXPECTED_RESULT) QQ(RESULT)
+    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
 }
 
 

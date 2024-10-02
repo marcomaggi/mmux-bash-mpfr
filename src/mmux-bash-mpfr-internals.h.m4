@@ -34,37 +34,45 @@
 #  include <config.h>
 #endif
 
-/* Enable everything GNU. */
-#define _GNU_SOURCE		1
+#ifdef HAVE_ERRNO_H
+#  include <errno.h>
+#endif
 
-/* Enable latest POSIX features. */
-#undef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE		200809L
-
-#include <errno.h>
-#include <math.h>
-#include <regex.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-/* We  really need  to pay  attention to  the order  in which  we include  the files,
-   otherwise errors will ensue. */
-#include "bashtypes.h"
-#include "builtins.h"
-#include "shell.h"
-#include "common.h"
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 #include <mmux-bash-pointers.h>
 #include <mmux-bash-mpfr.h>
 
 
 /** --------------------------------------------------------------------
- ** Preprocessor macros.
+ ** Type availability preprocessor macros.
  ** ----------------------------------------------------------------- */
 
+MMUX_BASH_CONDITIONAL_CODE([[[MMUX_TYPE_HAVE_LDOUBLE]]],[[[
+MMUX_BASH_CONDITIONAL_CODE([[[HAVE_MPFR_SET_LD]]],[[[
+#undef  MMUX_BASH_MPFR_HAVE_LDOUBLE
+#define MMUX_BASH_MPFR_HAVE_LDOUBLE		1
+]]])]]])
+
+MMUX_BASH_CONDITIONAL_CODE([[[MMUX_TYPE_HAVE_FLOAT128]]],[[[
+MMUX_BASH_CONDITIONAL_CODE([[[HAVE_MPFR_SET_FLOAT128]]],[[[
+#undef  MMUX_BASH_MPFR_HAVE_FLOAT128
+#define MMUX_BASH_MPFR_HAVE_FLOAT128		1
+]]])]]])
+
+MMUX_BASH_CONDITIONAL_CODE([[[MMUX_TYPE_HAVE_DECIMAL64]]],[[[
+MMUX_BASH_CONDITIONAL_CODE([[[HAVE_MPFR_SET_DECIMAL64]]],[[[
+#undef  MMUX_BASH_MPFR_HAVE_DECIMAL64
+#define MMUX_BASH_MPFR_HAVE_DECIMAL64		1
+]]])]]])
+
+MMUX_BASH_CONDITIONAL_CODE([[[MMUX_TYPE_HAVE_DECIMAL128]]],[[[
+MMUX_BASH_CONDITIONAL_CODE([[[HAVE_MPFR_SET_DECIMAL128]]],[[[
+#undef  MMUX_BASH_MPFR_HAVE_DECIMAL128
+#define MMUX_BASH_MPFR_HAVE_DECIMAL128		1
+]]])]]])
 
 
 /** --------------------------------------------------------------------

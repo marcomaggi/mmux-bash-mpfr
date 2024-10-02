@@ -7,7 +7,7 @@
 #!#
 #!#	This file must be executed with one among:
 #!#
-#!#		$ make all check TESTS=tests/conversion.bash ; less tests/conversion.log
+#!#		$ make all check TESTS=tests/conversion.test ; less tests/conversion.log
 #!#
 #!#	that will select these tests.
 #!#
@@ -46,7 +46,7 @@ mbfl_embed_library(__LIBMBFL_LINKER__)
 mbfl_linker_source_library_by_stem(core)
 mbfl_linker_source_library_by_stem(tests)
 
-source "$MMUX_LIBRARY"
+source WW(MMUX_LIBRARY)
 
 
 #### conversion to string
@@ -62,8 +62,8 @@ function conversion-to-string-1.1 () {
 
     mbfl_location_enter
     {
-	if libc_calloc MPFR_OP $mpfr_SIZEOF_MPFR 1
-	then mbfl_location_handler "libc_free $MPFR_OP"
+	if mmux_libc_calloc MPFR_OP $mpfr_SIZEOF_MPFR 1
+	then mbfl_location_handler "mmux_libc_free $MPFR_OP"
 	else mbfl_location_leave_then_return_failure
 	fi
 

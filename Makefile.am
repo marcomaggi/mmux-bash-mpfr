@@ -2,13 +2,20 @@
 
 ACLOCAL_AMFLAGS		= -I meta/autotools
 AUTOMAKE_OPTIONS	= foreign
-EXTRA_DIST		= INSTALL meta/slackware/slack-desc.in meta/m4/libmmux-bash-builtins.m4
+EXTRA_DIST		= INSTALL
 dist_doc_DATA		= README COPYING
 AM_CFLAGS		= $(MMUX_CFLAGS)
 AM_CPPFLAGS		= -I$(srcdir)/src
 CLEANFILES		=
 DISTCLEANFILES		=
 BUILT_SOURCES		=
+
+## --------------------------------------------------------------------
+
+MMUX_BASH_MPFR_M4_MACROS	= \
+	$(top_srcdir)/meta/m4/libmmux-bash-builtins.m4		\
+	$(top_srcdir)/meta/m4/libmmux-bash-mpfr-builtins.m4
+EXTRA_DIST			= $(MMUX_BASH_MPFR_M4_MACROS)
 
 ## --------------------------------------------------------------------
 
@@ -77,18 +84,26 @@ install-html-local:
 #### libraries
 
 EXTRA_DIST	+= \
-	src/mmux-bash-mpfr-library.c.m4		\
-	src/mmux-bash-mpfr-init.c.m4		\
-	src/mmux-bash-mpfr-setters.c.m4		\
 	src/mmux-bash-mpfr-conversion.c.m4	\
-	src/mmux-bash-mpfr-output.c.m4
+	src/mmux-bash-mpfr-init.c.m4		\
+	src/mmux-bash-mpfr-internals.h.m4	\
+	src/mmux-bash-mpfr-library.c.m4		\
+	src/mmux-bash-mpfr-output.c.m4		\
+	src/mmux-bash-mpfr-setters.c.m4		\
+	src/mmux-bash-mpfr-type-functions.c.m4
 
-CLEANFILES	+=
-	src/mmux-bash-mpfr-library.c		\
-	src/mmux-bash-mpfr-init.c		\
-	src/mmux-bash-mpfr-setters.c		\
+MMUX_BASH_MPFR_BUILT_SOURCES	= \
 	src/mmux-bash-mpfr-conversion.c		\
-	src/mmux-bash-mpfr-output.c
+	src/mmux-bash-mpfr-init.c		\
+	src/mmux-bash-mpfr-internals.h		\
+	src/mmux-bash-mpfr-library.c		\
+	src/mmux-bash-mpfr-output.c		\
+	src/mmux-bash-mpfr-setters.c		\
+	src/mmux-bash-mpfr-type-functions.c
+
+BUILT_SOURCES	+= $(MMUX_BASH_MPFR_BUILT_SOURCES)
+CLEANFILES	+= $(MMUX_BASH_MPFR_BUILT_SOURCES)
+DISTCLEANFILES	+= $(MMUX_BASH_MPFR_BUILT_SOURCES)
 
 mmux_bash_mpfr_CURRENT		= @mmux_bash_mpfr_VERSION_INTERFACE_CURRENT@
 mmux_bash_mpfr_REVISION		= @mmux_bash_mpfr_VERSION_INTERFACE_REVISION@
@@ -103,20 +118,26 @@ libmmux_bash_mpfr_la_CFLAGS	= $(AM_CFLAGS) $(BASH_CFLAGS) $(MPFR_CFLAGS) $(MMUX_
 libmmux_bash_mpfr_la_LDFLAGS	= $(mmux_bash_mpfr_LINKER_VERSION) $(AM_LDFLAGS)
 libmmux_bash_mpfr_la_LDFLAGS	+= $(BASH_LIBS) $(MPFR_LIBS) $(MMUX_BASH_POINTERS_LIBS)
 libmmux_bash_mpfr_la_SOURCES	= \
-	src/mmux-bash-mpfr.h			\
+	src/mmux-bash-mpfr-conversion.c		\
+	src/mmux-bash-mpfr-init.c		\
 	src/mmux-bash-mpfr-internals.h		\
 	src/mmux-bash-mpfr-library.c		\
-	src/mmux-bash-mpfr-init.c		\
+	src/mmux-bash-mpfr-output.c		\
 	src/mmux-bash-mpfr-setters.c		\
-	src/mmux-bash-mpfr-conversion.c		\
-	src/mmux-bash-mpfr-output.c
+	src/mmux-bash-mpfr-type-functions.c	\
+	src/mmux-bash-mpfr.h
 
 .PHONY: library
 
 library: libmmux-bash-mpfr.la
 
-src/%.c: src/%.c.m4 $(top_srcdir)/meta/m4/libmmux-bash-builtins.m4
-	$(M4_PROGRAM) --prefix-builtins $(top_srcdir)/meta/m4/libmmux-bash-builtins.m4 $< >$@
+src/%.c: src/%.c.m4 $(MMUX_BASH_MPFR_M4_MACROS)
+	$(M4_PROGRAM) --prefix-builtins $(MMUX_BASH_MPFR_M4_MACROS) $< >$@
+
+src/%.h: src/%.h.m4 $(MMUX_BASH_MPFR_M4_MACROS)
+	$(M4_PROGRAM) --prefix-builtins $(MMUX_BASH_MPFR_M4_MACROS) $< >$@
+
+src/%.$(OBJEXT): src/mmux-bash-pointers.h src/mmux-bash-pointers-internals.h
 
 ## ------------------------------------------------------------------------
 

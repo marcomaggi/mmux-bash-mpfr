@@ -107,12 +107,32 @@ mmux_bash_mpfr_decl int		mmux_bash_mpfr_version_interface_age		(void);
 
 
 /** --------------------------------------------------------------------
+ ** Type functions.
+ ** ----------------------------------------------------------------- */
+
+mmux_bash_mpfr_decl int mmux_bash_mpfr_parse_mpfr_ptr (mpfr_ptr   * p_value, char const * const s_value, char const * const caller_name)
+  __attribute__((__nonnull__(1,2)));
+mmux_bash_mpfr_decl int	mmux_bash_mpfr_parse_mpfr_rnd (mpfr_rnd_t * p_value, char const * const s_value, char const * const caller_name)
+  __attribute__((__nonnull__(1,2)));
+mmux_bash_mpfr_decl int mmux_bash_mpfr_parse_mpfr_exp (mpfr_exp_t * p_value, char const * const s_value, char const * const caller_name)
+  __attribute__((__nonnull__(1,2)));
+
+mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_ptr (char const * variable_name, mpfr_ptr value,
+									  char const * caller_name)
+  __attribute__((__nonnull__(1)));
+mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_rnd (char const * variable_name, mpfr_rnd_t value,
+									  char const * caller_name)
+  __attribute__((__nonnull__(1)));
+mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_exp (char const * variable_name, mpfr_exp_t value,
+									  char const * caller_name)
+  __attribute__((__nonnull__(1)));
+
+
+/** --------------------------------------------------------------------
  ** Misc functions.
  ** ----------------------------------------------------------------- */
 
-mmux_bash_mpfr_decl int	mmux_bash_mpfr_parse_mpfr_rnd (mpfr_rnd_t * p_data, char const * const s_arg, char const * const caller_name);
-mmux_bash_mpfr_decl int mmux_bash_mpfr_parse_mpfr_exp (mpfr_exp_t * p_data, char const * const s_arg, char const * const caller_name);
-mmux_bash_mpfr_decl int mmux_bash_mpfr_set_MPFR_RV (int rv);
+mmux_bash_mpfr_decl int mmux_bash_mpfr_set_MPFR_RV (int value, char const * const caller_name);
 
 
 /** --------------------------------------------------------------------

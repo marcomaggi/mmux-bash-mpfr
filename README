@@ -27,21 +27,36 @@ which is meant to be sourced in a Bash session or script.
 
     declare X
 
-    libc_malloc X mpfr_SIZEOF_MPFR
+    mmux_libc_malloc X $mpfr_SIZEOF_MPFR
     mpfr_init $X
     {
       ...
     }
     mpfr_clear $X
-    libc_free $X
+    mmux_libc_free $X
 
   The  package  targets POSIX  systems.   This  package depends  on  the
-external package:  MMUX Bash Pointers.   Only for testing:  this package
-depends on the external package MBFL (at least version v3.0.0-devel.10).
+external package:
+
+* MPFR version 4.2.1;
+
+* MMUX Bash Pointers, at least version v0.1.0-devel.1;
+
+* MBFL, at least version v3.0.0-devel.10; only for testing: if it is not
+  installed nothing happens.
 
   The  package uses  the GNU  Autotools and  it is  tested on  GNU+Linux
-systems.  The  package relies on  "pkg-config" to find  the dependencies
-installed on the system.
+systems;  only to  build from  a  repository checkout:  it requires  the
+latest (at  the time of  this writing) releases  and no testing  is done
+with the older releases:
+
+* GNU Automake at least version 1.17;
+* GNU Autoconf at least version 2.72;
+* GNU Libtool at least version 2.4.7;
+
+the new  packages of today  will be the  old packages of  tomorrow.  The
+package relies on "pkg-config" to find the dependencies installed on the
+system.
 
 
 2. License
@@ -172,6 +187,10 @@ the documentation is available online:
 the package MPFR is available online:
 
 			<https://www.mpfr.org/>
+
+the package MMUX Bash Pointers is available online:
+
+	  <https://github.com/marcomaggi/mmux-bash-pointers/>
 
 the package MBFL is available online:
 

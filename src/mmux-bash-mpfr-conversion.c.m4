@@ -34,60 +34,42 @@
  ** ----------------------------------------------------------------- */
 
 static int
-mpfr_get_str_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+mpfr_get_str_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
 #undef  MMUX_BUILTIN_NAME
 #define MMUX_BUILTIN_NAME	"mpfr_get_str"
 {
-#undef  LEN
-#define LEN	4096
-  char		str[LEN];
-  mpfr_exp_t	exp;
   int		base;
-  mpfr_ptr	op;
   size_t	ndigits;
+  mpfr_ptr	op;
   mpfr_rnd_t	rnd;
-  int		rv;
 
-  if (0) { fprintf(stderr, "%s: argc=%d, MANTISSA_VAR=%s, EXPONENT_VAR=%s\n", __func__, argc, argv[1], argv[2]); }
-
-  rv = mmux_bash_pointers_parse_sint(&base, argv[3], MMUX_BUILTIN_NAME);
-  if (EXECUTION_SUCCESS != rv) { return rv; }
-
-  rv = mmux_bash_pointers_parse_usize(&ndigits, argv[4], MMUX_BUILTIN_NAME);
-  if (EXECUTION_SUCCESS != rv) { return rv; }
-
-  rv = mmux_bash_pointers_parse_pointer((void **)&op, argv[5], MMUX_BUILTIN_NAME);
-  if (EXECUTION_SUCCESS != rv) { return rv; }
-
-  rv = mmux_bash_mpfr_parse_mpfr_rnd(&rnd, argv[6], MMUX_BUILTIN_NAME);
-  if (EXECUTION_SUCCESS != rv) { return rv; }
-
-  mpfr_get_str(str, &exp, base, ndigits, op, rnd);
+  MMUX_BASH_PARSE_BUILTIN_ARG_SINT([[[base]]],		[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_USIZE([[[ndigits]]],	[[[argv[4]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[5]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[6]]]]);
   {
-    SHELL_VAR *	v MMUX_BASH_POINTERS_UNUSED;
-    /* NOTE I  do not  know what FLAGS  is for,  but setting it  to zero  seems fine.
-       (Marco Maggi; Sep 9, 2024) */
-    int		flags = 0;
+    mpfr_exp_t	exp;
+    char *	str;
 
-    v = bind_variable(argv[1], str, flags);
+    str = mpfr_get_str(NULL, &exp, base, ndigits, op, rnd);
+    if (str) {
+      int	rv_mantissa = mmux_bash_store_string_in_variable               (argv[1], str, MMUX_BUILTIN_NAME);
+      int	rv_exponent = mmux_bash_mpfr_store_result_in_variable_mpfr_exp (argv[2], exp, MMUX_BUILTIN_NAME);
+      mpfr_free_str(str);
+      if ((MMUX_SUCCESS == rv_mantissa) && (MMUX_SUCCESS == rv_exponent)) {
+	return MMUX_SUCCESS;
+      } else {
+	return MMUX_FAILURE;
+      }
+    }
   }
-  {
-#undef  LEN
-#define LEN	1024
-    char	strexp[LEN];
-    SHELL_VAR *	v MMUX_BASH_POINTERS_UNUSED;
-    /* NOTE I  do not  know what FLAGS  is for,  but setting it  to zero  seems fine.
-       (Marco Maggi; Sep 9, 2024) */
-    int		flags = 0;
-
-    mmux_bash_pointers_sprint_sintmax(strexp, LEN, (intmax_t)exp);
-    v = bind_variable(argv[2], strexp, flags);
-  }
-  return EXECUTION_SUCCESS;
+ argument_parse_error:
+  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
+  return MMUX_FAILURE;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_str]]],
     [[[(7 == argc)]]],
-    [[["mpfr_get_str MANTISSA_VAR EXPPONENT_VAR BASE NDIGITS MPFR_OP MPFR_RND"]]],
+    [[["mpfr_get_str MANTISSA_VAR EXPONENT_VAR BASE NDIGITS MPFR_OP MPFR_RND"]]],
     [[["Convert a MPFR number to string, store the resulting mantissa and exponent in the given shell variables."]]])
 
 /* end of file */

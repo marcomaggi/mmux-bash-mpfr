@@ -34,43 +34,47 @@
  ** ----------------------------------------------------------------- */
 
 static int
-mpfr_init_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+mpfr_init_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
 #undef  MMUX_BUILTIN_NAME
 #define MMUX_BUILTIN_NAME	"mpfr_init"
 {
   mpfr_ptr	ptr;
-  int		rv;
 
-  rv = mmux_bash_pointers_parse_pointer((void **)&ptr, argv[1], MMUX_BUILTIN_NAME);
-  if (EXECUTION_SUCCESS != rv) { return rv; }
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[ptr]]], [[[argv[1]]]]);
 
   mpfr_init(ptr);
-  return EXECUTION_SUCCESS;
+  return MMUX_SUCCESS;
+
+ argument_parse_error:
+  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
+  return MMUX_FAILURE;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_init]]],
     [[[(2 == argc)]]],
-    [[["mpfr_init MPFR_PTRVAR"]]],
+    [[["mpfr_init MPFR_PTR"]]],
     [[["Initialise an already allocated MPFR number."]]])
 
 /* ------------------------------------------------------------------ */
 
 static int
-mpfr_clear_main (int argc MMUX_BASH_MPFR_UNUSED,  char * argv[])
+mpfr_clear_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
 #undef  MMUX_BUILTIN_NAME
 #define MMUX_BUILTIN_NAME	"mpfr_clear"
 {
   mpfr_ptr	ptr;
-  int		rv;
 
-  rv = mmux_bash_pointers_parse_pointer((void **)&ptr, argv[1], MMUX_BUILTIN_NAME);
-  if (EXECUTION_SUCCESS != rv) { return rv; }
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[ptr]]], [[[argv[1]]]]);
 
   mpfr_clear(ptr);
-  return EXECUTION_SUCCESS;
+  return MMUX_SUCCESS;
+
+ argument_parse_error:
+  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
+  return MMUX_FAILURE;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_clear]]],
     [[[(2 == argc)]]],
     [[["mpfr_clear MPFR_PTR"]]],
-    [[["Finalis a MPFR number."]]])
+    [[["Finalise a MPFR number."]]])
 
 /* end of file */

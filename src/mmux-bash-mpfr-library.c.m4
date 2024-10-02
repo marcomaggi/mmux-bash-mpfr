@@ -1,5 +1,5 @@
 /*
-  Part of: MMUX Bash Mpfr
+  Part of: MMUX Bash MPFR
   Contents: library functions
   Date: Sep 15, 2024
 
@@ -59,65 +59,10 @@ mmux_bash_mpfr_version_interface_age (void)
  ** Helpers.
  ** ----------------------------------------------------------------- */
 
-void
-mmux_bash_mpfr_create_global_sint_variable (const char * name, int value)
-{
-  SHELL_VAR *	v MMUX_BASH_MPFR_UNUSED;
-#undef  LEN
-#define LEN	64
-  char		str[LEN];
-  /* NOTE I have found these "att_*"  flags in Bash's source code, file "variable.h";
-     I do not know if I am using them correctly (Marco Maggi; Sep 11, 2024) */
-  int		flags = att_integer;
-
-  snprintf(str, LEN, "%d", value);
-  v = bind_global_variable(name, str, flags);
-}
 int
-mmux_bash_mpfr_set_MPFR_RV (int rv)
+mmux_bash_mpfr_set_MPFR_RV (int value, char const * const caller_name)
 {
-  SHELL_VAR *	v MMUX_BASH_MPFR_UNUSED;
-  /* NOTE I have found these "att_*"  flags in Bash's source code, file "variable.h";
-     I do not know if I am using them correctly (Marco Maggi; Sep 11, 2024) */
-  int		flags = att_integer;
-#undef  LEN
-#define LEN	32
-  char	str[LEN];
-
-  mmux_bash_pointers_sprint_sint(str, LEN, rv);
-  v = bind_variable("MPFR_RV", str, flags);
-  return EXECUTION_SUCCESS;
-}
-
-
-/** --------------------------------------------------------------------
- ** Parsers.
- ** ----------------------------------------------------------------- */
-
-int
-mmux_bash_mpfr_parse_mpfr_rnd (mpfr_rnd_t * p_data, char const * const s_arg, char const * const caller_name)
-{
-  return mmux_bash_pointers_parse_sint(p_data, s_arg, caller_name);
-}
-int
-mmux_bash_mpfr_parse_mpfr_exp (mpfr_exp_t * p_data, char const * const s_arg, char const * const caller_name)
-{
-  if (sizeof(mpfr_exp_t) == sizeof(signed int)) {
-    return mmux_bash_pointers_parse_sint(p_data, s_arg, caller_name);
-  } else
-  if (sizeof(mpfr_exp_t) == sizeof(signed long)) {
-    return mmux_bash_pointers_parse_slong(p_data, s_arg, caller_name);
-  } else
-#if ((defined HAVE_LONG_LONG_INT) && (1 == HAVE_LONG_LONG_INT))
-  if (sizeof(mpfr_exp_t) == sizeof(signed long long int)) {
-    return mmux_bash_pointers_parse_sllong(p_data, s_arg, caller_name);
-  } else
-#endif
-  if (sizeof(mpfr_exp_t) == sizeof(intmax_t)) {
-    return mmux_bash_pointers_parse_sintmax(p_data, s_arg, caller_name);
-  } else {
-    return EXECUTION_FAILURE;
-  }
+  return mmux_bash_pointers_store_result_in_variable_sint("MPFR_RV", value, caller_name);
 }
 
 
@@ -127,15 +72,19 @@ mmux_bash_mpfr_parse_mpfr_exp (mpfr_exp_t * p_data, char const * const s_arg, ch
 
 m4_define([[[MMUX_DEFINE_MPFR_CONSTANT_VARIABLE]]],[[[
 #if ((defined MMUX_HAVE_$1) && (1 == MMUX_HAVE_$1))
-  mmux_bash_mpfr_create_global_sint_variable("$1",	$1);
+  mmux_bash_create_global_sint_variable("$1",	$1,	MMUX_BUILTIN_NAME);
 #endif
 ]]])
 
 static int
-mmux_bash_mpfr_library_init_builtin (WORD_LIST * list MMUX_BASH_MPFR_UNUSED)
+mmux_bash_mpfr_library_init_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mmux_bash_mpfr_library_init"
 {
   {
-    mmux_bash_mpfr_create_global_sint_variable("mpfr_SIZEOF_MPFR",	sizeof(__mpfr_struct));
+    mmux_bash_create_global_sint_variable("mpfr_SIZEOF_MPFR",		sizeof(__mpfr_struct),	MMUX_BUILTIN_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_SIZEOF_MPFR_RND",	sizeof(mpfr_rnd_t),	MMUX_BUILTIN_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_SIZEOF_MPFR_EXP",	sizeof(mpfr_exp_t),	MMUX_BUILTIN_NAME);
   }
   {
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDN]]]);
@@ -146,19 +95,11 @@ mmux_bash_mpfr_library_init_builtin (WORD_LIST * list MMUX_BASH_MPFR_UNUSED)
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDF]]]);
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDNA]]]);
   }
-  return EXECUTION_SUCCESS;
+  return MMUX_SUCCESS;
 }
-static char * mmux_bash_mpfr_library_init_doc[] = {
-  "Initialise the library.",
-  (char *)NULL
-};
-struct builtin mmux_bash_mpfr_library_init_struct = {
-  .name		= "mmux_bash_mpfr_library_init",	/* Builtin name */
-  .function	= mmux_bash_mpfr_library_init_builtin,	/* Function implementing the builtin */
-  .flags	= BUILTIN_ENABLED,			/* Initial flags for builtin */
-  .long_doc	= mmux_bash_mpfr_library_init_doc,	/* Array of long documentation strings. */
-  .short_doc	= "mmux_bash_mpfr_library_init",	/* Usage synopsis; becomes short_doc */
-  .handle	= 0					/* Reserved for internal use */
-};
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mmux_bash_mpfr_library_init]]],
+    [[[(1 == argc)]]],
+    [[["mmux_bash_mpfr_library_init"]]],
+    [[["Initialise the library."]]])
 
 /* end of file */

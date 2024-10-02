@@ -103,10 +103,6 @@ a shell script which is meant to be sourced in a Bash session or script.
 This package implements an interface to the @emph{Multiple Precision Floating--Point Reliable
 Library}, @mpfr{}.
 
-The package targets @posix{} platforms.  This package depends on the external package: @mmux{} Bash
-Pointers.  Only for testing: this package depends on the external package @acronym{MBFL} (at least
-version @samp{v3.0.0-devel.9}).
-
 This package is distributed under the terms of the @gnu{} Lesser General Public License (@lgpl{}).
 
 Development of this package takes place at:
@@ -201,17 +197,18 @@ Library}, @mpfr{}.
 @example
 declare X
 
-libc_malloc X mpfr_SIZEOF_MPFR
+mmux_libc_malloc X $mpfr_SIZEOF_MPFR
 mpfr_init $X
 mpfr_set_d $X '1.23' $MPFR_RNDN
 mpfr_clear $X
-libc_free $X
+mmux_libc_free $X
 @end example
 
 @menu
 * overview install::            Installed files.
 * overview linking::            Linking code with the library.
 * overview conventions::        Conventions used in this documentation.
+* overview retvals::            Return values of @mpfr{} functions.
 @end menu
 
 @c page
@@ -235,7 +232,7 @@ the shared library is automatically loaded by the shell library.
 
 A C language header file is also installed under @code{$includedir}, for example:
 
-@center @file{/usr/local/include/libmmux-bash-mpfr.h}
+@center @file{/usr/local/include/mmux-bash-mpfr.h}
 
 @noindent
 we can write code that links to the shared library to reuse some of its facilities.
@@ -249,6 +246,15 @@ we can write code that links to the shared library to reuse some of its faciliti
 @node overview conventions
 @section Conventions used in this documentation
 
+
+@macro MmuxBashMpfrArgConventionPlain{STEM,LOSTEM}
+@item \STEM\
+@cindex \STEM\, builtin argument
+@cindex builtin argument \STEM\
+@cindex argument \STEM\, for builtins
+A string representation of a value of type @objtype{mmux_libc_\LOSTEM\_t}.
+
+@end macro
 
 The following naming conventions for builtin and function parameters are used in this documentation:
 
@@ -266,10 +272,74 @@ of @objtype{__mpfr_struct}.  If the function fails: the shell variable is left u
 @item MPFR_RND
 A string representation of one of the @mpfr{} constants @samp{MPFR_RND*}.
 
+@item MPFR_EXP
+A string representation of a value of type @objtype{mpfr_exp_t}.
+
 @item STRVAR
 The string representation of a shell variable name: the function taking it as parameter, when
 successful, will store in the variable a generated string.
+
+@item MPF_PTR
+@itemx MPF_OP
+@itemx MPF_ROP
+A string representation of a pointer of type @objtype{mpf_ptr}.
+
+@item MPQ_PTR
+@itemx MPQ_OP
+@itemx MPQ_ROP
+A string representation of a pointer of type @objtype{mpq_ptr}.
+
+@item MPZ_PTR
+@itemx MPZ_OP
+@itemx MPZ_ROP
+A string representation of a pointer of type @objtype{mpz_ptr}.
+
+@MmuxBashMpfrArgConventionPlain{SLONG,slong}
+@MmuxBashMpfrArgConventionPlain{ULONG,ulong}
+@MmuxBashMpfrArgConventionPlain{SINTMAX,sintmax}
+@MmuxBashMpfrArgConventionPlain{UINTMAX,uintmax}
+@MmuxBashMpfrArgConventionPlain{FLOAT,float}
+@MmuxBashMpfrArgConventionPlain{DOUBLE,double}
+@MmuxBashMpfrArgConventionPlain{LDOUBLE,ldouble}
+@MmuxBashMpfrArgConventionPlain{FLOAT128,float128}
+@MmuxBashMpfrArgConventionPlain{DECIMAL64,decimal64}
+@MmuxBashMpfrArgConventionPlain{DECIMAL128,decimal128}
 @end table
+
+@c page
+@node overview retvals
+@section Return values of @mpfr{} functions
+
+
+Many @mpfr{} function return a useful(?) value; the corresponding loadable Bash builtin reserves the
+return value to signal if an error occurred.  @mpfr{} function's return values are stored in a shell
+variable named @code{MPFR_RV}.
+
+@example
+declare ROP OP1 OP2
+declare MPFR_RV
+
+mmux_libc_calloc ROP $mpfr_SIZEOF_MPFR 3
+mmux_pointer_add OP1 ROP $mpfr_SIZEOF_MPFR
+mmux_pointer_add OP2 OP1 $mpfr_SIZEOF_MPFR
+@{
+    mpfr_init $ROP
+    mpfr_init $OP1
+    mpfr_init $OP2
+    @{
+        mpfr_set_si $OP1 123
+        mpfr_set_si $OP2 456
+
+        mpfr_add $ROP $OP1 $OP2
+        printf '%d\n' "$MPFR_RV"  @print{} [whatever is returned by the C function mpfr_add()]
+    @}
+    mpfr_clear $OP2
+    mpfr_clear $OP1
+    mpfr_clear $ROP
+@}
+mmux_libc_free $ROP
+@end example
+
 
 @c page
 @node variables
@@ -315,8 +385,7 @@ An integer representing the library interface current age.
 
 
 If a C language type referenced by one of the following variables is undefined: the corresponding
-Bash variable is undefined; we can test this condition with @code{test -v}; to test if the
-underlying platform implements the type @code{long long}, we can do:
+Bash variable is undefined; we can test this condition with @code{test -v}:
 
 @example
 if test -v mpfr_SIZEOF_MPFR
@@ -333,6 +402,8 @@ Global variable holding the size, measured in bytes, of the C language type @cod
 @end macro
 
 @MmuxDefineGlobalVarSizeof{MPFR, __mpfr_struct}
+@MmuxDefineGlobalVarSizeof{MPFR_EXP, mpfr_exp_t}
+@MmuxDefineGlobalVarSizeof{MPFR_RND, mpfr_rnd_t}
 
 @c page
 @node variables constants
@@ -379,9 +450,17 @@ return false.
 @end deffn
 
 
+@deffn Builtin mpfr_clear @var{MPFR_PTR}
+Interface to the C language function @cfunc{mpfr_clear}.  When successful: return true; otherwise
+return false.
+@end deffn
+
 @c page
 @node conversion
 @chapter Converting numbers to/from other representations
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @deffn Builtin mpfr_get_str @var{MANTISSA_VAR} @var{EXPPONENT_VAR} @var{BASE} @var{NDIGITS} @var{MPFR_OP} @var{MPFR_RND}
@@ -419,6 +498,9 @@ $EXP            @result{} 1
 @c page
 @node output
 @chapter Printing numbers
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @deffn mpfr_dump @var{MPFR_PTR}
@@ -464,7 +546,7 @@ mpfr_dump $OP
 @noindent
 and a C language header:
 
-@center @file{libmmux-bash-mpfr.h}
+@center @file{mmux-bash-mpfr.h}
 
 @noindent
 we can write code that links to the shared library to reuse some of its facilities.  @ref{overview

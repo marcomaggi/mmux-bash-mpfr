@@ -30,7 +30,7 @@ function mmux-bash-mpfr-library-load () {
     declare -g  MMUX_BASH_MPFR_CURRENT=@mmux_bash_mpfr_VERSION_INTERFACE_CURRENT@
     declare -g  MMUX_BASH_MPFR_REVISION=@mmux_bash_mpfr_VERSION_INTERFACE_REVISION@
     declare -g  MMUX_BASH_MPFR_AGE=@mmux_bash_mpfr_VERSION_INTERFACE_AGE@
-    declare -ga MMUX_BASH_MPFR_BUILTINS=(mpfr_init mpfr_clear mpfr_set_d mpfr_get_str mpfr_dump)
+    declare -ga MMUX_BASH_MPFR_BUILTINS=(mpfr_init mpfr_clear mpfr_set_si mpfr_set_ui mpfr_set_sj mpfr_set_uj mpfr_set_flt mpfr_set_d mpfr_set_ld mpfr_set mpfr_set_z mpfr_set_q mpfr_set_f mpfr_set_si_2exp mpfr_set_ui_2exp mpfr_set_sj_2exp mpfr_set_uj_2exp mpfr_set_z_2exp mpfr_set_str  mpfr_strtofr mpfr_set_nan mpfr_set_inf mpfr_set_zero mpfr_swap mpfr_get_str mpfr_dump)
 
     enable -f "$MMUX_BASH_MPFR_LIBRARY" mmux_bash_mpfr_library_init
 

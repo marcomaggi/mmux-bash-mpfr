@@ -7,7 +7,7 @@
 #!#
 #!#	This file must be executed with one among:
 #!#
-#!#		$ make all check TESTS=tests/init.bash ; less tests/init.log
+#!#		$ make all check TESTS=tests/init.test ; less tests/init.log
 #!#
 #!#	that will select these tests.
 #!#
@@ -57,23 +57,23 @@ function mpfr-init-1.1 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=$mpfr_SIZEOF_MPFR
+    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
 
     mbfl_location_enter
     {
-	if libc_calloc OP $mpfr_SIZEOF_MPFR 1
-	then mbfl_location_handler "libc_free $OP"
+	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug OP=$OP
+	dotest-debug OP=WW(OP)
 
-	if mpfr_init $OP
-	then mbfl_location_handler "mpfr_clear $OP"
+	if mpfr_init WW(OP)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	RESULT=$(mpfr_dump $OP)
+	RESULT=$(mpfr_dump WW(OP))
     }
     mbfl_location_leave
     dotest-equal QQ(EXPECTED_RESULT) QQ(RESULT)
@@ -85,25 +85,25 @@ function mpfr-init-1.2 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=$mpfr_SIZEOF_MPFR
+    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
 
     mbfl_location_enter
     {
-	if libc_calloc OP $mpfr_SIZEOF_MPFR 1
-	then mbfl_location_handler "libc_free $OP"
+	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug OP=$OP
+	dotest-debug OP=WW(OP)
 
-	if mpfr_init $OP
-	then mbfl_location_handler "mpfr_clear $OP"
+	if mpfr_init WW(OP)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	mpfr_set_d $OP '2.0' $MPFR_RNDN
+	mpfr_set_d WW(OP) '2.0' WW(MPFR_RNDN)
 
-	RESULT=$(mpfr_dump $OP)
+	RESULT=$(mpfr_dump WW(OP))
     }
     mbfl_location_leave
     dotest-equal QQ(EXPECTED_RESULT) QQ(RESULT)
