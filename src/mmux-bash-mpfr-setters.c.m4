@@ -33,13 +33,12 @@
  ** Basic setting.
  ** ----------------------------------------------------------------- */
 
-m4_define([[[MMUX_BASH_DEFINE_MPFR_SETTER]]],[[[
+m4_define([[[MMUX_BASH_DEFINE_MPFR_SETTER]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$5]]],[[[
 static int
 $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
 #undef  MMUX_BUILTIN_NAME
 #define MMUX_BUILTIN_NAME	"$1"
 {
-MMUX_BASH_CONDITIONAL_CODE([[[$5]]],[[[
   mpfr_ptr	rop;
   $2		op;
   mpfr_rnd_t	rnd;
@@ -54,17 +53,12 @@ MMUX_BASH_CONDITIONAL_CODE([[[$5]]],[[[
  argument_parse_error:
   mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
   return MMUX_FAILURE;
-]]],[[[
-  fprintf(stderr, "MMUX Bash MPFR: error: builtin \"%s\" not implemented because underlying C language type not available.\n",
-	  MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
-]]])
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[[(4 == argc)]]],
     [[["$1 MPFR_ROP $3 MPFR_RND"]]],
     [[["Set an already initialised number MPFR_ROP to the given operand $3."]]])
-]]])
+]]])]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_si]]], [[[mmux_libc_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ui]]],	[[[mmux_libc_ulong_t]]],  [[[ULONG]]],	 [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
@@ -87,32 +81,7 @@ MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_decimal128]]],	[[[mmux_libc_decimal128_
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_q]]],	[[[mpq_ptr]]],	[[[MPQ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPQ_PTR]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_f]]],	[[[mpf_ptr]]],	[[[MPF_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPF_PTR]]])
-
-/* ------------------------------------------------------------------ */
-
-int
-mpfr_set_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_set"
-{
-  mpfr_ptr	rop, op;
-  mpfr_rnd_t	rnd;
-
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
-  {
-    int		rv = mpfr_set(rop, op, rnd);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
-  }
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
-}
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set]]],
-    [[[(4 == argc)]]],
-    [[["mpfr_set MPFR_ROP MPFR_OP MPFR_RND"]]],
-    [[["Set an already initialised MPFR number to the given MPFR number."]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set]]],	[[[mpfr_ptr]]],	[[[MPFR_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR]]])
 
 
 /** --------------------------------------------------------------------
@@ -131,7 +100,7 @@ $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPF
   mpfr_rnd_t	rnd;
 
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR([[[mant]]],	[[[argv[2]]]]);
+  $4([[[mant]]],					[[[argv[2]]]]);
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[exp]]],	[[[argv[3]]]]);
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
   {
@@ -152,35 +121,7 @@ MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_si_2exp]]], [[[mmux_libc_slong_t]]
 MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_ui_2exp]]], [[[mmux_libc_ulong_t]]],  [[[ULONG]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
 MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_sj_2exp]]], [[[mmux_libc_sintmax_t]]],[[[SINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX]]])
 MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_uj_2exp]]], [[[mmux_libc_uintmax_t]]],[[[UINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]])
-
-/* ------------------------------------------------------------------ */
-
-static int
-mpfr_set_z_2exp_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_set_z_2exp"
-{
-  mpfr_ptr	rop;
-  mpz_ptr	mant;
-  mpfr_exp_t	exp;
-  mpfr_rnd_t	rnd;
-
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR([[[mant]]],	[[[argv[2]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[exp]]],	[[[argv[3]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
-  {
-    int		rv = mpfr_set_z_2exp(rop, mant, exp, rnd);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
-  }
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
-}
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_z_2exp]]],
-    [[[(5 == argc)]]],
-    [[["mpfr_set_z_2exp MPFR_ROP MPZ_PTR MPFR_EXP MPFR_RND"]]],
-    [[["Set an already initialised MPFR number to the given MPZ_PTR."]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_z_2exp]]],  [[[mpz_ptr]]],            [[[MPZ_PTR]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
 
 
 /** --------------------------------------------------------------------
