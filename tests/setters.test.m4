@@ -96,7 +96,7 @@ function mpfr-set-slong-1.1 () {
 #### setters: double
 
 function mpfr-set-double-1.1 () {
-    declare -r EXPECTED_RESULT='0.10000000000000000000000000000000000000000000000000000E2'
+    declare -r EXPECTED_RESULT='0.123457e3'
     declare OP RESULT
 
     #dotest-set-debug
@@ -116,11 +116,11 @@ function mpfr-set-double-1.1 () {
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	if ! mpfr_set_d WW(OP) '2.0' WW(MPFR_RNDN)
+	if ! mpfr_set_d WW(OP) '123.4567890' WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	RESULT=$(mpfr_dump WW(OP))
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
 	dotest-debug WW(RESULT)
     }
     mbfl_location_leave
