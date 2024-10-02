@@ -132,15 +132,19 @@ EXTRA_DIST		+= \
 	tests/setters.test.m4			\
 	tests/conversion.test.m4
 
+# For some reason GNU Automake does not want "TEST_EXTENSIONS" to be
+# inside a conditional; so we put it here.
+TEST_EXTENSIONS		= .test
+
+if WANT_MBFL_TESTING_ENABLED
+
 MMUX_CHECK_BUILT_TESTS	= \
 	tests/version.test			\
 	tests/init.test				\
 	tests/setters.test			\
 	tests/conversion.test
 
-if MMUX_TESTING_ENABLED
 TESTS			= $(MMUX_CHECK_BUILT_TESTS)
-endif
 check_SCRIPTS		= $(MMUX_CHECK_BUILT_TESTS)
 CLEANFILES		+= $(MMUX_CHECK_BUILT_TESTS)
 MMUX_LIBRARY		= $(builddir)/src/libmmux-bash-mpfr.bash
@@ -171,7 +175,6 @@ MBFL_TESTS_PREREQUISITES= $(MMUX_LIBRARY) libmmux-bash-mpfr.la
 #
 # We must make sure that this ends with a semicolon!!!
 AM_TESTS_ENVIRONMENT	= $(MBFL_TESTS_VERBENV) $(MBFL_TESTS_ENV)
-TEST_EXTENSIONS		= .test
 TEST_LOG_COMPILER	= $(BASH_PROGRAM)
 AM_TEST_LOG_FLAGS	= $(MBFLFLAGS)
 
@@ -180,8 +183,12 @@ AM_TEST_LOG_FLAGS	= $(MBFLFLAGS)
 tests/%.test: tests/%.test.m4 $(MBFL_TESTS_PREREQUISITES)
 	$(MBFL_TESTS_COMPILE) $(MBFL_TESTS_FLAGS) $< >$@
 
+endif
+
 
 #### interface to "make installcheck"
+
+if WANT_MBFL_TESTING_ENABLED
 
 # This  thing with  the PATH  environment  variable is  needed to  run
 # distcheck successfully.   We need  to remember  that, for  some sick
@@ -214,6 +221,8 @@ installcheck-local: $(TESTS)
 	    fi							;\
 	done							;\
 	if test "$$RV" = 77; then exit 0; else exit $$RV; fi	;
+
+endif
 
 
 #### common rules

@@ -1,7 +1,7 @@
 # @configure_input@
 #
 
-AC_PREREQ([2.69])
+AC_PREREQ([2.72])
 MMUX_PKG_VERSIONS([0],[1],[0],[devel.1])
 AC_INIT([MMUX Bash MPFR],[MMUX_PACKAGE_VERSION],
   [mrc.mgg@gmail.com],
@@ -24,13 +24,15 @@ General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ])
+
 AC_CONFIG_SRCDIR([src/])
 AC_CONFIG_MACRO_DIR([meta/autotools])
 AC_CONFIG_AUX_DIR([meta/autotools])
+AC_USE_SYSTEM_EXTENSIONS
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE([1.16 foreign subdir-objects])
+AM_INIT_AUTOMAKE([1.17 foreign subdir-objects])
 AM_MAINTAINER_MODE
 
 AM_PROG_AR
@@ -39,8 +41,8 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_MKDIR_P
 
-LT_PREREQ([2.4])
-LT_INIT
+LT_PREREQ([2.4.7])
+LT_INIT([disable-static])
 
 
 #### basic system inspection
@@ -53,40 +55,13 @@ MMUX_LANG_C11
 
 AM_PROG_AS
 AM_PROG_CC_C_O
-AC_HEADER_STDC
-AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([assert.h stdint.h strings.h errno.h stddef.h math.h])
-
+MMUX_BASH_CHECK_COMMON_HEADERS
 AC_PATH_PROG([M4_PROGRAM],[m4])
 AC_PATH_PROG([BASH_PROGRAM],[/bin/bash],[/bin/bash],[:])
 
-AC_ARG_ENABLE([mbfl],
-  [AS_HELP_STRING([--enable-mbfl],[enable using MBFL for testing (default: yes)])],
-  [AS_VAR_SET([MMUX_ENABLED_MBFL],[$enableval])],
-  [AS_VAR_SET([MMUX_ENABLED_MBFL],[yes])])
-
-if test "x$MMUX_ENABLED_MBFL" = 'xyes'
-then
-  MBFL_SETUP(v3.0.0)
-fi
-AM_CONDITIONAL([MMUX_TESTING_ENABLED],[test "x$MMUX_ENABLED_MBFL" = 'xyes'])
+AC_DEFINE([_ISOC11_SOURCE],[1],[Enable the ISO C11 features.])
 
 AC_CACHE_SAVE
-
-
-#### check for C language types
-
-AC_TYPE_LONG_LONG_INT
-AC_TYPE_UNSIGNED_LONG_LONG_INT
-AC_TYPE_LONG_DOUBLE
-
-
-#### checks for library functions
-
-dnl AC_FUNC_MALLOC
-dnl AC_FUNC_MEMCMP
-
-dnl AC_CACHE_SAVE
 
 
 #### external libraries
@@ -97,40 +72,38 @@ MMUX_CHECK_PKG_CONFIG_MACROS
 PKG_CHECK_MODULES([BASH],[bash],,[AC_MSG_WARN([package GNU Bash not found])])
 
 AC_SEARCH_LIBS(cos, m,, [AC_MSG_ERROR([Cannot find libm])])
-
+MMUX_CHECK_DECIMAL_FLOATING_POINT_C_LIBRARY
 PKG_CHECK_MODULES([MPFR],[mpfr >= 4.2])
-
 PKG_CHECK_MODULES([MMUX_BASH_POINTERS],[mmux-bash-pointers >= 0.1.0],
    [AS_VAR_SET([MMUX_BASH_POINTERS_DATADIR],[$("$PKG_CONFIG" mmux-bash-pointers --variable=datadir)])
     AS_VAR_SET([MMUX_BASH_POINTERS_LIBRARY],[$MMUX_BASH_POINTERS_DATADIR/bash/libmmux-bash-pointers.bash])])
 AC_SUBST([MMUX_BASH_POINTERS_LIBRARY])
 
+MBFL_SETUP_FOR_TESTING([v3.0.0])
+
 AC_CACHE_SAVE
+
+
+#### check for C language types
+
+MMUX_CHECK_C_LANGUAGE_TYPES_CORE
+MMUX_CHECK_C_LANGUAGE_TYPES_EXTENSION_FLOAT
+MMUX_CHECK_C_LANGUAGE_TYPES_EXTENSION_DECIMAL_FLOAT
+
+MMUX_BASH_INSPECT_STANDARD_C_LANGUAGE_TYPES_CORE
+MMUX_BASH_INSPECT_STANDARD_C_LANGUAGE_TYPES_FEATURES
 
 
 #### inspecting
 
-m4_define([MMUX_INCLUDES],[
-AC_INCLUDES_DEFAULT
+m4_define([MMUX_BASH_MPFR_INCLUDES],[
+MMUX_BASH_COMMON_INCLUDES_FOR_TESTS
 #ifdef HAVE_MPFR_H
 #  include <mpfr.h>
 #endif
 ])
 
-AC_DEFUN([MMUX_VALUEOF_TEST],
-  [AC_CACHE_CHECK([the value of '$2'],
-     [mmux_cv_valueof_$1],
-     [AC_COMPUTE_INT([mmux_cv_valueof_$1],
-        [$2],
-        [#include <mpfr.h>],
-        [AS_VAR_SET([mmux_cv_valueof_$1],[no])])])
-    if test "x$mmux_cv_valueof_$1" = "xno"
-    then AS_VAR_SET([MMUX_HAVE_$1],[0])
-    else AS_VAR_SET([MMUX_HAVE_$1],[1])
-    fi
-    AC_DEFINE_UNQUOTED([MMUX_HAVE_$1],[$MMUX_HAVE_$1],[The value $1 is defined.])])
-
-AC_DEFUN([MMUX_MPFR_CONSTANT_TEST],[MMUX_VALUEOF_TEST([$1],[$1])])
+AC_DEFUN([MMUX_MPFR_CONSTANT_TEST],[MMUX_DEFINE_VALUEOF_TEST([$1],[$1],[MMUX_BASH_MPFR_INCLUDES])])
 AC_DEFUN([MMUX_MPFR_CONSTANT_TESTS],[m4_map_args_w($1,[MMUX_MPFR_CONSTANT_TEST(],[)])])
 
 MMUX_MPFR_CONSTANT_TESTS([MPFR_RNDN MPFR_RNDZ MPFR_RNDU MPFR_RNDD MPFR_RNDA MPFR_RNDF MPFR_RNDNA])
