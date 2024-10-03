@@ -141,7 +141,36 @@ function mpfr_just_printit_dammit () {
     fi
 }
 
-
+#page
+#### compound allocation and initialisation
+
+function mpfr_alloc_and_init () {
+    declare -n mpfr_p_PTR=${1:?"missing parameter 1 result MPFR pointer variable name in call to '$FUNCNAME'"}
+    declare -r mpfr_p_PREC=$2
+
+    if mmux_libc_calloc mpfr_p_PTR 1 "$mpfr_SIZEOF_MPFR"
+    then
+	if ! {
+		if test -z "$mpfr_p_PREC" -o "$mpfr_p_PREC" = '0'
+		then mpfr_init  "$mpfr_p_PTR"
+		else mpfr_init2 "$mpfr_p_PTR" "$mpfr_p_PREC"
+		fi
+	    }
+	then mmux_libc_free "$mpfr_p_PTR"
+	fi
+    else return 1
+    fi
+}
+function mpfr_clear_and_free () {
+    declare -r mpfr_p_PTR=${1:?"missing parameter 1 MPFR pointer in call to '$FUNCNAME'"}
+
+    if mpfr_clear "$mpfr_p_PTR"
+    then mmux_libc_free "$mpfr_p_PTR"
+    else return 1
+    fi
+}
+
+#page
 #### shell index arrays
 
 function mpfr_alloc_shell_array () {

@@ -110,6 +110,30 @@ function mpfr-init-1.2 () {
 }
 
 
+#### compount allocation and initialisation
+
+function mpfr-alloc-and-init-1.1 () {
+    declare -r EXPECTED_RESULT='0.123000e3'
+    declare OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) 123 WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+	dotest-equal QQ(EXPECTED_RESULT) QQ(RESULT)
+    }
+    mbfl_location_leave
+}
+
+
 #### mpfr_init2
 
 function mpfr-init2-1.1 () {
