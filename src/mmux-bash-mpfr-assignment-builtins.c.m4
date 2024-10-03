@@ -121,6 +121,47 @@ MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_z_2exp]]],  [[[mpz_ptr]]],        
 
 
 /** --------------------------------------------------------------------
+ ** Initialisation and assignment.
+ ** ----------------------------------------------------------------- */
+
+m4_define([[[DEFINE_MPFR_INIT_AND_SET]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$5]]],[[[
+static int
+$1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"$1"
+{
+  mpfr_ptr	rop;
+  $2		op;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  $4([[[op]]],						[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = $1(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
+    [[[(4 == argc)]]],
+    [[["$1 MPFR_ROP $3 MPFR_RND"]]],
+    [[["Initialise then set a MPFR number to the given operand $3."]]])
+]]])]]])
+
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_si]]],[[[mmux_libc_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ui]]],[[[mmux_libc_ulong_t]]],  [[[ULONG]]],	 [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_d]]],	[[[mmux_libc_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ld]]],[[[mmux_libc_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
+			 [[[MMUX_BASH_MPFR_HAVE_LDOUBLE]]])
+
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_q]]],	[[[mpq_ptr]]],	[[[MPQ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPQ_PTR]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_f]]],	[[[mpf_ptr]]],	[[[MPF_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPF_PTR]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set]]],	[[[mpfr_ptr]]],	[[[MPFR_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR]]])
+
+
+/** --------------------------------------------------------------------
  ** Miscellaneous setters.
  ** ----------------------------------------------------------------- */
 

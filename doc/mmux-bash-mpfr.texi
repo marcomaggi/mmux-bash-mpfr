@@ -810,6 +810,24 @@ Interface to the C language functions @cfunc{mpfr_swap}.  When successful: retur
 return false.
 @end deffn
 
+
+@macro MmuxInitAndSetBuiltin{FUNC,ARGSTEM}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{\ARGSTEM\} @var{MPFR_RND}
+Interface to the C language functions @cfunc{\FUNC\}.  When successful: return true; otherwise
+return false.
+@end deffn
+
+@end macro
+
+@MmuxInitAndSetBuiltin{mpfr_init_set_si,SLONG}
+@MmuxInitAndSetBuiltin{mpfr_init_set_ui,ULONG}
+@MmuxInitAndSetBuiltin{mpfr_init_set_d,DOUBLE}
+@MmuxInitAndSetBuiltin{mpfr_init_set_ld,LDOUBLE}
+@MmuxInitAndSetBuiltin{mpfr_init_set_z,MPZ_PTR}
+@MmuxInitAndSetBuiltin{mpfr_init_set_q,MPQ_PTR}
+@MmuxInitAndSetBuiltin{mpfr_init_set_f,MPF_PTR}
+@MmuxInitAndSetBuiltin{mpfr_init_set,MPFR_PTR}
+
 @c page
 @node conversion
 @chapter Converting numbers to/from other representations

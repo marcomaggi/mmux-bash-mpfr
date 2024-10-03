@@ -37,6 +37,8 @@ function mmux-bash-mpfr-library-load () {
 					 mpfr_set_float128 mpfr_set_decimal64 mpfr_set_decimal128 mpfr_set
 					 mpfr_set_z mpfr_set_q mpfr_set_f
 					 mpfr_set_si_2exp mpfr_set_ui_2exp mpfr_set_sj_2exp mpfr_set_uj_2exp mpfr_set_z_2exp
+					 mpfr_init_set_si mpfr_init_set_ui mpfr_init_set_d mpfr_init_set_ld
+					 mpfr_init_set_z mpfr_init_set_q mpfr_init_set_f mpfr_init_set
 					 mpfr_set_str mpfr_strtofr mpfr_set_nan mpfr_set_inf mpfr_set_zero
 					 mpfr_swap mpfr_get_str
 					 mpfr_nan_p mpfr_inf_p mpfr_zero_p mpfr_number_p mpfr_regular_p

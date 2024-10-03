@@ -1027,6 +1027,244 @@ function mpfr-swap-1.1 () {
 }
 
 
+#### mpfr_init_set_si
+
+function mpfr-init-set-si-1.1 () {
+    declare -r EXPECTED_RESULT='0.123000e3'
+    declare OP RESULT
+
+    mbfl_location_enter
+    {
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init_set_si WW(OP) '123' WW(MPFR_RNDN)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+
+#### mpfr_init_set_ui
+
+function mpfr-init-set-ui-1.1 () {
+    declare -r EXPECTED_RESULT='0.123000e3'
+    declare OP RESULT
+
+    mbfl_location_enter
+    {
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init_set_ui WW(OP) '123' WW(MPFR_RNDN)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+
+#### mpfr_init_set_d
+
+function mpfr-init-set-d-1.1 () {
+    declare -r EXPECTED_RESULT='0.123457e3'
+    declare OP RESULT
+
+    mbfl_location_enter
+    {
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init_set_d WW(OP) '123.4567890' WW(MPFR_RNDN)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+
+#### mpfr_init_set_ld
+
+if mmux_bash_pointers_builtin_p 'mpfr_init_set_ld'
+then
+
+function mpfr-init-set-ld-1.1 () {
+    declare -r EXPECTED_RESULT='0.123457e3'
+    declare OP RESULT
+
+    mbfl_location_enter
+    {
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init_set_ld WW(OP) '123.4567890' WW(MPFR_RNDN)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
+#### mpfr_init_set_z
+
+if false
+then
+
+function mpfr-init-set-z-1.1 () {
+    declare -r EXPECTED_RESULT='0.123457e3'
+    declare OP RESULT
+
+    mbfl_location_enter
+    {
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init_set_z WW(OP) '123.4567890' WW(MPFR_RNDN)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
+#### mpfr_init_set_q
+
+if false
+then
+
+function mpfr-init-set-q-1.1 () {
+    declare -r EXPECTED_RESULT='0.123457e3'
+    declare OP RESULT
+
+    mbfl_location_enter
+    {
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init_set_q WW(OP) '123.4567890' WW(MPFR_RNDN)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
+#### mpfr_init_set_f
+
+if false
+then
+
+function mpfr-init-set-f-1.1 () {
+    declare -r EXPECTED_RESULT='0.123457e3'
+    declare OP RESULT
+
+    mbfl_location_enter
+    {
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init_set_f WW(OP) '123.4567890' WW(MPFR_RNDN)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
+#### mpfr_init_set
+
+function mpfr-init-set-1.1 () {
+    declare -r EXPECTED_RESULT='0.123457e3'
+    declare OP1 OP2 RESULT
+
+    mbfl_location_enter
+    {
+	if mmux_libc_calloc OP1 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP1)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mmux_libc_calloc OP2 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP2)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init_set_d WW(OP1) '123.4567890' WW(MPFR_RNDN)
+	then mbfl_location_handler "mpfr_clear WW(OP1)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init_set WW(OP2) WW(OP1) WW(MPFR_RNDN)
+	then mbfl_location_handler "mpfr_clear WW(OP2)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP2))
+
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+
 #### let's go
 
 dotest mpfr-
