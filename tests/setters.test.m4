@@ -46,51 +46,7 @@ mbfl_embed_library(__LIBMBFL_LINKER__)
 mbfl_linker_source_library_by_stem(core)
 mbfl_linker_source_library_by_stem(tests)
 
-source "$MMUX_LIBRARY"
-
-function mpfr_just_printit_dammit () {
-    declare OP=${1:?"missing mandatory parameter MPFR_PTR in call to '$FUNCNAME'"}
-
-    if mpfr_nan_p "$OP"
-    then printf '%s\n' '@NaN@'
-    elif mpfr_inf_p "$OP"
-    then
-	{
-	    declare SIGN
-
-	    mpfr_sgn SIGN "$OP"
-	    case "$SIGN" in
-		1)
-		    printf -- '+%s\n' '@Inf@'
-		    ;;
-		-1)
-		    printf -- '-%s\n' '@Inf@'
-		    ;;
-		*)
-		    printf -- '%s\n' '@Inf@'
-		    ;;
-	    esac
-	}
-    else
-	{
-	    declare -ri BASE=10 NDIGITS=6
-	    declare MAN EXP
-
-	    mpfr_get_str MAN EXP "$BASE" "$NDIGITS" "$OP" "$MPFR_RNDN"
-
-	    if test "${MAN:0:1}" = '-'
-	    then printf -- '-0.%se%s\n' "${MAN:1}" "$EXP"
-	    else printf --  '0.%se%s\n' "$MAN" "$EXP"
-	    fi
-	}
-    fi
-}
-
-function mmux_bash_builtin_p () {
-    declare NAME=${1:?"missing mandatory parameter NAME in call to '$FUNCNAME'"}
-
-    test 'builtin' = "$(type -t $NAME)"
-}
+source WW(MMUX_LIBRARY)
 
 
 #### setters: slong
@@ -367,7 +323,7 @@ function mpfr-set-double-1.1 () {
 
 #### setters: ldouble
 
-if mmux_bash_builtin_p 'mpfr_set_ld'
+if mmux_bash_pointers_builtin_p 'mpfr_set_ld'
 then
 
 function mpfr-set-ldouble-1.1 () {
@@ -407,7 +363,7 @@ fi
 
 #### setters: float128
 
-if mmux_bash_builtin_p 'mpfr_set_float128'
+if mmux_bash_pointers_builtin_p 'mpfr_set_float128'
 then
 
 function mpfr-set-float128-1.1 () {
@@ -447,7 +403,7 @@ fi
 
 #### setters: decimal64
 
-if mmux_bash_builtin_p 'mpfr_set_decimal64'
+if mmux_bash_pointers_builtin_p 'mpfr_set_decimal64'
 then
 
 function mpfr-set-decimal64-1.1 () {
@@ -487,7 +443,7 @@ fi
 
 #### setters: decimal128
 
-if mmux_bash_builtin_p 'mpfr_set_decimal128'
+if mmux_bash_pointers_builtin_p 'mpfr_set_decimal128'
 then
 
 function mpfr-set-decimal128-1.1 () {

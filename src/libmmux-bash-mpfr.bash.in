@@ -56,6 +56,7 @@ function mmux-bash-mpfr-library-load () {
     fi
 }
 
+#page
 function mmux-bash-mpfr-library-unload () {
     declare -i IDX
 
@@ -76,6 +77,67 @@ function mmux-bash-mpfr-library-unload () {
     # FIXME  For a  perfect cleanup  we should  also unset  the global  variables defined  by the  C
     # language library  initialisation builtin,  like "libc_SIZEOF_POINTER"  and all  those.  (Marco
     # Maggi; Sep 15, 2024)
+}
+
+#page
+#### additional functions: printing
+
+function mpfr_just_printit_dammit () {
+    declare -i BASE=10 NDIGITS=6
+    declare OPT OPTARG OPTIND OPTERR=1
+
+    while getopts ':n:b:' OPT
+    do
+	case "${OPT}" in
+	    n)
+		NDIGITS=$OPTARG
+		;;
+	    b)
+		BASE=$OPTARG
+		;;
+	    *)
+		return 1
+		;;
+	esac
+    done
+    shift $((OPTIND-1))
+
+    declare OP=${1:?"missing mandatory parameter MPFR_PTR in call to '$FUNCNAME'"}
+
+    #echo BASE="$BASE" NDIGITS="$NDIGITS" OP="$OP" >&2
+
+    if mpfr_nan_p "$OP"
+    then printf '%s' '@NaN@'
+    elif mpfr_inf_p "$OP"
+    then
+	{
+	    declare SIGN
+
+	    mpfr_sgn SIGN "$OP"
+	    case "$SIGN" in
+		1)
+		    printf -- '+%s' '@Inf@'
+		    ;;
+		-1)
+		    printf -- '-%s' '@Inf@'
+		    ;;
+		*)
+		    printf -- '%s' '@Inf@'
+		    ;;
+	    esac
+	}
+    else
+	{
+	    declare MAN EXP
+
+	    mpfr_get_str MAN EXP "$BASE" "$NDIGITS" "$OP" "$MPFR_RNDN"
+
+	    if test "${MAN:0:1}" = '-'
+	    then printf -- '-0.%se%s' "${MAN:1}" "$EXP"
+	    else printf --  '0.%se%s' "$MAN" "$EXP"
+	    fi
+	}
+    fi
 }
 
 #page

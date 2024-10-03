@@ -151,10 +151,11 @@ mmux_bashlibdir		= $(datadir)/bash
 #### tests
 
 EXTRA_DIST		+= \
-	tests/version.test.m4			\
+	tests/conversion.test.m4		\
 	tests/init.test.m4			\
+	tests/printing.test.m4			\
 	tests/setters.test.m4			\
-	tests/conversion.test.m4
+	tests/version.test.m4
 
 # For some reason GNU Automake does not want "TEST_EXTENSIONS" to be
 # inside a conditional; so we put it here.
@@ -163,10 +164,11 @@ TEST_EXTENSIONS		= .test
 if WANT_MBFL_TESTING_ENABLED
 
 MMUX_CHECK_BUILT_TESTS	= \
-	tests/version.test			\
+	tests/conversion.test			\
 	tests/init.test				\
+	tests/printing.test			\
 	tests/setters.test			\
-	tests/conversion.test
+	tests/version.test
 
 TESTS			= $(MMUX_CHECK_BUILT_TESTS)
 check_SCRIPTS		= $(MMUX_CHECK_BUILT_TESTS)
