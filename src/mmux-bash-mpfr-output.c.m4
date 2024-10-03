@@ -44,9 +44,7 @@ mpfr_dump_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
   mpfr_dump(op);
   return MMUX_SUCCESS;
 
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_dump]]],
     [[[(2 == argc)]]],

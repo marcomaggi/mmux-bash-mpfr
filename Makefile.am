@@ -15,7 +15,7 @@ BUILT_SOURCES		=
 MMUX_BASH_MPFR_M4_MACROS	= \
 	$(top_srcdir)/meta/m4/libmmux-bash-builtins.m4		\
 	$(top_srcdir)/meta/m4/libmmux-bash-mpfr-builtins.m4
-EXTRA_DIST			= $(MMUX_BASH_MPFR_M4_MACROS)
+EXTRA_DIST			+= $(MMUX_BASH_MPFR_M4_MACROS)
 
 ## --------------------------------------------------------------------
 
@@ -84,6 +84,7 @@ install-html-local:
 #### libraries
 
 EXTRA_DIST	+= \
+	src/mmux-bash-mpfr-comparison.c.m4	\
 	src/mmux-bash-mpfr-conversion.c.m4	\
 	src/mmux-bash-mpfr-init.c.m4		\
 	src/mmux-bash-mpfr-internals.h.m4	\
@@ -93,6 +94,7 @@ EXTRA_DIST	+= \
 	src/mmux-bash-mpfr-type-functions.c.m4
 
 MMUX_BASH_MPFR_BUILT_SOURCES	= \
+	src/mmux-bash-mpfr-comparison.c		\
 	src/mmux-bash-mpfr-conversion.c		\
 	src/mmux-bash-mpfr-init.c		\
 	src/mmux-bash-mpfr-internals.h		\
@@ -118,14 +120,15 @@ libmmux_bash_mpfr_la_CFLAGS	= $(AM_CFLAGS) $(BASH_CFLAGS) $(MPFR_CFLAGS) $(MMUX_
 libmmux_bash_mpfr_la_LDFLAGS	= $(mmux_bash_mpfr_LINKER_VERSION) $(AM_LDFLAGS)
 libmmux_bash_mpfr_la_LDFLAGS	+= $(BASH_LIBS) $(MPFR_LIBS) $(MMUX_BASH_POINTERS_LIBS)
 libmmux_bash_mpfr_la_SOURCES	= \
+	src/mmux-bash-mpfr.h			\
+	src/mmux-bash-mpfr-internals.h		\
+	src/mmux-bash-mpfr-comparison.c		\
 	src/mmux-bash-mpfr-conversion.c		\
 	src/mmux-bash-mpfr-init.c		\
-	src/mmux-bash-mpfr-internals.h		\
 	src/mmux-bash-mpfr-library.c		\
 	src/mmux-bash-mpfr-output.c		\
 	src/mmux-bash-mpfr-setters.c		\
-	src/mmux-bash-mpfr-type-functions.c	\
-	src/mmux-bash-mpfr.h
+	src/mmux-bash-mpfr-type-functions.c
 
 .PHONY: library
 

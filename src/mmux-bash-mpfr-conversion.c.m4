@@ -48,7 +48,7 @@ mpfr_get_str_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[5]]]]);
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[6]]]]);
   {
-    mpfr_exp_t	exp;
+    mpfr_exp_t	exp = 0;
     char *	str;
 
     str = mpfr_get_str(NULL, &exp, base, ndigits, op, rnd);
@@ -63,9 +63,7 @@ mpfr_get_str_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
       }
     }
   }
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_str]]],
     [[[(7 == argc)]]],

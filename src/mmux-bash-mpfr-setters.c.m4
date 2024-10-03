@@ -50,9 +50,7 @@ $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPF
     int		rv = $1(rop, op, rnd);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
   }
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[[(4 == argc)]]],
@@ -107,9 +105,7 @@ $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPF
     int		rv = $1(rop, mant, exp, rnd);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
   }
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[[(5 == argc)]]],
@@ -134,7 +130,7 @@ mpfr_set_str_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMU
 #define MMUX_BUILTIN_NAME	"mpfr_set_str"
 {
   mpfr_ptr	rop;
-  char *	str;
+  char const *	str;
   int		base;
   mpfr_rnd_t	rnd;
 
@@ -146,9 +142,7 @@ mpfr_set_str_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMU
       int	rv = mpfr_set_str(rop, str, base, rnd);
       return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
   }
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_str]]],
     [[[(5 == argc)]]],
@@ -181,9 +175,7 @@ mpfr_set_nan_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMU
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
   mpfr_set_nan(op);
   return MMUX_SUCCESS;
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_nan]]],
     [[[(2 == argc)]]],
@@ -205,9 +197,7 @@ mpfr_set_inf_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMU
 
   mpfr_set_inf(op, sign);
   return MMUX_SUCCESS;
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_inf]]],
     [[[(3 == argc)]]],
@@ -229,9 +219,7 @@ mpfr_set_zero_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MM
 
   mpfr_set_zero(op, sign);
   return MMUX_SUCCESS;
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_zero]]],
     [[[(3 == argc)]]],
@@ -248,14 +236,12 @@ mpfr_swap_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_B
   mpfr_ptr	op1, op2;
 
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
 
   mpfr_swap(op1, op2);
   return MMUX_SUCCESS;
 
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_swap]]],
     [[[(3 == argc)]]],

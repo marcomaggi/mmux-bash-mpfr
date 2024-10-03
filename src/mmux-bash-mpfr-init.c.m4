@@ -45,9 +45,7 @@ mpfr_init_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
   mpfr_init(ptr);
   return MMUX_SUCCESS;
 
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_init]]],
     [[[(2 == argc)]]],
@@ -68,9 +66,7 @@ mpfr_clear_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
   mpfr_clear(ptr);
   return MMUX_SUCCESS;
 
- argument_parse_error:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
-  return MMUX_FAILURE;
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_clear]]],
     [[[(2 == argc)]]],
