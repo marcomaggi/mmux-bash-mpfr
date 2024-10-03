@@ -1,11 +1,11 @@
 /*
   Part of: MMUX Bash MPFR
-  Contents: implementation of setting builtins
+  Contents: implementation of assignment builtins
   Date: Sep 15, 2024
 
   Abstract
 
-	This module implements setting builtins.
+	This module implements assignment builtins.
 
   Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
 

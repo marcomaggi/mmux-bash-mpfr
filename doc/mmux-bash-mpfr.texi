@@ -163,6 +163,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * overview::                    Overview of the package.
 * variables::                   Global variables.
 * init::                        Initialisation and finalisation.
+* assignment::                  Assignment builtins.
 * conversion::                  Converting numbers to/from other representations.
 * io::                          Input, output, printing.
 
@@ -686,6 +687,128 @@ $PREC   @result{} 17
 Interfaces to the C language functions @cfunc{mpfr_set_prec}, @cfunc{mpfr_get_prec}.  When
 successful: return true; otherwise return false.
 @end defun
+
+@c page
+@node assignment
+@chapter Assignment builtins
+
+
+To assign a value to a number we do:
+
+@example
+declare OP
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_d $OP '1.23' $MPFR_RNDN
+    mpfr_just_printit_dammit $OP
+@}
+mpfr_clear_and_free $OP
+@end example
+
+
+@macro MmuxMpfrAssignmentBuiltin{FUNC,ARGSTEM}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{\ARGSTEM\} @var{MPFR_RND}
+Interface to the C language functions @cfunc{\FUNC\}.  When successful: return true; otherwise
+return false.
+@end deffn
+
+@end macro
+
+@macro MmuxMpfrAssignmentTwoExpBuiltin{FUNC,ARGSTEM}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{\ARGSTEM\} @var{MPFR_EXP} @var{MPFR_RND}
+Interface to the C language functions @cfunc{\FUNC\}.  When successful: return true; otherwise
+return false.
+@end deffn
+
+@end macro
+
+@MmuxMpfrAssignmentBuiltin{mpfr_set_si, SLONG}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_ui, ULONG}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_sj, SINTMAX}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_uj, UINTMAX}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_flt, FLOAT}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_d, DOUBLE}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_ld, LDOUBLE}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_float128, FLOAT128}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_decimal64, decimal64}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_decimal128, decimal128}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_z, MPZ_OP}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_q, MPQ_OP}
+@MmuxMpfrAssignmentBuiltin{mpfr_set_f, MPF_OP}
+@MmuxMpfrAssignmentBuiltin{mpfr_set, MPFR_OP}
+
+@MmuxMpfrAssignmentTwoExpBuiltin{mpfr_set_si_2exp, SLONG}
+@MmuxMpfrAssignmentTwoExpBuiltin{mpfr_set_ui_2exp, ULONG}
+@MmuxMpfrAssignmentTwoExpBuiltin{mpfr_set_sj_2exp, SINTMAX}
+@MmuxMpfrAssignmentTwoExpBuiltin{mpfr_set_uj_2exp, UINTMAX}
+@MmuxMpfrAssignmentTwoExpBuiltin{mpfr_set_z_2exp, MPZ_PTR}
+
+
+@deffn Builtin mpfr_set_str @var{MPFR_ROP} @var{STRING} @var{BASE} @var{MPFR_RND}
+Interface to the C language functions @cfunc{mpfr_set_str}.  When successful: return true; otherwise
+return false.
+
+@example
+declare -r STR='1234567890' BASE='10'
+declare OP
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_str $OP $STR $BASE $MPFR_RNDN
+    mpfr_just_printit_dammit $OP
+@}
+mpfr_clear_and_free $OP
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_set_nan @var{MPFR_OP}
+Interface to the C language functions @cfunc{mpfr_set_nan}.  When successful: return true; otherwise
+return false.
+@end deffn
+
+
+@deffn Builtin mpfr_set_inf @var{MPFR_OP} @var{SIGN}
+Interface to the C language functions @cfunc{mpfr_set_inf}.  When successful: return true;
+otherwise return false.  The argument sign must be one among @samp{+1}, @samp{0}, @samp{-1}.
+
+@example
+declare -r STR='1234567890' BASE='10'
+declare OP
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_inf $OP +1
+    mpfr_just_printit_dammit $OP
+@}
+mpfr_clear_and_free $OP
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_set_zero @var{MPFR_OP} @var{SIGN}
+Interface to the C language functions @cfunc{mpfr_set_zero}.  When successful: return true;
+otherwise return false.  The argument sign must be one among @samp{+1}, @samp{0}, @samp{-1}.
+
+@example
+declare -r STR='1234567890' BASE='10'
+declare OP
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_zero $OP +1
+    mpfr_just_printit_dammit $OP
+@}
+mpfr_clear_and_free $OP
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_swap @vari{MPFR_OP} @varii{MPFR_OP}
+Interface to the C language functions @cfunc{mpfr_swap}.  When successful: return true; otherwise
+return false.
+@end deffn
 
 @c page
 @node conversion

@@ -768,6 +768,30 @@ function mpfr-set-str-1.2 () {
     mbfl_location_leave
 }
 
+function mpfr-set-str-1.3 () {
+    declare -r STR='1234567890' BASE='10' EXPECTED_RESULT='0.123457e10'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_str WW(OP) WW(STR) WW(BASE) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	RESULT=$(mpfr_just_printit_dammit WW(OP))
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
 
 #### setters: mpfr_set_nan
 
