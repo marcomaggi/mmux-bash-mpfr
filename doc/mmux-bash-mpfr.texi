@@ -632,6 +632,29 @@ mpfr_free_shell_array  @var{ARRYNAME}
 checking for errors.  When successful return true, otherwise return false.
 @end defun
 
+
+@defun mpfr_set_default_prec @var{MPFR_PREC}
+@defunx mpfr_get_default_prec @var{MPFR_PREC_VAR}
+Interfaces to the C language functions @cfunc{mpfr_set_default_prec}, @cfunc{mpfr_get_default_prec}.
+When successful: return true; otherwise return false.
+
+@example
+declare -r NEW_PREC=17
+declare PREC
+
+mpfr_set_default_prec $NEW_PREC
+mpfr_get_default_prec PREC
+$PREC   @result{} 17
+@end example
+@end defun
+
+
+@defun mpfr_set_prec @var{MPFR_OP} @var{MPFR_PREC}
+@defunx mpfr_get_prec @var{MPFR_PREC_VAR} @var{MPFR_OP}
+Interfaces to the C language functions @cfunc{mpfr_set_prec}, @cfunc{mpfr_get_prec}.  When
+successful: return true; otherwise return false.
+@end defun
+
 @c page
 @node conversion
 @chapter Converting numbers to/from other representations
@@ -640,7 +663,7 @@ checking for errors.  When successful return true, otherwise return false.
 @ref{overview conventions, Conventions used in this documentation}.
 
 
-@deffn Builtin mpfr_get_str @var{MANTISSA_VAR} @var{EXPPONENT_VAR} @var{BASE} @var{NDIGITS} @var{MPFR_OP} @var{MPFR_RND}
+@deffn Builtin mpfr_get_str @var{MANTISSA_VAR} @var{EXPONENT_VAR} @var{BASE} @var{NDIGITS} @var{MPFR_OP} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_get_str}.  When successful: return true; otherwise
 return false.
 
@@ -653,10 +676,10 @@ successful, this function stores a string representation of the exponent in this
 error occurs, the variable is left untouched.
 
 @example
-declare OP MAN EXP
 declare -ri BASE=10 NDIGITS=0
+declare OP MAN EXP
 
-libc_calloc OP $mpfr_SIZEOF_MPFR 1
+mmux_libc_calloc OP 1 $mpfr_SIZEOF_MPFR
 @{
   mpfr_init $OP
   @{
@@ -665,7 +688,7 @@ libc_calloc OP $mpfr_SIZEOF_MPFR 1
   @}
   mpfr_clear $OP
 @}
-libc_free $OP
+mmux_libc_free $OP
 
 $MAN            @result{} 12300000000000000
 $EXP            @result{} 1

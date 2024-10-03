@@ -61,7 +61,7 @@ function mpfr-init-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -89,7 +89,7 @@ function mpfr-init-1.2 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -119,7 +119,7 @@ function mpfr-init2-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -364,6 +364,90 @@ function mpfr-init-shell-array-1.4 () {
     mpfr_clear_and_free_shell_array OPS
 }
 
+
+#### mpfr_set_default_prec, mpfr_get_default_prec
+
+function mpfr-set-default-prec-1.1 () {
+    declare -r NEW_PREC=17 EXPECTED_PREC=17
+    declare PREC
+
+    if ! mpfr_set_default_prec $NEW_PREC
+    then return 1
+    fi
+
+    if ! mpfr_get_default_prec PREC
+    then return 1
+    fi
+
+    dotest-equal WW(EXPECTED_PREC) WW(PREC)
+}
+function mpfr-set-default-prec-1.2 () {
+    declare -r EXPECTED_PREC=53
+    declare PREC
+
+    if ! mpfr_get_default_prec PREC
+    then return 1
+    fi
+
+    dotest-equal WW(EXPECTED_PREC) WW(PREC)
+}
+
+
+#### mpfr_set_prec, mpfr_get_prec
+
+function mpfr-set-prec-1.1 () {
+    declare OP PREC EXPECTED_PREC
+
+    mbfl_location_enter
+    {
+	if ! mpfr_get_default_prec EXPECTED_PREC
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init WW(OP)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_get_prec PREC $OP
+	then mbfl_location_leave_then_return_failure
+	fi
+    }
+    mbfl_location_leave
+    dotest-equal QQ(EXPECTED_PREC) QQ(PREC)
+}
+function mpfr-set-prec-1.2 () {
+    declare -r NEW_PREC=17 EXPECTED_PREC=17
+    declare OP PREC
+
+    mbfl_location_enter
+    {
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_init WW(OP)
+	then mbfl_location_handler "mpfr_clear WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_prec $OP $NEW_PREC
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_get_prec PREC $OP
+	then mbfl_location_leave_then_return_failure
+	fi
+    }
+    mbfl_location_leave
+    dotest-equal QQ(EXPECTED_PREC) QQ(PREC)
+}
 
 
 #### let's go

@@ -164,4 +164,90 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_clears]]],
     [[["mpfr_clears MPFR_PTR0 MPFR_PTR ..."]]],
     [[["Finalise already allocated MPFR numbers."]]])
 
+
+/** --------------------------------------------------------------------
+ ** Precision functions.
+ ** ----------------------------------------------------------------- */
+
+static int
+mpfr_set_default_prec_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_set_default_prec"
+{
+  mpfr_prec_t	prec;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC([[[prec]]], [[[argv[1]]]]);
+
+  mpfr_set_default_prec(prec);
+  return MMUX_SUCCESS;
+
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_default_prec]]],
+    [[[(2 == argc)]]],
+    [[["mpfr_set_default_prec MPFR_PREC"]]],
+    [[["Configure the default MPFR numbers precision."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_get_default_prec_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_get_default_prec"
+{
+  mpfr_prec_t	prec;
+
+  prec = mpfr_get_default_prec();
+  return mmux_bash_mpfr_store_result_in_variable_mpfr_prec(argv[1], prec, MMUX_BUILTIN_NAME);
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_default_prec]]],
+    [[[(2 == argc)]]],
+    [[["mpfr_get_default_prec MPFR_PREC_VAR"]]],
+    [[["Store in MPFR_PREC_VAR the default MPFR numbers precision."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_set_prec_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_set_prec"
+{
+  mpfr_ptr	op;
+  mpfr_prec_t	prec;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC([[[prec]]],	[[[argv[2]]]]);
+
+  mpfr_set_prec(op, prec);
+  return MMUX_SUCCESS;
+
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_prec]]],
+    [[[(3 == argc)]]],
+    [[["mpfr_set_prec MPFR_PTR MPFR_PREC"]]],
+    [[["Set the precision of an MPFR number."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_get_prec_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_get_prec"
+{
+  mpfr_ptr	op;
+  mpfr_prec_t	prec;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+
+  prec = mpfr_get_prec(op);
+  return mmux_bash_mpfr_store_result_in_variable_mpfr_prec(argv[1], prec, MMUX_BUILTIN_NAME);
+
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_prec]]],
+    [[[(3 == argc)]]],
+    [[["mpfr_get_prec MPFR_PREC_VAR MPFR_PTR"]]],
+    [[["Retrieve the precision of an MPFR number."]]])
+
 /* end of file */
