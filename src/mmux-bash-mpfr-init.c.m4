@@ -73,4 +73,95 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_clear]]],
     [[["mpfr_clear MPFR_PTR"]]],
     [[["Finalise a MPFR number."]]])
 
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_init2_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_init2"
+{
+  mpfr_ptr	ptr;
+  mpfr_prec_t	prec;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[ptr]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC([[[prec]]],	[[[argv[2]]]]);
+
+  mpfr_init2(ptr, prec);
+  return MMUX_SUCCESS;
+
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_init2]]],
+    [[[(3 == argc)]]],
+    [[["mpfr_init2 MPFR_PTR MPFR_PREC"]]],
+    [[["Initialise an already allocated MPFR number."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_inits_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_inits"
+{
+  mpfr_ptr	ptr;
+
+  for (int i=1; i<argc; ++i) {
+    MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[ptr]]], [[[argv[i]]]]);
+    mpfr_init(ptr);
+  }
+  return MMUX_SUCCESS;
+
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_inits]]],
+    [[[(2 <= argc)]]],
+    [[["mpfr_inits MPFR_PTR0 MPFR_PTR ..."]]],
+    [[["Initialise already allocated MPFR numbers."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_inits2_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_inits2"
+{
+  mpfr_prec_t	prec;
+  mpfr_ptr	ptr;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC([[[prec]]],	[[[argv[1]]]]);
+  for (int i=2; i<argc; ++i) {
+    MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[ptr]]],	[[[argv[i]]]]);
+    mpfr_init2(ptr, prec);
+  }
+  return MMUX_SUCCESS;
+
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_inits2]]],
+    [[[(3 <= argc)]]],
+    [[["mpfr_inits2 MPFR_PREC MPFR_PTR0 MPFR_PTR ..."]]],
+    [[["Initialise already allocated MPFR numbers."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_clears_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_clears"
+{
+  mpfr_ptr	ptr;
+
+  for (int i=1; i<argc; ++i) {
+    MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[ptr]]], [[[argv[i]]]]);
+    mpfr_clear(ptr);
+  }
+  return MMUX_SUCCESS;
+
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_clears]]],
+    [[[(2 <= argc)]]],
+    [[["mpfr_clears MPFR_PTR0 MPFR_PTR ..."]]],
+    [[["Finalise already allocated MPFR numbers."]]])
+
 /* end of file */

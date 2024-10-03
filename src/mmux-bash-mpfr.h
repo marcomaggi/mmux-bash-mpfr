@@ -116,6 +116,8 @@ mmux_bash_mpfr_decl int	mmux_bash_mpfr_parse_mpfr_rnd (mpfr_rnd_t * p_value, cha
   __attribute__((__nonnull__(1,2)));
 mmux_bash_mpfr_decl int mmux_bash_mpfr_parse_mpfr_exp (mpfr_exp_t * p_value, char const * const s_value, char const * const caller_name)
   __attribute__((__nonnull__(1,2)));
+mmux_bash_mpfr_decl int mmux_bash_mpfr_parse_mpfr_prec (mpfr_prec_t * p_value, char const * const s_value, char const * const caller_name)
+  __attribute__((__nonnull__(1,2)));
 
 mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_ptr (char const * variable_name, mpfr_ptr value,
 									  char const * caller_name)
@@ -124,6 +126,9 @@ mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_rnd (char c
 									  char const * caller_name)
   __attribute__((__nonnull__(1)));
 mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_exp (char const * variable_name, mpfr_exp_t value,
+									  char const * caller_name)
+  __attribute__((__nonnull__(1)));
+mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_prec (char const * variable_name, mpfr_prec_t value,
 									  char const * caller_name)
   __attribute__((__nonnull__(1)));
 

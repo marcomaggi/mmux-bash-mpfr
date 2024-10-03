@@ -31,7 +31,7 @@ function mmux-bash-mpfr-library-load () {
     declare -g  MMUX_BASH_MPFR_CURRENT=@mmux_bash_mpfr_VERSION_INTERFACE_CURRENT@
     declare -g  MMUX_BASH_MPFR_REVISION=@mmux_bash_mpfr_VERSION_INTERFACE_REVISION@
     declare -g  MMUX_BASH_MPFR_AGE=@mmux_bash_mpfr_VERSION_INTERFACE_AGE@
-    declare -ga MMUX_BASH_MPFR_BUILTINS=(mpfr_init mpfr_clear
+    declare -ga MMUX_BASH_MPFR_BUILTINS=(mpfr_init mpfr_clear mpfr_init2 mpfr_inits mpfr_inits2 mpfr_clears
 					 mpfr_set_si mpfr_set_ui mpfr_set_sj mpfr_set_uj mpfr_set_flt mpfr_set_d mpfr_set_ld
 					 mpfr_set_float128 mpfr_set_decimal64 mpfr_set_decimal128 mpfr_set
 					 mpfr_set_z mpfr_set_q mpfr_set_f
@@ -107,7 +107,7 @@ function mpfr_just_printit_dammit () {
     #echo BASE="$BASE" NDIGITS="$NDIGITS" OP="$OP" >&2
 
     if mpfr_nan_p "$OP"
-    then printf '%s' '@NaN@'
+    then printf '%s\n' '@NaN@'
     elif mpfr_inf_p "$OP"
     then
 	{
@@ -116,13 +116,13 @@ function mpfr_just_printit_dammit () {
 	    mpfr_sgn SIGN "$OP"
 	    case "$SIGN" in
 		1)
-		    printf -- '+%s' '@Inf@'
+		    printf -- '+%s\n' '@Inf@'
 		    ;;
 		-1)
-		    printf -- '-%s' '@Inf@'
+		    printf -- '-%s\n' '@Inf@'
 		    ;;
 		*)
-		    printf -- '%s' '@Inf@'
+		    printf -- '%s\n' '@Inf@'
 		    ;;
 	    esac
 	}
@@ -133,10 +133,84 @@ function mpfr_just_printit_dammit () {
 	    mpfr_get_str MAN EXP "$BASE" "$NDIGITS" "$OP" "$MPFR_RNDN"
 
 	    if test "${MAN:0:1}" = '-'
-	    then printf -- '-0.%se%s' "${MAN:1}" "$EXP"
-	    else printf --  '0.%se%s' "$MAN" "$EXP"
+	    then printf -- '-0.%se%s\n' "${MAN:1}" "$EXP"
+	    else printf --  '0.%se%s\n' "$MAN" "$EXP"
 	    fi
 	}
+    fi
+}
+
+
+#### shell index arrays
+
+function mpfr_alloc_shell_array () {
+    declare -n mpfr_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare -i mpfr_ADIM=${2:?"missing parameter 2 shell array dimension in call to '$FUNCNAME'"}
+    declare -i mfr_IDX mpfr_JDX
+
+    if ! mmux_libc_calloc 'mpfr_ARRY[0]' $mpfr_ADIM "$mpfr_SIZEOF_MPFR"
+    then return 1
+    fi
+
+    for ((mfr_IDX=0, mpfr_JDX=1; mpfr_JDX < mpfr_ADIM; ++mfr_IDX, ++mpfr_JDX))
+    do
+	if ! mmux_pointer_add "mpfr_ARRY[$mpfr_JDX]" "${mpfr_ARRY[$mfr_IDX]}" "$mpfr_SIZEOF_MPFR"
+	then
+	    mmux_libc_free "${mpfr_ARRY[0]}"
+	    return 1
+	fi
+    done
+    return 0
+}
+function mpfr_free_shell_array () {
+    declare -n mpfr_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+
+    mmux_libc_free "${mpfr_ARRY[0]}"
+}
+
+function mpfr_init_shell_array () {
+    declare -n mpfr_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare    PREC=$2
+    declare -i mpfr_ADIM=${#mpfr_ARRY[@]}
+    declare -i mfr_IDX
+
+    if test -z "$PREC"
+    then
+	for ((mfr_IDX=0; mfr_IDX < mpfr_ADIM; ++mfr_IDX))
+	do mpfr_init "${mpfr_ARRY[$mfr_IDX]}"
+	done
+    else
+	for ((mfr_IDX=0; mfr_IDX < mpfr_ADIM; ++mfr_IDX))
+	do mpfr_init2 "${mpfr_ARRY[$mfr_IDX]}" "$PREC"
+	done
+    fi
+}
+function mpfr_clear_shell_array () {
+    declare -n mpfr_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare -i mpfr_ADIM=${#mpfr_ARRY[@]}
+    declare -i mfr_IDX
+
+    for ((mfr_IDX=0; mfr_IDX < mpfr_ADIM; ++mfr_IDX))
+    do mpfr_clear "${mpfr_ARRY[$mfr_IDX]}"
+    done
+}
+
+function mpfr_alloc_and_init_shell_array () {
+    declare -n mpfr_SUBARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare -i mpfr_ADIM=${2:?"missing parameter 2 shell array dimension in call to '$FUNCNAME'"}
+    declare    PREC=$3
+
+    if mpfr_alloc_shell_array mpfr_SUBARRY $mpfr_ADIM
+    then mpfr_init_shell_array mpfr_SUBARRY $PREC
+    else return 1
+    fi
+}
+function mpfr_clear_and_free_shell_array () {
+    declare -n mpfr_SUBARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+
+    if mpfr_clear_shell_array mpfr_SUBARRY
+    then mpfr_free_shell_array mpfr_SUBARRY
+    else return 1
     fi
 }
 

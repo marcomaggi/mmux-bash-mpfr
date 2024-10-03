@@ -63,6 +63,26 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
     return MMUX_FAILURE;
   }
 }
+int
+mmux_bash_mpfr_parse_mpfr_prec (mpfr_prec_t * p_value, char const * const s_value, char const * const caller_name)
+{
+  if (sizeof(mpfr_prec_t) == sizeof(mmux_libc_sint_t)) {
+    return mmux_bash_pointers_parse_sint((mmux_libc_sint_t *)p_value, s_value, caller_name);
+  } else
+  if (sizeof(mpfr_prec_t) == sizeof(mmux_libc_slong_t)) {
+    return mmux_bash_pointers_parse_slong((mmux_libc_slong_t *)p_value, s_value, caller_name);
+  } else
+MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
+  if (sizeof(mpfr_prec_t) == sizeof(mmux_libc_sllong_t)) {
+    return mmux_bash_pointers_parse_sllong((mmux_libc_sllong_t *)p_value, s_value, caller_name);
+  } else
+]]])
+  if (sizeof(mpfr_prec_t) == sizeof(mmux_libc_sintmax_t)) {
+    return mmux_bash_pointers_parse_sintmax(p_value, s_value, caller_name);
+  } else {
+    return MMUX_FAILURE;
+  }
+}
 
 
 /** --------------------------------------------------------------------
@@ -94,6 +114,26 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
   } else
 ]]])
   if (sizeof(mpfr_exp_t) == sizeof(mmux_libc_sintmax_t)) {
+    return mmux_bash_pointers_store_result_in_variable_sint(variable_name, (mmux_libc_sintmax_t) value, caller_name);
+  } else {
+    return MMUX_FAILURE;
+  }
+}
+int
+mmux_bash_mpfr_store_result_in_variable_mpfr_prec (char const * variable_name, mpfr_prec_t value, char const * caller_name)
+{
+  if (sizeof(mpfr_prec_t) == sizeof(mmux_libc_sint_t)) {
+    return mmux_bash_pointers_store_result_in_variable_sint(variable_name, (mmux_libc_sint_t) value, caller_name);
+  } else
+  if (sizeof(mpfr_prec_t) == sizeof(mmux_libc_slong_t)) {
+    return mmux_bash_pointers_store_result_in_variable_slong(variable_name, (mmux_libc_slong_t) value, caller_name);
+  } else
+MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
+  if (sizeof(mpfr_prec_t) == sizeof(mmux_libc_sllong_t)) {
+    return mmux_bash_pointers_store_result_in_variable_sllong(variable_name, (mmux_libc_sllong_t) value, caller_name);
+  } else
+]]])
+  if (sizeof(mpfr_prec_t) == sizeof(mmux_libc_sintmax_t)) {
     return mmux_bash_pointers_store_result_in_variable_sint(variable_name, (mmux_libc_sintmax_t) value, caller_name);
   } else {
     return MMUX_FAILURE;

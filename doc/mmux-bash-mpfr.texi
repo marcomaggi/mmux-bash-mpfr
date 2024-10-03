@@ -164,7 +164,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * variables::                   Global variables.
 * init::                        Initialisation and finalisation.
 * conversion::                  Converting numbers to/from other representations.
-* output::                      Printing numbers.
+* io::                          Input, output, printing.
 
 Appendices
 
@@ -262,36 +262,84 @@ The following naming conventions for builtin and function parameters are used in
 @item MPFR_PTR
 @itemx MPFR_OP
 @itemx MPFR_ROP
+@cindex MPFR_PTR, builtin argument
+@cindex builtin argument MPFR_PTR
+@cindex argument MPFR_PTR, for builtins
+@cindex MPFR_OP, builtin argument
+@cindex builtin argument MPFR_OP
+@cindex argument MPFR_OP, for builtins
 A string representation of a pointer referencing an instance of @objtype{__mpfr_struct}.
 
 @item MPFR_PTRVAR
+@cindex MPFR_PTRVAR, builtin argument
+@cindex builtin argument MPFR_PTRVAR
+@cindex argument MPFR_PTRVAR, for builtins
 The string representation of a shell variable name: the function taking it as parameter, when
 successful, will store in the variable a string representation of a pointer referencing an instance
 of @objtype{__mpfr_struct}.  If the function fails: the shell variable is left untouched.
 
 @item MPFR_RND
+@cindex MPFR_RND, builtin argument
+@cindex builtin argument MPFR_RND
+@cindex argument MPFR_RND, for builtins
 A string representation of one of the @mpfr{} constants @samp{MPFR_RND*}.
 
 @item MPFR_EXP
+@cindex MPFR_EXP, builtin argument
+@cindex builtin argument MPFR_EXP
+@cindex argument MPFR_EXP, for builtins
 A string representation of a value of type @objtype{mpfr_exp_t}.
 
+@item MPFR_PREC
+@cindex MPFR_PREC, builtin argument
+@cindex builtin argument MPFR_PREC
+@cindex argument MPFR_PREC, for builtins
+A string representation of a value of type @objtype{mpfr_prec_t}.
+
 @item STRVAR
+@cindex MPFR_STRVAR, builtin argument
+@cindex builtin argument MPFR_STRVAR
+@cindex argument MPFR_STRVAR, for builtins
 The string representation of a shell variable name: the function taking it as parameter, when
 successful, will store in the variable a generated string.
 
 @item MPF_PTR
 @itemx MPF_OP
 @itemx MPF_ROP
+@cindex MPF_PTR, builtin argument
+@cindex builtin argument MPF_PTR
+@cindex argument MPF_PTR, for builtins
+@cindex MPF_OP, builtin argument
+@cindex builtin argument MPF_OP
+@cindex argument MPF_OP, for builtins
+@cindex MPF_ROP, builtin argument
+@cindex builtin argument MPF_ROP
+@cindex argument MPF_ROP, for builtins
 A string representation of a pointer of type @objtype{mpf_ptr}.
 
 @item MPQ_PTR
 @itemx MPQ_OP
 @itemx MPQ_ROP
+@cindex MPQ_PTR, builtin argument
+@cindex builtin argument MPQ_PTR
+@cindex argument MPQ_PTR, for builtins
+@cindex MPQ_OP, builtin argument
+@cindex builtin argument MPQ_OP
+@cindex argument MPQ_OP, for builtins
 A string representation of a pointer of type @objtype{mpq_ptr}.
 
 @item MPZ_PTR
 @itemx MPZ_OP
 @itemx MPZ_ROP
+@cindex MPZ_PTR, builtin argument
+@cindex builtin argument MPZ_PTR
+@cindex argument MPZ_PTR, for builtins
+@cindex MPZ_OP, builtin argument
+@cindex builtin argument MPZ_OP
+@cindex argument MPZ_OP, for builtins
+@cindex MPZ_ROP, builtin argument
+@cindex builtin argument MPZ_ROP
+@cindex argument MPZ_ROP, for builtins
 A string representation of a pointer of type @objtype{mpz_ptr}.
 
 @MmuxBashMpfrArgConventionPlain{SLONG,slong}
@@ -404,6 +452,7 @@ Global variable holding the size, measured in bytes, of the C language type @cod
 @MmuxDefineGlobalVarSizeof{MPFR, __mpfr_struct}
 @MmuxDefineGlobalVarSizeof{MPFR_EXP, mpfr_exp_t}
 @MmuxDefineGlobalVarSizeof{MPFR_RND, mpfr_rnd_t}
+@MmuxDefineGlobalVarSizeof{MPFR_PREC, mpfr_prec_t}
 
 @c page
 @node variables constants
@@ -445,15 +494,143 @@ Global variable holding the value of the C language constant @code{\NAME\}.
 
 
 @deffn Builtin mpfr_init @var{MPFR_PTR}
-Interface to the C language function @cfunc{mpfr_init}.  When successful: return true; otherwise
-return false.
+@deffnx Builtin mpfr_init2 @var{MPFR_PTR} @var{MPFR_PREC}
+@deffnx Builtin mpfr_clear @var{MPFR_PTR}
+Interfaces to the C language functions @cfunc{mpfr_init}, @cfunc{mpfr_init2}, @cfunc{mpfr_init}.
+When successful: return true; otherwise return false.
+
+@example
+declare OP1 OP2
+
+mmux_libc_calloc OP $mpfr_SIZEOF_MPFR 1
+@{
+    mpfr_init $OP
+    @{
+        mpfr_set_si $OP 123 $MPFR_RNDN
+    @}
+    mpfr_clear $OP
+@}
+mmux_libc_free $OP
+@end example
 @end deffn
 
 
-@deffn Builtin mpfr_clear @var{MPFR_PTR}
-Interface to the C language function @cfunc{mpfr_clear}.  When successful: return true; otherwise
-return false.
+@deffn Builtin mpfr_inits @varo{MPFR_PTR} @var{MPFR_PTR} @dots{}
+@deffnx Builtin mpfr_inits2 @var{MFPR_PREC} @varo{MPFR_PTR} @var{MPFR_PTR} @dots{}
+@deffnx Builtin mpfr_clears @varo{MPFR_PTR} @var{MPFR_PTR} @dots{}
+Interface to the C language function @cfunc{mpfr_inits}, @cfunc{mpfr_inits2}, @cfunc{mpfr_clears}.
+When successful: return true; otherwise return false.
+
+@example
+declare OP1 OP2
+
+mmux_libc_calloc OP1 $mpfr_SIZEOF_MPFR 2
+@{
+    mmux_pointer_add OP2 $OP1 $mpfr_SIZEOF_MPFR
+
+    mpfr_inits $OP1 $OP2
+    @{
+        mpfr_set_si $OP1 -12 $MPFR_RNDN
+        mpfr_set_ui $OP2 +34 $MPFR_RNDN
+    @}
+    mpfr_clears $OP1 $OP2
+@}
+mmux_libc_free $OP1
+@end example
 @end deffn
+
+
+It is possible to allocate a single block of memory for the data structures of multiple @mpfr{}
+numbers; then we can initialise and finalise all the numbers with a single function call:
+
+@example
+declare -a OPS
+declare -i NUM=5 IDX
+
+mpfr_alloc_shell_array OPS $NUM
+@{
+    mpfr_init_shell_array OPS
+    @{
+        for ((IDX=0; IDX < $@{#OPS[@@]@}; ++IDX))
+        do mpfr_set_si $@{OPS[$IDX]@} $IDX $MPFR_RNDN
+        done
+
+        # We can access the individual numbers.
+        declare -n ROP=OPS[0]
+        declare -n OP1=OPS[1]
+        declare -n OP2=OPS[2]
+
+        mpfr_just_printit_dammit $ROP
+        mpfr_just_printit_dammit $OP1
+        mpfr_just_printit_dammit $OP2
+    @}
+    mpfr_clear_shell_array OPS
+@}
+mpfr_free_shell_array OPS
+@end example
+
+
+@defun mpfr_alloc_shell_array @var{ARRYNAME} @var{DIM}
+Allocate a single block of memory capable of holding @var{DIM} data structures each representing an
+@mpfr{} number; store the pointers to the structures in the shell index array whose name is
+@var{ARRYNAME}; the element at index @samp{0} holds the pointer to the memory block itself.  When
+successful return true, otherwise return false.
+@end defun
+
+
+@defun mpfr_free_shell_array @var{ARRYNAME} @var{DIM}
+Release the memory allocated by @func{mpfr_alloc_shell_array}; @var{ARRYNAME} must be the name of
+the shell index array used to reference the memory block.  When successful return true, otherwise
+return false.
+@end defun
+
+
+@defun mpfr_init_shell_array @var{ARRYNAME}
+@defunx mpfr_init_shell_array @var{ARRYNAME} @var{MPFR_PREC}
+Initialise each @mpfr{} number whose pointer is stored in the shell index array named
+@var{ARRYNAME}; the shell array itself must have been initialised by @func{mpfr_alloc_shell_array}.
+When successful return true, otherwise return false.
+
+When the optional parameter @var{MPFR_PREC} is present: is it used as precision to initialise all
+the numbers.
+@end defun
+
+
+@defun mpfr_clear_shell_array @var{ARRYNAME}
+Clear each @mpfr{} number whose pointer is stored in the shell index array named @var{ARRYNAME}; the
+shell array itself must have been initialised by @func{mpfr_init_shell_array}.  When successful
+return true, otherwise return false.
+
+This function only clears the numbers: to release the allocated memory we must use
+@func{mpfr_free_shell_array}.
+@end defun
+
+
+@defun mpfr_alloc_and_init_shell_array @var{ARRYNAME} @var{DIM}
+@defunx mpfr_alloc_and_init_shell_array @var{ARRYNAME} @var{DIM} @var{MPFR_PREC}
+Perform the calls:
+
+@example
+mpfr_alloc_shell_array @var{ARRYNAME} @var{DIM}
+mpfr_init_shell_array  @var{ARRYNAME} @var{MPFR_PREC}
+@end example
+
+@noindent
+checking for errors.  When successful return true, otherwise return false.
+@end defun
+
+
+@defun mpfr_clear_and_free_shell_array @var{ARRYNAME}
+Perform the calls:
+
+@example
+mpfr_clear_shell_array @var{ARRYNAME}
+mpfr_free_shell_array  @var{ARRYNAME}
+@end example
+
+@noindent
+checking for errors.  When successful return true, otherwise return false.
+@end defun
 
 @c page
 @node conversion
@@ -496,21 +673,23 @@ $EXP            @result{} 1
 @end deffn
 
 @c page
-@node output
-@chapter Printing numbers
+@node io
+@chapter Input, output, printing
 
 
 @ref{overview conventions, Conventions used in this documentation}.
 
 
-@deffn mpfr_dump @var{MPFR_PTR}
+@deffn Builtin mpfr_dump @var{MPFR_PTR}
 Interface to the C language function @cfunc{mpfr_dump}.  When successful: return true; otherwise
 return false.
 
 Printing an initialised but unset number:
 
 @example
-libc_calloc OP $mpfr_SIZEOF_MPFR 1
+declare OP
+
+mmux_libc_calloc OP $mpfr_SIZEOF_MPFR 1
 mpfr_init $OP
 mpfr_dump $OP   @print{} @@NaN@@
 @end example
@@ -518,13 +697,31 @@ mpfr_dump $OP   @print{} @@NaN@@
 Printing an initialised and set number:
 
 @example
-libc_calloc OP $mpfr_SIZEOF_MPFR 1
+declare OP
+
+mmux_libc_calloc OP $mpfr_SIZEOF_MPFR 1
 mpfr_init $OP
 mpfr_set_d $OP '2.0'
 mpfr_dump $OP
 @print{} 0.10000000000000000000000000000000000000000000000000000E2
 @end example
 @end deffn
+
+
+@defun mpfr_just_printit_dammit @var{MPFR_PTR}
+Print to @stdout{} a string representation of @var{MPFR_PTR}, by default in base 10 with 6 digits;
+the format is meant to resemble the standard @samp{%.6e}.
+
+@example
+declare OP
+
+mmux_libc_calloc OP $mpfr_SIZEOF_MPFR 1
+mpfr_init $OP
+mpfr_set_d $OP '123.4567890' $MPFR_RNDN
+mpfr_just_printit_dammit $OP
+@print{} 0.123457e3
+@end example
+@end defun
 
 @c page
 @c ------------------------------------------------------------
