@@ -185,4 +185,162 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_str]]],
     [[["mpfr_get_str MANTISSA_VAR EXPONENT_VAR BASE NDIGITS MPFR_OP MPFR_RND"]]],
     [[["Convert a MPFR number to string, store the resulting mantissa and exponent in the given shell variables."]]])
 
+
+/** --------------------------------------------------------------------
+ ** Predicates for getters.
+ ** ----------------------------------------------------------------- */
+
+m4_define([[[DEFINE_PREDICATE_FOR_GETTERS]]],[[[
+static int
+mpfr_fits_$1_p_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_fits_$1_p"
+{
+  mpfr_ptr	op;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[2]]]]);
+  {
+    return mpfr_fits_$1_p(op, rnd);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_fits_$1_p]]],
+    [[[(3 == argc)]]],
+    [[["mpfr_fits_$1_p MPFR_ROP MPFR_RND"]]],
+    [[["Interface to the C function mpfr_fits_$1_p."]]])
+]]])
+
+DEFINE_PREDICATE_FOR_GETTERS([[[sshort]]])
+DEFINE_PREDICATE_FOR_GETTERS([[[ushort]]])
+DEFINE_PREDICATE_FOR_GETTERS([[[sint]]])
+DEFINE_PREDICATE_FOR_GETTERS([[[uint]]])
+DEFINE_PREDICATE_FOR_GETTERS([[[slong]]])
+DEFINE_PREDICATE_FOR_GETTERS([[[ulong]]])
+DEFINE_PREDICATE_FOR_GETTERS([[[intmax]]])
+DEFINE_PREDICATE_FOR_GETTERS([[[uintmax]]])
+
+
+/** --------------------------------------------------------------------
+ ** Other getters.
+ ** ----------------------------------------------------------------- */
+
+static int
+mpfr_get_z_2exp_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_get_z_2exp"
+{
+  mpz_ptr	rop;
+  mpfr_ptr	op;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR([[[rop]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[3]]]]);
+  {
+    mpfr_exp_t	exp = mpfr_get_z_2exp(rop, op);
+    return mmux_bash_mpfr_store_result_in_variable_mpfr_exp(argv[1], exp, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_z_2exp]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_get_z_2exp EXPONENT_VAR MPZ_PTR MPFR_PTR"]]],
+    [[["Interface to the C function mpfr_get_z_2exp."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_get_z_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_get_z"
+{
+  mpz_ptr	rop;
+  mpfr_ptr	op;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_get_z(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_z]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_get_z MPZ_ROP MPFR_PTR MPFR_RND"]]],
+    [[["Interface to the C function mpfr_get_z."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_get_q_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_get_q"
+{
+  mpq_ptr	rop;
+  mpfr_ptr	op;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  {
+    mpfr_get_q(rop, op);
+    return MMUX_SUCCESS;
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_q]]],
+    [[[(3 == argc)]]],
+    [[["mpfr_get_q MPQ_ROP MPFR_OP"]]],
+    [[["Interface to the C function mpfr_get_q."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_get_f_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_get_f"
+{
+  mpf_ptr	rop;
+  mpfr_ptr	op;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPF_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_get_f(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_f]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_get_f MPZ_ROP MPFR_PTR MPFR_RND"]]],
+    [[["Interface to the C function mpfr_get_f."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_get_str_ndigits_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_get_str_ndigits"
+{
+  mmux_sint_t	B;
+  mpfr_prec_t	prec;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_SINT([[[B]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC([[[prec]]],	[[[argv[3]]]]);
+  {
+    mmux_ssize_t	rv = mpfr_get_str_ndigits(B, prec);
+    return mmux_bash_pointers_store_result_in_variable_ssize(argv[1], rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_str_ndigits]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_get_str_ndigits B PREC"]]],
+    [[["Interface to the C function mpfr_get_str_ndigits."]]])
+
 /* end of file */
