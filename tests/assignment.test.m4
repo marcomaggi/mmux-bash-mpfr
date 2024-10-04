@@ -56,11 +56,11 @@ function mpfr-set-slong-1.1 () {
     declare OP RESULT
 
     dotest-unset-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -87,11 +87,11 @@ function mpfr-set-slong-1.2 () {
     declare OP RESULT
 
     dotest-unset-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -122,11 +122,11 @@ function mpfr-set-ulong-1.1 () {
     declare OP RESULT
 
     dotest-unset-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -157,11 +157,11 @@ function mpfr-set-sintmax-1.1 () {
     declare OP RESULT
 
     dotest-unset-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -188,11 +188,11 @@ function mpfr-set-sintmax-1.2 () {
     declare OP RESULT
 
     dotest-unset-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -223,11 +223,11 @@ function mpfr-set-uintmax-1.1 () {
     declare OP RESULT
 
     dotest-unset-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -258,11 +258,11 @@ function mpfr-set-float-1.1 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -293,11 +293,11 @@ function mpfr-set-double-1.1 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -331,11 +331,11 @@ function mpfr-set-ldouble-1.1 () {
     declare OP RESULT
 
     dotest-unset-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -371,11 +371,11 @@ function mpfr-set-float128-1.1 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -411,11 +411,11 @@ function mpfr-set-decimal64-1.1 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -451,11 +451,11 @@ function mpfr-set-decimal128-1.1 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -489,12 +489,12 @@ function mpfr-set-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP1 WW(mpfr_SIZEOF_MPFR) 2
+	if mmux_libc_calloc OP1 2 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP1)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	mmux_pointer_add OP2 WW(OP1) WW(mpfr_SIZEOF_MPFR)
+	mmux_pointer_add OP2 WW(OP1) WW(mpfr_SIZEOF)
 
 	if mpfr_init WW(OP1)
 	then mbfl_location_handler "mpfr_clear WW(OP1)"
@@ -532,7 +532,7 @@ function mpfr-set-si-2exp-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -559,7 +559,7 @@ function mpfr-set-si-2exp-1.2 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -592,7 +592,7 @@ function mpfr-set-ui-2exp-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -624,7 +624,7 @@ function mpfr-set-sj-2exp-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -651,7 +651,7 @@ function mpfr-set-sj-2exp-1.2 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -684,7 +684,7 @@ function mpfr-set-uj-2exp-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -715,7 +715,7 @@ function mpfr-set-str-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -745,7 +745,7 @@ function mpfr-set-str-1.2 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -801,7 +801,7 @@ function mpfr-set-nan-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -830,7 +830,7 @@ function mpfr-set-inf-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -855,7 +855,7 @@ function mpfr-set-inf-1.2 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -880,7 +880,7 @@ function mpfr-set-inf-1.3 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -909,7 +909,7 @@ function mpfr-set-zero-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -934,7 +934,7 @@ function mpfr-set-zero-1.2 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -959,7 +959,7 @@ function mpfr-set-zero-1.3 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -988,12 +988,12 @@ function mpfr-swap-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP1 WW(mpfr_SIZEOF_MPFR) 2
+	if mmux_libc_calloc OP1 2 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP1)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	mmux_pointer_add OP2 WW(OP1) WW(mpfr_SIZEOF_MPFR)
+	mmux_pointer_add OP2 WW(OP1) WW(mpfr_SIZEOF)
 
 	if mpfr_init WW(OP1)
 	then mbfl_location_handler "mpfr_clear WW(OP1)"
@@ -1035,7 +1035,7 @@ function mpfr-init-set-si-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -1061,7 +1061,7 @@ function mpfr-init-set-ui-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -1087,7 +1087,7 @@ function mpfr-init-set-d-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -1116,7 +1116,7 @@ function mpfr-init-set-ld-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -1147,7 +1147,7 @@ function mpfr-init-set-z-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -1178,7 +1178,7 @@ function mpfr-init-set-q-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -1209,7 +1209,7 @@ function mpfr-init-set-f-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -1237,12 +1237,12 @@ function mpfr-init-set-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP1 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP1 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP1)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	if mmux_libc_calloc OP2 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP2 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP2)"
 	else mbfl_location_leave_then_return_failure
 	fi

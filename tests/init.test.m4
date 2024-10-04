@@ -57,11 +57,11 @@ function mpfr-init-1.1 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -85,11 +85,11 @@ function mpfr-init-1.2 () {
     declare OP RESULT
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=WW(mpfr_SIZEOF_MPFR)
+    dotest-debug mpfr_SIZEOF=WW(mpfr_SIZEOF)
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -143,7 +143,7 @@ function mpfr-init2-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -174,13 +174,13 @@ function mpfr-inits-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc mbfl_slot_spec(OPS,0) WW(mpfr_SIZEOF_MPFR) WW(OPNUM)
+	if mmux_libc_calloc mbfl_slot_spec(OPS,0) WW(OPNUM) WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free mbfl_slot_ref(OPS,0)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
 	for ((IDX=1; IDX < OPNUM; ++IDX))
-	do mmux_pointer_add mbfl_slot_spec(OPS,WW(IDX)) WW(OPS,0) $(( IDX * mpfr_SIZEOF_MPFR ))
+	do mmux_pointer_add mbfl_slot_spec(OPS,WW(IDX)) WW(OPS,0) $(( IDX * mpfr_SIZEOF ))
 	done
 
 	{
@@ -235,13 +235,13 @@ function mpfr-inits2-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc mbfl_slot_spec(OPS,0) WW(mpfr_SIZEOF_MPFR) WW(OPNUM)
+	if mmux_libc_calloc mbfl_slot_spec(OPS,0) WW(OPNUM) WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free mbfl_slot_ref(OPS,0)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
 	for ((IDX=1; IDX < OPNUM; ++IDX))
-	do mmux_pointer_add mbfl_slot_spec(OPS,WW(IDX)) WW(OPS,0) $(( IDX * mpfr_SIZEOF_MPFR ))
+	do mmux_pointer_add mbfl_slot_spec(OPS,WW(IDX)) WW(OPS,0) $(( IDX * mpfr_SIZEOF ))
 	done
 
 	{
@@ -420,7 +420,7 @@ function mpfr-set-prec-1.1 () {
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -443,7 +443,7 @@ function mpfr-set-prec-1.2 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF_MPFR)
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi

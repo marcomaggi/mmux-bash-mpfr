@@ -202,7 +202,7 @@ Library}, @mpfr{}.
 @example
 declare X
 
-mmux_libc_malloc X @WW{mpfr_SIZEOF_MPFR}
+mmux_libc_malloc X @WW{mpfr_SIZEOF}
 mpfr_init @WW{X}
 mpfr_set_d @WW{X} '1.23' @WW{MPFR_RNDN}
 mpfr_clear @WW{X}
@@ -447,23 +447,23 @@ If a C language type referenced by one of the following variables is undefined: 
 Bash variable is undefined; we can test this condition with @code{test -v}:
 
 @example
-if test -v mpfr_SIZEOF_MPFR
+if test -v mpfr_SIZEOF
 then # implemented
 else # not implemented
 fi
 @end example
 
 @macro MmuxDefineGlobalVarSizeof{NAME,TYPE}
-@defvar mpfr_SIZEOF_\NAME\
+@defvar \NAME\_SIZEOF
 Global variable holding the size, measured in bytes, of the C language type @code{\TYPE\}.
 @end defvar
 
 @end macro
 
-@MmuxDefineGlobalVarSizeof{MPFR, __mpfr_struct}
-@MmuxDefineGlobalVarSizeof{MPFR_EXP, mpfr_exp_t}
-@MmuxDefineGlobalVarSizeof{MPFR_RND, mpfr_rnd_t}
-@MmuxDefineGlobalVarSizeof{MPFR_PREC, mpfr_prec_t}
+@MmuxDefineGlobalVarSizeof{mpfr, __mpfr_struct}
+@MmuxDefineGlobalVarSizeof{mpfr_exp, mpfr_exp_t}
+@MmuxDefineGlobalVarSizeof{mpfr_rnd, mpfr_rnd_t}
+@MmuxDefineGlobalVarSizeof{mpfr_prec, mpfr_prec_t}
 
 @c page
 @node variables constants
@@ -512,7 +512,7 @@ Interfaces to the C language functions @cfunc{mpfr_init}, @cfunc{mpfr_init2}, @c
 @example
 declare OP1 OP2
 
-mmux_libc_calloc OP @WW{mpfr_SIZEOF_MPFR} 1
+mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
 @{
     mpfr_init @WW{OP}
     @{
@@ -533,9 +533,9 @@ Interface to the C language function @cfunc{mpfr_inits}, @cfunc{mpfr_inits2}, @c
 @example
 declare OP1 OP2
 
-mmux_libc_calloc OP1 @WW{mpfr_SIZEOF_MPFR} 2
+mmux_libc_calloc 2 OP1 @WW{mpfr_SIZEOF}
 @{
-    mmux_pointer_add OP2 @WW{OP1} @WW{mpfr_SIZEOF_MPFR}
+    mmux_pointer_add OP2 @WW{OP1} @WW{mpfr_SIZEOF}
 
     mpfr_inits @WW{OP1} @WW{OP2}
     @{
@@ -845,7 +845,7 @@ error occurs, the variable is left untouched.
 declare -ri BASE=10 NDIGITS=0
 declare OP MAN EXP
 
-mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF_MPFR}
+mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
 @{
   mpfr_init @WW{OP}
   @{
@@ -877,7 +877,7 @@ Printing an initialised but unset number:
 @example
 declare OP
 
-mmux_libc_calloc OP @WW{mpfr_SIZEOF_MPFR} 1
+mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
 mpfr_init @WW{OP}
 mpfr_dump @WW{OP}   @print{} @@NaN@@
 @end example
@@ -887,7 +887,7 @@ Printing an initialised and set number:
 @example
 declare OP
 
-mmux_libc_calloc OP @WW{mpfr_SIZEOF_MPFR} 1
+mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
 mpfr_init @WW{OP}
 mpfr_set_d @WW{OP} '2.0'
 mpfr_dump @WW{OP}
@@ -903,7 +903,7 @@ the format is meant to resemble the standard @samp{%.6e}.
 @example
 declare OP
 
-mmux_libc_calloc OP @WW{mpfr_SIZEOF_MPFR} 1
+mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
 mpfr_init @WW{OP}
 mpfr_set_d @WW{OP} '123.4567890' @WW{MPFR_RNDN}
 mpfr_just_printit_dammit @WW{OP}

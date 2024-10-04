@@ -82,9 +82,10 @@ mmux_bash_mpfr_library_init_main (int argc MMUX_BASH_MPFR_UNUSED, char const * c
 #define MMUX_BUILTIN_NAME	"mmux_bash_mpfr_library_init"
 {
   {
-    mmux_bash_create_global_sint_variable("mpfr_SIZEOF_MPFR",		sizeof(__mpfr_struct),	MMUX_BUILTIN_NAME);
-    mmux_bash_create_global_sint_variable("mpfr_SIZEOF_MPFR_RND",	sizeof(mpfr_rnd_t),	MMUX_BUILTIN_NAME);
-    mmux_bash_create_global_sint_variable("mpfr_SIZEOF_MPFR_EXP",	sizeof(mpfr_exp_t),	MMUX_BUILTIN_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_SIZEOF",	sizeof(__mpfr_struct),	MMUX_BUILTIN_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_rnd_SIZEOF",	sizeof(mpfr_rnd_t),	MMUX_BUILTIN_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_exp_SIZEOF",	sizeof(mpfr_exp_t),	MMUX_BUILTIN_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_prec_SIZEOF",	sizeof(mpfr_prec_t),	MMUX_BUILTIN_NAME);
   }
   {
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDN]]]);

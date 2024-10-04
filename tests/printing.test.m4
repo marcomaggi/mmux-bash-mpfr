@@ -59,7 +59,7 @@ function mpfr-just-printit-dammit-1.1 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
@@ -87,7 +87,7 @@ function mpfr-just-printit-dammit-1.2 () {
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP WW(mpfr_SIZEOF_MPFR) 1
+	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
 	then mbfl_location_handler "mmux_libc_free WW(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi

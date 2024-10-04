@@ -150,7 +150,7 @@ function mpfr_alloc_and_init () {
     declare -n mpfr_p_PTR=${1:?"missing parameter 1 result MPFR pointer variable name in call to '$FUNCNAME'"}
     declare -r mpfr_p_PREC=$2
 
-    if mmux_libc_calloc mpfr_p_PTR 1 "$mpfr_SIZEOF_MPFR"
+    if mmux_libc_calloc mpfr_p_PTR 1 "$mpfr_SIZEOF"
     then
 	if ! {
 		if test -z "$mpfr_p_PREC" -o "$mpfr_p_PREC" = '0'
@@ -180,13 +180,13 @@ function mpfr_alloc_shell_array () {
     declare -i mpfr_ADIM=${2:?"missing parameter 2 shell array dimension in call to '$FUNCNAME'"}
     declare -i mfr_IDX mpfr_JDX
 
-    if ! mmux_libc_calloc 'mpfr_ARRY[0]' $mpfr_ADIM "$mpfr_SIZEOF_MPFR"
+    if ! mmux_libc_calloc 'mpfr_ARRY[0]' $mpfr_ADIM "$mpfr_SIZEOF"
     then return 1
     fi
 
     for ((mfr_IDX=0, mpfr_JDX=1; mpfr_JDX < mpfr_ADIM; ++mfr_IDX, ++mpfr_JDX))
     do
-	if ! mmux_pointer_add "mpfr_ARRY[$mpfr_JDX]" "${mpfr_ARRY[$mfr_IDX]}" "$mpfr_SIZEOF_MPFR"
+	if ! mmux_pointer_add "mpfr_ARRY[$mpfr_JDX]" "${mpfr_ARRY[$mfr_IDX]}" "$mpfr_SIZEOF"
 	then
 	    mmux_libc_free "${mpfr_ARRY[0]}"
 	    return 1

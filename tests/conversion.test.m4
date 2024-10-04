@@ -58,11 +58,11 @@ function conversion-to-string-1.1 () {
     declare -ri BASE=10 NDIGITS=0
 
     #dotest-set-debug
-    dotest-debug mpfr_SIZEOF_MPFR=$mpfr_SIZEOF_MPFR
+    dotest-debug mpfr_SIZEOF=$mpfr_SIZEOF
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc MPFR_OP $mpfr_SIZEOF_MPFR 1
+	if mmux_libc_calloc MPFR_OP 1 $mpfr_SIZEOF
 	then mbfl_location_handler "mmux_libc_free $MPFR_OP"
 	else mbfl_location_leave_then_return_failure
 	fi
