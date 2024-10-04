@@ -180,7 +180,7 @@ function mpfr-inits-1.1 () {
 	fi
 
 	for ((IDX=1; IDX < OPNUM; ++IDX))
-	do mmux_pointer_add mbfl_slot_spec(OPS,WW(IDX)) mbfl_slot_qref(OPS,0) $(( IDX * mpfr_SIZEOF_MPFR ))
+	do mmux_pointer_add mbfl_slot_spec(OPS,WW(IDX)) WW(OPS,0) $(( IDX * mpfr_SIZEOF_MPFR ))
 	done
 
 	{
@@ -201,19 +201,19 @@ function mpfr-inits-1.1 () {
 	dotest-debug setting
 
 	for ((IDX=0; IDX < OPNUM; ++IDX))
-	do mpfr_set_si mbfl_slot_qref(OPS,WW(IDX)) WW(IDX) WW(MPFR_RNDN)
+	do mpfr_set_si WW(OPS,WW(IDX)) WW(IDX) WW(MPFR_RNDN)
 	done
 
 	for ((IDX=0; IDX < OPNUM; ++IDX))
 	do
-	    RESULT=$(mpfr_just_printit_dammit mbfl_slot_qref(OPS,WW(IDX)))
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,WW(IDX)))
 	    mbfl_slot_set(RESULTS,WW(IDX),$RESULT)
 	done
 
 	for ((IDX=0; IDX < OPNUM; ++IDX))
 	do
-	    dotest-debug check mbfl_slot_qref(EXPECTED_RESULTS,WW(IDX)) mbfl_slot_qref(RESULTS,WW(IDX))
-	    if ! dotest-equal mbfl_slot_qref(EXPECTED_RESULTS,WW(IDX)) mbfl_slot_qref(RESULTS,WW(IDX))
+	    dotest-debug check WW(EXPECTED_RESULTS,WW(IDX)) WW(RESULTS,WW(IDX))
+	    if ! dotest-equal WW(EXPECTED_RESULTS,WW(IDX)) WW(RESULTS,WW(IDX))
 	    then mbfl_location_leave_then_return_failure
 	    fi
 	done
@@ -241,7 +241,7 @@ function mpfr-inits2-1.1 () {
 	fi
 
 	for ((IDX=1; IDX < OPNUM; ++IDX))
-	do mmux_pointer_add mbfl_slot_spec(OPS,WW(IDX)) mbfl_slot_qref(OPS,0) $(( IDX * mpfr_SIZEOF_MPFR ))
+	do mmux_pointer_add mbfl_slot_spec(OPS,WW(IDX)) WW(OPS,0) $(( IDX * mpfr_SIZEOF_MPFR ))
 	done
 
 	{
@@ -262,19 +262,19 @@ function mpfr-inits2-1.1 () {
 	dotest-debug setting
 
 	for ((IDX=0; IDX < OPNUM; ++IDX))
-	do mpfr_set_si mbfl_slot_qref(OPS,WW(IDX)) WW(IDX) WW(MPFR_RNDN)
+	do mpfr_set_si WW(OPS,WW(IDX)) WW(IDX) WW(MPFR_RNDN)
 	done
 
 	for ((IDX=0; IDX < OPNUM; ++IDX))
 	do
-	    RESULT=$(mpfr_just_printit_dammit mbfl_slot_qref(OPS,WW(IDX)))
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,WW(IDX)))
 	    mbfl_slot_set(RESULTS,WW(IDX),$RESULT)
 	done
 
 	for ((IDX=0; IDX < OPNUM; ++IDX))
 	do
-	    dotest-debug check mbfl_slot_qref(EXPECTED_RESULTS,WW(IDX)) mbfl_slot_qref(RESULTS,WW(IDX))
-	    if ! dotest-equal mbfl_slot_qref(EXPECTED_RESULTS,WW(IDX)) mbfl_slot_qref(RESULTS,WW(IDX))
+	    dotest-debug check WW(EXPECTED_RESULTS,WW(IDX)) WW(RESULTS,WW(IDX))
+	    if ! dotest-equal WW(EXPECTED_RESULTS,WW(IDX)) WW(RESULTS,WW(IDX))
 	    then mbfl_location_leave_then_return_failure
 	    fi
 	done
@@ -297,17 +297,15 @@ function mpfr-init-shell-array-1.1 () {
 	{
 	    for ((IDX=0; IDX < ${#OPS[@]}; ++IDX))
 	    do
-		mpfr_set_si ${OPS[$IDX]} $IDX $MPFR_RNDN
-		mpfr_just_printit_dammit ${OPS[$IDX]}
+		mpfr_set_si WW(OPS,WW(IDX)) WW(IDX) $MPFR_RNDN
+		mpfr_just_printit_dammit WW(OPS,WW(IDX))
 	    done
 
-            declare -n ROP=OPS[0]
-            declare -n OP1=OPS[1]
-            declare -n OP2=OPS[2]
+            declare -n ROP=OPS[0] OP1=OPS[1] OP2=OPS[2]
 
-	    mpfr_just_printit_dammit $ROP
-	    mpfr_just_printit_dammit $OP1
-	    mpfr_just_printit_dammit $OP2
+	    mpfr_just_printit_dammit WW(ROP)
+	    mpfr_just_printit_dammit WW(OP1)
+	    mpfr_just_printit_dammit WW(OP2)
 	}
 	mpfr_clear_shell_array OPS
     }
@@ -325,17 +323,15 @@ function mpfr-init-shell-array-1.2 () {
 	{
 	    for ((IDX=0; IDX < ${#OPS[@]}; ++IDX))
 	    do
-		mpfr_set_si ${OPS[$IDX]} $IDX $MPFR_RNDN
-		mpfr_just_printit_dammit ${OPS[$IDX]}
+		mpfr_set_si ${OPS[WW(IDX)]} WW(IDX) $MPFR_RNDN
+		mpfr_just_printit_dammit ${OPS[WW(IDX)]}
 	    done
 
-            declare -n ROP=OPS[0]
-            declare -n OP1=OPS[1]
-            declare -n OP2=OPS[2]
+            declare -n ROP=OPS[0] OP1=OPS[1] OP2=OPS[2]
 
-	    mpfr_just_printit_dammit $ROP
-	    mpfr_just_printit_dammit $OP1
-	    mpfr_just_printit_dammit $OP2
+	    mpfr_just_printit_dammit WW(ROP)
+	    mpfr_just_printit_dammit WW(OP1)
+	    mpfr_just_printit_dammit WW(OP2)
 	}
 	mpfr_clear_shell_array OPS
     }
@@ -350,17 +346,15 @@ function mpfr-init-shell-array-1.3 () {
     {
 	for ((IDX=0; IDX < ${#OPS[@]}; ++IDX))
 	do
-	    mpfr_set_si ${OPS[$IDX]} $IDX $MPFR_RNDN
-	    mpfr_just_printit_dammit ${OPS[$IDX]}
+	    mpfr_set_si ${OPS[WW(IDX)]} WW(IDX) $MPFR_RNDN
+	    mpfr_just_printit_dammit ${OPS[WW(IDX)]}
 	done
 
-        declare -n ROP=OPS[0]
-        declare -n OP1=OPS[1]
-        declare -n OP2=OPS[2]
+        declare -n ROP=OPS[0] OP1=OPS[1] OP2=OPS[2]
 
-	mpfr_just_printit_dammit $ROP
-	mpfr_just_printit_dammit $OP1
-	mpfr_just_printit_dammit $OP2
+	mpfr_just_printit_dammit WW(ROP)
+	mpfr_just_printit_dammit WW(OP1)
+	mpfr_just_printit_dammit WW(OP2)
     }
     mpfr_clear_and_free_shell_array OPS
 }
@@ -373,17 +367,15 @@ function mpfr-init-shell-array-1.4 () {
     {
 	for ((IDX=0; IDX < ${#OPS[@]}; ++IDX))
 	do
-	    mpfr_set_si ${OPS[$IDX]} $IDX $MPFR_RNDN
-	    mpfr_just_printit_dammit ${OPS[$IDX]}
+	    mpfr_set_si ${OPS[WW(IDX)]} WW(IDX) $MPFR_RNDN
+	    mpfr_just_printit_dammit ${OPS[WW(IDX)]}
 	done
 
-        declare -n ROP=OPS[0]
-        declare -n OP1=OPS[1]
-        declare -n OP2=OPS[2]
+        declare -n ROP=OPS[0] OP1=OPS[1] OP2=OPS[2]
 
-	mpfr_just_printit_dammit $ROP
-	mpfr_just_printit_dammit $OP1
-	mpfr_just_printit_dammit $OP2
+	mpfr_just_printit_dammit WW(ROP)
+	mpfr_just_printit_dammit WW(OP1)
+	mpfr_just_printit_dammit WW(OP2)
     }
     mpfr_clear_and_free_shell_array OPS
 }
