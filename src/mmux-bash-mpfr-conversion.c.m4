@@ -202,7 +202,7 @@ mpfr_fits_$1_p_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[2]]]]);
   {
-    return mpfr_fits_$1_p(op, rnd);
+    return (mpfr_fits_$1_p(op, rnd))? MMUX_SUCCESS : MMUX_FAILURE;
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }

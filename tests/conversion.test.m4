@@ -196,26 +196,230 @@ function conversion-mpfr_get_uj-1.1 () {
 
 fi
 
-
-
+
 # mpfr_get_flt
+
+if mmux_bash_pointers_builtin_p mpfr_get_flt
+then
+
+function conversion-mpfr_get_flt-1.1 () {
+    declare -r	INITVAL='1.23'
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_flt WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mmux_float_set_format "%.2f"
+	if ! mpfr_get_flt ROP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-equal WW(INITVAL) WW(ROP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
 # mpfr_get_d
+
+if mmux_bash_pointers_builtin_p mpfr_get_d
+then
+
+function conversion-mpfr_get_d-1.1 () {
+    declare -r	INITVAL='1.23'
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mmux_double_set_format "%.2f"
+	if ! mpfr_get_d ROP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-equal WW(INITVAL) WW(ROP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
 # mpfr_get_ld
+
+if mmux_bash_pointers_builtin_p mpfr_get_ld
+then
+
+function conversion-mpfr_get_ld-1.1 () {
+    declare -r	INITVAL='1.23'
+    declare	ROP OP
+
+    dotest-set-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+
+	if ! mpfr_set_ld WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mpfr_just_printit_dammit WW(OP) >&2
+
+	mmux_ldouble_set_format "%.2lf"
+	if ! mpfr_get_ld ROP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(INITVAL) WW(ROP)
+	dotest-equal WW(INITVAL) WW(ROP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
 # mpfr_get_float128
+
+if mmux_bash_pointers_builtin_p mpfr_get_float128
+then
+
+function conversion-mpfr_get_float128-1.1 () {
+    declare -r	INITVAL='1.23'
+    declare	ROP OP
+
+    dotest-set-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+
+	if ! mpfr_set_float128 WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mmux_float128_set_format "%.2f"
+	if ! mpfr_get_float128 ROP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(INITVAL) WW(ROP)
+	dotest-equal WW(INITVAL) WW(ROP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
 # mpfr_get_decimal64
+
+if mmux_bash_pointers_builtin_p mpfr_get_decimal64
+then
+
+function conversion-mpfr_get_decimal64-1.1 () {
+    declare -r	INITVAL='1.23'
+    declare	ROP OP
+
+    dotest-set-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+
+	if ! mpfr_set_decimal64 WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mmux_decimal64_set_format "%.2f"
+	if ! mpfr_get_decimal64 ROP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(INITVAL) WW(ROP)
+	dotest-equal WW(INITVAL) WW(ROP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
 # mpfr_get_decimal128
+
+if mmux_bash_pointers_builtin_p mpfr_get_decimal128
+then
+
+function conversion-mpfr_get_decimal128-1.1 () {
+    declare -r	INITVAL='1.23'
+    declare	ROP OP
+
+    dotest-set-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+
+	if ! mpfr_set_decimal128 WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mmux_decimal128_set_format "%.2f"
+	if ! mpfr_get_decimal128 ROP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(INITVAL) WW(ROP)
+	dotest-equal WW(INITVAL) WW(ROP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+#
 # mpfr_get_d_2exp
 # mpfr_get_ld_2exp
 # mpfr_frexp
-# mpfr_get_str
-# mpfr_fits_sshort_p
-# mpfr_fits_ushort_p
-# mpfr_fits_sint_p
-# mpfr_fits_uint_p
-# mpfr_fits_slong_p
-# mpfr_fits_ulong_p
-# mpfr_fits_intmax_p
-# mpfr_fits_uintmax_p
 # mpfr_get_z_2exp
 # mpfr_get_z
 # mpfr_get_q
@@ -259,6 +463,350 @@ function conversion-mpfr_get_str-1.1 () {
     mbfl_location_leave
     dotest-equal QQ(EXPECTED_MAN_RESULT) QQ(MAN_RESULT) &&
 	dotest-equal QQ(EXPECTED_EXP_RESULT) QQ(EXP_RESULT)
+}
+
+
+# mpfr_fits_sshort_p
+
+function conversion-mpfr_fits_sshort_p-1.1 () {
+    declare -r	INITVAL=WW(mmux_sshort_MAX)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	#mpfr_just_printit_dammit WW(OP) >&2
+	mpfr_fits_sshort_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+function conversion-mpfr_fits_sshort_p-1.2 () {
+    declare -r	INITVAL=WW(mmux_sshort_MIN)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mpfr_fits_sshort_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+
+
+# mpfr_fits_ushort_p
+
+function conversion-mpfr_fits_ushort_p-1.1 () {
+    declare -r	INITVAL=WW(mmux_ushort_MAX)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	#mpfr_just_printit_dammit WW(OP) >&2
+	mpfr_fits_ushort_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+function conversion-mpfr_fits_ushort_p-1.2 () {
+    declare -r	INITVAL=WW(mmux_ushort_MIN)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mpfr_fits_ushort_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+
+
+# mpfr_fits_sint_p
+
+function conversion-mpfr_fits_sint_p-1.1 () {
+    declare -r	INITVAL=WW(mmux_sint_MAX)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	#mpfr_just_printit_dammit WW(OP) >&2
+	mpfr_fits_sint_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+function conversion-mpfr_fits_sint_p-1.2 () {
+    declare -r	INITVAL=WW(mmux_sint_MIN)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mpfr_fits_sint_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+
+
+# mpfr_fits_uint_p
+
+function conversion-mpfr_fits_uint_p-1.1 () {
+    declare -r	INITVAL=WW(mmux_uint_MAX)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	#mpfr_just_printit_dammit WW(OP) >&2
+	mpfr_fits_uint_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+function conversion-mpfr_fits_uint_p-1.2 () {
+    declare -r	INITVAL=WW(mmux_uint_MIN)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mpfr_fits_uint_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+
+
+# mpfr_fits_slong_p
+
+function conversion-mpfr_fits_slong_p-1.1 () {
+    declare -r	INITVAL=WW(mmux_slong_MAX)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDD)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	#mpfr_just_printit_dammit WW(OP) >&2
+	mpfr_fits_slong_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+function conversion-mpfr_fits_slong_p-1.2 () {
+    declare -r	INITVAL=WW(mmux_slong_MIN)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDU)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mpfr_fits_slong_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+
+
+# mpfr_fits_ulong_p
+
+function conversion-mpfr_fits_ulong_p-1.1 () {
+    declare -r	INITVAL=WW(mmux_ulong_MAX)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_ui WW(OP) WW(INITVAL) WW(MPFR_RNDD)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	#mpfr_just_printit_dammit WW(OP) >&2
+	mpfr_fits_ulong_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+function conversion-mpfr_fits_ulong_p-1.2 () {
+    declare -r	INITVAL=WW(mmux_ulong_MIN)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_ui WW(OP) WW(INITVAL) WW(MPFR_RNDU)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mpfr_fits_ulong_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+
+
+# mpfr_fits_intmax_p
+
+function conversion-mpfr_fits_intmax_p-1.1 () {
+    declare -r	INITVAL=WW(mmux_sintmax_MAX)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_sj WW(OP) WW(INITVAL) WW(MPFR_RNDD)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	#mpfr_just_printit_dammit WW(OP) >&2
+	mpfr_fits_intmax_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+function conversion-mpfr_fits_intmax_p-1.2 () {
+    declare -r	INITVAL=WW(mmux_sintmax_MIN)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_sj WW(OP) WW(INITVAL) WW(MPFR_RNDU)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mpfr_fits_intmax_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+
+
+# mpfr_fits_uintmax_p
+
+function conversion-mpfr_fits_uintmax_p-1.1 () {
+    declare -r	INITVAL=WW(mmux_uintmax_MAX)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_uj WW(OP) WW(INITVAL) WW(MPFR_RNDD)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	#mpfr_just_printit_dammit WW(OP) >&2
+	mpfr_fits_uintmax_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
+}
+function conversion-mpfr_fits_uintmax_p-1.2 () {
+    declare -r	INITVAL=WW(mmux_uintmax_MIN)
+    declare	ROP OP
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_set_uj WW(OP) WW(INITVAL) WW(MPFR_RNDU)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mpfr_fits_uintmax_p WW(OP) WW(MPFR_RNDN)
+    }
+    mbfl_location_leave
 }
 
 
