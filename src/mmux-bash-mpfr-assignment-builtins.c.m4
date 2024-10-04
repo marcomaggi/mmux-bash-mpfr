@@ -58,22 +58,22 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[["Set an already initialised number MPFR_ROP to the given operand $3."]]])
 ]]])]]])
 
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_si]]], [[[mmux_libc_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ui]]],	[[[mmux_libc_ulong_t]]],  [[[ULONG]]],	 [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_sj]]], [[[mmux_libc_sintmax_t]]],[[[SINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_uj]]],	[[[mmux_libc_uintmax_t]]],[[[UINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_flt]]],[[[mmux_libc_float_t]]],  [[[FLOAT]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_d]]],	[[[mmux_libc_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ld]]],	[[[mmux_libc_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_si]]], [[[mmux_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ui]]],	[[[mmux_ulong_t]]],  [[[ULONG]]],	 [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_sj]]], [[[mmux_sintmax_t]]],[[[SINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_uj]]],	[[[mmux_uintmax_t]]],[[[UINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_flt]]],[[[mmux_float_t]]],  [[[FLOAT]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_d]]],	[[[mmux_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ld]]],	[[[mmux_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
 			     [[[MMUX_BASH_MPFR_HAVE_LDOUBLE]]])
 
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_float128]]],   [[[mmux_libc_float128_t]]],  [[[FLOAT128]]],
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_float128]]],   [[[mmux_float128_t]]],  [[[FLOAT128]]],
 			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT128]]], [[[MMUX_BASH_MPFR_HAVE_FLOAT128]]])
 
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_decimal64]]],	[[[mmux_libc_decimal64_t]]], [[[DECIMAL64]]],
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_decimal64]]],	[[[mmux_decimal64_t]]], [[[DECIMAL64]]],
 			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL64]]], [[[MMUX_BASH_MPFR_HAVE_DECIMAL64]]])
 
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_decimal128]]],	[[[mmux_libc_decimal128_t]]],[[[DECIMAL128]]],
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_decimal128]]],	[[[mmux_decimal128_t]]],[[[DECIMAL128]]],
 			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL128]]], [[[MMUX_BASH_MPFR_HAVE_DECIMAL128]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
@@ -113,10 +113,10 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[["Set an already initialised MPFR number to the given $3."]]])
 ]]])
 
-MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_si_2exp]]], [[[mmux_libc_slong_t]]],  [[[SLONG]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
-MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_ui_2exp]]], [[[mmux_libc_ulong_t]]],  [[[ULONG]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
-MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_sj_2exp]]], [[[mmux_libc_sintmax_t]]],[[[SINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX]]])
-MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_uj_2exp]]], [[[mmux_libc_uintmax_t]]],[[[UINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_si_2exp]]], [[[mmux_slong_t]]],  [[[SLONG]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_ui_2exp]]], [[[mmux_ulong_t]]],  [[[ULONG]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_sj_2exp]]], [[[mmux_sintmax_t]]],[[[SINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_uj_2exp]]], [[[mmux_uintmax_t]]],[[[UINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]])
 MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_z_2exp]]],  [[[mpz_ptr]]],            [[[MPZ_PTR]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
 
 
@@ -149,10 +149,10 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[["Initialise then set a MPFR number to the given operand $3."]]])
 ]]])]]])
 
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_si]]],[[[mmux_libc_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ui]]],[[[mmux_libc_ulong_t]]],  [[[ULONG]]],	 [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_d]]],	[[[mmux_libc_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ld]]],[[[mmux_libc_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_si]]],[[[mmux_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ui]]],[[[mmux_ulong_t]]],  [[[ULONG]]],	 [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_d]]],	[[[mmux_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ld]]],[[[mmux_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
 			 [[[MMUX_BASH_MPFR_HAVE_LDOUBLE]]])
 
 DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
