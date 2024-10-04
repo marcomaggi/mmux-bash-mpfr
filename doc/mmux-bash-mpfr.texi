@@ -45,6 +45,10 @@
 @end macro
 @end ifnotinfo
 
+@macro WW{VARNAME}
+$@{\VARNAME\:?@}
+@end macro
+
 @c page
 @c ------------------------------------------------------------
 @c Values.
@@ -164,7 +168,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * variables::                   Global variables.
 * init::                        Initialisation and finalisation.
 * assignment::                  Assignment builtins.
-* conversion::                  Converting numbers to/from other representations.
+* conversion::                  Converting numbers to other representations.
 * io::                          Input, output, printing.
 
 Appendices
@@ -198,11 +202,11 @@ Library}, @mpfr{}.
 @example
 declare X
 
-mmux_libc_malloc X $mpfr_SIZEOF_MPFR
-mpfr_init $X
-mpfr_set_d $X '1.23' $MPFR_RNDN
-mpfr_clear $X
-mmux_libc_free $X
+mmux_libc_malloc X @WW{mpfr_SIZEOF_MPFR}
+mpfr_init @WW{X}
+mpfr_set_d @WW{X} '1.23' @WW{MPFR_RNDN}
+mpfr_clear @WW{X}
+mmux_libc_free @WW{X}
 @end example
 
 @menu
@@ -253,7 +257,7 @@ we can write code that links to the shared library to reuse some of its faciliti
 @cindex \STEM\, builtin argument
 @cindex builtin argument \STEM\
 @cindex argument \STEM\, for builtins
-A string representation of a value of type @objtype{mmux_libc_\LOSTEM\_t}.
+A string representation of a value of type @objtype{mmux_\LOSTEM\_t}.
 
 @end macro
 
@@ -368,25 +372,25 @@ variable named @code{MPFR_RV}.
 declare ROP OP1 OP2
 declare MPFR_RV
 
-mmux_libc_calloc ROP $mpfr_SIZEOF_MPFR 3
-mmux_pointer_add OP1 ROP $mpfr_SIZEOF_MPFR
-mmux_pointer_add OP2 OP1 $mpfr_SIZEOF_MPFR
+mmux_libc_calloc ROP @WW{mpfr_SIZEOF_MPFR} 3
+mmux_pointer_add OP1 ROP @WW{mpfr_SIZEOF_MPFR}
+mmux_pointer_add OP2 OP1 @WW{mpfr_SIZEOF_MPFR}
 @{
-    mpfr_init $ROP
-    mpfr_init $OP1
-    mpfr_init $OP2
+    mpfr_init @WW{ROP}
+    mpfr_init @WW{OP1}
+    mpfr_init @WW{OP2}
     @{
-        mpfr_set_si $OP1 123
-        mpfr_set_si $OP2 456
+        mpfr_set_si @WW{OP1} 123
+        mpfr_set_si @WW{OP2} 456
 
-        mpfr_add $ROP $OP1 $OP2
-        printf '%d\n' "$MPFR_RV"  @print{} [whatever is returned by the C function mpfr_add()]
+        mpfr_add @WW{ROP} @WW{OP1} @WW{OP2}
+        printf '%d\n' "@WW{MPFR_RV}"  @print{} [whatever is returned by the C function mpfr_add()]
     @}
-    mpfr_clear $OP2
-    mpfr_clear $OP1
-    mpfr_clear $ROP
+    mpfr_clear @WW{OP2}
+    mpfr_clear @WW{OP1}
+    mpfr_clear @WW{ROP}
 @}
-mmux_libc_free $ROP
+mmux_libc_free @WW{ROP}
 @end example
 
 
@@ -503,15 +507,15 @@ When successful: return true; otherwise return false.
 @example
 declare OP1 OP2
 
-mmux_libc_calloc OP $mpfr_SIZEOF_MPFR 1
+mmux_libc_calloc OP @WW{mpfr_SIZEOF_MPFR} 1
 @{
-    mpfr_init $OP
+    mpfr_init @WW{OP}
     @{
-        mpfr_set_si $OP 123 $MPFR_RNDN
+        mpfr_set_si @WW{OP} 123 @WW{MPFR_RNDN}
     @}
-    mpfr_clear $OP
+    mpfr_clear @WW{OP}
 @}
-mmux_libc_free $OP
+mmux_libc_free @WW{OP}
 @end example
 @end deffn
 
@@ -525,18 +529,18 @@ When successful: return true; otherwise return false.
 @example
 declare OP1 OP2
 
-mmux_libc_calloc OP1 $mpfr_SIZEOF_MPFR 2
+mmux_libc_calloc OP1 @WW{mpfr_SIZEOF_MPFR} 2
 @{
-    mmux_pointer_add OP2 $OP1 $mpfr_SIZEOF_MPFR
+    mmux_pointer_add OP2 @WW{OP1} @WW{mpfr_SIZEOF_MPFR}
 
-    mpfr_inits $OP1 $OP2
+    mpfr_inits @WW{OP1} @WW{OP2}
     @{
-        mpfr_set_si $OP1 -12 $MPFR_RNDN
-        mpfr_set_ui $OP2 +34 $MPFR_RNDN
+        mpfr_set_si @WW{OP1} -12 @WW{MPFR_RNDN}
+        mpfr_set_ui @WW{OP2} +34 @WW{MPFR_RNDN}
     @}
-    mpfr_clears $OP1 $OP2
+    mpfr_clears @WW{OP1} @WW{OP2}
 @}
-mmux_libc_free $OP1
+mmux_libc_free @WW{OP1}
 @end example
 @end deffn
 
@@ -548,10 +552,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_si $OP 123 $MPFR_RNDN
-    mpfr_just_printit_dammit $OP
+    mpfr_set_si @WW{OP} 123 @WW{MPFR_RNDN}
+    mpfr_just_printit_dammit @WW{OP}
 @}
-mpfr_clear_and_free $OP
+mpfr_clear_and_free @WW{OP}
 @end example
 
 
@@ -580,12 +584,12 @@ numbers; then we can initialise and finalise all the numbers with a single funct
 declare -a OPS
 declare -i NUM=5 IDX
 
-mpfr_alloc_shell_array OPS $NUM
+mpfr_alloc_shell_array OPS @WW{NUM}
 @{
     mpfr_init_shell_array OPS
     @{
         for ((IDX=0; IDX < $@{#OPS[@@]@}; ++IDX))
-        do mpfr_set_si $@{OPS[$IDX]@} $IDX $MPFR_RNDN
+        do mpfr_set_si $@{OPS[@WW{IDX}]@} @WW{IDX} @WW{MPFR_RNDN}
         done
 
         # We can access the individual numbers.
@@ -593,9 +597,9 @@ mpfr_alloc_shell_array OPS $NUM
         declare -n OP1=OPS[1]
         declare -n OP2=OPS[2]
 
-        mpfr_just_printit_dammit $ROP
-        mpfr_just_printit_dammit $OP1
-        mpfr_just_printit_dammit $OP2
+        mpfr_just_printit_dammit @WW{ROP}
+        mpfr_just_printit_dammit @WW{OP1}
+        mpfr_just_printit_dammit @WW{OP2}
     @}
     mpfr_clear_shell_array OPS
 @}
@@ -675,9 +679,9 @@ When successful: return true; otherwise return false.
 declare -r NEW_PREC=17
 declare PREC
 
-mpfr_set_default_prec $NEW_PREC
+mpfr_set_default_prec @WW{NEW_PREC}
 mpfr_get_default_prec PREC
-$PREC   @result{} 17
+@WW{PREC}   @result{} 17
 @end example
 @end defun
 
@@ -700,10 +704,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_d $OP '1.23' $MPFR_RNDN
-    mpfr_just_printit_dammit $OP
+    mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
+    mpfr_just_printit_dammit @WW{OP}
 @}
-mpfr_clear_and_free $OP
+mpfr_clear_and_free @WW{OP}
 @end example
 
 
@@ -755,10 +759,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_str $OP $STR $BASE $MPFR_RNDN
-    mpfr_just_printit_dammit $OP
+    mpfr_set_str @WW{OP} @WW{STR} @WW{BASE} @WW{MPFR_RNDN}
+    mpfr_just_printit_dammit @WW{OP}
 @}
-mpfr_clear_and_free $OP
+mpfr_clear_and_free @WW{OP}
 @end example
 @end deffn
 
@@ -779,10 +783,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_inf $OP +1
-    mpfr_just_printit_dammit $OP
+    mpfr_set_inf @WW{OP} +1
+    mpfr_just_printit_dammit @WW{OP}
 @}
-mpfr_clear_and_free $OP
+mpfr_clear_and_free @WW{OP}
 @end example
 @end deffn
 
@@ -797,10 +801,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_zero $OP +1
-    mpfr_just_printit_dammit $OP
+    mpfr_set_zero @WW{OP} +1
+    mpfr_just_printit_dammit @WW{OP}
 @}
-mpfr_clear_and_free $OP
+mpfr_clear_and_free @WW{OP}
 @end example
 @end deffn
 
@@ -830,7 +834,7 @@ return false.
 
 @c page
 @node conversion
-@chapter Converting numbers to/from other representations
+@chapter Converting numbers to other representations
 
 
 @ref{overview conventions, Conventions used in this documentation}.
@@ -852,19 +856,19 @@ error occurs, the variable is left untouched.
 declare -ri BASE=10 NDIGITS=0
 declare OP MAN EXP
 
-mmux_libc_calloc OP 1 $mpfr_SIZEOF_MPFR
+mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF_MPFR}
 @{
-  mpfr_init $OP
+  mpfr_init @WW{OP}
   @{
-    mpfr_set_d $OP '1.23' $MPFR_RNDN
-    mpfr_get_str MAN EXP $BASE $NDIGITS $OP $MPFR_RNDN
+    mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
+    mpfr_get_str MAN EXP @WW{BASE} @WW{NDIGITS} @WW{OP} @WW{MPFR_RNDN}
   @}
-  mpfr_clear $OP
+  mpfr_clear @WW{OP}
 @}
-mmux_libc_free $OP
+mmux_libc_free @WW{OP}
 
-$MAN            @result{} 12300000000000000
-$EXP            @result{} 1
+@WW{MAN}            @result{} 12300000000000000
+@WW{EXP}            @result{} 1
 @end example
 @end deffn
 
@@ -885,9 +889,9 @@ Printing an initialised but unset number:
 @example
 declare OP
 
-mmux_libc_calloc OP $mpfr_SIZEOF_MPFR 1
-mpfr_init $OP
-mpfr_dump $OP   @print{} @@NaN@@
+mmux_libc_calloc OP @WW{mpfr_SIZEOF_MPFR} 1
+mpfr_init @WW{OP}
+mpfr_dump @WW{OP}   @print{} @@NaN@@
 @end example
 
 Printing an initialised and set number:
@@ -895,10 +899,10 @@ Printing an initialised and set number:
 @example
 declare OP
 
-mmux_libc_calloc OP $mpfr_SIZEOF_MPFR 1
-mpfr_init $OP
-mpfr_set_d $OP '2.0'
-mpfr_dump $OP
+mmux_libc_calloc OP @WW{mpfr_SIZEOF_MPFR} 1
+mpfr_init @WW{OP}
+mpfr_set_d @WW{OP} '2.0'
+mpfr_dump @WW{OP}
 @print{} 0.10000000000000000000000000000000000000000000000000000E2
 @end example
 @end deffn
@@ -911,10 +915,10 @@ the format is meant to resemble the standard @samp{%.6e}.
 @example
 declare OP
 
-mmux_libc_calloc OP $mpfr_SIZEOF_MPFR 1
-mpfr_init $OP
-mpfr_set_d $OP '123.4567890' $MPFR_RNDN
-mpfr_just_printit_dammit $OP
+mmux_libc_calloc OP @WW{mpfr_SIZEOF_MPFR} 1
+mpfr_init @WW{OP}
+mpfr_set_d @WW{OP} '123.4567890' @WW{MPFR_RNDN}
+mpfr_just_printit_dammit @WW{OP}
 @print{} 0.123457e3
 @end example
 @end defun
