@@ -74,7 +74,7 @@ mpfr_sgn_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
   {
     int	rv = mpfr_sgn(op);
-    return mmux_bash_pointers_store_result_in_variable_sint(argv[1], rv, MMUX_BUILTIN_NAME);
+    return mmux_sint_bind_to_variable(argv[1], rv, MMUX_BUILTIN_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }

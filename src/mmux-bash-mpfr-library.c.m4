@@ -62,7 +62,7 @@ mmux_bash_mpfr_version_interface_age (void)
 int
 mmux_bash_mpfr_set_MPFR_RV (int value, char const * const caller_name)
 {
-  return mmux_bash_pointers_store_result_in_variable_sint("MPFR_RV", value, caller_name);
+  return mmux_sint_bind_to_variable("MPFR_RV", value, caller_name);
 }
 
 

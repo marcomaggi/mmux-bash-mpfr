@@ -110,25 +110,25 @@ mmux_bash_mpfr_decl int		mmux_bash_mpfr_version_interface_age		(void);
  ** Type functions.
  ** ----------------------------------------------------------------- */
 
-mmux_bash_mpfr_decl int mmux_bash_mpfr_parse_mpfr_ptr (mpfr_ptr   * p_value, char const * const s_value, char const * const caller_name)
+mmux_bash_mpfr_decl int mmux_mpfr_ptr_parse (mpfr_ptr   * p_value, char const * const s_value, char const * const caller_name)
   __attribute__((__nonnull__(1,2)));
-mmux_bash_mpfr_decl int	mmux_bash_mpfr_parse_mpfr_rnd (mpfr_rnd_t * p_value, char const * const s_value, char const * const caller_name)
+mmux_bash_mpfr_decl int	mmux_mpfr_rnd_parse (mpfr_rnd_t * p_value, char const * const s_value, char const * const caller_name)
   __attribute__((__nonnull__(1,2)));
-mmux_bash_mpfr_decl int mmux_bash_mpfr_parse_mpfr_exp (mpfr_exp_t * p_value, char const * const s_value, char const * const caller_name)
+mmux_bash_mpfr_decl int mmux_mpfr_exp_parse (mpfr_exp_t * p_value, char const * const s_value, char const * const caller_name)
   __attribute__((__nonnull__(1,2)));
-mmux_bash_mpfr_decl int mmux_bash_mpfr_parse_mpfr_prec (mpfr_prec_t * p_value, char const * const s_value, char const * const caller_name)
+mmux_bash_mpfr_decl int mmux_mpfr_prec_parse (mpfr_prec_t * p_value, char const * const s_value, char const * const caller_name)
   __attribute__((__nonnull__(1,2)));
 
-mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_ptr (char const * variable_name, mpfr_ptr value,
+mmux_bash_mpfr_decl int mmux_mpfr_ptr_bind_to_variable (char const * variable_name, mpfr_ptr value,
 									  char const * caller_name)
   __attribute__((__nonnull__(1)));
-mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_rnd (char const * variable_name, mpfr_rnd_t value,
+mmux_bash_mpfr_decl int mmux_mpfr_rnd_bind_to_variable (char const * variable_name, mpfr_rnd_t value,
 									  char const * caller_name)
   __attribute__((__nonnull__(1)));
-mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_exp (char const * variable_name, mpfr_exp_t value,
+mmux_bash_mpfr_decl int mmux_mpfr_exp_bind_to_variable (char const * variable_name, mpfr_exp_t value,
 									  char const * caller_name)
   __attribute__((__nonnull__(1)));
-mmux_bash_mpfr_decl int mmux_bash_mpfr_store_result_in_variable_mpfr_prec (char const * variable_name, mpfr_prec_t value,
+mmux_bash_mpfr_decl int mmux_mpfr_prec_bind_to_variable (char const * variable_name, mpfr_prec_t value,
 									  char const * caller_name)
   __attribute__((__nonnull__(1)));
 

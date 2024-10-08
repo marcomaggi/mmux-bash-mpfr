@@ -48,7 +48,7 @@ $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
     mmux_$2_t	value;
 
     value = $1(op, rnd);
-    return mmux_bash_pointers_store_result_in_variable_$2(argv[1], value, MMUX_BUILTIN_NAME);
+    return mmux_$2_bind_to_variable(argv[1], value, MMUX_BUILTIN_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -92,11 +92,11 @@ $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
     int			rv;
 
     value	= $1(&exp, op, rnd);
-    rv = mmux_bash_pointers_store_result_in_variable_$2(argv[1], value, MMUX_BUILTIN_NAME);
+    rv = mmux_$2_bind_to_variable(argv[1], value, MMUX_BUILTIN_NAME);
     if (MMUX_SUCCESS != rv) {
       return rv;
     } else {
-      return mmux_bash_pointers_store_result_in_variable_slong(argv[2], exp, MMUX_BUILTIN_NAME);
+      return mmux_slong_bind_to_variable(argv[2], exp, MMUX_BUILTIN_NAME);
     }
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
@@ -130,7 +130,7 @@ mpfr_frexp_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
     rv_mpfr = mpfr_frexp(&exp, op1, op2, rnd);
     rv      = mmux_bash_mpfr_set_MPFR_RV(rv_mpfr, MMUX_BUILTIN_NAME);
     if (MMUX_SUCCESS == rv) {
-      return mmux_bash_mpfr_store_result_in_variable_mpfr_exp(argv[1], exp, MMUX_BUILTIN_NAME);
+      return mmux_mpfr_exp_bind_to_variable(argv[1], exp, MMUX_BUILTIN_NAME);
     } else {
       return rv;
     }
@@ -172,7 +172,7 @@ mpfr_get_str_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
       if (MMUX_SUCCESS != rv) {
 	return rv;
       } else {
-	return mmux_bash_mpfr_store_result_in_variable_mpfr_exp (argv[2], exp, MMUX_BUILTIN_NAME);
+	return mmux_mpfr_exp_bind_to_variable (argv[2], exp, MMUX_BUILTIN_NAME);
       }
     }
     /* If  the  generation of  a  value  for "str"  fails:  the  input arugments  are
@@ -238,7 +238,7 @@ mpfr_get_z_2exp_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[3]]]]);
   {
     mpfr_exp_t	exp = mpfr_get_z_2exp(rop, op);
-    return mmux_bash_mpfr_store_result_in_variable_mpfr_exp(argv[1], exp, MMUX_BUILTIN_NAME);
+    return mmux_mpfr_exp_bind_to_variable(argv[1], exp, MMUX_BUILTIN_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -334,7 +334,7 @@ mpfr_get_str_ndigits_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const ar
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC([[[prec]]],	[[[argv[3]]]]);
   {
     mmux_ssize_t	rv = mpfr_get_str_ndigits(B, prec);
-    return mmux_bash_pointers_store_result_in_variable_ssize(argv[1], rv, MMUX_BUILTIN_NAME);
+    return mmux_ssize_bind_to_variable(argv[1], rv, MMUX_BUILTIN_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
