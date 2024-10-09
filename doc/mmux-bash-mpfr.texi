@@ -374,16 +374,18 @@ invalid argument type.
 @cindex @code{ERRNO}, shell variable
 @cindex variable @code{ERRNO}, shell variable
 @cindex shell variable @code{ERRNO}
-If a builtin performs a call to a system function: that function might set the standard @code{errno}
-variable; the builtin consumes the value, clears @code{errno}, might set the shell variable
-@code{ERRNO} (when documented to do so), returns false.
+If a builtin performs a call to a system function: that function might set the standard C language
+@code{errno} variable; the builtin consumes the value, it clears @code{errno}, it might set the
+shell variable @code{ERRNO} (when documented to do so), it returns false.
 
+@cindex @code{ERRNO}, shell variable
+@cindex shell variable @code{ERRNO}
 If an argument to builtin is invalid: the builtin returns false and sets the shell variable
 @code{ERRNO} to @samp{EINVAL}.
 
-Many @mpfr{} functions return a useful(?) value; the corresponding reserves the return value to
-signal if an error occurred.  @mpfr{} function's return values are stored in a shell variable named
-@code{MPFR_RV}.
+Many @mpfr{} C language functions return a useful(?) value; the corresponding builtin reserves the
+return value to signal if an error occurred.  @mpfr{} function's return values are stored in a shell
+variable named @code{MPFR_RV}.
 
 @example
 declare -a OPS
@@ -396,7 +398,7 @@ mpfr_alloc_and_init_shell_array OPS 3
     mpfr_set_si @WW{OP1} 123 @WW{MPFR_RNDN}
     mpfr_set_si @WW{OP2} 456 @WW{MPFR_RNDN}
 
-    mpfr_add @WW{ROP} @WW{OP1} @WW{OP2}
+    mpfr_add @WW{ROP} @WW{OP1} @WW{OP2} @WW{MPFR_RNDN}
     printf '%d\n' "@WW{MPFR_RV}"  @print{} [whatever is returned by the C function mpfr_add()]
 @}
 mpfr_clear_and_free_shell_array OPS
