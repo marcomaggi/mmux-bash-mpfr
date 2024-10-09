@@ -1038,6 +1038,8 @@ mpfr_clear_and_free_shell_array OPS
 * arithmetic multiplication::   Multiplication builtins.
 * arithmetic subtraction::      Subtraction builtins.
 * arithmetic division::         Division builtins.
+* arithmetic powers::           Powers and roots builtins.
+* arithmetic misc::             Miscellaneous builtins.
 @end menu
 
 @c page
@@ -1181,6 +1183,76 @@ Interface to the C language function @cfunc{mpfr_div_z}.
 @deffn Builtin mpfr_div_q @var{MPFR_ROP} @var{MPFR_OP} @var{MPQ_PTR} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_div_q}.
 @end deffn
+
+@c page
+@node arithmetic powers
+@section Powers and roots builtins
+
+
+@deffn Builtin mpfr_sqr @var{MPFR_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_sqr}.
+@end deffn
+
+
+@deffn Builtin mpfr_sqrt @var{MPFR_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_sqrt}.
+@end deffn
+
+
+@deffn Builtin mpfr_sqrt_ui @var{MPFR_ROP} @var{ULONG} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_sqrt_ui}.
+@end deffn
+
+
+@deffn Builtin mpfr_rec_sqrt @var{MPFR_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_rec_sqrt}.
+
+@example
+declare OPS
+
+mpfr_alloc_and_init_shell_array OPS 2
+@{
+    declare -n ROP='OPS[0]' OP='OPS[1]'
+
+    mpfr_set_si @WW{OP} 100 @WW{MPFR_RNDN}
+    mpfr_rec_sqrt @WW{ROP} @WW{OP} @WW{MPFR_RNDN}
+
+    # 1 / sqrt(100) = 1 / 10 = 0.1
+    mpfr_just_printit_dammit @WW{ROP}   @print{} 0.100000e0
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_cbrt @var{MPFR_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_cbrt}.
+@end deffn
+
+
+@deffn Builtin mpfr_rootn_si @var{MPFR_ROP} @var{MPFR_OP} @var{SLONG_N} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_rootn_si}.
+@end deffn
+
+
+@deffn Builtin mpfr_rootn_ui @var{MPFR_ROP} @var{MPFR_OP} @var{ULONG_N} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_rootn_ui}.
+@end deffn
+
+@c page
+@node arithmetic misc
+@section Miscellaneous builtins
+
+
+@deffn Builtin mpfr_neg @var{MPFR_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_neg}.
+@end deffn
+
+
+@deffn Builtin mpfr_abs @var{MPFR_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_abs}.
+@end deffn
+
 
 @c page
 @node io

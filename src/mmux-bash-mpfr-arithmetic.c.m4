@@ -364,5 +364,232 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_div]]],
     [[["mpfr_div MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
     [[["Divide two numbers, store the result in ROP."]]])
 
+
+/** --------------------------------------------------------------------
+ ** Powers and roots.
+ ** ----------------------------------------------------------------- */
+
+static int
+mpfr_sqr_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_sqr"
+{
+  mpfr_ptr		rop, op;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_sqr(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_sqr]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_sqr MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Square a number, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_sqrt_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_sqrt"
+{
+  mpfr_ptr		rop, op;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_sqrt(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_sqrt]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_sqrt MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Compute the square root of a number, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_sqrt_ui_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_sqrt_ui"
+{
+  mpfr_ptr	rop;
+  mmux_ulong_t	op;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[op]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_sqrt_ui(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_sqrt_ui]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_sqrt_ui MPFR_ROP ULONG MPFR_RND"]]],
+    [[["Compute the square root of a number, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_rec_sqrt_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_rec_sqrt"
+{
+  mpfr_ptr		rop, op;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_rec_sqrt(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_rec_sqrt]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_rec_sqrt MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Compute the reqciprocal square root of a number, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_cbrt_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_cbrt"
+{
+  mpfr_ptr		rop, op;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_cbrt(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_cbrt]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_cbrt MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Compute the cubic root of a number, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_rootn_ui_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_rootn_ui"
+{
+  mpfr_ptr		rop, op;
+  mmux_ulong_t		N;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[N]]],		[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = mpfr_rootn_ui(rop, op, N, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_rootn_ui]]],
+    [[[(5 == argc)]]],
+    [[["mpfr_rootn_ui MPFR_ROP MPFR_OP ULONG_N MPFR_RND"]]],
+    [[["Compute the Nth root of a number, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_rootn_si_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_rootn_si"
+{
+  mpfr_ptr		rop, op;
+  mmux_slong_t		N;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_SLONG([[[N]]],		[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = mpfr_rootn_si(rop, op, N, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_rootn_si]]],
+    [[[(5 == argc)]]],
+    [[["mpfr_rootn_si MPFR_ROP MPFR_OP SLONG_N MPFR_RND"]]],
+    [[["Compute the Nth root of a number, store the result in ROP."]]])
+
+
+/** --------------------------------------------------------------------
+ ** Miscellaneous.
+ ** ----------------------------------------------------------------- */
+
+static int
+mpfr_neg_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_neg"
+{
+  mpfr_ptr		rop, op;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_neg(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_neg]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_neg MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Negate a number, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_abs_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_abs"
+{
+  mpfr_ptr		rop, op;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_abs(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_abs]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_abs MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Compute the absolute value of a number, store the result in ROP."]]])
+
 
 /* end of file */

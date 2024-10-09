@@ -54,6 +54,8 @@ function mmux-bash-mpfr-library-load () {
 					 mpfr_mul mpfr_mul_si mpfr_mul_ui mpfr_mul_d mpfr_mul_z mpfr_mul_q
 					 mpfr_sub mpfr_sub_si mpfr_sub_ui mpfr_sub_d mpfr_sub_z mpfr_sub_q mpfr_si_sub mpfr_ui_sub mpfr_d_sub
 					 mpfr_div mpfr_div_si mpfr_div_ui mpfr_div_d mpfr_div_z mpfr_div_q mpfr_si_div mpfr_ui_div mpfr_d_div
+					 mpfr_sqr mpfr_sqrt mpfr_sqrt_ui mpfr_rec_sqrt mpfr_cbrt mpfr_rootn_ui mpfr_rootn_si
+					 mpfr_neg mpfr_abs
 
 					 mpfr_nan_p mpfr_inf_p mpfr_zero_p mpfr_number_p mpfr_regular_p
 					 mpfr_sgn
