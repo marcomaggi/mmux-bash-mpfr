@@ -269,10 +269,10 @@ if mmux_bash_pointers_builtin_p mpfr_get_ld
 then
 
 function conversion-mpfr_get_ld-1.1 () {
-    declare -r	INITVAL='1.23'
+    declare -r	INITVAL='1.230000'
     declare	ROP OP
 
-    dotest-set-debug
+    dotest-unset-debug
 
     mbfl_location_enter
     {
@@ -281,20 +281,20 @@ function conversion-mpfr_get_ld-1.1 () {
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
 
 	if ! mpfr_set_ld WW(OP) WW(INITVAL) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	mpfr_just_printit_dammit WW(OP) >&2
+	dotest-debug OP=$(mpfr_just_printit_dammit WW(OP))
 
-	mmux_ldouble_set_format "%.2lf"
+	mmux_ldouble_set_format "%f"
 	if ! mpfr_get_ld ROP WW(OP) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(INITVAL) WW(ROP)
+	dotest-debug INITVAL=WW(INITVAL) ROP=WW(ROP)
 	dotest-equal WW(INITVAL) WW(ROP)
     }
     mbfl_location_leave
@@ -321,18 +321,20 @@ function conversion-mpfr_get_float128-1.1 () {
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
 
 	if ! mpfr_set_float128 WW(OP) WW(INITVAL) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	mmux_float128_set_format "%.2f"
+	dotest-debug OP=$(mpfr_just_printit_dammit WW(OP))
+
+	mmux_float128_set_format "%f"
 	if ! mpfr_get_float128 ROP WW(OP) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(INITVAL) WW(ROP)
+	dotest-debug INITVAL=WW(INITVAL) ROP=WW(ROP)
 	dotest-equal WW(INITVAL) WW(ROP)
     }
     mbfl_location_leave
@@ -416,8 +418,48 @@ function conversion-mpfr_get_decimal128-1.1 () {
 
 fi
 
-#
+
 # mpfr_get_d_2exp
+
+if mmux_bash_pointers_builtin_p mpfr_get_d_2exp
+then
+
+function conversion-mpfr_get_d_2exp-1.1 () {
+    declare -r	INITVAL='1.23'
+    declare	MAN EXP OP
+
+    dotest-set-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+
+	if ! mpfr_set_decimal128 WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mmux_double_set_format "%.2f"
+	if ! mpfr_get_d_2exp MAN EXP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug WW(MAN) WW(EXP) WW(INITVAL) WW(ROP)
+	dotest-equal WW(INITVAL) WW(ROP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
+
+#
+#
 # mpfr_get_ld_2exp
 # mpfr_frexp
 # mpfr_get_z_2exp

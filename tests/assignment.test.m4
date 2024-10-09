@@ -347,7 +347,7 @@ function mpfr-set-ldouble-1.1 () {
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	if ! mpfr_set_ld WW(OP) WW(mmux_libc_MAX_LDOUBLE) WW(MPFR_RNDN)
+	if ! mpfr_set_ld WW(OP) WW(mmux_ldouble_MAX) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
