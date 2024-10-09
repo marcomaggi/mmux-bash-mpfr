@@ -107,7 +107,7 @@ a shell script which is meant to be sourced in a Bash session or script.
 This package implements an interface to the @emph{Multiple Precision Floating--Point Reliable
 Library}, @mpfr{}.
 
-This package is distributed under the terms of the @gnu{} Lesser General Public License (@lgpl{}).
+This package is distributed under the terms of the @gnu{} General Public License (@gpl{}).
 
 Development of this package takes place at:
 
@@ -173,7 +173,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 
 Appendices
 
-* Package License::             GNU Lesser General Public License.
+* Package License::             GNU General Public License.
 * Documentation License::       GNU Free Documentation License.
 * shared library::              Using the shared library.
 * references::                  Bibliography and references.
@@ -916,7 +916,7 @@ mpfr_just_printit_dammit @WW{OP}
 @c Appendices.
 @c ------------------------------------------------------------
 
-@include lgpl-3.0.texi
+@include gpl-3.0.texi
 @include fdl-1.3.texi
 
 @c page

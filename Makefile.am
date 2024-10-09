@@ -59,7 +59,7 @@ info_TEXINFOS		= doc/mmux-bash-mpfr.texi
 doc_mmux_bash_mpfr_TEXINFOS	= \
 	doc/macros.texi			\
 	doc/overview-linking.texi	\
-	doc/lgpl-3.0.texi		\
+	doc/gpl-3.0.texi		\
 	doc/fdl-1.3.texi
 
 ## --------------------------------------------------------------------
