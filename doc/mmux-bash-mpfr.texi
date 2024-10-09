@@ -522,6 +522,7 @@ mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
     mpfr_init @WW{OP}
     @{
         mpfr_set_si @WW{OP} 123 @WW{MPFR_RNDN}
+        mpfr_just_printit_dammit @WW{OP}
     @}
     mpfr_clear @WW{OP}
 @}
@@ -533,7 +534,7 @@ mmux_libc_free @WW{OP}
 @deffn Builtin mpfr_inits @varo{MPFR_PTR} @var{MPFR_PTR} @dots{}
 @deffnx Builtin mpfr_inits2 @var{MFPR_PREC} @varo{MPFR_PTR} @var{MPFR_PTR} @dots{}
 @deffnx Builtin mpfr_clears @varo{MPFR_PTR} @var{MPFR_PTR} @dots{}
-Interface to the C language function @cfunc{mpfr_inits}, @cfunc{mpfr_inits2}, @cfunc{mpfr_clears}.
+Interfaces to the C language functions @cfunc{mpfr_inits}, @cfunc{mpfr_inits2}, @cfunc{mpfr_clears}.
 
 @example
 declare OP1 OP2
@@ -546,6 +547,8 @@ mmux_libc_calloc 2 OP1 @WW{mpfr_SIZEOF}
     @{
         mpfr_set_si @WW{OP1} -12 @WW{MPFR_RNDN}
         mpfr_set_ui @WW{OP2} +34 @WW{MPFR_RNDN}
+        mpfr_just_printit_dammit @WW{OP1}
+        mpfr_just_printit_dammit @WW{OP2}
     @}
     mpfr_clears @WW{OP1} @WW{OP2}
 @}
@@ -589,14 +592,14 @@ numbers; then we can initialise and finalise all the numbers with a single funct
 
 @example
 declare -a OPS
-declare -i NUM=5 IDX
+declare -i DIM=5 IDX
 
-mpfr_alloc_shell_array OPS @WW{NUM}
+mpfr_alloc_shell_array OPS @WW{DIM}
 @{
     mpfr_init_shell_array OPS
     @{
         for ((IDX=0; IDX < $@{#OPS[@@]@}; ++IDX))
-        do mpfr_set_si $@{OPS[@WW{IDX}]@} @WW{IDX} @WW{MPFR_RNDN}
+        do mpfr_set_si $@{OPS[@WW{IDX}]:?@} @WW{IDX} @WW{MPFR_RNDN}
         done
 
         # We can access the individual numbers.
@@ -621,7 +624,7 @@ Allocate a single block of memory capable of holding @var{DIM} data structures e
 @end defun
 
 
-@defun mpfr_free_shell_array @var{ARRYNAME} @var{DIM}
+@defun mpfr_free_shell_array @var{ARRYNAME}
 Release the memory allocated by @func{mpfr_alloc_shell_array}; @var{ARRYNAME} must be the name of
 the shell index array used to reference the memory block.
 @end defun
@@ -775,7 +778,6 @@ Interface to the C language functions @cfunc{mpfr_set_inf}.  The argument sign m
 @samp{+1}, @samp{0}, @samp{-1}.
 
 @example
-declare -r STR='1234567890' BASE='10'
 declare OP
 
 mpfr_alloc_and_init OP
@@ -793,7 +795,6 @@ Interface to the C language functions @cfunc{mpfr_set_zero}.  The argument sign 
 @samp{+1}, @samp{0}, @samp{-1}.
 
 @example
-declare -r STR='1234567890' BASE='10'
 declare OP
 
 mpfr_alloc_and_init OP
@@ -840,26 +841,24 @@ Interface to the C language function @cfunc{mpfr_get_str}.
 
 The argument @var{MANTISSA_VAR} must be a string representing a shell variable name; when
 successful, this function stores a string representation of the mantissa in this variable; if an
-error occurs, the variable is left untouched.
+error occurs, the variable is left untouched, unless there is an error setting the result variables
+themselves.
 
 The argument @var{EXPONENT_VAR} must be a string representing a shell variable name; when
 successful, this function stores a string representation of the exponent in this variable; if an
-error occurs, the variable is left untouched.
+error occurs, the variable is left untouched, unless there is an error setting the result variables
+themselves.
 
 @example
 declare -ri BASE=10 NDIGITS=0
 declare OP MAN EXP
 
-mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
+mpfr_alloc_and_init OP
 @{
-  mpfr_init @WW{OP}
-  @{
     mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
     mpfr_get_str MAN EXP @WW{BASE} @WW{NDIGITS} @WW{OP} @WW{MPFR_RNDN}
-  @}
-  mpfr_clear @WW{OP}
 @}
-mmux_libc_free @WW{OP}
+mpfr_clear_and_free @WW{OP}
 
 @WW{MAN}            @result{} 12300000000000000
 @WW{EXP}            @result{} 1
