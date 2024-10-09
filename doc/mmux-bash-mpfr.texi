@@ -833,8 +833,119 @@ Interface to the C language functions @cfunc{\FUNC\}.
 @chapter Converting numbers to other representations
 
 
+To extract a value from a @mpfr{} number, we do:
+
+@example
+declare VAL OP
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
+
+    if mpfr_fits_slong_p @WW{OP}
+    then
+        mpfr_get_si VAL @WW{OP} @WW{MPFR_RNDN}
+        printf '%s\n' @WW{VAL}
+    fi
+@}
+mpfr_clear_and_free @WW{OP}
+@end example
+
 @ref{overview conventions, Conventions used in this documentation}.
 
+@c ------------------------------------------------------------------------
+
+@macro MmuxMpfrDefineGetter{BUILTIN,ARGS}
+@deffn Builtin \BUILTIN\ \ARGS\
+Interface to the C language function @cfunc{\BUILTIN\}.
+@end deffn
+
+@end macro
+
+@MmuxMpfrDefineGetter{mpfr_get_si, @var{SLONG_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+@MmuxMpfrDefineGetter{mpfr_get_ui, @var{ULONG_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+@MmuxMpfrDefineGetter{mpfr_get_sj, @var{SINTMAX_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+@MmuxMpfrDefineGetter{mpfr_get_uj, @var{UINTMAX_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+@MmuxMpfrDefineGetter{mpfr_get_flt, @var{FLOAT_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+@MmuxMpfrDefineGetter{mpfr_get_d, @var{DOUBLE_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+@MmuxMpfrDefineGetter{mpfr_get_ld, @var{LDOUBLE_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+@MmuxMpfrDefineGetter{mpfr_get_float128, @var{FLOAT128_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+@MmuxMpfrDefineGetter{mpfr_get_decimal64, @var{DECIMAL64_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+@MmuxMpfrDefineGetter{mpfr_get_decimal128, @var{DECIMAL128_VAR} @var{MPFR_OP} @var{MPFR_RND}}
+
+@deffn Builtin mpfr_get_z @var{MPZ_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_get_z}.
+@end deffn
+
+
+@deffn Builtin mpfr_get_q @var{MPQ_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_get_q}.
+@end deffn
+
+
+@deffn Builtin mpfr_get_f @var{MPF_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_get_f}.
+@end deffn
+
+@c ------------------------------------------------------------------------
+
+@deffn Builtin mpfr_get_d_2exp @var{MANTISSA_VAR} @var{EXPONENT_VAR} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_get_d_2exp}.
+
+@example
+declare MAN EXP OP
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
+    mpfr_get_si VAL @WW{OP} @WW{MPFR_RNDN}
+
+    mmux_double_set_format "%f"
+    mpfr_get_d_2exp MAN EXP @WW{OP} @WW{MPFR_RNDN}
+@}
+mpfr_clear_and_free @WW{OP}
+
+@WW{MAN}        @result{} 0.615000
+@WW{EXP}        @result{} 1
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_get_ld_2exp @var{MANTISSA_VAR} @var{EXPONENT_VAR} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_get_ld_2exp}.
+@end deffn
+
+
+@deffn Builtin mpfr_get_z_2exp @var{EXPONENT_VAR} @var{MPZ_ROP} @var{MPFR_OP}
+Interface to the C language function @cfunc{mpfr_get_z_2exp}.
+@end deffn
+
+@c ------------------------------------------------------------------------
+
+@deffn Builtin mpfr_frexp @var{EXPONENT_VAR} @vari{MPFR_OP} @varii{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_frexp}.
+
+@example
+declare -a OPS
+
+mpfr_alloc_and_init_shell_array OPS
+@{
+    declare -n X='OPS[0]' Y='OPS[1]'
+    declare EXP
+
+    mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
+
+    mpfr_frexp EXP @WW{Y} @WW{X} @WW{MPFR_RNDN}
+
+    printf '%s\n' @WW{EXP}              @print{} 1
+    mpfr_just_printit_dammit @WW{Y}     @print{} 0.615000e0
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
+@end deffn
+
+
+@c ------------------------------------------------------------------------
 
 @deffn Builtin mpfr_get_str @var{MANTISSA_VAR} @var{EXPONENT_VAR} @var{BASE} @var{NDIGITS} @var{MPFR_OP} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_get_str}.
@@ -862,6 +973,38 @@ mpfr_clear_and_free @WW{OP}
 
 @WW{MAN}            @result{} 12300000000000000
 @WW{EXP}            @result{} 1
+@end example
+@end deffn
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxMpfrDefineFitser{STEM}
+@deffn Builtin mpfr_fits_\STEM\_p @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_fits_\STEM\_p}.
+@end deffn
+
+@end macro
+
+@MmuxMpfrDefineFitser{sshort}
+@MmuxMpfrDefineFitser{ushort}
+@MmuxMpfrDefineFitser{sint}
+@MmuxMpfrDefineFitser{uint}
+@MmuxMpfrDefineFitser{slong}
+@MmuxMpfrDefineFitser{ulong}
+@MmuxMpfrDefineFitser{intmax}
+@MmuxMpfrDefineFitser{uintmax}
+
+@c ------------------------------------------------------------------------
+
+@deffn Builtin mpfr_get_str_ndigits @var{SIZE_VAR} @var{BASE} @var{PREC}
+Interface to the C language function @cfunc{mpfr_get_str_ndigits}.
+
+@example
+declare -ri BASE=10 PREC=7
+declare SIZE
+
+mpfr_get_str_ndigits SIZE @WW{BASE} @WW{PREC}
+@WW{SIZE}       @result{} 4
 @end example
 @end deffn
 
