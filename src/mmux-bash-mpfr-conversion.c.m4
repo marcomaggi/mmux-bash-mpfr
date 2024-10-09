@@ -244,7 +244,7 @@ mpfr_get_z_2exp_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_z_2exp]]],
     [[[(4 == argc)]]],
-    [[["mpfr_get_z_2exp EXPONENT_VAR MPZ_PTR MPFR_PTR"]]],
+    [[["mpfr_get_z_2exp EXPONENT_VAR MPZ_ROP MPFR_OP"]]],
     [[["Interface to the C function mpfr_get_z_2exp."]]])
 
 /* ------------------------------------------------------------------ */

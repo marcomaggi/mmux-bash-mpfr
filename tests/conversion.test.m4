@@ -48,6 +48,8 @@ mbfl_linker_source_library_by_stem(tests)
 
 source WW(MMUX_LIBRARY)
 
+alias gmp_exists='false'
+
 
 # mpfr_get_si
 
@@ -309,7 +311,7 @@ if mmux_bash_pointers_builtin_p mpfr_get_float128
 then
 
 function conversion-mpfr_get_float128-1.1 () {
-    declare -r	INITVAL='1.23'
+    declare -r	INITVAL='1.230000'
     declare	ROP OP
 
     dotest-set-debug
@@ -349,7 +351,7 @@ if mmux_bash_pointers_builtin_p mpfr_get_decimal64
 then
 
 function conversion-mpfr_get_decimal64-1.1 () {
-    declare -r	INITVAL='1.23'
+    declare -r	INITVAL='1.230000'
     declare	ROP OP
 
     dotest-set-debug
@@ -361,18 +363,20 @@ function conversion-mpfr_get_decimal64-1.1 () {
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
 
 	if ! mpfr_set_decimal64 WW(OP) WW(INITVAL) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	mmux_decimal64_set_format "%.2f"
+	dotest-debug OP=$(mpfr_just_printit_dammit WW(OP))
+
+	mmux_decimal64_set_format "%f"
 	if ! mpfr_get_decimal64 ROP WW(OP) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(INITVAL) WW(ROP)
+	dotest-debug INITVAL=WW(INITVAL) ROP=WW(ROP)
 	dotest-equal WW(INITVAL) WW(ROP)
     }
     mbfl_location_leave
@@ -387,7 +391,7 @@ if mmux_bash_pointers_builtin_p mpfr_get_decimal128
 then
 
 function conversion-mpfr_get_decimal128-1.1 () {
-    declare -r	INITVAL='1.23'
+    declare -r	INITVAL='1.230000'
     declare	ROP OP
 
     dotest-set-debug
@@ -399,19 +403,135 @@ function conversion-mpfr_get_decimal128-1.1 () {
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
 
 	if ! mpfr_set_decimal128 WW(OP) WW(INITVAL) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	mmux_decimal128_set_format "%.2f"
+	dotest-debug OP=$(mpfr_just_printit_dammit WW(OP))
+
+	mmux_decimal128_set_format "%f"
 	if ! mpfr_get_decimal128 ROP WW(OP) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(INITVAL) WW(ROP)
+	dotest-debug INITVAL=WW(INITVAL) ROP=WW(ROP)
 	dotest-equal WW(INITVAL) WW(ROP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
+# mpfr_get_z
+
+if mmux_bash_pointers_builtin_p mpfr_get_z && gmp_exists
+then
+
+function conversion-mpfr_get_z-1.1 () {
+    declare -r	INITVAL='1.230000'
+    declare	ROP OP
+
+    dotest-set-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
+
+	if ! mpfr_set_double WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug OP=$(mpfr_just_printit_dammit WW(OP))
+
+	if ! mpfr_get_z ROP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-equal WW(INITVAL) $(mpz_just_printit_dammit WW(ROP))
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
+# mpfr_get_q
+
+if mmux_bash_pointers_builtin_p mpfr_get_q && gmp_exists
+then
+
+function conversion-mpfr_get_q-1.1 () {
+    declare -r	INITVAL='1.230000'
+    declare	ROP OP
+
+    dotest-set-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
+
+	if ! mpfr_set_double WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug OP=$(mpfr_just_printit_dammit WW(OP))
+
+	if ! mpfr_get_q ROP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-equal WW(INITVAL) $(mpq_just_printit_dammit WW(ROP))
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
+# mpfr_get_f
+
+if mmux_bash_pointers_builtin_p mpfr_get_f && gmp_exists
+then
+
+function conversion-mpfr_get_f-1.1 () {
+    declare -r	INITVAL='1.230000'
+    declare	ROP OP
+
+    dotest-set-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
+
+	if ! mpfr_set_double WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug OP=$(mpfr_just_printit_dammit WW(OP))
+
+	if ! mpfr_get_f ROP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-equal WW(INITVAL) $(mpf_just_printit_dammit WW(ROP))
     }
     mbfl_location_leave
 }
@@ -425,10 +545,10 @@ if mmux_bash_pointers_builtin_p mpfr_get_d_2exp
 then
 
 function conversion-mpfr_get_d_2exp-1.1 () {
-    declare -r	INITVAL='1.23'
+    declare -r	INITVAL='1.23' EXPECTED_MAN='0.615000' EXPECTED_EXP='1'
     declare	MAN EXP OP
 
-    dotest-set-debug
+    dotest-unset-debug
 
     mbfl_location_enter
     {
@@ -437,36 +557,147 @@ function conversion-mpfr_get_d_2exp-1.1 () {
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
 
-	if ! mpfr_set_decimal128 WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	mmux_double_set_format "%.2f"
+	mmux_double_set_format "%f"
 	if ! mpfr_get_d_2exp MAN EXP WW(OP) WW(MPFR_RNDN)
 	then mbfl_location_leave_then_return_failure
 	fi
 
-	dotest-debug WW(MAN) WW(EXP) WW(INITVAL) WW(ROP)
-	dotest-equal WW(INITVAL) WW(ROP)
+	dotest-debug MAN=WW(MAN) EXP=WW(EXP) INITVAL=WW(INITVAL)
+	dotest-equal     WW(EXPECTED_MAN) WW(MAN) &&
+	    dotest-equal WW(EXPECTED_EXP) WW(EXP)
     }
     mbfl_location_leave
 }
 
 fi
 
-
-
-#
-#
+
 # mpfr_get_ld_2exp
-# mpfr_frexp
+
+if mmux_bash_pointers_builtin_p mpfr_get_ld_2exp
+then
+
+function conversion-mpfr_get_ld_2exp-1.1 () {
+    declare -r	INITVAL='1.23' EXPECTED_MAN='0.615000' EXPECTED_EXP='1'
+    declare	MAN EXP OP
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
+
+	if ! mpfr_set_ld WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	mmux_ldouble_set_format "%f"
+	if ! mpfr_get_ld_2exp MAN EXP WW(OP) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug MAN=WW(MAN) EXP=WW(EXP) INITVAL=WW(INITVAL)
+	dotest-equal     WW(EXPECTED_MAN) WW(MAN) &&
+	    dotest-equal WW(EXPECTED_EXP) WW(EXP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
 # mpfr_get_z_2exp
-# mpfr_get_z
-# mpfr_get_q
-# mpfr_get_f
-# mpfr_get_str_ndigits
+
+if mmux_bash_pointers_builtin_p mpfr_get_z_2exp && gmp_exists
+then
+
+function conversion-mpfr_get_z_2exp-1.1 () {
+    declare -r	INITVAL='1.23' EXPECTED_EXP='1'
+    declare	ROP OP EXP
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpz_alloc_and_init ROP
+	then mbfl_location_handler "mpz_clear_and_free WW(ROP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug OP=WW(OP) INITVAL=WW(INITVAL) RND=WW(MPFR_RNDN)
+
+	if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_get_z_2exp EXP WW(ROP) WW(OP)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-equal WW(EXPECTED_EXP) WW(EXP)
+    }
+    mbfl_location_leave
+}
+
+fi
+
+
+# mpfr_frexp
+
+if mmux_bash_pointers_builtin_p mpfr_frexp
+then
+
+function conversion-mpfr_frexp-1.1 () {
+    declare -r	INITVAL='1.23' EXPECTED_EXP='1' EXPECTED_Y='0.615000e0'
+    declare	X Y EXP
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init X
+	then mbfl_location_handler "mpfr_clear_and_free WW(X)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	if mpfr_alloc_and_init Y
+	then mbfl_location_handler "mpfr_clear_and_free WW(Y)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-debug X=WW(X) Y=WW(Y) INITVAL=WW(INITVAL)
+
+	if ! mpfr_set_d WW(X) WW(INITVAL) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	if ! mpfr_frexp EXP WW(Y) WW(X) WW(MPFR_RNDN)
+	then mbfl_location_leave_then_return_failure
+	fi
+
+	dotest-equal     WW(EXPECTED_EXP) WW(EXP) &&
+	    dotest-equal WW(EXPECTED_Y) $(mpfr_just_printit_dammit WW(Y))
+    }
+    mbfl_location_leave
+}
+
+fi
 
 
 #### mpfr-get-str
@@ -505,6 +736,21 @@ function conversion-mpfr_get_str-1.1 () {
     mbfl_location_leave
     dotest-equal QQ(EXPECTED_MAN_RESULT) QQ(MAN_RESULT) &&
 	dotest-equal QQ(EXPECTED_EXP_RESULT) QQ(EXP_RESULT)
+}
+
+
+# mpfr_get_str_ndigits
+
+function conversion-mpfr_get_str_ndigits-1.1 () {
+    declare -r EXPECTED_SIZE='4'
+    declare -ri BASE=10 PREC=7
+    declare SIZE
+
+    if ! mpfr_get_str_ndigits SIZE WW(BASE) WW(PREC)
+    then return_failure
+    fi
+
+    dotest-equal WW(EXPECTED_SIZE) WW(SIZE)
 }
 
 
