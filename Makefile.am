@@ -84,6 +84,7 @@ install-html-local:
 #### libraries
 
 EXTRA_DIST	+= \
+	src/mmux-bash-mpfr-arithmetic.c.m4		\
 	src/mmux-bash-mpfr-comparison.c.m4		\
 	src/mmux-bash-mpfr-conversion.c.m4		\
 	src/mmux-bash-mpfr-init.c.m4			\
@@ -94,6 +95,7 @@ EXTRA_DIST	+= \
 	src/mmux-bash-mpfr-type-functions.c.m4
 
 MMUX_BASH_MPFR_BUILT_SOURCES	= \
+	src/mmux-bash-mpfr-arithmetic.c			\
 	src/mmux-bash-mpfr-comparison.c			\
 	src/mmux-bash-mpfr-conversion.c			\
 	src/mmux-bash-mpfr-init.c			\
@@ -122,6 +124,7 @@ libmmux_bash_mpfr_la_LDFLAGS	+= $(BASH_LIBS) $(MPFR_LIBS) $(MMUX_BASH_POINTERS_L
 libmmux_bash_mpfr_la_SOURCES	= \
 	src/mmux-bash-mpfr.h				\
 	src/mmux-bash-mpfr-internals.h			\
+	src/mmux-bash-mpfr-arithmetic.c			\
 	src/mmux-bash-mpfr-comparison.c			\
 	src/mmux-bash-mpfr-conversion.c			\
 	src/mmux-bash-mpfr-init.c			\
@@ -151,6 +154,7 @@ mmux_bashlibdir		= $(datadir)/bash
 #### tests
 
 EXTRA_DIST		+= \
+	tests/arithmetic.test.m4		\
 	tests/conversion.test.m4		\
 	tests/init.test.m4			\
 	tests/printing.test.m4			\
@@ -164,6 +168,7 @@ TEST_EXTENSIONS		= .test
 if WANT_MBFL_TESTING_ENABLED
 
 MMUX_CHECK_BUILT_TESTS	= \
+	tests/arithmetic.test			\
 	tests/conversion.test			\
 	tests/init.test				\
 	tests/printing.test			\

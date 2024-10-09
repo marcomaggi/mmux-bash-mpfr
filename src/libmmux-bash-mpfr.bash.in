@@ -50,6 +50,8 @@ function mmux-bash-mpfr-library-load () {
 					 mpfr_fits_intmax_p mpfr_fits_uintmax_p mpfr_get_z_2exp mpfr_get_z mpfr_get_q
 					 mpfr_get_f mpfr_get_str_ndigits
 
+					 mpfr_add
+
 					 mpfr_nan_p mpfr_inf_p mpfr_zero_p mpfr_number_p mpfr_regular_p
 					 mpfr_sgn
 					 mpfr_dump)

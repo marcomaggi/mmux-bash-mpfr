@@ -169,6 +169,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * init::                        Initialisation and finalisation.
 * assignment::                  Assignment builtins.
 * conversion::                  Converting numbers to other representations.
+* arithmetic::                  Arithmetic builtins.
 * io::                          Input, output, printing.
 
 Appendices
@@ -1007,6 +1008,11 @@ mpfr_get_str_ndigits SIZE @WW{BASE} @WW{PREC}
 @WW{SIZE}       @result{} 4
 @end example
 @end deffn
+
+@c page
+@node arithmetic
+@chapter Arithmetic builtins
+
 
 @c page
 @node io
