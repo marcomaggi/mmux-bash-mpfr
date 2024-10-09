@@ -209,6 +209,9 @@ mpfr_clear @WW{X}
 mmux_libc_free @WW{X}
 @end example
 
+This package depends upon the facilities of the external package @mmux{} Bash Pointers, @xref{Top,
+@mmux{} Bash Pointers, @mmux{} Bash Pointers, mmux-bash-pointers}.
+
 @menu
 * overview install::            Installed files.
 * overview linking::            Linking code with the library.
