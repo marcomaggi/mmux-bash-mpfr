@@ -1014,6 +1014,174 @@ mpfr_get_str_ndigits SIZE @WW{BASE} @WW{PREC}
 @chapter Arithmetic builtins
 
 
+To compute the sum between @mpfr{} numbers, we do:
+
+@example
+declare -a OPS
+
+mpfr_alloc_and_init_shell_array OPS 3
+@{
+    declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[02]'
+
+    mpfr_set_si @WW{OP1} '123' @WW{MPFR_RNDN}
+    mpfr_set_si @WW{OP2} '456' @WW{MPFR_RNDN}
+
+    mpfr_add @WW{ROP} @WW{OP1} @WW{OP2} @WW{MPFR_RNDN}
+
+    mpfr_just_printit_dammit @WW{ROP}   @print{} 0.579000e3
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
+
+@menu
+* arithmetic addition::         Addition builtins.
+* arithmetic multiplication::   Multiplication builtins.
+* arithmetic subtraction::      Subtraction builtins.
+* arithmetic division::         Division builtins.
+@end menu
+
+@c page
+@node arithmetic addition
+@section Addition builtins
+
+
+@deffn Builtin mpfr_add @var{ROP} @vari{OP} @varii{OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_add}.
+@end deffn
+
+
+@deffn Builtin mpfr_add_si @var{MPFR_ROP} @var{MPFR_OP} @var{SLONG} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_add_si}.
+@end deffn
+
+
+@deffn Builtin mpfr_add_ui @var{MPFR_ROP} @var{MPFR_OP} @var{ULONG} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_add_ui}.
+@end deffn
+
+
+@deffn Builtin mpfr_add_d @var{MPFR_ROP} @var{MPFR_OP} @var{DOUBLE} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_add_d}.
+@end deffn
+
+
+@deffn Builtin mpfr_add_z @var{MPFR_ROP} @var{MPFR_OP} @var{MPZ_PTR} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_add_z}.
+@end deffn
+
+
+@deffn Builtin mpfr_add_q @var{MPFR_ROP} @var{MPFR_OP} @var{MPQ_PTR} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_add_q}.
+@end deffn
+
+@c page
+@node arithmetic multiplication
+@section Multiplication builtins
+
+
+@deffn Builtin mpfr_mul @var{ROP} @vari{OP} @varii{OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_mul}.
+@end deffn
+
+
+@deffn Builtin mpfr_mul_si @var{MPFR_ROP} @var{MPFR_OP} @var{SLONG} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_mul_si}.
+@end deffn
+
+
+@deffn Builtin mpfr_mul_ui @var{MPFR_ROP} @var{MPFR_OP} @var{ULONG} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_mul_ui}.
+@end deffn
+
+
+@deffn Builtin mpfr_mul_d @var{MPFR_ROP} @var{MPFR_OP} @var{DOUBLE} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_mul_d}.
+@end deffn
+
+
+@deffn Builtin mpfr_mul_z @var{MPFR_ROP} @var{MPFR_OP} @var{MPZ_PTR} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_mul_z}.
+@end deffn
+
+
+@deffn Builtin mpfr_mul_q @var{MPFR_ROP} @var{MPFR_OP} @var{MPQ_PTR} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_mul_q}.
+@end deffn
+
+@c page
+@node arithmetic subtraction
+@section Subtraction builtins
+
+
+@deffn Builtin mpfr_sub @var{ROP} @vari{OP} @varii{OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_sub}.
+@end deffn
+
+
+@deffn Builtin mpfr_sub_si @var{MPFR_ROP} @var{MPFR_OP} @var{SLONG} @var{MPFR_RND}
+@deffnx Builtin mpfr_si_sub @var{MPFR_ROP} @var{SLONG} @var{MPFR_OP} @var{MPFR_RND}
+Interfaces to the C language functions @cfunc{mpfr_sub_si}, @cfunc{mpfr_si_sub}.
+@end deffn
+
+
+@deffn Builtin mpfr_sub_ui @var{MPFR_ROP} @var{MPFR_OP} @var{ULONG} @var{MPFR_RND}
+@deffnx Builtin mpfr_ui_sub @var{MPFR_ROP} @var{ULONG} @var{MPFR_OP} @var{MPFR_RND}
+Interfaces to the C language functions @cfunc{mpfr_sub_ui}, @cfunc{mpfr_ui_sub}.
+@end deffn
+
+
+@deffn Builtin mpfr_sub_d @var{MPFR_ROP} @var{MPFR_OP} @var{DOUBLE} @var{MPFR_RND}
+@deffnx Builtin mpfr_d_sub @var{MPFR_ROP} @var{DOUBLE} @var{MPFR_OP} @var{MPFR_RND}
+Interfaces to the C language functions @cfunc{mpfr_sub_d}, @cfunc{mpfr_d_sub}.
+@end deffn
+
+
+@deffn Builtin mpfr_sub_z @var{MPFR_ROP} @var{MPFR_OP} @var{MPZ_PTR} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_sub_z}.
+@end deffn
+
+
+@deffn Builtin mpfr_sub_q @var{MPFR_ROP} @var{MPFR_OP} @var{MPQ_PTR} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_sub_q}.
+@end deffn
+
+@c page
+@node arithmetic division
+@section Division builtins
+
+
+@deffn Builtin mpfr_div @var{ROP} @vari{OP} @varii{OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_div}.
+@end deffn
+
+
+@deffn Builtin mpfr_div_si @var{MPFR_ROP} @var{MPFR_OP} @var{SLONG} @var{MPFR_RND}
+@deffnx Builtin mpfr_si_div @var{MPFR_ROP} @var{SLONG} @var{MPFR_OP} @var{MPFR_RND}
+Interfaces to the C language functions @cfunc{mpfr_div_si}, @cfunc{mpfr_si_div}.
+@end deffn
+
+
+@deffn Builtin mpfr_div_ui @var{MPFR_ROP} @var{MPFR_OP} @var{ULONG} @var{MPFR_RND}
+@deffnx Builtin mpfr_ui_div @var{MPFR_ROP} @var{ULONG} @var{MPFR_OP} @var{MPFR_RND}
+Interfaces to the C language functions @cfunc{mpfr_div_ui}, @cfunc{mpfr_ui_div}.
+@end deffn
+
+
+@deffn Builtin mpfr_div_d @var{MPFR_ROP} @var{MPFR_OP} @var{DOUBLE} @var{MPFR_RND}
+@deffnx Builtin mpfr_d_div @var{MPFR_ROP} @var{DOUBLE} @var{MPFR_OP} @var{MPFR_RND}
+Interfaces to the C language functions @cfunc{mpfr_div_d}, @cfunc{mpfr_d_div}.
+@end deffn
+
+
+@deffn Builtin mpfr_div_z @var{MPFR_ROP} @var{MPFR_OP} @var{MPZ_PTR} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_div_z}.
+@end deffn
+
+
+@deffn Builtin mpfr_div_q @var{MPFR_ROP} @var{MPFR_OP} @var{MPQ_PTR} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_div_q}.
+@end deffn
+
 @c page
 @node io
 @chapter Input, output, printing

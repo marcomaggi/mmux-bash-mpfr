@@ -54,6 +54,7 @@ function arithmetic-mpfr_add-1.1 () {
 	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) + WW(INITVAL2) ))
 
 	dotest-unset-debug
+
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array _(OPS) 3
@@ -63,17 +64,906 @@ function arithmetic-mpfr_add-1.1 () {
 
 	    declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[02]'
 
-	    #dotest-debug WW(OP) WW(INITVAL) WW(MPFR_RNDN)
-
-	    if ! mpfr_set_si WW(OP1) '123' WW(MPFR_RNDN)
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
-	    if ! mpfr_set_si WW(OP2) '456' WW(MPFR_RNDN)
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
 	    if ! mpfr_add WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_add_si
+
+function arithmetic-mpfr_add_si-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_add_si
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=123 INITVAL2=456 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) + WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_add_si WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_add_ui
+
+function arithmetic-mpfr_add_ui-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_add_ui
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=123 INITVAL2=456 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) + WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_add_ui WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_add_d
+
+function arithmetic-mpfr_add_d-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_add_d
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=123 INITVAL2=456 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) + WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_add_d WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_mul
+
+function arithmetic-mpfr_mul-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_mul
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=123 INITVAL2=456 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) * WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 3
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[02]'
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_mul WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_mul_si
+
+function arithmetic-mpfr_mul_si-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_mul_si
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=123 INITVAL2=456 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) * WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_mul_si WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_mul_ui
+
+function arithmetic-mpfr_mul_ui-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_mul_ui
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=123 INITVAL2=456 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) * WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_mul_ui WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_mul_d
+
+function arithmetic-mpfr_mul_d-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_mul_d
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=123 INITVAL2=456 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) * WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_mul_d WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_div
+
+function arithmetic-mpfr_div-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_div
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) / WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 3
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[02]'
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_div WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_div_si
+
+function arithmetic-mpfr_div_si-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_div_si
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) / WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_div_si WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_div_ui
+
+function arithmetic-mpfr_div_ui-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_div_ui
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) / WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_div_ui WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_div_d
+
+function arithmetic-mpfr_div_d-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_div_d
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) / WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_div_d WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_si_div
+
+function arithmetic-mpfr_si_div-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_si_div
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) / WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP2='OPS[1]'
+	    declare OP1=WW(INITVAL1)
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_si_div WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_ui_div
+
+function arithmetic-mpfr_ui_div-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_ui_div
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) / WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP2='OPS[1]'
+	    declare OP1=WW(INITVAL1)
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_ui_div WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_d_div
+
+function arithmetic-mpfr_d_div-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_d_div
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) / WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP2='OPS[1]'
+	    declare OP1=WW(INITVAL1)
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_d_div WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_sub
+
+function arithmetic-mpfr_sub-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_sub
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) - WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 3
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[02]'
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_sub WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_sub_si
+
+function arithmetic-mpfr_sub_si-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_sub_si
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) - WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_sub_si WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_sub_ui
+
+function arithmetic-mpfr_sub_ui-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_sub_ui
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) - WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_sub_ui WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_sub_d
+
+function arithmetic-mpfr_sub_d-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_sub_d
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) - WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]'
+	    declare OP2=WW(INITVAL2)
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_sub_d WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_si_sub
+
+function arithmetic-mpfr_si_sub-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_si_sub
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) - WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP2='OPS[1]'
+	    declare OP1=WW(INITVAL1)
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_si_sub WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_ui_sub
+
+function arithmetic-mpfr_ui_sub-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_ui_sub
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) - WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP2='OPS[1]'
+	    declare OP1=WW(INITVAL1)
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_ui_sub WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_si RESULT WW(ROP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(INITVAL1) WW(INITVAL2)  $(mpfr_just_printit_dammit WW(ROP))
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_d_sub
+
+function arithmetic-mpfr_d_sub-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_d_sub
+    then
+	mbfl_declare_index_array_varref(OPS)
+	declare INITVAL1=99 INITVAL2=33 RESULT
+	declare -r EXPECTED_RESULT=$(( WW(INITVAL1) - WW(INITVAL2) ))
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array _(OPS) 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array _(OPS)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP2='OPS[1]'
+	    declare OP1=WW(INITVAL1)
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_d_sub WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
