@@ -42,37 +42,7 @@
 #  include <stdio.h>
 #endif
 
-#include <mmux-bash-pointers.h>
 #include <mmux-bash-mpfr.h>
-
-
-/** --------------------------------------------------------------------
- ** Type availability preprocessor macros.
- ** ----------------------------------------------------------------- */
-
-MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_CC_TYPE_LDOUBLE]]],[[[
-MMUX_BASH_CONDITIONAL_CODE([[[HAVE_MPFR_SET_LD]]],[[[
-#undef  MMUX_HAVE_CC_TYPE_LDOUBLE
-#define MMUX_HAVE_CC_TYPE_LDOUBLE		1
-]]])]]])
-
-MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_CC_TYPE_FLOAT128]]],[[[
-MMUX_BASH_CONDITIONAL_CODE([[[HAVE_MPFR_SET_FLOAT128]]],[[[
-#undef  MMUX_HAVE_CC_TYPE_FLOAT128
-#define MMUX_HAVE_CC_TYPE_FLOAT128		1
-]]])]]])
-
-MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_CC_TYPE_DECIMAL64]]],[[[
-MMUX_BASH_CONDITIONAL_CODE([[[HAVE_MPFR_SET_DECIMAL64]]],[[[
-#undef  MMUX_HAVE_CC_TYPE_DECIMAL64
-#define MMUX_HAVE_CC_TYPE_DECIMAL64		1
-]]])]]])
-
-MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_CC_TYPE_DECIMAL128]]],[[[
-MMUX_BASH_CONDITIONAL_CODE([[[HAVE_MPFR_SET_DECIMAL128]]],[[[
-#undef  MMUX_HAVE_CC_TYPE_DECIMAL128
-#define MMUX_HAVE_CC_TYPE_DECIMAL128		1
-]]])]]])
 
 
 /** --------------------------------------------------------------------

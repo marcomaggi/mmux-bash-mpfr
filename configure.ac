@@ -94,9 +94,47 @@ AC_DEFUN([MMUX_MPFR_CONSTANT_TESTS],[m4_map_args_w($1,[MMUX_MPFR_CONSTANT_TEST(]
 
 MMUX_AUTOCONF_SAVE_SHELL_VARIABLE_WHILE_APPENDING([CFLAGS],[" $MPFR_CFLAGS"],
   [MMUX_AUTOCONF_SAVE_SHELL_VARIABLE_WHILE_APPENDING([LIBS],[" $MPFR_LIBS"],
-     [AC_CHECK_HEADERS([mpfr.h])
+     [AC_DEFINE([MPFR_WANT_FLOAT128],[1],[Set to 1 if we want the _FloatN functions from MPFR.])
+      AC_DEFINE([MPFR_WANT_DECIMAL_FLOATS],[1],[Set to 1 if we want the _DecimalN functions from MPFR.])
+      AC_CHECK_HEADERS([mpfr.h])
       MMUX_MPFR_CONSTANT_TESTS([MPFR_RNDN MPFR_RNDZ MPFR_RNDU MPFR_RNDD MPFR_RNDA MPFR_RNDF])
       AC_CHECK_FUNCS([mpfr_set_ld mpfr_set_float128 mpfr_set_decimal64 mpfr_set_decimal128])])])
+
+MMUX_DEFINE_OMNIBUS_CONFIG_VARIABLE([MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE],
+  [Defined and set to 1 if support for 'long double' is enabled in MFPR.],
+  [AS_IF([mmux_test_variable_is_yes([ac_cv_func_mpfr_set_ld])],
+         [AS_VAR_SET([MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE],[1])])])
+AC_MSG_CHECKING([for MMUX Bash MPFR supporting 'long double'])
+AS_IF([mmux_test_variable_is_one([MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE])],
+      [AC_MSG_RESULT([yes])],
+      [AC_MSG_RESULT([no])])
+
+MMUX_DEFINE_OMNIBUS_CONFIG_VARIABLE([MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL64],
+  [Defined and set to 1 if support for '_Decimal64' is enabled in MPFR.],
+  [AS_IF([mmux_test_variable_is_yes([ac_cv_func_mpfr_set_decimal64])],
+         [AS_VAR_SET([MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL64],[1])])])
+AC_MSG_CHECKING([for MMUX Bash MPFR supporting '_Decimal64'])
+AS_IF([mmux_test_variable_is_one([MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL64])],
+      [AC_MSG_RESULT([yes])],
+      [AC_MSG_RESULT([no])])
+
+MMUX_DEFINE_OMNIBUS_CONFIG_VARIABLE([MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL128],
+  [Defined and set to 1 if support for '_Decimal128' is enabled in MPFR.],
+  [AS_IF([mmux_test_variable_is_yes([ac_cv_func_mpfr_set_decimal128])],
+         [AS_VAR_SET([MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL128],[1])])])
+AC_MSG_CHECKING([for MMUX Bash MPFR supporting '_Decimal128'])
+AS_IF([mmux_test_variable_is_one([MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL128])],
+      [AC_MSG_RESULT([yes])],
+      [AC_MSG_RESULT([no])])
+
+MMUX_DEFINE_OMNIBUS_CONFIG_VARIABLE([MMUX_BASH_MPFR_HAVE_CC_TYPE_FLOAT128],
+  [Defined and set to 1 if support for '_Float128' is enabled in MPFR.],
+  [AS_IF([mmux_test_variable_is_yes([ac_cv_func_mpfr_set_float128])],
+         [AS_VAR_SET([MMUX_BASH_MPFR_HAVE_CC_TYPE_FLOAT128],[1])])])
+AC_MSG_CHECKING([for MMUX Bash MPFR supporting '_Float128'])
+AS_IF([mmux_test_variable_is_one([MMUX_BASH_MPFR_HAVE_CC_TYPE_FLOAT128])],
+      [AC_MSG_RESULT([yes])],
+      [AC_MSG_RESULT([no])])
 
 AC_CACHE_SAVE
 
@@ -106,6 +144,7 @@ AC_CACHE_SAVE
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile]
   [src/libmmux-bash-mpfr.bash]
+  [src/mmux-bash-mpfr-config.h]
   [meta/scripts/mmux-bash-mpfr.pc]
   [meta/slackware/slack-desc])
 MMUX_OUTPUT

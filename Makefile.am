@@ -5,7 +5,7 @@ AUTOMAKE_OPTIONS	= foreign
 EXTRA_DIST		= INSTALL
 dist_doc_DATA		= README COPYING
 AM_CFLAGS		= $(MMUX_CFLAGS)
-AM_CPPFLAGS		= -I$(srcdir)/src
+AM_CPPFLAGS		= -I$(srcdir)/src -I$(builddir)/src
 CLEANFILES		=
 DISTCLEANFILES		=
 BUILT_SOURCES		=
@@ -114,7 +114,7 @@ mmux_bash_mpfr_REVISION		= @mmux_bash_mpfr_VERSION_INTERFACE_REVISION@
 mmux_bash_mpfr_AGE		= @mmux_bash_mpfr_VERSION_INTERFACE_AGE@
 mmux_bash_mpfr_LINKER_VERSION	= -version-info $(mmux_bash_mpfr_CURRENT):$(mmux_bash_mpfr_REVISION):$(mmux_bash_mpfr_AGE)
 
-include_HEADERS			= src/mmux-bash-mpfr.h
+include_HEADERS			= src/mmux-bash-mpfr.h src/mmux-bash-mpfr-config.h
 
 lib_LTLIBRARIES			= libmmux-bash-mpfr.la
 libmmux_bash_mpfr_la_CPPFLAGS	= $(AM_CPPFLAGS)
@@ -123,6 +123,7 @@ libmmux_bash_mpfr_la_LDFLAGS	= $(mmux_bash_mpfr_LINKER_VERSION) $(AM_LDFLAGS)
 libmmux_bash_mpfr_la_LDFLAGS	+= $(BASH_LIBS) $(MPFR_LIBS) $(MMUX_BASH_POINTERS_LIBS)
 libmmux_bash_mpfr_la_SOURCES	= \
 	src/mmux-bash-mpfr.h				\
+	src/mmux-bash-mpfr-config.h			\
 	src/mmux-bash-mpfr-internals.h			\
 	src/mmux-bash-mpfr-arithmetic.c			\
 	src/mmux-bash-mpfr-comparison.c			\
@@ -143,7 +144,7 @@ src/%.c: src/%.c.m4 $(MMUX_BASH_MPFR_M4_MACROS)
 src/%.h: src/%.h.m4 $(MMUX_BASH_MPFR_M4_MACROS)
 	$(M4_PROGRAM) --prefix-builtins $(MMUX_BASH_MPFR_M4_MACROS) $< >$@
 
-src/%.$(OBJEXT): src/mmux-bash-pointers.h src/mmux-bash-pointers-internals.h
+src/%.$(OBJEXT): src/mmux-bash-mpfr.h src/mmux-bash-mpfr-internals.h src/mmux-bash-mpfr-config.h
 
 ## ------------------------------------------------------------------------
 

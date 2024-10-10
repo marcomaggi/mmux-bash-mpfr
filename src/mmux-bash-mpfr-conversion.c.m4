@@ -65,10 +65,10 @@ DEFINE_VALUE_GETTER([[[mpfr_get_uj]]],		[[[uintmax]]])
 
 DEFINE_VALUE_GETTER([[[mpfr_get_flt]]],		[[[float]]])
 DEFINE_VALUE_GETTER([[[mpfr_get_d]]],		[[[double]]])
-DEFINE_VALUE_GETTER([[[mpfr_get_ld]]],		[[[ldouble]]],		[[[MMUX_HAVE_CC_TYPE_LDOUBLE]]])
-DEFINE_VALUE_GETTER([[[mpfr_get_float128]]],	[[[float128]]],		[[[MMUX_HAVE_CC_TYPE_FLOAT128]]])
-DEFINE_VALUE_GETTER([[[mpfr_get_decimal64]]],	[[[decimal64]]],	[[[MMUX_HAVE_CC_TYPE_DECIMAL64]]])
-DEFINE_VALUE_GETTER([[[mpfr_get_decimal128]]],	[[[decimal128]]],	[[[MMUX_HAVE_CC_TYPE_DECIMAL128]]])
+DEFINE_VALUE_GETTER([[[mpfr_get_ld]]],		[[[ldouble]]],		[[[MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE]]])
+DEFINE_VALUE_GETTER([[[mpfr_get_float128]]],	[[[float128]]],		[[[MMUX_BASH_MPFR_HAVE_CC_TYPE_FLOAT128]]])
+DEFINE_VALUE_GETTER([[[mpfr_get_decimal64]]],	[[[decimal64]]],	[[[MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL64]]])
+DEFINE_VALUE_GETTER([[[mpfr_get_decimal128]]],	[[[decimal128]]],	[[[MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL128]]])
 
 
 /** --------------------------------------------------------------------
@@ -108,7 +108,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
 ]]])]]])
 
 DEFINE_VALUE_GETTER_2EXP([[[mpfr_get_d_2exp]]],		[[[double]]])
-DEFINE_VALUE_GETTER_2EXP([[[mpfr_get_ld_2exp]]],	[[[ldouble]]],		[[[MMUX_HAVE_CC_TYPE_LDOUBLE]]])
+DEFINE_VALUE_GETTER_2EXP([[[mpfr_get_ld_2exp]]],	[[[ldouble]]],		[[[MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE]]])
 
 /* ------------------------------------------------------------------ */
 

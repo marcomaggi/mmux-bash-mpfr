@@ -59,22 +59,22 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
 ]]])]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_si]]], [[[mmux_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ui]]],	[[[mmux_ulong_t]]],  [[[ULONG]]],	 [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ui]]],	[[[mmux_ulong_t]]],  [[[ULONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_sj]]], [[[mmux_sintmax_t]]],[[[SINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_uj]]],	[[[mmux_uintmax_t]]],[[[UINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_flt]]],[[[mmux_float_t]]],  [[[FLOAT]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_d]]],	[[[mmux_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ld]]],	[[[mmux_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
-			     [[[MMUX_HAVE_CC_TYPE_LDOUBLE]]])
+			     [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_float128]]],   [[[mmux_float128_t]]],  [[[FLOAT128]]],
-			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT128]]], [[[MMUX_HAVE_CC_TYPE_FLOAT128]]])
+			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT128]]], [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_FLOAT128]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_decimal64]]],	[[[mmux_decimal64_t]]], [[[DECIMAL64]]],
-			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL64]]], [[[MMUX_HAVE_CC_TYPE_DECIMAL64]]])
+			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL64]]], [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL64]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_decimal128]]],	[[[mmux_decimal128_t]]],[[[DECIMAL128]]],
-			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL128]]], [[[MMUX_HAVE_CC_TYPE_DECIMAL128]]])
+			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL128]]], [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL128]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_q]]],	[[[mpq_ptr]]],	[[[MPQ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPQ_PTR]]])
@@ -153,7 +153,7 @@ DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_si]]],[[[mmux_slong_t]]],  [[[SLONG]]]
 DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ui]]],[[[mmux_ulong_t]]],  [[[ULONG]]],	 [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
 DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_d]]],	[[[mmux_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
 DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ld]]],[[[mmux_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
-			 [[[MMUX_HAVE_CC_TYPE_LDOUBLE]]])
+			 [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE]]])
 
 DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
 DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_q]]],	[[[mpq_ptr]]],	[[[MPQ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPQ_PTR]]])

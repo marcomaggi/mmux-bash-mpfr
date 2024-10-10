@@ -85,8 +85,8 @@ extern "C" {
  ** Headers.
  ** ----------------------------------------------------------------- */
 
-#include <stdint.h>
-#include <inttypes.h>
+#include <mmux-bash-pointers.h>
+#include <mmux-bash-mpfr-config.h>
 #include <mpfr.h>
 
 
