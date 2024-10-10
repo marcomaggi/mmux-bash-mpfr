@@ -35,6 +35,13 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR]]],[[[{
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
+m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR_ARRAY]]],[[[{
+  int  mmux_retval = mmux_mpfr_ptr_array_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
+}]]])
+
+# $1 - name of the target variable
+# $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MPF_PTR]]],[[[{
   int  mmux_retval = mmux_pointer_parse((void **)&$1, $2, MMUX_BUILTIN_NAME);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }

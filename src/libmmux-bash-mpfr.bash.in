@@ -31,33 +31,137 @@ function mmux-bash-mpfr-library-load () {
     declare -g  MMUX_BASH_MPFR_CURRENT=@mmux_bash_mpfr_VERSION_INTERFACE_CURRENT@
     declare -g  MMUX_BASH_MPFR_REVISION=@mmux_bash_mpfr_VERSION_INTERFACE_REVISION@
     declare -g  MMUX_BASH_MPFR_AGE=@mmux_bash_mpfr_VERSION_INTERFACE_AGE@
-    declare -ga MMUX_BASH_MPFR_BUILTINS=(mpfr_init mpfr_clear mpfr_init2 mpfr_inits mpfr_inits2 mpfr_clears
-					 mpfr_set_default_prec mpfr_get_default_prec mpfr_get_prec mpfr_set_prec
 
-					 mpfr_set_si mpfr_set_ui mpfr_set_sj mpfr_set_uj mpfr_set_flt mpfr_set_d mpfr_set_ld
-					 mpfr_set_float128 mpfr_set_decimal64 mpfr_set_decimal128 mpfr_set
-					 mpfr_set_z mpfr_set_q mpfr_set_f
-					 mpfr_set_si_2exp mpfr_set_ui_2exp mpfr_set_sj_2exp mpfr_set_uj_2exp mpfr_set_z_2exp
-					 mpfr_init_set_si mpfr_init_set_ui mpfr_init_set_d mpfr_init_set_ld
-					 mpfr_init_set_z mpfr_init_set_q mpfr_init_set_f mpfr_init_set
-					 mpfr_set_str mpfr_strtofr mpfr_set_nan mpfr_set_inf mpfr_set_zero
+    declare -ga MMUX_BASH_MPFR_BUILTINS=(mpfr_init
+					 mpfr_clear
+					 mpfr_init2
+					 mpfr_inits
+					 mpfr_inits2
+					 mpfr_clears
+					 mpfr_set_default_prec
+					 mpfr_get_default_prec
+					 mpfr_get_prec
+					 mpfr_set_prec
+					 mpfr_set_si
+					 mpfr_set_ui
+					 mpfr_set_sj
+					 mpfr_set_uj
+					 mpfr_set_flt
+					 mpfr_set_d
+					 mpfr_set_ld
+					 mpfr_set_float128
+					 mpfr_set_decimal64
+					 mpfr_set_decimal128
+					 mpfr_set
+					 mpfr_set_z
+					 mpfr_set_q
+					 mpfr_set_f
+					 mpfr_set_si_2exp
+					 mpfr_set_ui_2exp
+					 mpfr_set_sj_2exp
+					 mpfr_set_uj_2exp
+					 mpfr_set_z_2exp
+					 mpfr_init_set_si
+					 mpfr_init_set_ui
+					 mpfr_init_set_d
+					 mpfr_init_set_ld
+					 mpfr_init_set_z
+					 mpfr_init_set_q
+					 mpfr_init_set_f
+					 mpfr_init_set
+					 mpfr_set_str
+					 mpfr_strtofr
+					 mpfr_set_nan
+					 mpfr_set_inf
+					 mpfr_set_zero
 					 mpfr_swap
 
-					 mpfr_get_si mpfr_get_ui mpfr_get_sj mpfr_get_uj mpfr_get_flt
-					 mpfr_get_d mpfr_get_ld mpfr_get_float128 mpfr_get_decimal64 mpfr_get_decimal128
-					 mpfr_get_d_2exp mpfr_get_ld_2exp mpfr_frexp mpfr_get_str mpfr_fits_sshort_p
-					 mpfr_fits_ushort_p mpfr_fits_sint_p mpfr_fits_uint_p mpfr_fits_slong_p mpfr_fits_ulong_p
-					 mpfr_fits_intmax_p mpfr_fits_uintmax_p mpfr_get_z_2exp mpfr_get_z mpfr_get_q
-					 mpfr_get_f mpfr_get_str_ndigits
+					 mpfr_get_si
+					 mpfr_get_ui
+					 mpfr_get_sj
+					 mpfr_get_uj
+					 mpfr_get_flt
+					 mpfr_get_d
+					 mpfr_get_ld
+					 mpfr_get_float128
+					 mpfr_get_decimal64
+					 mpfr_get_decimal128
+					 mpfr_get_d_2exp
+					 mpfr_get_ld_2exp
+					 mpfr_frexp
+					 mpfr_get_str
+					 mpfr_fits_sshort_p
+					 mpfr_fits_ushort_p
+					 mpfr_fits_sint_p
+					 mpfr_fits_uint_p
+					 mpfr_fits_slong_p
+					 mpfr_fits_ulong_p
+					 mpfr_fits_intmax_p
+					 mpfr_fits_uintmax_p
+					 mpfr_get_z_2exp
+					 mpfr_get_z
+					 mpfr_get_q
+					 mpfr_get_f
+					 mpfr_get_str_ndigits
 
-					 mpfr_add mpfr_add_si mpfr_add_ui mpfr_add_d mpfr_add_z mpfr_add_q
-					 mpfr_mul mpfr_mul_si mpfr_mul_ui mpfr_mul_d mpfr_mul_z mpfr_mul_q
-					 mpfr_sub mpfr_sub_si mpfr_sub_ui mpfr_sub_d mpfr_sub_z mpfr_sub_q mpfr_si_sub mpfr_ui_sub mpfr_d_sub
-					 mpfr_div mpfr_div_si mpfr_div_ui mpfr_div_d mpfr_div_z mpfr_div_q mpfr_si_div mpfr_ui_div mpfr_d_div
-					 mpfr_sqr mpfr_sqrt mpfr_sqrt_ui mpfr_rec_sqrt mpfr_cbrt mpfr_rootn_ui mpfr_rootn_si
-					 mpfr_neg mpfr_abs
+					 mpfr_add
+					 mpfr_add_si
+					 mpfr_add_ui
+					 mpfr_add_d
+					 mpfr_add_z
+					 mpfr_add_q
+					 mpfr_mul
+					 mpfr_mul_si
+					 mpfr_mul_ui
+					 mpfr_mul_2si
+					 mpfr_mul_2ui
+					 mpfr_mul_d
+					 mpfr_mul_z
+					 mpfr_mul_q
+					 mpfr_sub
+					 mpfr_sub_si
+					 mpfr_sub_ui
+					 mpfr_sub_d
+					 mpfr_sub_z
+					 mpfr_sub_q
+					 mpfr_si_sub
+					 mpfr_ui_sub
+					 mpfr_d_sub
+					 mpfr_div
+					 mpfr_div_si
+					 mpfr_div_ui
+					 mpfr_div_2si
+					 mpfr_div_2ui
+					 mpfr_div_d
+					 mpfr_div_z
+					 mpfr_div_q
+					 mpfr_si_div
+					 mpfr_ui_div
+					 mpfr_d_div
+					 mpfr_sqr
+					 mpfr_sqrt
+					 mpfr_sqrt_ui
+					 mpfr_rec_sqrt
+					 mpfr_cbrt
+					 mpfr_rootn_ui
+					 mpfr_rootn_si
+					 mpfr_neg
+					 mpfr_abs
+					 mpfr_dim
+					 mpfr_fac_ui
+					 mpfr_fma
+					 mpfr_fms
+					 mpfr_fmma
+					 mpfr_fmms
+					 mpfr_hypot
+					 mpfr_sum
+					 mpfr_dot
 
-					 mpfr_nan_p mpfr_inf_p mpfr_zero_p mpfr_number_p mpfr_regular_p
+					 mpfr_nan_p
+					 mpfr_inf_p
+					 mpfr_zero_p
+					 mpfr_number_p
+					 mpfr_regular_p
 					 mpfr_sgn
 					 mpfr_dump)
 
@@ -191,74 +295,100 @@ function mpfr_clear_and_free () {
 #### shell index arrays
 
 function mpfr_alloc_shell_array () {
-    declare -n mpfr_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare -n mpfr_SHELL_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
     declare -i mpfr_ADIM=${2:?"missing parameter 2 shell array dimension in call to '$FUNCNAME'"}
-    declare -i mfr_IDX mpfr_JDX
+    declare -i mpfr_IDX mpfr_JDX
 
-    if ! mmux_libc_calloc 'mpfr_ARRY[0]' ${mpfr_ADIM:?} "${mpfr_SIZEOF:?}"
+    if ! mmux_libc_calloc 'mpfr_SHELL_ARRY[0]' ${mpfr_ADIM:?} ${mpfr_SIZEOF:?}
     then return 1
     fi
 
-    for ((mfr_IDX=0, mpfr_JDX=1; mpfr_JDX < mpfr_ADIM; ++mfr_IDX, ++mpfr_JDX))
+    for ((mpfr_IDX=0, mpfr_JDX=1; mpfr_JDX < mpfr_ADIM; ++mpfr_IDX, ++mpfr_JDX))
     do
-	if ! mmux_pointer_add "mpfr_ARRY[${mpfr_JDX:?}]" "${mpfr_ARRY[${mfr_IDX:?}]:?}" "${mpfr_SIZEOF:?}"
+	if ! mmux_pointer_add "mpfr_SHELL_ARRY[${mpfr_JDX:?}]" "${mpfr_SHELL_ARRY[${mpfr_IDX:?}]:?}" ${mpfr_SIZEOF:?}
 	then
-	    mmux_libc_free "${mpfr_ARRY[0]:?}"
+	    mmux_libc_free "${mpfr_SHELL_ARRY[0]:?}"
 	    return 1
 	fi
     done
     return 0
 }
 function mpfr_free_shell_array () {
-    declare -n mpfr_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare -n mpfr_SHELL_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
 
-    mmux_libc_free "${mpfr_ARRY[0]:?}"
+    mmux_libc_free "${mpfr_SHELL_ARRY[0]:?}"
 }
 
 function mpfr_init_shell_array () {
-    declare -n mpfr_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare -n mpfr_SHELL_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
     declare    mpfr_p_PREC=$2
-    declare -i mpfr_ADIM=${#mpfr_ARRY[@]}
-    declare -i mfr_IDX
+    declare -i mpfr_ADIM=${#mpfr_SHELL_ARRY[@]}
+    declare -i mpfr_IDX
 
     if test -z "$mpfr_p_PREC" -o  "$mpfr_p_PREC" = '0'
     then
-	for ((mfr_IDX=0; mfr_IDX < mpfr_ADIM; ++mfr_IDX))
-	do mpfr_init "${mpfr_ARRY[$mfr_IDX]:?}"
+	for ((mpfr_IDX=0; mpfr_IDX < mpfr_ADIM; ++mpfr_IDX))
+	do mpfr_init "${mpfr_SHELL_ARRY[$mpfr_IDX]:?}"
 	done
     else
-	for ((mfr_IDX=0; mfr_IDX < mpfr_ADIM; ++mfr_IDX))
-	do mpfr_init2 "${mpfr_ARRY[$mfr_IDX]:?}" "${mpfr_p_PREC:?}"
+	for ((mpfr_IDX=0; mpfr_IDX < mpfr_ADIM; ++mpfr_IDX))
+	do mpfr_init2 "${mpfr_SHELL_ARRY[$mpfr_IDX]:?}" "${mpfr_p_PREC:?}"
 	done
     fi
 }
 function mpfr_clear_shell_array () {
-    declare -n mpfr_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
-    declare -i mpfr_ADIM=${#mpfr_ARRY[@]}
-    declare -i mfr_IDX
+    declare -n mpfr_SHELL_ARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare -i mpfr_ADIM=${#mpfr_SHELL_ARRY[@]}
+    declare -i mpfr_IDX
 
-    for ((mfr_IDX=0; mfr_IDX < mpfr_ADIM; ++mfr_IDX))
-    do mpfr_clear "${mpfr_ARRY[$mfr_IDX]:?}"
+    for ((mpfr_IDX=0; mpfr_IDX < mpfr_ADIM; ++mpfr_IDX))
+    do mpfr_clear "${mpfr_SHELL_ARRY[$mpfr_IDX]:?}"
     done
 }
 
 function mpfr_alloc_and_init_shell_array () {
-    declare -n mpfr_SUBARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare -n mpfr_SHELL_SUBARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
     declare -i mpfr_ADIM=${2:?"missing parameter 2 shell array dimension in call to '$FUNCNAME'"}
     declare    mpfr_p_PREC=$3
 
-    if mpfr_alloc_shell_array mpfr_SUBARRY ${mpfr_ADIM:?}
-    then mpfr_init_shell_array mpfr_SUBARRY ${mpfr_p_PREC}
+    if mpfr_alloc_shell_array mpfr_SHELL_SUBARRY ${mpfr_ADIM:?}
+    then mpfr_init_shell_array mpfr_SHELL_SUBARRY ${mpfr_p_PREC}
     else return 1
     fi
 }
 function mpfr_clear_and_free_shell_array () {
-    declare -n mpfr_SUBARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+    declare -n mpfr_SHELL_SUBARRY=${1:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
 
-    if mpfr_clear_shell_array mpfr_SUBARRY
-    then mpfr_free_shell_array mpfr_SUBARRY
+    if mpfr_clear_shell_array mpfr_SHELL_SUBARRY
+    then mpfr_free_shell_array mpfr_SHELL_SUBARRY
     else return 1
     fi
+}
+
+#page
+#### raw memory arrays of pointers
+
+function mpfr_alloc_and_init_pointers_array () {
+    declare -n mpfr_POINTERS=${1:?"missing parameter 3 name of pointer to pointers array in call to '$FUNCNAME'"}
+    declare -n mpfr_SHELL_ARRY=${2:?"missing parameter 1 shell array name in call to '$FUNCNAME'"}
+
+    if ! mmux_libc_calloc 'mpfr_POINTERS' ${#mpfr_SHELL_ARRY[@]} ${mmux_pointer_SIZEOF:?}
+    then return 1
+    fi
+
+    {
+	declare -i mpfr_IDX
+
+	for ((mpfr_IDX=0; mpfr_IDX < ${#mpfr_SHELL_ARRY[@]}; ++mpfr_IDX))
+	do
+	    if ! mmux_pointer_array_set ${mpfr_POINTERS:?} ${mpfr_IDX:?} "${mpfr_SHELL_ARRY[${mpfr_IDX:?}]:?}"
+	    then
+		mmux_libc_free ${mpfr_POINTERS:?}
+		return 1
+	    fi
+	done
+    }
+    return 0
 }
 
 #page

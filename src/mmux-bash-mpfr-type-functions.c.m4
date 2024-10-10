@@ -34,51 +34,56 @@
  ** ----------------------------------------------------------------- */
 
 int
-mmux_mpfr_ptr_parse (mpfr_ptr * p_value, char const * const s_value, char const * const caller_name)
+mmux_mpfr_ptr_parse (mpfr_ptr * p_value, char const * const s_value, char const * const who)
 {
-  return mmux_pointer_parse((void **)p_value, s_value, caller_name);
+  return mmux_pointer_parse((void **)p_value, s_value, who);
 }
 int
-mmux_mpfr_rnd_parse (mpfr_rnd_t * p_value, char const * const s_value, char const * const caller_name)
+mmux_mpfr_ptr_array_parse (mpfr_ptr ** p_value, char const * const s_value, char const * const who)
 {
-  return mmux_sint_parse(p_value, s_value, caller_name);
+  return mmux_pointer_parse((void **)p_value, s_value, who);
 }
 int
-mmux_mpfr_exp_parse (mpfr_exp_t * p_value, char const * const s_value, char const * const caller_name)
+mmux_mpfr_rnd_parse (mpfr_rnd_t * p_value, char const * const s_value, char const * const who)
+{
+  return mmux_sint_parse(p_value, s_value, who);
+}
+int
+mmux_mpfr_exp_parse (mpfr_exp_t * p_value, char const * const s_value, char const * const who)
 {
   if (sizeof(mpfr_exp_t) == sizeof(mmux_sint_t)) {
-    return mmux_sint_parse((mmux_sint_t *)p_value, s_value, caller_name);
+    return mmux_sint_parse((mmux_sint_t *)p_value, s_value, who);
   } else
   if (sizeof(mpfr_exp_t) == sizeof(mmux_slong_t)) {
-    return mmux_slong_parse((mmux_slong_t *)p_value, s_value, caller_name);
+    return mmux_slong_parse((mmux_slong_t *)p_value, s_value, who);
   } else
 MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
   if (sizeof(mpfr_exp_t) == sizeof(mmux_sllong_t)) {
-    return mmux_sllong_parse((mmux_sllong_t *)p_value, s_value, caller_name);
+    return mmux_sllong_parse((mmux_sllong_t *)p_value, s_value, who);
   } else
 ]]])
   if (sizeof(mpfr_exp_t) == sizeof(mmux_sintmax_t)) {
-    return mmux_sintmax_parse(p_value, s_value, caller_name);
+    return mmux_sintmax_parse(p_value, s_value, who);
   } else {
     return MMUX_FAILURE;
   }
 }
 int
-mmux_mpfr_prec_parse (mpfr_prec_t * p_value, char const * const s_value, char const * const caller_name)
+mmux_mpfr_prec_parse (mpfr_prec_t * p_value, char const * const s_value, char const * const who)
 {
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sint_t)) {
-    return mmux_sint_parse((mmux_sint_t *)p_value, s_value, caller_name);
+    return mmux_sint_parse((mmux_sint_t *)p_value, s_value, who);
   } else
   if (sizeof(mpfr_prec_t) == sizeof(mmux_slong_t)) {
-    return mmux_slong_parse((mmux_slong_t *)p_value, s_value, caller_name);
+    return mmux_slong_parse((mmux_slong_t *)p_value, s_value, who);
   } else
 MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sllong_t)) {
-    return mmux_sllong_parse((mmux_sllong_t *)p_value, s_value, caller_name);
+    return mmux_sllong_parse((mmux_sllong_t *)p_value, s_value, who);
   } else
 ]]])
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sintmax_t)) {
-    return mmux_sintmax_parse(p_value, s_value, caller_name);
+    return mmux_sintmax_parse(p_value, s_value, who);
   } else {
     return MMUX_FAILURE;
   }
@@ -90,51 +95,51 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
  ** ----------------------------------------------------------------- */
 
 int
-mmux_mpfr_ptr_bind_to_variable (char const * variable_name, mpfr_ptr value, char const * caller_name)
+mmux_mpfr_ptr_bind_to_variable (char const * variable_name, mpfr_ptr value, char const * who)
 {
-  return mmux_pointer_bind_to_variable(variable_name, value, caller_name);
+  return mmux_pointer_bind_to_variable(variable_name, value, who);
 }
 int
-mmux_mpfr_rnd_bind_to_variable (char const * variable_name, mpfr_rnd_t value, char const * caller_name)
+mmux_mpfr_rnd_bind_to_variable (char const * variable_name, mpfr_rnd_t value, char const * who)
 {
-  return mmux_sint_bind_to_variable(variable_name, (mmux_sint_t) value, caller_name);
+  return mmux_sint_bind_to_variable(variable_name, (mmux_sint_t) value, who);
 }
 int
-mmux_mpfr_exp_bind_to_variable (char const * variable_name, mpfr_exp_t value, char const * caller_name)
+mmux_mpfr_exp_bind_to_variable (char const * variable_name, mpfr_exp_t value, char const * who)
 {
   if (sizeof(mpfr_exp_t) == sizeof(mmux_sint_t)) {
-    return mmux_sint_bind_to_variable(variable_name, (mmux_sint_t) value, caller_name);
+    return mmux_sint_bind_to_variable(variable_name, (mmux_sint_t) value, who);
   } else
   if (sizeof(mpfr_exp_t) == sizeof(mmux_slong_t)) {
-    return mmux_slong_bind_to_variable(variable_name, (mmux_slong_t) value, caller_name);
+    return mmux_slong_bind_to_variable(variable_name, (mmux_slong_t) value, who);
   } else
 MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
   if (sizeof(mpfr_exp_t) == sizeof(mmux_sllong_t)) {
-    return mmux_sllong_bind_to_variable(variable_name, (mmux_sllong_t) value, caller_name);
+    return mmux_sllong_bind_to_variable(variable_name, (mmux_sllong_t) value, who);
   } else
 ]]])
   if (sizeof(mpfr_exp_t) == sizeof(mmux_sintmax_t)) {
-    return mmux_sint_bind_to_variable(variable_name, (mmux_sintmax_t) value, caller_name);
+    return mmux_sint_bind_to_variable(variable_name, (mmux_sintmax_t) value, who);
   } else {
     return MMUX_FAILURE;
   }
 }
 int
-mmux_mpfr_prec_bind_to_variable (char const * variable_name, mpfr_prec_t value, char const * caller_name)
+mmux_mpfr_prec_bind_to_variable (char const * variable_name, mpfr_prec_t value, char const * who)
 {
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sint_t)) {
-    return mmux_sint_bind_to_variable(variable_name, (mmux_sint_t) value, caller_name);
+    return mmux_sint_bind_to_variable(variable_name, (mmux_sint_t) value, who);
   } else
   if (sizeof(mpfr_prec_t) == sizeof(mmux_slong_t)) {
-    return mmux_slong_bind_to_variable(variable_name, (mmux_slong_t) value, caller_name);
+    return mmux_slong_bind_to_variable(variable_name, (mmux_slong_t) value, who);
   } else
 MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sllong_t)) {
-    return mmux_sllong_bind_to_variable(variable_name, (mmux_sllong_t) value, caller_name);
+    return mmux_sllong_bind_to_variable(variable_name, (mmux_sllong_t) value, who);
   } else
 ]]])
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sintmax_t)) {
-    return mmux_sint_bind_to_variable(variable_name, (mmux_sintmax_t) value, caller_name);
+    return mmux_sint_bind_to_variable(variable_name, (mmux_sintmax_t) value, who);
   } else {
     return MMUX_FAILURE;
   }

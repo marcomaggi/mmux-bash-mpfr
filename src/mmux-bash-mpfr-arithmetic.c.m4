@@ -134,6 +134,8 @@ DEFINE_SIMPLE_MULER([[[mpfr_mul_ui]]],	[[[mmux_ulong_t]]],	[[[MMUX_BASH_PARSE_BU
 DEFINE_SIMPLE_MULER([[[mpfr_mul_d]]],	[[[mmux_double_t]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
 DEFINE_SIMPLE_MULER([[[mpfr_mul_z]]],	[[[mpz_ptr]]],		[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
 DEFINE_SIMPLE_MULER([[[mpfr_mul_q]]],	[[[mpq_ptr]]],		[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPQ_PTR]]])
+DEFINE_SIMPLE_MULER([[[mpfr_mul_2si]]],	[[[mmux_slong_t]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
+DEFINE_SIMPLE_MULER([[[mpfr_mul_2ui]]],	[[[mmux_ulong_t]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -302,6 +304,8 @@ DEFINE_SIMPLE_DIVER([[[mpfr_div_ui]]],	[[[mmux_ulong_t]]],	[[[MMUX_BASH_PARSE_BU
 DEFINE_SIMPLE_DIVER([[[mpfr_div_d]]],	[[[mmux_double_t]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
 DEFINE_SIMPLE_DIVER([[[mpfr_div_z]]],	[[[mpz_ptr]]],		[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
 DEFINE_SIMPLE_DIVER([[[mpfr_div_q]]],	[[[mpq_ptr]]],		[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPQ_PTR]]])
+DEFINE_SIMPLE_DIVER([[[mpfr_div_2si]]],	[[[mmux_slong_t]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
+DEFINE_SIMPLE_DIVER([[[mpfr_div_2ui]]],	[[[mmux_ulong_t]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -591,5 +595,240 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_abs]]],
     [[["mpfr_abs MPFR_ROP MPFR_OP MPFR_RND"]]],
     [[["Compute the absolute value of a number, store the result in ROP."]]])
 
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_dim_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_dim"
+{
+  mpfr_ptr		rop, op1, op2;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = mpfr_dim(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_dim]]],
+    [[[(5 == argc)]]],
+    [[["mpfr_dim MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute the positive difference between two numbers, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_fac_ui_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_fac_ui"
+{
+  mpfr_ptr	rop;
+  mmux_ulong_t	op;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[op]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_fac_ui(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_fac_ui]]],
+    [[[(4 == argc)]]],
+    [[["mpfr_fac_ui MPFR_ROP ULONG MPFR_RND"]]],
+    [[["Compute the factorial of a ULONG, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_fma_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_fma"
+{
+  mpfr_ptr		rop, op1, op2, op3;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op3]]],	[[[argv[4]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[5]]]]);
+  {
+    int		rv = mpfr_fma(rop, op1, op2, op3, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_fma]]],
+    [[[(6 == argc)]]],
+    [[["mpfr_fma MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_OP3 MPFR_RND"]]],
+    [[["Compute fused-multiply-and-add, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_fms_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_fms"
+{
+  mpfr_ptr		rop, op1, op2, op3;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op3]]],	[[[argv[4]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[5]]]]);
+  {
+    int		rv = mpfr_fms(rop, op1, op2, op3, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_fms]]],
+    [[[(6 == argc)]]],
+    [[["mpfr_fms MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_OP3 MPFR_RND"]]],
+    [[["Compute fused-multiply-and-subtract, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_fmma_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_fmma"
+{
+  mpfr_ptr		rop, op1, op2, op3, op4;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op3]]],	[[[argv[4]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op4]]],	[[[argv[5]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[6]]]]);
+  {
+    int		rv = mpfr_fmma(rop, op1, op2, op3, op4, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_fmma]]],
+    [[[(7 == argc)]]],
+    [[["mpfr_fmma MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_OP3 MPFR_op4 MPFR_RND"]]],
+    [[["Compute fused-multiply-multiply-and-add, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_fmms_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_fmms"
+{
+  mpfr_ptr		rop, op1, op2, op3, op4;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op3]]],	[[[argv[4]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op4]]],	[[[argv[5]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[6]]]]);
+  {
+    int		rv = mpfr_fmms(rop, op1, op2, op3, op4, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_fmms]]],
+    [[[(7 == argc)]]],
+    [[["mpfr_fmms MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_OP3 MPFR_RND"]]],
+    [[["Compute fused-multiply-multiply-and-subtract, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_hypot_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_hypot"
+{
+  mpfr_ptr		rop, op1, op2;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = mpfr_hypot(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_hypot]]],
+    [[[(5 == argc)]]],
+    [[["mpfr_hypot MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute the hypot between two numbers, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_sum_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_sum"
+{
+  mpfr_ptr		rop, *ops;
+  mmux_ulong_t		num;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR_ARRAY([[[ops]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[num]]],		[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = mpfr_sum(rop, ops, num, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_sum]]],
+    [[[(5 == argc)]]],
+    [[["mpfr_sum MPFR_ROP MPFR_PTR_ARRAY ULONG_N MPFR_RND"]]],
+    [[["Sum numbers from an array, store the result in ROP."]]])
+
+/* ------------------------------------------------------------------ */
+
+static int
+mpfr_dot_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
+#undef  MMUX_BUILTIN_NAME
+#define MMUX_BUILTIN_NAME	"mpfr_dot"
+{
+  mpfr_ptr		rop;
+  mpfr_ptr		*ops1, *ops2;
+  mmux_ulong_t		num;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],		[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR_ARRAY([[[ops1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR_ARRAY([[[ops2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[num]]],			[[[argv[4]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],		[[[argv[5]]]]);
+  {
+    int		rv = mpfr_dot(rop, ops1, ops2, num, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_dot]]],
+    [[[(6 == argc)]]],
+    [[["mpfr_dot MPFR_ROP MPFR_PTR_ARRAY1 MPFR_PTR_ARRAY2 ULONG_N MPFR_RND"]]],
+    [[["Compute the dot produce between arrays, store the result in ROP."]]])
 
 /* end of file */
