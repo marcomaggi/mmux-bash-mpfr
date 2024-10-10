@@ -1454,6 +1454,97 @@ Interface to the C language function @cfunc{mpfr_fmma}.
 Interface to the C language function @cfunc{mpfr_fmms}.
 @end deffn
 
+
+@deffn Builtin mpfr_hypot @var{MPFR_ROP} @vari{MPFR_OP} @varii{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_hypot}.
+@end deffn
+
+
+@deffn Builtin mpfr_sum @var{MPFR_ROP} @var{MPFR_PTR_ARRAY} @var{ULONG_DIM} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_sum}.
+
+The argument @var{MPFR_PTR_ARRAY} must be a pointer to an array of pointers, each of which
+references a @mpfr{} number.
+
+The argument @var{ULONG_DIM} must be the number of slots in the array of pointers.
+
+@example
+declare -a OPS
+declare -i DIM=5
+declare POINTERS
+
+mpfr_alloc_and_init_shell_array OPS @WW{DIM}
+@{
+    mpfr_alloc_and_init_pointers_array POINTERS OPS
+    @{
+        mpfr_alloc_and_init ROP
+        @{
+            mpfr_set_si $@{OPS[0]:?@} 11 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS[1]:?@} 22 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS[2]:?@} 33 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS[3]:?@} 44 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS[4]:?@} 55 @WW{MPFR_RNDN}
+
+            mpfr_sum @WW{ROP} @WW{POINTERS} @WW{DIM} @WW{MPFR_RNDN}
+
+            mpfr_just_printit_dammit @WW{ROP}
+        @}
+        mpfr_clear_and_free @WW{ROP}
+    @}
+    mmux_libc_free @WW{POINTERS}
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_dot @var{MPFR_ROP} @vari{MPFR_PTR_ARRAY} @varii{MPFR_PTR_ARRAY} @var{ULONG_DIM} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_dot}.
+
+The arguments @vari{MPFR_PTR_ARRAY} and @varii{MPFR_PTR_ARRAY} must be a pointers to an arrays of
+pointers, each of which references a @mpfr{} number.
+
+The argument @var{ULONG_DIM} must be the number of slots in the arrays of pointers.
+
+@example
+declare -a OPS1 OPS2
+declare -i DIM=5
+declare POINTERS1 POINTERS2
+
+mpfr_alloc_and_init_shell_array OPS1 @WW{DIM}
+mpfr_alloc_and_init_shell_array OPS2 @WW{DIM}
+@{
+    mpfr_alloc_and_init_pointers_array POINTERS1 OPS1
+    mpfr_alloc_and_init_pointers_array POINTERS2 OPS2
+    @{
+        mpfr_alloc_and_init ROP
+        @{
+            mpfr_set_si $@{OPS1[0]:?@} 11 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS1[1]:?@} 22 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS1[2]:?@} 33 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS1[3]:?@} 44 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS1[4]:?@} 55 @WW{MPFR_RNDN}
+
+            mpfr_set_si $@{OPS2[0]:?@} 66 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS2[1]:?@} 77 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS2[2]:?@} 88 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS2[3]:?@} 99 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS2[4]:?@} 10 @WW{MPFR_RNDN}
+
+            mpfr_dot @WW{ROP} @WW{POINTERS1} @WW{POINTERS2} @WW{DIM} @WW{MPFR_RNDN}
+
+            mpfr_just_printit_dammit @WW{ROP}
+        @}
+        mpfr_clear_and_free @WW{ROP}
+    @}
+    mmux_libc_free @WW{POINTERS2}
+    mmux_libc_free @WW{POINTERS1}
+@}
+mpfr_clear_and_free_shell_array OPS2
+mpfr_clear_and_free_shell_array OPS1
+@end example
+@end deffn
+
 @c page
 @node io
 @chapter Input, output, printing
