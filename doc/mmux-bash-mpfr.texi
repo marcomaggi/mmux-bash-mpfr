@@ -933,13 +933,14 @@ Interface to the C language functions @cfunc{\FUNC\}.
 To extract a value from a @mpfr{} number, we do:
 
 @example
-declare VAL OP
+declare VAL OP MPFR_RV
 
 mpfr_alloc_and_init OP
 @{
     mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
 
-    if mpfr_fits_slong_p @WW{OP}
+    mpfr_fits_slong_p @WW{OP}
+    if (( 1 == @WW{MPFR_RV} ))
     then
         mpfr_get_si VAL @WW{OP} @WW{MPFR_RNDN}
         printf '%s\n' @WW{VAL}
@@ -1077,7 +1078,10 @@ mpfr_clear_and_free @WW{OP}
 
 @macro MmuxMpfrDefineFitser{STEM}
 @deffn Builtin mpfr_fits_\STEM\_p @var{MPFR_OP} @var{MPFR_RND}
-Interface to the C language function @cfunc{mpfr_fits_\STEM\_p}.
+Interface to the C language function @cfunc{mpfr_fits_\STEM\_p}.  This function also returns true
+when the call is successful and false if an error occurs.  To check if @var{MPFR_OP} fits the
+specified type: we have to examine the shell variable @env{MPFR_RV}, which is set to: @samp{1} if
+the number fits; @samp{0} if the number does not fit.
 @end deffn
 
 @end macro
