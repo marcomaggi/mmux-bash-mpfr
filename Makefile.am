@@ -156,6 +156,7 @@ mmux_bashlibdir		= $(datadir)/bash
 
 EXTRA_DIST		+= \
 	tests/arithmetic.test.m4		\
+	tests/comparison.test.m4		\
 	tests/conversion.test.m4		\
 	tests/init.test.m4			\
 	tests/printing.test.m4			\
@@ -170,6 +171,7 @@ if WANT_MBFL_TESTING_ENABLED
 
 MMUX_CHECK_BUILT_TESTS	= \
 	tests/arithmetic.test			\
+	tests/comparison.test			\
 	tests/conversion.test			\
 	tests/init.test				\
 	tests/printing.test			\

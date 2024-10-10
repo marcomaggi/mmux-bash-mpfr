@@ -206,7 +206,7 @@ function mmux-bash-mpfr-library-unload () {
 
 function mpfr_just_printit_dammit () {
     declare -i BASE=10 NDIGITS=6
-    declare OPT OPTARG OPTIND OPTERR=1
+    declare OPT OPTARG OPTIND OPTERR=1 MPFR_RV
 
     while getopts ':n:b:' OPT
     do
@@ -226,40 +226,47 @@ function mpfr_just_printit_dammit () {
 
     declare OP=${1:?"missing mandatory parameter MPFR_PTR in call to '$FUNCNAME'"}
 
-    #echo BASE="$BASE" NDIGITS="$NDIGITS" OP="$OP" >&2
+    #echo $FUNCNAME BASE="$BASE" NDIGITS="$NDIGITS" OP="$OP" >&2
 
-    if mpfr_nan_p "${OP:?}"
-    then printf '%s\n' '@NaN@'
-    elif mpfr_inf_p "${OP:?}"
-    then
-	{
-	    declare SIGN
-
-	    mpfr_sgn SIGN "${OP:?}"
-	    case "${SIGN:?}" in
-		1)
-		    printf -- '+%s\n' '@Inf@'
-		    ;;
-		-1)
-		    printf -- '-%s\n' '@Inf@'
-		    ;;
-		*)
-		    printf -- '%s\n' '@Inf@'
-		    ;;
-	    esac
-	}
+    if ! mpfr_nan_p "${OP:?}"
+    then return 1
     else
-	{
-	    declare MAN EXP
-
-	    mpfr_get_str MAN EXP "${BASE:?}" "${NDIGITS:?}" "${OP:?}" "${MPFR_RNDN:?}"
-
-	    if test "${MAN:0:1}" = '-'
-	    then printf -- '-0.%se%s\n' "${MAN:1}" "${EXP:?}"
-	    else printf --  '0.%se%s\n' "${MAN:?}" "${EXP:?}"
-	    fi
-	}
+	if (( 1 == ${MPFR_RV:?} ))
+	then
+	    printf '%s\n' '@NaN@'
+	    return 0
+	fi
     fi
+
+    if ! mpfr_inf_p "${OP:?}"
+    then return 1
+    else
+	if (( 1 == ${MPFR_RV:?} ))
+	then
+	    {
+		declare SIGN
+
+		mpfr_sgn SIGN "${OP:?}"
+		case "${SIGN:?}" in
+		    1)	printf -- '+%s\n' '@Inf@' ;;
+		    -1)	printf -- '-%s\n' '@Inf@' ;;
+		    *) printf --  '%s\n' '@Inf@' ;;
+		esac
+	    }
+	    return 0
+	fi
+    fi
+
+    {
+	declare MAN EXP
+
+	mpfr_get_str MAN EXP "${BASE:?}" "${NDIGITS:?}" "${OP:?}" "${MPFR_RNDN:?}"
+
+	if test "${MAN:0:1}" = '-'
+	then printf -- '-0.%se%s\n' "${MAN:1}" "${EXP:?}"
+	else printf --  '0.%se%s\n' "${MAN:?}" "${EXP:?}"
+	fi
+    }
 }
 
 #page

@@ -57,7 +57,7 @@ function conversion-mpfr_get_si-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -93,7 +93,7 @@ function conversion-mpfr_get_ui-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -129,7 +129,7 @@ function conversion-mpfr_get_sj-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -165,7 +165,7 @@ function conversion-mpfr_get_uj-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -199,7 +199,7 @@ function conversion-mpfr_get_flt-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -231,7 +231,7 @@ function conversion-mpfr_get_d-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -265,7 +265,7 @@ function conversion-mpfr_get_ld-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -299,12 +299,12 @@ function conversion-mpfr_get_float128-1.1 () {
 	declare -r	INITVAL='1.230000'
 	declare	ROP OP
 
-	dotest-set-debug
+	dotest-unset-debug
 
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -338,12 +338,12 @@ function conversion-mpfr_get_decimal64-1.1 () {
 	declare -r	INITVAL='1.230000'
 	declare	ROP OP
 
-	dotest-set-debug
+	dotest-unset-debug
 
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -377,12 +377,12 @@ function conversion-mpfr_get_decimal128-1.1 () {
 	declare -r	INITVAL='1.230000'
 	declare	ROP OP
 
-	dotest-set-debug
+	dotest-unset-debug
 
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -416,12 +416,12 @@ function conversion-mpfr_get_z-1.1 () {
 	declare -r	INITVAL='1.230000'
 	declare	ROP OP
 
-	dotest-set-debug
+	dotest-unset-debug
 
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -453,12 +453,12 @@ function conversion-mpfr_get_q-1.1 () {
 	declare -r	INITVAL='1.230000'
 	declare	ROP OP
 
-	dotest-set-debug
+	dotest-unset-debug
 
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -490,12 +490,12 @@ function conversion-mpfr_get_f-1.1 () {
 	declare -r	INITVAL='1.230000'
 	declare	ROP OP
 
-	dotest-set-debug
+	dotest-unset-debug
 
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -532,7 +532,7 @@ function conversion-mpfr_get_d_2exp-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -570,7 +570,7 @@ function conversion-mpfr_get_ld_2exp-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -608,12 +608,12 @@ function conversion-mpfr_get_z_2exp-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init OP
-	    then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
 	    if mpz_alloc_and_init ROP
-	    then mbfl_location_handler "mpz_clear_and_free WW(ROP)"
+	    then mbfl_location_handler "mpz_clear_and_free RR(ROP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -640,7 +640,7 @@ function conversion-mpfr_get_z_2exp-1.1 () {
 function conversion-mpfr_frexp-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_frexp
     then
-	declare -r	INITVAL='1.23' EXPECTED_EXP='1' EXPECTED_Y='0.615000e0'
+	declare -r INITVAL='1.23' EXPECTED_EXP='1' EXPECTED_Y='0.615000e0'
 	declare	X Y EXP
 
 	dotest-unset-debug
@@ -648,12 +648,12 @@ function conversion-mpfr_frexp-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init X
-	    then mbfl_location_handler "mpfr_clear_and_free WW(X)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(X)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
 	    if mpfr_alloc_and_init Y
-	    then mbfl_location_handler "mpfr_clear_and_free WW(Y)"
+	    then mbfl_location_handler "mpfr_clear_and_free RR(Y)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -662,6 +662,8 @@ function conversion-mpfr_frexp-1.1 () {
 	    if ! mpfr_set_d WW(X) WW(INITVAL) WW(MPFR_RNDN)
 	    then mbfl_location_leave_then_return_failure
 	    fi
+
+	    dotest-debug X=$(mpfr_just_printit_dammit WW(Y))
 
 	    if ! mpfr_frexp EXP WW(Y) WW(X) WW(MPFR_RNDN)
 	    then mbfl_location_leave_then_return_failure
@@ -690,14 +692,14 @@ function conversion-mpfr_get_str-1.1 () {
     mbfl_location_enter
     {
 	if mmux_libc_calloc MPFR_OP 1 $mpfr_SIZEOF
-	then mbfl_location_handler "mmux_libc_free $MPFR_OP"
+	then mbfl_location_handler "mmux_libc_free RR(MPFR_OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
 	dotest-debug OP=$MPFR_OP
 
 	if mpfr_init $MPFR_OP
-	then mbfl_location_handler "mpfr_clear $MPFR_OP"
+	then mbfl_location_handler "mpfr_clear RR(MPFR_OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -739,7 +741,7 @@ function conversion-mpfr_fits_sshort_p-1.1 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -766,7 +768,7 @@ function conversion-mpfr_fits_sshort_p-1.2 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -789,12 +791,12 @@ function conversion-mpfr_fits_sshort_p-1.3 () {
     declare -r	INITVAL=WW(mmux_sint_MAX)
     declare	ROP OP
 
-    dotest-set-debug
+    dotest-unset-debug
 
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -828,7 +830,7 @@ function conversion-mpfr_fits_ushort_p-1.1 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -855,7 +857,7 @@ function conversion-mpfr_fits_ushort_p-1.2 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -885,7 +887,7 @@ function conversion-mpfr_fits_sint_p-1.1 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -912,7 +914,7 @@ function conversion-mpfr_fits_sint_p-1.2 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -942,7 +944,7 @@ function conversion-mpfr_fits_uint_p-1.1 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -969,7 +971,7 @@ function conversion-mpfr_fits_uint_p-1.2 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -999,7 +1001,7 @@ function conversion-mpfr_fits_slong_p-1.1 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -1026,7 +1028,7 @@ function conversion-mpfr_fits_slong_p-1.2 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -1056,7 +1058,7 @@ function conversion-mpfr_fits_ulong_p-1.1 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -1083,7 +1085,7 @@ function conversion-mpfr_fits_ulong_p-1.2 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -1113,7 +1115,7 @@ function conversion-mpfr_fits_intmax_p-1.1 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -1140,7 +1142,7 @@ function conversion-mpfr_fits_intmax_p-1.2 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -1170,7 +1172,7 @@ function conversion-mpfr_fits_uintmax_p-1.1 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
@@ -1197,7 +1199,7 @@ function conversion-mpfr_fits_uintmax_p-1.2 () {
     mbfl_location_enter
     {
 	if mpfr_alloc_and_init OP
-	then mbfl_location_handler "mpfr_clear_and_free WW(OP)"
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 

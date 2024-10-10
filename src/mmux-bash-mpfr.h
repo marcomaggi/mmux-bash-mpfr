@@ -138,6 +138,8 @@ mmux_bash_mpfr_decl int mmux_mpfr_prec_bind_to_variable (char const * variable_n
 
 mmux_bash_mpfr_decl int mmux_bash_mpfr_set_MPFR_RV (int value, char const * const who);
 
+mmux_bash_mpfr_decl int mpfr_just_printit_dammit (mpfr_ptr op);
+
 
 /** --------------------------------------------------------------------
  ** Done.

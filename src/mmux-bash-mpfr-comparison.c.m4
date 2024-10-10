@@ -44,7 +44,10 @@ $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
   mpfr_ptr	op;
 
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
-  return ($1(op))? MMUX_SUCCESS : MMUX_FAILURE;
+  {
+    int		rv = $1(op);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+  }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],

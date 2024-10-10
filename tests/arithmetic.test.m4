@@ -1286,17 +1286,20 @@ function arithmetic-mpfr_rec_sqrt-1.1 () {
 
 	    declare -n ROP='OPS[0]' OP='OPS[1]'
 
+	    dotest-debug ROP=$ROP OP=$OP WW(INITVAL) WW(MPFR_RNDN)
+
 	    if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
-	    if ! mpfr_rec_sqrt WW(ROP) WW(OP) WW(MPFR_RNDN)
+	    dotest-debug ROP=$ROP OP=$OP OPNUM=$(mpfr_just_printit_dammit RR(OP))
+
+	    if ! mpfr_rec_sqrt WW(ROP) WW(OP) WW(MPFR_RNDN) >&2
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
+	    dotest-debug ROP=WW(ROP) ROPNUM=$(mpfr_just_printit_dammit WW(ROP))
 	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
-
-	    dotest-debug WW(INITVAL) WW(RESULT)
 	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
 	}
 	mbfl_location_leave

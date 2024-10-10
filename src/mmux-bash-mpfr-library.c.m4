@@ -65,6 +65,27 @@ mmux_bash_mpfr_set_MPFR_RV (int value, char const * const caller_name)
   return mmux_sint_bind_to_variable("MPFR_RV", value, caller_name);
 }
 
+int
+mpfr_just_printit_dammit (mpfr_ptr op)
+{
+  int		base	= 10;
+  size_t	ndigits = 6;
+  mpfr_exp_t	exp = 0;
+  char *	str;
+
+  str = mpfr_get_str(NULL, &exp, base, ndigits, op, MPFR_RNDN);
+  if (str) {
+    if ('-' == str[0]) {
+      printf("-0.%se%ld\n", str+1, (mmux_slong_t)exp);
+    } else {
+      printf("+0.%se%ld\n", str, (mmux_slong_t)exp);
+    }
+    mpfr_free_str(str);
+    return MMUX_SUCCESS;
+  }
+  return MMUX_FAILURE;
+}
+
 
 /** --------------------------------------------------------------------
  ** Library initialisation.
