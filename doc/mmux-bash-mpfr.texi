@@ -1617,9 +1617,10 @@ mpfr_just_printit_dammit @WW{OP}
 @center @file{libmmux-bash-mpfr.so}
 
 @noindent
-and a C language header:
+and C language headers:
 
 @center @file{mmux-bash-mpfr.h}
+@center @file{mmux-bash-mpfr-config.h}
 
 @noindent
 we can write code that links to the shared library to reuse some of its facilities.  @ref{overview
@@ -1627,6 +1628,7 @@ linking} for details.
 
 @menu
 * shared library version::      Version functions.
+* shared library config::       Library configuration.
 @end menu
 
 @c page
@@ -1658,6 +1660,44 @@ Return an integer representing the library interface current revision number.
 @deftypefun int mmux_bash_mpfr_version_interface_age (void)
 Return an integer representing the library interface current age.
 @end deftypefun
+
+@c page
+@node shared library config
+@appendixsec Library configuration
+
+
+The following C preprocessor symbols are defined, or not, by the installed header file
+@file{mmux-bash-mpfr-config.h}.  We can use these symbols with code like:
+
+@example
+#if ((defined MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE) && (1 == MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE))
+...
+#endif
+@end example
+
+
+@defvr {C Preprocessor Symbol} MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE
+Defined and set to @samp{1} if @value{PACKAGE} supports the C language type @objtype{long double}.
+This means the builtins operating on such type are defined and available.
+@end defvr
+
+
+@defvr {C Preprocessor Symbol} MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL64
+Defined and set to @samp{1} if @value{PACKAGE} supports the C language type @objtype{_Decimal64}.
+This means the builtins operating on such type are defined and available.
+@end defvr
+
+
+@defvr {C Preprocessor Symbol} MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL128
+Defined and set to @samp{1} if @value{PACKAGE} supports the C language type @objtype{_Decimal128}.
+This means the builtins operating on such type are defined and available.
+@end defvr
+
+
+@defvr {C Preprocessor Symbol} MMUX_BASH_MPFR_HAVE_CC_TYPE_FLOAT128
+Defined and set to @samp{1} if @value{PACKAGE} supports the C language type @objtype{_Float128}.
+This means the builtins operating on such type are defined and available.
+@end defvr
 
 @c page
 @node references
