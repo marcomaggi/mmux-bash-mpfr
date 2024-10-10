@@ -105,8 +105,8 @@ $@{\VARNAME\:?@}
 
 @copying
 This document describes version @value{VERSION} of @value{PACKAGE}, a package implementing
-additional builtin commands for the @gnu{} Bash shell; to do so it installs a C language library and
-a shell script which is meant to be sourced in a Bash session or script.
+additional builtin commands for the @gnu{} Bash shell; to do so it installs a C11 language library
+and a shell script which is meant to be sourced in a Bash session or script.
 
 This package implements an interface to the @emph{Multiple Precision Floating--Point Reliable
 Library}, @mpfr{}.
@@ -198,8 +198,8 @@ Indexes
 
 
 This document describes version @value{VERSION} of @value{PACKAGE}, a package implementing
-additional builtin commands for the @gnu{} Bash shell; to do so it installs a C language library and
-a shell script which is meant to be sourced in a Bash session or script.
+additional builtin commands for the @gnu{} Bash shell; to do so it installs a C11 language library
+and a shell script which is meant to be sourced in a Bash session or script.
 
 This package implements an interface to the @emph{Multiple Precision Floating--Point Reliable
 Library}, @mpfr{}.
