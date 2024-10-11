@@ -174,6 +174,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * assignment::                  Assignment builtins.
 * conversion::                  Converting numbers to other representations.
 * arithmetic::                  Arithmetic builtins.
+* comparison::                  Comparison builtins.
 * io::                          Input, output, printing.
 
 Appendices
@@ -1548,6 +1549,57 @@ mpfr_clear_and_free_shell_array OPS2
 mpfr_clear_and_free_shell_array OPS1
 @end example
 @end deffn
+
+@c page
+@node comparison
+@chapter Comparison builtins
+
+
+@menu
+* comparison predicates::       Comparison predicates.
+@end menu
+
+@c page
+@node comparison predicates
+@section Comparison predicates
+
+
+@deffn Builtin mpfr_nan_p @var{MPFR_OP}
+Interface to the C language function @cfunc{mpfr_nan_p}.  When successful return true; otherwise
+return false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
+
+@example
+declare OP
+declare -i MPFR_RV
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
+
+    mpfr_nan_p @WW{OP}
+
+    if (( 1 == MPFR_RV ))
+    then # it is nan
+    else # it is not nan
+    fi
+@}
+mpfr_clear_and_free @WW{OP}
+@end example
+@end deffn
+
+
+@macro MmuxBashMpfrDefineComparisonPredicate{NAME}
+@deffn Builtin \NAME\ @var{MPFR_OP}
+Interface to the C language function @cfunc{\NAME\}.  When successful return true; otherwise return
+false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
+@end deffn
+
+@end macro
+
+@MmuxBashMpfrDefineComparisonPredicate{mpfr_inf_p}
+@MmuxBashMpfrDefineComparisonPredicate{mpfr_number_p}
+@MmuxBashMpfrDefineComparisonPredicate{mpfr_zero_p}
+@MmuxBashMpfrDefineComparisonPredicate{mpfr_regular_p}
 
 @c page
 @node io
