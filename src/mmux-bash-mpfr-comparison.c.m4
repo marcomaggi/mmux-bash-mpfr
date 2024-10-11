@@ -35,18 +35,14 @@
 
 m4_dnl $1 - the predicate function
 m4_dnl $2 - argument description for the short doc
-m4_define([[[DEFINE_PREDICATE_BUILTIN]]],[[[
-static int
-$1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"$1"
+m4_define([[[DEFINE_PREDICATE_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
 {
   mpfr_ptr	op;
 
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
   {
     int		rv = $1(op);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -67,17 +63,14 @@ DEFINE_PREDICATE_BUILTIN([[[mpfr_regular_p]]],	[[[a regular number]]])
  ** Misc.
  ** ----------------------------------------------------------------- */
 
-static int
-mpfr_sgn_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_sgn"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_sgn]]])
 {
   mpfr_ptr	op;
 
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
   {
     int	rv = mpfr_sgn(op);
-    return mmux_sint_bind_to_variable(argv[1], rv, MMUX_BUILTIN_NAME);
+    return mmux_sint_bind_to_variable(argv[1], rv, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }

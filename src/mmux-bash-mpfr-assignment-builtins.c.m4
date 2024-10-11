@@ -34,10 +34,7 @@
  ** ----------------------------------------------------------------- */
 
 m4_define([[[MMUX_BASH_DEFINE_MPFR_SETTER]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$5]]],[[[
-static int
-$1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"$1"
+MMUX_BASH_BUILTIN_MAIN([[[$1]]])
 {
   mpfr_ptr	rop;
   $2		op;
@@ -48,7 +45,7 @@ $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPF
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
   {
     int		rv = $1(rop, op, rnd);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -86,11 +83,7 @@ MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set]]],	[[[mpfr_ptr]]],	[[[MPFR_PTR]]],	[[[
  ** 2exp setting.
  ** ----------------------------------------------------------------- */
 
-m4_define([[[MMUX_BASH_DEFINE_MPFR_2EXP_SETTER]]],[[[
-static int
-$1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"$1"
+m4_define([[[MMUX_BASH_DEFINE_MPFR_2EXP_SETTER]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
 {
   mpfr_ptr	rop;
   $2		mant;
@@ -103,7 +96,7 @@ $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPF
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
   {
     int		rv = $1(rop, mant, exp, rnd);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -125,10 +118,7 @@ MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_z_2exp]]],  [[[mpz_ptr]]],        
  ** ----------------------------------------------------------------- */
 
 m4_define([[[DEFINE_MPFR_INIT_AND_SET]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$5]]],[[[
-static int
-$1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"$1"
+MMUX_BASH_BUILTIN_MAIN([[[$1]]])
 {
   mpfr_ptr	rop;
   $2		op;
@@ -139,7 +129,7 @@ $1_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPF
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
   {
     int		rv = $1(rop, op, rnd);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -165,10 +155,7 @@ DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set]]],	[[[mpfr_ptr]]],	[[[MPFR_PTR]]],	[[
  ** Miscellaneous setters.
  ** ----------------------------------------------------------------- */
 
-static int
-mpfr_set_str_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_set_str"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_str]]])
 {
   mpfr_ptr	rop;
   char const *	str;
@@ -181,7 +168,7 @@ mpfr_set_str_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMU
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
   {
       int	rv = mpfr_set_str(rop, str, base, rnd);
-      return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME);
+      return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -192,10 +179,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_str]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_strtofr_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_strtofr"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_strtofr]]])
 {
   return MMUX_FAILURE;
 }
@@ -206,10 +190,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_strtofr]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_set_nan_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_set_nan"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_nan]]])
 {
   mpfr_ptr	op;
 
@@ -225,10 +206,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_nan]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_set_inf_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_set_inf"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_inf]]])
 {
   mpfr_ptr	op;
   int		sign;
@@ -247,10 +225,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_inf]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_set_zero_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_set_zero"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_zero]]])
 {
   mpfr_ptr	op;
   int		sign;
@@ -269,10 +244,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_zero]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_swap_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_swap"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_swap]]])
 {
   mpfr_ptr	op1, op2;
 

@@ -24,6 +24,8 @@
 #ifndef MMUX_BASH_MPFR_CONFIG_H
 #define MMUX_BASH_MPFR_CONFIG_H 1
 
+#include <mmux-bash-pointers-config.h>
+
 #undef  MPFR_WANT_FLOAT128
 #define MPFR_WANT_FLOAT128		1
 

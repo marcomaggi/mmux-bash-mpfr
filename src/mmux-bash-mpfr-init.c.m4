@@ -33,10 +33,7 @@
  ** Basic initialisation and finalisation.
  ** ----------------------------------------------------------------- */
 
-static int
-mpfr_init_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_init"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_init]]])
 {
   mpfr_ptr	ptr;
 
@@ -54,10 +51,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_init]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_clear_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_clear"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_clear]]])
 {
   mpfr_ptr	ptr;
 
@@ -75,10 +69,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_clear]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_init2_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_init2"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_init2]]])
 {
   mpfr_ptr	ptr;
   mpfr_prec_t	prec;
@@ -98,10 +89,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_init2]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_inits_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_inits"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_inits]]])
 {
   mpfr_ptr	ptr;
 
@@ -120,10 +108,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_inits]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_inits2_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_inits2"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_inits2]]])
 {
   mpfr_prec_t	prec;
   mpfr_ptr	ptr;
@@ -144,10 +129,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_inits2]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_clears_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_clears"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_clears]]])
 {
   mpfr_ptr	ptr;
 
@@ -169,10 +151,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_clears]]],
  ** Precision functions.
  ** ----------------------------------------------------------------- */
 
-static int
-mpfr_set_default_prec_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_set_default_prec"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_default_prec]]])
 {
   mpfr_prec_t	prec;
 
@@ -190,15 +169,12 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_default_prec]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_get_default_prec_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_get_default_prec"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_default_prec]]])
 {
   mpfr_prec_t	prec;
 
   prec = mpfr_get_default_prec();
-  return mmux_mpfr_prec_bind_to_variable(argv[1], prec, MMUX_BUILTIN_NAME);
+  return mmux_mpfr_prec_bind_to_variable(argv[1], prec, MMUX_BUILTIN_NAME_STR);
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_default_prec]]],
     [[[(2 == argc)]]],
@@ -207,10 +183,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_default_prec]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_set_prec_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_set_prec"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_prec]]])
 {
   mpfr_ptr	op;
   mpfr_prec_t	prec;
@@ -230,10 +203,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_prec]]],
 
 /* ------------------------------------------------------------------ */
 
-static int
-mpfr_get_prec_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_get_prec"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_prec]]])
 {
   mpfr_ptr	op;
   mpfr_prec_t	prec;
@@ -241,7 +211,7 @@ mpfr_get_prec_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
 
   prec = mpfr_get_prec(op);
-  return mmux_mpfr_prec_bind_to_variable(argv[1], prec, MMUX_BUILTIN_NAME);
+  return mmux_mpfr_prec_bind_to_variable(argv[1], prec, MMUX_BUILTIN_NAME_STR);
 
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }

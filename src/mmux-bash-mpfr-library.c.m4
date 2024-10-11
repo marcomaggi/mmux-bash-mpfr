@@ -59,13 +59,13 @@ mmux_bash_mpfr_version_interface_age (void)
  ** Helpers.
  ** ----------------------------------------------------------------- */
 
-int
+mmux_bash_rv_t
 mmux_bash_mpfr_set_MPFR_RV (int value, char const * const caller_name)
 {
   return mmux_sint_bind_to_variable("MPFR_RV", value, caller_name);
 }
 
-mmux_rv_t
+mmux_bash_rv_t
 mpfr_just_printit_dammit (mpfr_ptr op)
 {
   if (mpfr_nan_p(op)) {
@@ -110,20 +110,17 @@ mpfr_just_printit_dammit (mpfr_ptr op)
 
 m4_define([[[MMUX_DEFINE_MPFR_CONSTANT_VARIABLE]]],[[[
 #if ((defined MMUX_HAVE_$1) && (1 == MMUX_HAVE_$1))
-  mmux_bash_create_global_sint_variable("$1",	$1,	MMUX_BUILTIN_NAME);
+  mmux_bash_create_global_sint_variable("$1",	$1,	MMUX_BUILTIN_NAME_STR);
 #endif
 ]]])
 
-static int
-mmux_bash_mpfr_library_init_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[] MMUX_BASH_MPFR_UNUSED)
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mmux_bash_mpfr_library_init"
+MMUX_BASH_BUILTIN_MAIN([[[mmux_bash_mpfr_library_init]]])
 {
   {
-    mmux_bash_create_global_sint_variable("mpfr_SIZEOF",	sizeof(__mpfr_struct),	MMUX_BUILTIN_NAME);
-    mmux_bash_create_global_sint_variable("mpfr_rnd_SIZEOF",	sizeof(mpfr_rnd_t),	MMUX_BUILTIN_NAME);
-    mmux_bash_create_global_sint_variable("mpfr_exp_SIZEOF",	sizeof(mpfr_exp_t),	MMUX_BUILTIN_NAME);
-    mmux_bash_create_global_sint_variable("mpfr_prec_SIZEOF",	sizeof(mpfr_prec_t),	MMUX_BUILTIN_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_SIZEOF",	sizeof(__mpfr_struct),	MMUX_BUILTIN_NAME_STR);
+    mmux_bash_create_global_sint_variable("mpfr_rnd_SIZEOF",	sizeof(mpfr_rnd_t),	MMUX_BUILTIN_NAME_STR);
+    mmux_bash_create_global_sint_variable("mpfr_exp_SIZEOF",	sizeof(mpfr_exp_t),	MMUX_BUILTIN_NAME_STR);
+    mmux_bash_create_global_sint_variable("mpfr_prec_SIZEOF",	sizeof(mpfr_prec_t),	MMUX_BUILTIN_NAME_STR);
   }
   {
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDN]]]);

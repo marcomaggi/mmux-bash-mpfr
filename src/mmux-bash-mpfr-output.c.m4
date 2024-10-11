@@ -33,10 +33,7 @@
  ** Output to/from ASCIIZ strings.
  ** ----------------------------------------------------------------- */
 
-static int
-mpfr_dump_main (int argc MMUX_BASH_MPFR_UNUSED, char const * const argv[])
-#undef  MMUX_BUILTIN_NAME
-#define MMUX_BUILTIN_NAME	"mpfr_dump"
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_dump]]])
 {
   mpfr_ptr	op;
 

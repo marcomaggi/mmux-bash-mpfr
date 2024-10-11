@@ -33,22 +33,22 @@
  ** Type parsers.
  ** ----------------------------------------------------------------- */
 
-int
+mmux_bash_rv_t
 mmux_mpfr_ptr_parse (mpfr_ptr * p_value, char const * const s_value, char const * const who)
 {
   return mmux_pointer_parse((void **)p_value, s_value, who);
 }
-int
+mmux_bash_rv_t
 mmux_mpfr_ptr_array_parse (mpfr_ptr ** p_value, char const * const s_value, char const * const who)
 {
   return mmux_pointer_parse((void **)p_value, s_value, who);
 }
-int
+mmux_bash_rv_t
 mmux_mpfr_rnd_parse (mpfr_rnd_t * p_value, char const * const s_value, char const * const who)
 {
   return mmux_sint_parse(p_value, s_value, who);
 }
-int
+mmux_bash_rv_t
 mmux_mpfr_exp_parse (mpfr_exp_t * p_value, char const * const s_value, char const * const who)
 {
   if (sizeof(mpfr_exp_t) == sizeof(mmux_sint_t)) {
@@ -68,7 +68,7 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
     return MMUX_FAILURE;
   }
 }
-int
+mmux_bash_rv_t
 mmux_mpfr_prec_parse (mpfr_prec_t * p_value, char const * const s_value, char const * const who)
 {
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sint_t)) {
@@ -94,17 +94,17 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
  ** Result storers.
  ** ----------------------------------------------------------------- */
 
-int
+mmux_bash_rv_t
 mmux_mpfr_ptr_bind_to_variable (char const * variable_name, mpfr_ptr value, char const * who)
 {
   return mmux_pointer_bind_to_variable(variable_name, value, who);
 }
-int
+mmux_bash_rv_t
 mmux_mpfr_rnd_bind_to_variable (char const * variable_name, mpfr_rnd_t value, char const * who)
 {
   return mmux_sint_bind_to_variable(variable_name, (mmux_sint_t) value, who);
 }
-int
+mmux_bash_rv_t
 mmux_mpfr_exp_bind_to_variable (char const * variable_name, mpfr_exp_t value, char const * who)
 {
   if (sizeof(mpfr_exp_t) == sizeof(mmux_sint_t)) {
@@ -124,7 +124,7 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
     return MMUX_FAILURE;
   }
 }
-int
+mmux_bash_rv_t
 mmux_mpfr_prec_bind_to_variable (char const * variable_name, mpfr_prec_t value, char const * who)
 {
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sint_t)) {

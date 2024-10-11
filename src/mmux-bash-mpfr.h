@@ -110,25 +110,25 @@ mmux_bash_mpfr_decl int		mmux_bash_mpfr_version_interface_age		(void);
  ** Type functions.
  ** ----------------------------------------------------------------- */
 
-mmux_bash_mpfr_decl int mmux_mpfr_ptr_parse (mpfr_ptr   * p_value, char const * const s_value, char const * const who)
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_ptr_parse (mpfr_ptr   * p_value, char const * const s_value, char const * const who)
   __attribute__((__nonnull__(1,2)));
-mmux_bash_mpfr_decl int	mmux_mpfr_rnd_parse (mpfr_rnd_t * p_value, char const * const s_value, char const * const who)
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_rnd_parse (mpfr_rnd_t * p_value, char const * const s_value, char const * const who)
   __attribute__((__nonnull__(1,2)));
-mmux_bash_mpfr_decl int mmux_mpfr_exp_parse (mpfr_exp_t * p_value, char const * const s_value, char const * const who)
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_exp_parse (mpfr_exp_t * p_value, char const * const s_value, char const * const who)
   __attribute__((__nonnull__(1,2)));
-mmux_bash_mpfr_decl int mmux_mpfr_prec_parse (mpfr_prec_t * p_value, char const * const s_value, char const * const who)
-  __attribute__((__nonnull__(1,2)));
-
-mmux_bash_mpfr_decl int mmux_mpfr_ptr_array_parse (mpfr_ptr ** p_value, char const * const s_value, char const * const who)
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_prec_parse (mpfr_prec_t * p_value, char const * const s_value, char const * const who)
   __attribute__((__nonnull__(1,2)));
 
-mmux_bash_mpfr_decl int mmux_mpfr_ptr_bind_to_variable  (char const * variable_name, mpfr_ptr    value, char const * who)
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_ptr_array_parse (mpfr_ptr ** p_value, char const * const s_value, char const * const who)
+  __attribute__((__nonnull__(1,2)));
+
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_ptr_bind_to_variable  (char const * variable_name, mpfr_ptr    value, char const * who)
   __attribute__((__nonnull__(1)));
-mmux_bash_mpfr_decl int mmux_mpfr_rnd_bind_to_variable  (char const * variable_name, mpfr_rnd_t  value, char const * who)
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_rnd_bind_to_variable  (char const * variable_name, mpfr_rnd_t  value, char const * who)
   __attribute__((__nonnull__(1)));
-mmux_bash_mpfr_decl int mmux_mpfr_exp_bind_to_variable  (char const * variable_name, mpfr_exp_t  value, char const * who)
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_exp_bind_to_variable  (char const * variable_name, mpfr_exp_t  value, char const * who)
   __attribute__((__nonnull__(1)));
-mmux_bash_mpfr_decl int mmux_mpfr_prec_bind_to_variable (char const * variable_name, mpfr_prec_t value, char const * who)
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_prec_bind_to_variable (char const * variable_name, mpfr_prec_t value, char const * who)
   __attribute__((__nonnull__(1)));
 
 
@@ -136,9 +136,9 @@ mmux_bash_mpfr_decl int mmux_mpfr_prec_bind_to_variable (char const * variable_n
  ** Misc functions.
  ** ----------------------------------------------------------------- */
 
-mmux_bash_mpfr_decl int mmux_bash_mpfr_set_MPFR_RV (int value, char const * const who);
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_bash_mpfr_set_MPFR_RV (int value, char const * const who);
 
-mmux_bash_mpfr_decl mmux_rv_t mpfr_just_printit_dammit (mpfr_ptr op);
+mmux_bash_mpfr_decl mmux_bash_rv_t mpfr_just_printit_dammit (mpfr_ptr op);
 
 
 /** --------------------------------------------------------------------

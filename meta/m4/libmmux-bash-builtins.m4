@@ -32,8 +32,8 @@ m4_changecom([[[/*]]],[[[*/]]])
 
 m4_dnl helpers
 
-m4_define([[[mmux_toupper]]],[[[m4_translit([[[$1]]],[[[abcdefghijklmnopqrstuvwxyz]]],[[[ABCDEFGHIJKLMNOPQRSTUVWXYZ]]])]]])
-m4_define([[[mmux_tolower]]],[[[m4_translit([[[$1]]],[[[ABCDEFGHIJKLMNOPQRSTUVWXYZ]]],[[[abcdefghijklmnopqrstuvwxyz]]])]]])
+m4_define([[[MMUX_M4_TOUPPER]]],[[[m4_translit([[[$1]]],[[[abcdefghijklmnopqrstuvwxyz]]],[[[ABCDEFGHIJKLMNOPQRSTUVWXYZ]]])]]])
+m4_define([[[MMUX_M4_TOLOWER]]],[[[m4_translit([[[$1]]],[[[ABCDEFGHIJKLMNOPQRSTUVWXYZ]]],[[[abcdefghijklmnopqrstuvwxyz]]])]]])
 
 
 m4_dnl function definitions
@@ -42,14 +42,14 @@ m4_dnl $1 - bulitin identifier
 m4_dnl $2 - C language expression, between parentheses, about "argc": if true the number of argumets is correct
 m4_define([[[MMUX_BASH_DEFINE_BUILTIN_FUNCTION_NO_OPTIONS]]],[[[m4_dnl
 static bool
-$1_validate_argc (int argc)
+[[[]]]$1[[[]]]_validate_argc (int argc)
 {
   return ($2)? true : false;
 }
-static int
-$1_builtin (mmux_bash_word_list_t word_list)
+static mmux_bash_rv_t
+[[[]]]$1[[[]]]_builtin (mmux_bash_word_list_t word_list)
 {
-  return (int) mmux_bash_builtin_implementation_function_no_options(word_list, $1_validate_argc, $1_main);
+  return (int)mmux_bash_builtin_implementation_function_no_options(word_list, [[[]]]$1[[[]]]_validate_argc, [[[]]]$1[[[]]]_main);
 }
 ]]])
 
@@ -57,15 +57,23 @@ m4_dnl $1 - bulitin identifier
 m4_dnl $2 - C language expression, between parentheses, about "argc": if true the number of argumets is correct
 m4_define([[[MMUX_BASH_DEFINE_BUILTIN_FUNCTION]]],[[[m4_dnl
 static bool
-$1_validate_argc (int argc)
+[[[]]]$1[[[]]]_validate_argc (int argc)
 {
   return ($2)? true : false;
 }
-static int
-$1_builtin (mmux_bash_word_list_t word_list)
+static mmux_bash_rv_t
+[[[]]]$1[[[]]]_builtin (mmux_bash_word_list_t word_list)
 {
-  return (int) mmux_bash_builtin_implementation_function(word_list, $1_validate_argc, $1_main);
+  return (int) mmux_bash_builtin_implementation_function(word_list, [[[]]]$1[[[]]]_validate_argc, [[[]]]$1[[[]]]_main);
 }
+]]])
+
+m4_dnl $1 - builtin and implementation-function name
+m4_define([[[MMUX_BASH_BUILTIN_MAIN]]],[[[static mmux_bash_rv_t
+[[[]]]$1[[[]]]_main (int argc MMUX_BASH_POINTERS_UNUSED, char const * const argv[] MMUX_BASH_POINTERS_UNUSED)
+#undef  MMUX_BUILTIN_NAME_STR
+#define MMUX_BUILTIN_NAME_STR	"$1"
+m4_define([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],[[[$1]]])m4_dnl
 ]]])
 
 
@@ -74,13 +82,13 @@ m4_dnl data structures
 m4_dnl $1 - bulitin identifier
 m4_dnl $2 - C language string representing the short documentation
 m4_define([[[MMUX_BASH_DEFINE_BUILTIN_STRUCT]]],[[[m4_dnl
-/* Bash will search for this struct  building the name "$1_struct" from the command
-   line argument "$1" we have given to the "enable" builtin. */
-mmux_bash_struct_builtin_t $1_struct = {
-  .name		= "$1",				/* Builtin name */
-  .function	= $1_builtin,			/* Function implementing the builtin */
+/* Bash will search for this struct  building the name "[[[]]]$1[[[]]]_struct" from the command
+   line argument "[[[]]]$1[[[]]]" we have given to the "enable" builtin. */
+mmux_bash_struct_builtin_t [[[]]]$1[[[]]]_struct = {
+  .name		= "[[[]]]$1[[[]]]",		/* Builtin name */
+  .function	= [[[]]]$1[[[]]]_builtin,	/* Function implementing the builtin */
   .flags	= MMUX_BASH_BUILTIN_ENABLED,	/* Initial flags for builtin */
-  .long_doc	= $1_doc,			/* Array of long documentation strings. */
+  .long_doc	= [[[]]]$1[[[]]]_doc,		/* Array of long documentation strings. */
   .short_doc	= $2,				/* Usage synopsis; becomes short_doc */
   .reserved0	= NULL				/* Reserved for Bash. */
 };
@@ -91,7 +99,7 @@ m4_dnl $2 - C language string representing a single-line long documentation
 m4_define([[[MMUX_BASH_DEFINE_BUILTIN_LONG_DOC_SINGLE_LINE]]],[[[m4_dnl
 /* A NULL-terminated array of ASCIIZ strings representing the lines of the
    builtin long documentation. */
-static char * $1_doc[] = {
+static char * [[[]]]$1[[[]]]_doc[] = {
   $2,
   (char *)NULL
 };
@@ -163,7 +171,7 @@ $3
 #
 m4_define([[[MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH]]],[[[
  mmux_error_parsing_builtin_argument:
-  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME);
+  mmux_bash_pointers_set_ERRNO(EINVAL, MMUX_BUILTIN_NAME_STR);
   return MMUX_FAILURE;
 ]]])
 
@@ -172,7 +180,7 @@ m4_define([[[MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH]]],[[[
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_POINTER]]],[[[{
-  int  mmux_retval = mmux_pointer_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_pointer_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -187,14 +195,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_ASCIIZ_PTR]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SCHAR]]],[[[{
-  int  mmux_retval = mmux_schar_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_schar_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UCHAR]]],[[[{
-  int  mmux_retval = mmux_uchar_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_uchar_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -203,14 +211,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UCHAR]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SSHORT]]],[[[{
-  int  mmux_retval = mmux_sshort_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_sshort_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_USHORT]]],[[[{
-  int  mmux_retval = mmux_ushort_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_ushort_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -219,14 +227,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_USHORT]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SINT]]],[[[{
-  int  mmux_retval = mmux_sint_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_sint_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT]]],[[[{
-  int  mmux_retval = mmux_uint_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_uint_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -235,14 +243,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]],[[[{
-  int  mmux_retval = mmux_slong_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_slong_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]],[[[{
-  int  mmux_retval = mmux_ulong_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_ulong_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -251,14 +259,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SLLONG]]],[[[{
-  int  mmux_retval = mmux_sllong_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_sllong_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_ULLONG]]],[[[{
-  int  mmux_retval = mmux_ullong_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_ullong_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -267,14 +275,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_ULLONG]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SINT8]]],[[[{
-  int  mmux_retval = mmux_sint8_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_sint8_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT8]]],[[[{
-  int  mmux_retval = mmux_uint8_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_uint8_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -283,14 +291,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT8]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SINT16]]],[[[{
-  int  mmux_retval = mmux_sint16_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_sint16_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT16]]],[[[{
-  int  mmux_retval = mmux_uint16_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_uint16_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -299,14 +307,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT16]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SINT32]]],[[[{
-  int  mmux_retval = mmux_sint32_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_sint32_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT32]]],[[[{
-  int  mmux_retval = mmux_uint32_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_uint32_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -315,14 +323,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT32]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SINT64]]],[[[{
-  int  mmux_retval = mmux_sint64_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_sint64_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT64]]],[[[{
-  int  mmux_retval = mmux_uint64_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_uint64_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -331,7 +339,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINT64]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT]]],[[[{
-  int  mmux_retval = mmux_float_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_float_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -340,7 +348,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]],[[[{
-  int  mmux_retval = mmux_double_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_double_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -349,7 +357,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],[[[{
-  int  mmux_retval = mmux_ldouble_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_ldouble_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -358,7 +366,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT32]]],[[[{
-  int  mmux_retval = mmux_float32_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_float32_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -367,7 +375,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT32]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT64]]],[[[{
-  int  mmux_retval = mmux_float64_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_float64_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -376,7 +384,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT64]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT128]]],[[[{
-  int  mmux_retval = mmux_float128_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_float128_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -385,7 +393,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT128]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT32X]]],[[[{
-  int  mmux_retval = mmux_float32x_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_float32x_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -394,7 +402,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT32X]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT64X]]],[[[{
-  int  mmux_retval = mmux_float64x_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_float64x_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -403,7 +411,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT64X]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT128X]]],[[[{
-  int  mmux_retval = mmux_float128x_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_float128x_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -412,7 +420,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT128X]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL32]]],[[[{
-  int  mmux_retval = mmux_decimal32_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_decimal32_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -421,7 +429,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL32]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL64]]],[[[{
-  int  mmux_retval = mmux_decimal64_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_decimal64_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -430,7 +438,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL64]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL128]]],[[[{
-  int  mmux_retval = mmux_decimal128_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_decimal128_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -439,7 +447,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL128]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXF]]],[[[{
-  int  mmux_retval = mmux_complexf_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_complexf_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -448,7 +456,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXF]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXD]]],[[[{
-  int  mmux_retval = mmux_complexd_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_complexd_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -457,7 +465,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXD]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXLD]]],[[[{
-  int  mmux_retval = mmux_complexld_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_complexld_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -466,7 +474,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXLD]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXF32]]],[[[{
-  int  mmux_retval = mmux_complexf32_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_complexf32_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 # --------------------------------------------------------------------
@@ -474,7 +482,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXF32]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXF64]]],[[[{
-  int  mmux_retval = mmux_complexf64_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_complexf64_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -483,7 +491,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXF64]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXF128]]],[[[{
-  int  mmux_retval = mmux_complexf128_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_complexf128_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -492,7 +500,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXF128]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXD32]]],[[[{
-  int  mmux_retval = mmux_complexd32_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_complexd32_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -501,7 +509,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXD32]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXD64]]],[[[{
-  int  mmux_retval = mmux_complexd64_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_complexd64_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -510,7 +518,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXD64]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXD128]]],[[[{
-  int  mmux_retval = mmux_complexd128_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_complexd128_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -519,7 +527,7 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_COMPLEXD128]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MODE]]],[[[{
-  int  mmux_retval = mmux_mode_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_mode_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -528,14 +536,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MODE]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SSIZE]]],[[[{
-  int  mmux_retval = mmux_ssize_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_ssize_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_USIZE]]],[[[{
-  int  mmux_retval = mmux_usize_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_usize_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -544,14 +552,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_USIZE]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX]]],[[[{
-  int  mmux_retval = mmux_sintmax_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_sintmax_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]],[[[{
-  int  mmux_retval = mmux_uintmax_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_uintmax_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -560,14 +568,14 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTPTR]]],[[[{
-  int  mmux_retval = mmux_sintptr_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_sintptr_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTPTR]]],[[[{
-  int  mmux_retval = mmux_uintptr_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_uintptr_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
@@ -576,49 +584,49 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTPTR]]],[[[{
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_PTRDIFF]]],[[[{
-  int  mmux_retval = mmux_ptrdiff_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_ptrdiff_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_OFF]]],[[[{
-  int  mmux_retval = mmux_off_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_off_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_PID]]],[[[{
-  int  mmux_retval = mmux_pid_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_pid_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_UID]]],[[[{
-  int  mmux_retval = mmux_uid_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_uid_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_GID]]],[[[{
-  int  mmux_retval = mmux_gid_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_gid_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_WCHAR]]],[[[{
-  int  mmux_retval = mmux_wchar_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_wchar_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
 # $1 - name of the target variable
 # $2 - expression evaluating to the string to parse
 m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_WINT]]],[[[{
-  int  mmux_retval = mmux_wint_parse(&$1, $2, MMUX_BUILTIN_NAME);
+  int  mmux_retval = mmux_wint_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
