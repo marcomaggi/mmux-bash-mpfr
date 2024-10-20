@@ -1,5 +1,5 @@
 #
-# Part of: MMUX Bash Mpfr
+# Part of: MMUX Bash MPFR
 # Contents: core library
 # Date: Sep 15, 2024
 #
@@ -26,180 +26,26 @@
 #
 
 #page
-function mmux-bash-mpfr-library-load () {
-    declare -g  MMUX_BASH_MPFR_LIBRARY=libmmux-bash-mpfr.so
-    declare -g  MMUX_BASH_MPFR_CURRENT=@mmux_bash_mpfr_VERSION_INTERFACE_CURRENT@
-    declare -g  MMUX_BASH_MPFR_REVISION=@mmux_bash_mpfr_VERSION_INTERFACE_REVISION@
-    declare -g  MMUX_BASH_MPFR_AGE=@mmux_bash_mpfr_VERSION_INTERFACE_AGE@
+#### package
 
-    declare -ga MMUX_BASH_MPFR_BUILTINS=(mpfr_init
-					 mpfr_clear
-					 mpfr_init2
-					 mpfr_inits
-					 mpfr_inits2
-					 mpfr_clears
-					 mpfr_set_default_prec
-					 mpfr_get_default_prec
-					 mpfr_get_prec
-					 mpfr_set_prec
-					 mpfr_set_si
-					 mpfr_set_ui
-					 mpfr_set_sj
-					 mpfr_set_uj
-					 mpfr_set_flt
-					 mpfr_set_d
-					 mpfr_set_ld
-					 mpfr_set_float128
-					 mpfr_set_decimal64
-					 mpfr_set_decimal128
-					 mpfr_set
-					 mpfr_set_z
-					 mpfr_set_q
-					 mpfr_set_f
-					 mpfr_set_si_2exp
-					 mpfr_set_ui_2exp
-					 mpfr_set_sj_2exp
-					 mpfr_set_uj_2exp
-					 mpfr_set_z_2exp
-					 mpfr_init_set_si
-					 mpfr_init_set_ui
-					 mpfr_init_set_d
-					 mpfr_init_set_ld
-					 mpfr_init_set_z
-					 mpfr_init_set_q
-					 mpfr_init_set_f
-					 mpfr_init_set
-					 mpfr_set_str
-					 mpfr_strtofr
-					 mpfr_set_nan
-					 mpfr_set_inf
-					 mpfr_set_zero
-					 mpfr_swap
+declare -gA MMUX_BASH_MPFR_PACKAGE=([PACKAGING_VERSION]='0'
+				    [PACKAGE_NAME]='MMUX Bash MPFR'
+				    [SEMANTIC_VERSION]='mmux_bash_mpfr_SEMANTIC_VERSION'
+				    [INTERFACE_VERSION_CURRENT]='mmux_bash_mpfr_VERSION_INTERFACE_CURRENT'
+				    [INTERFACE_VERSION_REVISION]='mmux_bash_mpfr_VERSION_INTERFACE_REVISION'
+				    [INTERFACE_VERSION_AGE]='mmux_bash_mpfr_VERSION_INTERFACE_AGE'
+				    [SHARED_LIBRARY]='libmmux-bash-mpfr.so'
+				    [SHELL_LIBRARY]='libmmux-bash-mpfr.bash'
+				    [PACKAGE_AFTER_LOADING_HOOK]='mmux_bash_mpfr_library_after_loading_hook'
+				    [PACKAGE_BEFORE_UNLOADING_HOOK]='mmux_bash_mpfr_library_before_unloading_hook')
 
-					 mpfr_get_si
-					 mpfr_get_ui
-					 mpfr_get_sj
-					 mpfr_get_uj
-					 mpfr_get_flt
-					 mpfr_get_d
-					 mpfr_get_ld
-					 mpfr_get_float128
-					 mpfr_get_decimal64
-					 mpfr_get_decimal128
-					 mpfr_get_d_2exp
-					 mpfr_get_ld_2exp
-					 mpfr_frexp
-					 mpfr_get_str
-					 mpfr_fits_sshort_p
-					 mpfr_fits_ushort_p
-					 mpfr_fits_sint_p
-					 mpfr_fits_uint_p
-					 mpfr_fits_slong_p
-					 mpfr_fits_ulong_p
-					 mpfr_fits_intmax_p
-					 mpfr_fits_uintmax_p
-					 mpfr_get_z_2exp
-					 mpfr_get_z
-					 mpfr_get_q
-					 mpfr_get_f
-					 mpfr_get_str_ndigits
-
-					 mpfr_add
-					 mpfr_add_si
-					 mpfr_add_ui
-					 mpfr_add_d
-					 mpfr_add_z
-					 mpfr_add_q
-					 mpfr_mul
-					 mpfr_mul_si
-					 mpfr_mul_ui
-					 mpfr_mul_2si
-					 mpfr_mul_2ui
-					 mpfr_mul_d
-					 mpfr_mul_z
-					 mpfr_mul_q
-					 mpfr_sub
-					 mpfr_sub_si
-					 mpfr_sub_ui
-					 mpfr_sub_d
-					 mpfr_sub_z
-					 mpfr_sub_q
-					 mpfr_si_sub
-					 mpfr_ui_sub
-					 mpfr_d_sub
-					 mpfr_div
-					 mpfr_div_si
-					 mpfr_div_ui
-					 mpfr_div_2si
-					 mpfr_div_2ui
-					 mpfr_div_d
-					 mpfr_div_z
-					 mpfr_div_q
-					 mpfr_si_div
-					 mpfr_ui_div
-					 mpfr_d_div
-					 mpfr_sqr
-					 mpfr_sqrt
-					 mpfr_sqrt_ui
-					 mpfr_rec_sqrt
-					 mpfr_cbrt
-					 mpfr_rootn_ui
-					 mpfr_rootn_si
-					 mpfr_neg
-					 mpfr_abs
-					 mpfr_dim
-					 mpfr_fac_ui
-					 mpfr_fma
-					 mpfr_fms
-					 mpfr_fmma
-					 mpfr_fmms
-					 mpfr_hypot
-					 mpfr_sum
-					 mpfr_dot
-
-					 mpfr_nan_p
-					 mpfr_inf_p
-					 mpfr_zero_p
-					 mpfr_number_p
-					 mpfr_regular_p
-					 mpfr_sgn
-					 mpfr_dump)
-
-    enable -f "$MMUX_BASH_MPFR_LIBRARY" mmux_bash_mpfr_library_init
-
-    # This initialises the library.
-    if mmux_bash_mpfr_library_init
-    then
-	declare -i IDX
-	declare NAME
-
-	for ((IDX=0; IDX < ${#MMUX_BASH_MPFR_BUILTINS[@]}; ++IDX))
-	do enable -f "$MMUX_BASH_MPFR_LIBRARY" "${MMUX_BASH_MPFR_BUILTINS[$IDX]}"
-	done
-    fi
-}
+m4_include([[[mmux-bash-mpfr-builtin-definitions.bash]]])
 
 #page
-function mmux-bash-mpfr-library-unload () {
-    declare -i IDX
+#### after loading hook: begin
 
-    enable -d mmux_bash_mpfr_library_init
-
-    for ((IDX=0; IDX < ${#MMUX_BASH_MPFR_BUILTINS[@]}; ++IDX))
-    do enable -d "${MMUX_BASH_MPFR_BUILTINS[$IDX]}"
-    done
-
-    enable -d "$MMUX_BASH_MPFR_LIBRARY" 'mmux_bash_mpfr_errno_to_string'
-
-    unset -v MMUX_BASH_MPFR_LIBRARY
-    unset -v MMUX_BASH_MPFR_CURRENT
-    unset -v MMUX_BASH_MPFR_REVISION
-    unset -v MMUX_BASH_MPFR_AGE
-    unset -v MMUX_BASH_MPFR_BUILTINS
-
-    # FIXME  For a  perfect cleanup  we should  also unset  the global  variables defined  by the  C
-    # language library initialisation builtin.  (Marco Maggi; Sep 15, 2024)
-}
+function mmux_bash_mpfr_library_after_loading_hook () {
+    mmux_bash_mpfr_library_init
 
 #page
 #### additional functions: printing
@@ -399,15 +245,36 @@ function mpfr_alloc_and_init_pointers_array () {
 }
 
 #page
+#### after loading hook: end
+
+}
+
+#page
+#### before unloading hook
+
+function mmux_bash_mpfr_library_before_unloading_hook () {
+    unset -f \
+	  mpfr_just_printit_dammit				\
+	  mpfr_alloc_and_init					\
+	  mpfr_clear_and_free					\
+	  mpfr_alloc_shell_array				\
+	  mpfr_free_shell_array					\
+	  mpfr_init_shell_array					\
+	  mpfr_clear_shell_array				\
+	  mpfr_alloc_and_init_shell_array			\
+	  mpfr_clear_and_free_shell_array			\
+	  mpfr_alloc_and_init_pointers_array			\
+	  mmux_bash_pointers_library_after_loading_hook		\
+	  mmux_bash_pointers_library_before_unloading_hook
+
+    # FIXME  For a  perfect cleanup  we should  also unset  the global  variables defined  by the  C
+    # language library initialisation builtin.  (Marco Maggi; Sep 15, 2024)
+}
+
+#page
 #### let's go
 
-if test -v MMUX_BASH_POINTERS_LIBRARY -a -n "$MMUX_BASH_POINTERS_LIBRARY"
-then true
-     # Not loaded yet.  So load it.
-else source "@MMUX_BASH_POINTERS_LIBRARY@"
-fi
-
-mmux-bash-mpfr-library-load
+mmux_package_provide_by_descriptor MMUX_BASH_MPFR_PACKAGE
 
 ### end of file
 # Local Variables:

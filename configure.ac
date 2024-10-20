@@ -71,9 +71,10 @@ PKG_CHECK_MODULES([BASH],[bash],,[AC_MSG_WARN([package GNU Bash not found])])
 AC_SEARCH_LIBS(cos, m,, [AC_MSG_ERROR([Cannot find libm])])
 PKG_CHECK_MODULES([MPFR],[mpfr >= 4.2])
 PKG_CHECK_MODULES([MMUX_BASH_POINTERS],[mmux-bash-pointers >= 0.1.0],
-   [AS_VAR_SET([MMUX_BASH_POINTERS_DATADIR],[$("$PKG_CONFIG" mmux-bash-pointers --variable=datadir)])
-    AS_VAR_SET([MMUX_BASH_POINTERS_LIBRARY],[$MMUX_BASH_POINTERS_DATADIR/bash/libmmux-bash-pointers.bash])])
-AC_SUBST([MMUX_BASH_POINTERS_LIBRARY])
+   [AS_VAR_SET([mmux_bash_mpfr_MMUX_BASH_POINTERS_DATADIR],[$("$PKG_CONFIG" mmux-bash-pointers --variable=datadir)])
+    AS_VAR_SET([mmux_bash_mpfr_MMUX_BASH_POINTERS_LIBRARY],[$mmux_bash_mpfr_MMUX_BASH_POINTERS_DATADIR/bash/libmmux-bash-pointers.bash])])
+AC_SUBST([mmux_bash_mpfr_MMUX_BASH_POINTERS_DATADIR])
+AC_SUBST([mmux_bash_mpfr_MMUX_BASH_POINTERS_LIBRARY])
 
 MBFL_SETUP_FOR_TESTING([v3.0.0])
 
@@ -143,7 +144,7 @@ AC_CACHE_SAVE
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile]
-  [src/libmmux-bash-mpfr.bash]
+  [src/m4/mmux-bash-mpfr-config.m4]
   [src/mmux-bash-mpfr-config.h]
   [meta/scripts/mmux-bash-mpfr.pc]
   [meta/slackware/slack-desc])

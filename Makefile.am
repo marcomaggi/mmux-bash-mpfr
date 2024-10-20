@@ -12,25 +12,40 @@ BUILT_SOURCES		=
 
 ## --------------------------------------------------------------------
 
-MMUX_BASH_MPFR_M4_MACROS	= \
-	$(top_srcdir)/meta/m4/libmmux-bash-builtins.m4		\
-	$(top_srcdir)/meta/m4/libmmux-bash-mpfr-builtins.m4
-EXTRA_DIST			+= $(MMUX_BASH_MPFR_M4_MACROS)
-
-## --------------------------------------------------------------------
-
 nodist_pkgconfig_DATA	= meta/scripts/mmux-bash-mpfr.pc
 
-
-#### MBFL stuff
+## ------------------------------------------------------------------------
 
-AM_MBFLPP_FLAGS		= --bash-program="$(BASH_PROGRAM)" --define=__MBFL_LIBDIR__=$(MBFL_LIBDIR) --define=__LIBMBFL_LINKER__=$(MBFL_LIBMBFL_LINKER)
-MBFLPP_PROG_FLAGS	= $(AM_MBFLPP_FLAGS) --add-bash
-
-# We must make sure that these end with a semicolon.
+MBFLPP_PROG_FLAGS	= --bash-program="$(BASH_PROGRAM)" --define=__MBFL_LIBDIR__=$(MBFL_LIBDIR)
+MBFLPP_PROG_FLAGS	+= --define=__LIBMBFL_LINKER__=$(MBFL_LIBMBFL_LINKER) --add-bash
 MBFLPP_PROG_ENV		= MBFL_LIBRARY_PATH=$(builddir)/src/share/mbfl; export MBFL_LIBRARY_PATH;
-
 MBFLPP_PROG_RUN		= $(MBFLPP_PROG_ENV) $(MBFLPP) $(MBFLPP_PROG_FLAGS) $(MBFLPP_FLAGS)
+
+
+#### GNU m4 macros
+
+EXTRA_DIST		+= \
+	$(top_srcdir)/src/m4/macros-for-cc.m4			\
+	$(top_srcdir)/src/m4/macros-for-cc-mpfr.m4		\
+	$(top_srcdir)/src/m4/macros-for-bash.m4			\
+	$(top_srcdir)/src/m4/mmux-bash-mpfr-config.m4.in
+
+MMUX_M4_FLAGS		=  $(M4FLAGS) --prefix-builtins --include=$(srcdir)/src/m4/
+MMUX_M4_FLAGS		+= --include=$(builddir)/src/ --include=$(builddir)/src/m4
+
+# These  are  used  to  preprocess C  language  files  with  extension
+# ".c.m4".  Do not change the order of inclusion!!!
+#
+MMUX_M4_CC_MACROS	= \
+	$(top_srcdir)/src/m4/macros-for-cc.m4			\
+	$(top_srcdir)/src/m4/macros-for-cc-mpfr.m4
+
+# These  are  used  to  preprocess   GNU  Bash  files  with  extension
+# ".bash.m4".  Do not change the order of inclusion!!!
+#
+MMUX_M4_BASH_MACROS	= \
+	$(top_srcdir)/src/m4/macros-for-bash.m4			\
+	$(builddir)/src/m4/mmux-bash-mpfr-config.m4
 
 
 #### Automake dirstamp files
@@ -79,6 +94,28 @@ html-local: doc/mmux-bash-mpfr.html/mmux-bash-mpfr.css
 install-html-local:
 	$(MKDIR_P) "$(DESTDIR)$(htmldir)/mmux-bash-mpfr.html/"
 	$(INSTALL) -m 0444 $(builddir)/doc/mmux-bash-mpfr.html/mmux-bash-mpfr.css "$(DESTDIR)$(htmldir)/mmux-bash-mpfr.html/"
+
+
+#### shell libraries
+
+EXTRA_DIST		+= \
+	src/libmmux-bash-mpfr.bash.m4				\
+	$(top_srcdir)/meta/scripts/print-builtin-names.bash
+
+MMUX_SHELL_LIBFILES	 = src/libmmux-bash-mpfr.bash
+
+BUILT_SOURCES		+= src/mmux-bash-mpfr-builtin-definitions.bash
+CLEANFILES		+= $(MMUX_SHELL_LIBFILES) src/mmux-bash-mpfr-builtin-definitions.bash
+mmuxbashlib_DATA	=  $(MMUX_SHELL_LIBFILES)
+mmuxbashlibdir		=  $(datadir)/bash
+
+src/mmux-bash-mpfr-builtin-definitions.bash: $(top_srcdir)/meta/scripts/print-builtin-names.bash
+	$(BASH_PROGRAM) $< >$@
+
+src/libmmux-bash-mpfr.bash: src/mmux-bash-mpfr-builtin-definitions.bash
+
+src/libmmux-bash-mpfr.bash: src/libmmux-bash-mpfr.bash.m4 $(MMUX_M4_BASH_MACROS)
+	$(M4_PROGRAM) $(MMUX_M4_FLAGS) $(MMUX_M4_BASH_MACROS) $< >$@
 
 
 #### libraries
@@ -138,18 +175,16 @@ libmmux_bash_mpfr_la_SOURCES	= \
 
 library: libmmux-bash-mpfr.la
 
-src/%.c: src/%.c.m4 $(MMUX_BASH_MPFR_M4_MACROS)
-	$(M4_PROGRAM) --prefix-builtins $(MMUX_BASH_MPFR_M4_MACROS) $< >$@
+src/%.c: src/%.c.m4 $(MMUX_M4_CC_MACROS)
+	$(M4_PROGRAM) --prefix-builtins $(MMUX_M4_CC_MACROS) $< >$@
 
-src/%.h: src/%.h.m4 $(MMUX_BASH_MPFR_M4_MACROS)
-	$(M4_PROGRAM) --prefix-builtins $(MMUX_BASH_MPFR_M4_MACROS) $< >$@
+src/%.h: src/%.h.m4 $(MMUX_M4_CC_MACROS)
+	$(M4_PROGRAM) --prefix-builtins $(MMUX_M4_CC_MACROS) $< >$@
 
-src/%.$(OBJEXT): src/mmux-bash-mpfr.h src/mmux-bash-mpfr-internals.h src/mmux-bash-mpfr-config.h
-
-## ------------------------------------------------------------------------
-
-mmux_bashlib_DATA	= src/libmmux-bash-mpfr.bash
-mmux_bashlibdir		= $(datadir)/bash
+src/%.$(OBJEXT): \
+	src/mmux-bash-mpfr.h		\
+	src/mmux-bash-mpfr-internals.h	\
+	src/mmux-bash-mpfr-config.h
 
 
 #### tests
@@ -178,26 +213,24 @@ MMUX_CHECK_BUILT_TESTS	= \
 	tests/assignment.test			\
 	tests/version.test
 
-TESTS			= $(MMUX_CHECK_BUILT_TESTS)
-check_SCRIPTS		= $(MMUX_CHECK_BUILT_TESTS)
+TESTS			=  $(MMUX_CHECK_BUILT_TESTS)
+check_SCRIPTS		=  $(MMUX_CHECK_BUILT_TESTS)
 CLEANFILES		+= $(MMUX_CHECK_BUILT_TESTS)
-MMUX_LIBRARY		= $(builddir)/src/libmmux-bash-mpfr.bash
 
 ## --------------------------------------------------------------------
 
 MBFL_TESTS_VERBENV	= TESTSUCCESS=yes; export TESTSUCCESS; TESTSTART=yes; export TESTSTART;
 
-# This  environment setting  is used  both  to compile  ".test.m4" files  and to  run
-# ".test" files.
-#
-MBFL_TESTS_ENV		= MBFL_LIBRARY_PATH=$(builddir)/src/share/mbfl; export MBFL_LIBRARY_PATH;
-# We set TMPDIR  because if the "/tmp"  directory is mounted on  a separate partition
-# with  "noexec"  attribute: tests  for  executability  of  files  will fail  if  the
-# temporary test files are created under "/tmp".
+# This environment  setting is used  both to compile  ".test.m4" files
+# and to run ".test" files.
+MBFL_TESTS_ENV		= export MBFL_LIBRARY_PATH=$(builddir)/src:$(MBFL_LIBRARY_PATH);
+# We  set TMPDIR  because  if the  "/tmp" directory  is  mounted on  a
+# separate partition with "noexec"  attribute: tests for executability
+# of files  will fail if  the temporary  test files are  created under
+# "/tmp".
 MBFL_TESTS_ENV		+= TMPDIR=$(PWD)/tmp; export TMPDIR;
 MBFL_TESTS_ENV		+= testsdir=$(builddir)/tests; export testsdir;
 MBFL_TESTS_ENV		+= TESTMATCH=$(TESTMATCH); export TESTMATCH;
-MBFL_TESTS_ENV		+= export MMUX_LIBRARY=$(MMUX_LIBRARY);
 MBFL_TESTS_ENV		+= export LD_LIBRARY_PATH=$(builddir)/.libs/:$(LD_LIBRARY_PATH);
 MBFL_TESTS_COMPILE	= $(MBFL_TESTS_ENV) $(MBFLPP_PROG_RUN)
 MBFL_TESTS_FLAGS	= $(MBFLPP_GENERAL_FLAGS)
@@ -232,8 +265,8 @@ if WANT_MBFL_TESTING_ENABLED
 MBFL_ICHECK_ENV	 = PATH=$(DESTDIR)$(bindir):$$PATH; export PATH;
 MBFL_ICHECK_ENV	+= TMPDIR=$(PWD)/tmp; export TMPDIR;
 MBFL_ICHECK_ENV	+= testsdir=$(builddir)/tests; export testsdir;
-MBFL_ICHECK_ENV	+= export MMUX_LIBRARY=$(DESTDIR)$(mmux_bashlibdir)/libmmux-bash-mpfr.bash
-MBFL_ICHECK_ENV	+= export LD_LIBRARY_PATH=$(DESTDIR)$(libdir):$(LD_LIBRARY_PATH)
+MBFL_ICHECK_ENV	+= export MMUX_LIBRARY=$(DESTDIR)$(mmux_bashlibdir)/libmmux-bash-mpfr.bash;
+MBFL_ICHECK_ENV	+= export LD_LIBRARY_PATH=$(DESTDIR)$(libdir):$(LD_LIBRARY_PATH);
 MBFL_ICHECK_RUN	 = $(BASH_PROGRAM) $(MBFL_ICHECK_FLAGS)
 
 # If a  test script executes no  test functions: its exit  code is 77,

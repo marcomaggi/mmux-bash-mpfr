@@ -35,11 +35,14 @@ MBFL_DEFINE_UNDERSCORE_MACRO_FOR_SLOTS
 
 #### setup
 
+declare -r MBFL_LINKER_DEBUG='true'
+printf 'MBFL_LIBRARY_PATH=%s\n' WW(MBFL_LIBRARY_PATH)
 mbfl_embed_library(__LIBMBFL_LINKER__)
 mbfl_linker_source_library_by_stem(core)
 mbfl_linker_source_library_by_stem(tests)
-
-source "$MMUX_LIBRARY"
+mbfl_linker_source_library_by_stem(mmux-bash-packages)
+mbfl_linker_source_library_by_stem(mmux-bash-pointers)
+mbfl_linker_source_library_by_stem(mmux-bash-mpfr)
 
 
 #### basic initialisation and finalisation
