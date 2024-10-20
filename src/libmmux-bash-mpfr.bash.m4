@@ -51,17 +51,17 @@ function mmux_bash_mpfr_library_after_loading_hook () {
 #### additional functions: printing
 
 function mpfr_just_printit_dammit () {
-    declare -i BASE=10 NDIGITS=6
-    declare OPT OPTARG OPTIND OPTERR=1 MPFR_RV
+    declare -i BASE=10 NDIGITS=6 MPFR_RV
+    declare OPT OPTARG OPTIND OPTERR=1
 
     while getopts ':n:b:' OPT
     do
-	case "${OPT:?}" in
+	case WW(OPT) in
 	    n)
-		NDIGITS=$OPTARG
+		NDIGITS=RR(OPTARG)
 		;;
 	    b)
-		BASE=$OPTARG
+		BASE=RR(OPTARG)
 		;;
 	    *)
 		return 1
@@ -70,33 +70,33 @@ function mpfr_just_printit_dammit () {
     done
     shift $((OPTIND-1))
 
-    declare OP=${1:?"missing mandatory parameter MPFR_PTR in call to '$FUNCNAME'"}
+    declare OP=PP(1,MPFR_PTR)
 
     #echo $FUNCNAME BASE="$BASE" NDIGITS="$NDIGITS" OP="$OP" >&2
 
     if ! mpfr_nan_p "${OP:?}"
     then return 1
     else
-	if (( 1 == ${MPFR_RV:?} ))
+	if (( 1 == MPFR_RV ))
 	then
 	    printf '%s\n' '@NaN@'
 	    return 0
 	fi
     fi
 
-    if ! mpfr_inf_p "${OP:?}"
+    if ! mpfr_inf_p WW(OP)
     then return 1
     else
-	if (( 1 == ${MPFR_RV:?} ))
+	if (( 1 == MPFR_RV ))
 	then
 	    {
 		declare SIGN
 
-		mpfr_sgn SIGN "${OP:?}"
-		case "${SIGN:?}" in
-		    1)	printf -- '+%s\n' '@Inf@' ;;
+		mpfr_sgn SIGN WW(OP)
+		case WW(SIGN) in
+		     1)	printf -- '+%s\n' '@Inf@' ;;
 		    -1)	printf -- '-%s\n' '@Inf@' ;;
-		    *) printf --  '%s\n' '@Inf@' ;;
+		     *) printf --  '%s\n' '@Inf@' ;;
 		esac
 	    }
 	    return 0
@@ -106,11 +106,11 @@ function mpfr_just_printit_dammit () {
     {
 	declare MAN EXP
 
-	mpfr_get_str MAN EXP "${BASE:?}" "${NDIGITS:?}" "${OP:?}" "${MPFR_RNDN:?}"
+	mpfr_get_str MAN EXP WW(BASE) WW(NDIGITS) WW(OP) WW(MPFR_RNDN)
 
 	if test "${MAN:0:1}" = '-'
-	then printf -- '-0.%se%s\n' "${MAN:1}" "${EXP:?}"
-	else printf --  '0.%se%s\n' "${MAN:?}" "${EXP:?}"
+	then printf -- '-0.%se%s\n' "${MAN:1}" WW(EXP)
+	else printf --  '0.%se%s\n' WW(MAN) WW(EXP)
 	fi
     }
 }
@@ -119,27 +119,27 @@ function mpfr_just_printit_dammit () {
 #### compound allocation and initialisation
 
 function mpfr_alloc_and_init () {
-    declare -n mpfr_p_PTR=${1:?"missing parameter 1 result MPFR pointer variable name in call to '$FUNCNAME'"}
+    declare -n mpfr_p_PTR=PP(1,MPFR_PTR)
     declare -r mpfr_p_PREC=$2
 
-    if mmux_libc_calloc mpfr_p_PTR 1 "${mpfr_SIZEOF:?}"
+    if mmux_libc_calloc mpfr_p_PTR 1 WW(mpfr_SIZEOF)
     then
 	if ! {
-		if test -z "${mpfr_p_PREC}" -o "${mpfr_p_PREC}" = '0'
-		then mpfr_init  "${mpfr_p_PTR:?}"
-		else mpfr_init2 "${mpfr_p_PTR:?}" "${mpfr_p_PREC:?}"
+		if test -z QQ(mpfr_p_PREC) -o QQ(mpfr_p_PREC) = '0'
+		then mpfr_init  WW(mpfr_p_PTR)
+		else mpfr_init2 WW(mpfr_p_PTR) WW(mpfr_p_PREC)
 		fi
 	    }
-	then mmux_libc_free "${mpfr_p_PTR:?}"
+	then mmux_libc_free WW(mpfr_p_PTR)
 	fi
     else return 1
     fi
 }
 function mpfr_clear_and_free () {
-    declare -r mpfr_p_PTR=${1:?"missing parameter 1 MPFR pointer in call to '$FUNCNAME'"}
+    declare -r mpfr_p_PTR=PP(1,MPFR_PTR)
 
-    if mpfr_clear "${mpfr_p_PTR:?}"
-    then mmux_libc_free "${mpfr_p_PTR:?}"
+    if mpfr_clear WW(mpfr_p_PTR)
+    then mmux_libc_free WW(mpfr_p_PTR)
     else return 1
     fi
 }
@@ -185,7 +185,7 @@ function mpfr_init_shell_array () {
 	done
     else
 	for ((mpfr_IDX=0; mpfr_IDX < mpfr_ADIM; ++mpfr_IDX))
-	do mpfr_init2 "${mpfr_SHELL_ARRY[$mpfr_IDX]:?}" "${mpfr_p_PREC:?}"
+	do mpfr_init2 "${mpfr_SHELL_ARRY[$mpfr_IDX]:?}" WW(mpfr_p_PREC)
 	done
     fi
 }
