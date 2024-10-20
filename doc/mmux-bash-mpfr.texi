@@ -1620,6 +1620,29 @@ mpfr_clear_and_free_shell_array @WW{OPS}
 @end example
 @end defun
 
+
+@defun Builtin mpfr_cmp_si_2exp @vari{MPFR_OP} @varii{SLONG} @var{MPFR_EXP}
+@defunx Builtin mpfr_cmp_ui_2exp @vari{MPFR_OP} @varii{ULONG} @var{MPFR_EXP}
+Interfaces to the C language functions @cfunc{mpfr_cmp_si_2exp}, @cfunc{mpfr_cmp_ui_2exp}.
+
+@example
+declare OP1 OP2=100 EXPON=3
+
+mpfr_alloc_and_init OP1
+@{
+    mpfr_set_si @WW{OP} 800 @WW{MPFR_RNDN}
+
+    mpfr_cmp_si_2exp @WW{OP1} @WW{OP2} @WW{EXPON}
+
+    if (( 0 == MPFR_RV ))
+    then # OP1 == OP2 * 2^EXPON
+    else # otherwise
+    fi
+@}
+mpfr_clear_and_free @WW{OP1}
+@end example
+@end defun
+
 @c page
 @node comparison predicates
 @section Comparison predicates
