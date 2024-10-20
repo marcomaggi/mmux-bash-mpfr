@@ -16,6 +16,8 @@ sbindir=@sbindir@
 sharedstatedir=@sharedstatedir@
 sysconfdir=@sysconfdir@
 
+MMUX_BASH_PACKAGES_REQUIRED="mmux-bash-packages(0.0.0):mmux-bash-pointers(0.1.0)"
+
 ## ------------------------------------------------------------
 
 Name: @PACKAGE_NAME@
