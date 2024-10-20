@@ -1576,8 +1576,49 @@ mpfr_clear_and_free_shell_array OPS1
 
 
 @menu
+* comparison ternary::          Comparison functions.
 * comparison predicates::       Comparison predicates.
+* comparison misc::             Miscellaneous functions.
 @end menu
+
+@c page
+@node comparison ternary
+@section Comparison functions
+
+
+@defun Builtin mpfr_cmp @vari{MPFR_OP} @varii{MPFR_OP}
+@defunx Builtin mpfr_cmp_si @vari{MPFR_OP} @varii{SLONG}
+@defunx Builtin mpfr_cmp_ui @vari{MPFR_OP} @varii{ULONG}
+@defunx Builtin mpfr_cmp_d @vari{MPFR_OP} @varii{DOUBLE}
+@defunx Builtin mpfr_cmp_ld @vari{MPFR_OP} @varii{LDOUBLE}
+@defunx Builtin mpfr_cmp_z @vari{MPFR_OP} @varii{MPZ_OP}
+@defunx Builtin mpfr_cmp_q @vari{MPFR_OP} @varii{MPQ_OP}
+@defunx Builtin mpfr_cmp_f @vari{MPFR_OP} @varii{MPF_OP}
+Interfaces to the C language functions @cfunc{mpfr_cmp}, @cfunc{mpfr_cmp_si}, @cfunc{mpfr_cmp_ui},
+@cfunc{mpfr_cmp_d}, @cfunc{mpfr_cmp_ld}, @cfunc{mpfr_cmp_z}, @cfunc{mpfr_cmp_q}, @cfunc{mpfr_cmp_f}.
+When successful return true; otherwise return false.  To inspect the comparison result we have to
+use the shell variable @env{MPFR_RV}.
+
+@example
+declare OPS
+
+mpfr_alloc_and_init_shell_array OPS 2
+@{
+    declare -n OP1='OPS[0]' OP2='OPS[1]'
+
+    mpfr_set_si @WW{OP1} 123 @WW{MPFR_RNDN}
+    mpfr_set_si @WW{OP2} 456 @WW{MPFR_RNDN}
+
+    mpfr_cmp @WW{OP1} @WW{OP2}
+
+    if (( MPFR_RV < 0 ))
+    then # OP1 <  OP2
+    else # OP1 >= OP2
+    fi
+@}
+mpfr_clear_and_free_shell_array @WW{OPS}
+@end example
+@end defun
 
 @c page
 @node comparison predicates
@@ -1620,6 +1661,34 @@ false.  To inspect the predicate result we have to use the shell variable @env{M
 @MmuxBashMpfrDefineComparisonPredicate{mpfr_number_p}
 @MmuxBashMpfrDefineComparisonPredicate{mpfr_zero_p}
 @MmuxBashMpfrDefineComparisonPredicate{mpfr_regular_p}
+
+@c page
+@node comparison misc
+@section Miscellaneous functions
+
+
+@deffn Builtin mpfr_sgn @var{MPFR_OP}
+Interface to the C language function @cfunc{mpfr_sgn}.  When successful return true; otherwise
+return false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
+
+@example
+declare OP
+declare -i MPFR_RV
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
+    mpfr_sgn @WW{OP}
+
+    if (( 0 < @WW{MPFR_RV} ))
+    then # the number is positive
+    else # the number is negative or zero
+    fi
+@}
+mpfr_clear_and_free @WW{OP}
+@end example
+@end deffn
+
 
 @c page
 @node io

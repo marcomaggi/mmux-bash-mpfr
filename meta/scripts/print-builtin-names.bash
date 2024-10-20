@@ -149,12 +149,21 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_sum
 		      mpfr_dot
 
+		      mpfr_cmp
+		      mpfr_cmp_si
+		      mpfr_cmp_ui
+		      mpfr_cmp_d
+		      mpfr_cmp_ld
+		      mpfr_cmp_z
+		      mpfr_cmp_q
+		      mpfr_cmp_f
 		      mpfr_nan_p
 		      mpfr_inf_p
 		      mpfr_zero_p
 		      mpfr_number_p
 		      mpfr_regular_p
 		      mpfr_sgn
+
 		      mpfr_dump)
 
 

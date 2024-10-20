@@ -74,7 +74,7 @@ function mpfr_just_printit_dammit () {
 
     #echo $FUNCNAME BASE="$BASE" NDIGITS="$NDIGITS" OP="$OP" >&2
 
-    if ! mpfr_nan_p "${OP:?}"
+    if ! mpfr_nan_p WW(OP)
     then return 1
     else
 	if (( 1 == MPFR_RV ))
@@ -92,11 +92,11 @@ function mpfr_just_printit_dammit () {
 	    {
 		declare SIGN
 
-		mpfr_sgn SIGN WW(OP)
-		case WW(SIGN) in
-		     1)	printf -- '+%s\n' '@Inf@' ;;
-		    -1)	printf -- '-%s\n' '@Inf@' ;;
-		     *) printf --  '%s\n' '@Inf@' ;;
+		mpfr_sgn WW(OP)
+		case WW(MPFR_RV) in
+		     1)	printf -- '+@Inf@\n' ;;
+		    -1)	printf -- '-@Inf@\n' ;;
+		     *) printf --  '@Inf@\n' ;;
 		esac
 	    }
 	    return 0
