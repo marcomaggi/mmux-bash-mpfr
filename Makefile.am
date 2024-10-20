@@ -122,24 +122,26 @@ src/libmmux-bash-mpfr.bash: src/libmmux-bash-mpfr.bash.m4 $(MMUX_M4_BASH_MACROS)
 
 EXTRA_DIST	+= \
 	src/mmux-bash-mpfr-arithmetic.c.m4		\
+	src/mmux-bash-mpfr-assignment-builtins.c.m4	\
 	src/mmux-bash-mpfr-comparison.c.m4		\
 	src/mmux-bash-mpfr-conversion.c.m4		\
 	src/mmux-bash-mpfr-init.c.m4			\
 	src/mmux-bash-mpfr-internals.h.m4		\
 	src/mmux-bash-mpfr-library.c.m4			\
 	src/mmux-bash-mpfr-output.c.m4			\
-	src/mmux-bash-mpfr-assignment-builtins.c.m4	\
+	src/mmux-bash-mpfr-transcendental.c.m4		\
 	src/mmux-bash-mpfr-type-functions.c.m4
 
 MMUX_BASH_MPFR_BUILT_SOURCES	= \
 	src/mmux-bash-mpfr-arithmetic.c			\
+	src/mmux-bash-mpfr-assignment-builtins.c	\
 	src/mmux-bash-mpfr-comparison.c			\
 	src/mmux-bash-mpfr-conversion.c			\
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-internals.h			\
 	src/mmux-bash-mpfr-library.c			\
 	src/mmux-bash-mpfr-output.c			\
-	src/mmux-bash-mpfr-assignment-builtins.c	\
+	src/mmux-bash-mpfr-transcendental.c		\
 	src/mmux-bash-mpfr-type-functions.c
 
 BUILT_SOURCES	+= $(MMUX_BASH_MPFR_BUILT_SOURCES)
@@ -163,12 +165,13 @@ libmmux_bash_mpfr_la_SOURCES	= \
 	src/mmux-bash-mpfr-config.h			\
 	src/mmux-bash-mpfr-internals.h			\
 	src/mmux-bash-mpfr-arithmetic.c			\
+	src/mmux-bash-mpfr-assignment-builtins.c	\
 	src/mmux-bash-mpfr-comparison.c			\
 	src/mmux-bash-mpfr-conversion.c			\
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-library.c			\
 	src/mmux-bash-mpfr-output.c			\
-	src/mmux-bash-mpfr-assignment-builtins.c	\
+	src/mmux-bash-mpfr-transcendental.c		\
 	src/mmux-bash-mpfr-type-functions.c
 
 .PHONY: library
@@ -191,11 +194,12 @@ src/%.$(OBJEXT): \
 
 EXTRA_DIST		+= \
 	tests/arithmetic.test.m4		\
+	tests/assignment.test.m4		\
 	tests/comparison.test.m4		\
 	tests/conversion.test.m4		\
 	tests/init.test.m4			\
 	tests/printing.test.m4			\
-	tests/assignment.test.m4		\
+	tests/transcendental.test.m4		\
 	tests/version.test.m4
 
 # For some reason GNU Automake does not want "TEST_EXTENSIONS" to be
@@ -206,11 +210,12 @@ if WANT_MBFL_TESTING_ENABLED
 
 MMUX_CHECK_BUILT_TESTS	= \
 	tests/arithmetic.test			\
+	tests/assignment.test			\
 	tests/comparison.test			\
 	tests/conversion.test			\
 	tests/init.test				\
 	tests/printing.test			\
-	tests/assignment.test			\
+	tests/transcendental.test		\
 	tests/version.test
 
 TESTS			=  $(MMUX_CHECK_BUILT_TESTS)

@@ -176,8 +176,69 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_unordered_p
 		      mpfr_total_order_p
 
-		      mpfr_dump)
+		      mpfr_log
+		      mpfr_log2
+		      mpfr_log10
+		      mpfr_log1p
+		      mpfr_log2p1
+		      mpfr_log10p1
+		      mpfr_exp
+		      mpfr_exp2
+		      mpfr_exp10
+		      mpfr_expm1
+		      mpfr_exp2m1
+		      mpfr_exp10m1
+		      mpfr_pow
+		      mpfr_powr
+		      mpfr_sin
+		      mpfr_cos
+		      mpfr_tan
+		      mpfr_sinpi
+		      mpfr_cospi
+		      mpfr_tanpi
+		      mpfr_sin_cos
+		      mpfr_sec
+		      mpfr_csc
+		      mpfr_cot
+		      mpfr_asin
+		      mpfr_acos
+		      mpfr_atan
+		      mpfr_asinpi
+		      mpfr_acospi
+		      mpfr_atanpi
+		      mpfr_atan2
+		      mpfr_sinh
+		      mpfr_cosh
+		      mpfr_tanh
+		      mpfr_sinh_cosh
+		      mpfr_sech
+		      mpfr_csch
+		      mpfr_coth
+		      mpfr_asinh
+		      mpfr_acosh
+		      mpfr_atanh
+		      mpfr_eint
+		      mpfr_li2
+		      mpfr_gamma
+		      mpfr_gamma_inc
+		      mpfr_lngamma
+		      mpfr_digamma
+		      mpfr_beta
+		      mpfr_zeta
+		      mpfr_erf
+		      mpfr_erfc
+		      mpfr_j0
+		      mpfr_j1
+		      mpfr_y0
+		      mpfr_y1
+		      mpfr_agm
+		      mpfr_ai
+		      mpfr_const_log2
+		      mpfr_const_pi
+		      mpfr_const_euler
+		      mpfr_const_catalan
 
+		      mpfr_dump)
 
 declare -i IDX=
 

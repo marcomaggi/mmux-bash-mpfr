@@ -185,6 +185,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * conversion::                  Converting numbers to other representations.
 * arithmetic::                  Arithmetic builtins.
 * comparison::                  Comparison builtins.
+* transcendental::              Transcendental builtins.
 * io::                          Input, output, printing.
 
 Appendices
@@ -1751,6 +1752,34 @@ mpfr_alloc_and_init OP
 mpfr_clear_and_free @WW{OP}
 @end example
 @end deffn
+
+@c page
+@node transcendental
+@chapter Transcendental builtins
+
+
+@menu
+* transcendental logarithms::           Builtins for logarithms.
+* transcendental exponentiation::       Builtins for exponentiation.
+* transcendental trigonometric::        Builtins for trigonometric operations.
+* transcendental hyperbolic::           Builtins for hyperbolic operations.
+@end menu
+
+@c page
+@node transcendental logarithms
+@section Builtins for logarithms
+
+@c page
+@node transcendental exponentiation
+@section Builtins for exponentiation
+
+@c page
+@node transcendental trigonometric
+@section Builtins for trigonometric operations
+
+@c page
+@node transcendental hyperbolic
+@section Builtins for hyperbolic operations
 
 
 @c page

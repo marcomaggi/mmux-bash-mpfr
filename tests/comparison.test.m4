@@ -58,7 +58,7 @@ function comparison-mpfr_cmp-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -77,8 +77,8 @@ function comparison-mpfr_cmp-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 > RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -115,8 +115,8 @@ function comparison-mpfr_cmp_si-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 < RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -153,8 +153,8 @@ function comparison-mpfr_cmp_ui-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 > RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -191,8 +191,8 @@ function comparison-mpfr_cmp_d-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 > RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -229,8 +229,8 @@ function comparison-mpfr_cmp_ld-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 > RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -276,8 +276,8 @@ function comparison-mpfr_cmp_z-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 > RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -299,7 +299,7 @@ function comparison-mpfr_cmpabs-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -318,8 +318,8 @@ function comparison-mpfr_cmpabs-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -356,8 +356,8 @@ function comparison-mpfr_cmpabs_ui-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -392,8 +392,8 @@ function comparison-mpfr_nan_p-1.1 () {
 	    fi
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -419,8 +419,8 @@ function comparison-mpfr_nan_p-1.2 () {
 	    fi
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -458,8 +458,8 @@ function comparison-mpfr_cmp_si_2exp-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -497,8 +497,8 @@ function comparison-mpfr_cmp_ui_2exp-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -533,8 +533,8 @@ function comparison-mpfr_inf_p-1.1 () {
 	    fi
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -564,8 +564,8 @@ function comparison-mpfr_inf_p-1.2 () {
 	    fi
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -600,8 +600,8 @@ function comparison-mpfr_zero_p-1.1 () {
 	    fi
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -631,8 +631,8 @@ function comparison-mpfr_zero_p-1.2 () {
 	    fi
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -667,8 +667,8 @@ function comparison-mpfr_number_p-1.1 () {
 	    fi
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -698,8 +698,8 @@ function comparison-mpfr_number_p-1.2 () {
 	    fi
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -729,8 +729,8 @@ function comparison-mpfr_number_p-1.3 () {
 	    fi
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -761,8 +761,8 @@ function comparison-mpfr_number_p-1.4 () {
 	    fi
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -797,8 +797,8 @@ function comparison-mpfr_regular_p-1.1 () {
 	    fi
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -828,8 +828,8 @@ function comparison-mpfr_regular_p-1.2 () {
 	    fi
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -859,8 +859,8 @@ function comparison-mpfr_regular_p-1.3 () {
 	    fi
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -891,8 +891,8 @@ function comparison-mpfr_regular_p-1.4 () {
 	    fi
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -929,8 +929,8 @@ function comparison-mpfr_sgn-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 < RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -961,8 +961,8 @@ function comparison-mpfr_sgn-1.2 () {
 	    fi
 
 	    if (( 0 > RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -993,8 +993,8 @@ function comparison-mpfr_sgn-1.3 () {
 	    fi
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1016,7 +1016,7 @@ function comparison-mpfr_greater_p-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1035,8 +1035,8 @@ function comparison-mpfr_greater_p-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1058,7 +1058,7 @@ function comparison-mpfr_less_p-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1077,8 +1077,8 @@ function comparison-mpfr_less_p-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1100,7 +1100,7 @@ function comparison-mpfr_greaterequal_p-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1119,8 +1119,8 @@ function comparison-mpfr_greaterequal_p-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1142,7 +1142,7 @@ function comparison-mpfr_lessequal_p-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1161,8 +1161,8 @@ function comparison-mpfr_lessequal_p-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1184,7 +1184,7 @@ function comparison-mpfr_equal_p-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1203,8 +1203,8 @@ function comparison-mpfr_equal_p-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1222,7 +1222,7 @@ function comparison-mpfr_equal_p-1.2 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1241,8 +1241,8 @@ function comparison-mpfr_equal_p-1.2 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1264,7 +1264,7 @@ function comparison-mpfr_lessgreater_p-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1283,8 +1283,8 @@ function comparison-mpfr_lessgreater_p-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 0 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1302,7 +1302,7 @@ function comparison-mpfr_lessgreater_p-1.2 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1318,11 +1318,11 @@ function comparison-mpfr_lessgreater_p-1.2 () {
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
-	    dotest-debug WW(MPFR_RV)
+	    dotest-debug MPFR_RV=WW(MPFR_RV)
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1344,7 +1344,7 @@ function comparison-mpfr_unordered_p-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1363,8 +1363,8 @@ function comparison-mpfr_unordered_p-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
@@ -1386,7 +1386,7 @@ function comparison-mpfr_total_order_p-1.1 () {
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array RR(OPS)"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
@@ -1405,8 +1405,8 @@ function comparison-mpfr_total_order_p-1.1 () {
 	    dotest-debug WW(MPFR_RV)
 
 	    if (( 1 == RR(MPFR_RV) ))
-	    then return_success
-	    else return_failure
+	    then true
+	    else false
 	    fi
 	}
 	mbfl_location_leave
