@@ -167,6 +167,14 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_number_p
 		      mpfr_regular_p
 		      mpfr_sgn
+		      mpfr_greater_p
+		      mpfr_greaterequal_p
+		      mpfr_less_p
+		      mpfr_lessequal_p
+		      mpfr_equal_p
+		      mpfr_lessgreater_p
+		      mpfr_unordered_p
+		      mpfr_total_order_p
 
 		      mpfr_dump)
 

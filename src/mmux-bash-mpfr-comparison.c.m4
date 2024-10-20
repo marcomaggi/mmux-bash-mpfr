@@ -146,10 +146,10 @@ m4_define([[[DEFINE_PREDICATE_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
-    [[["$1 MPFR_OP"]]],
-    [[["Return true if OP is a representation of $2; otherwise return false."]]])
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
+    [[["Store 1 in MPFR_RV if OP is a representation of $2; otherwise store 0."]]])
 ]]])
 
 DEFINE_PREDICATE_BUILTIN([[[mpfr_nan_p]]],	[[[not-a-number]]])
@@ -157,6 +157,40 @@ DEFINE_PREDICATE_BUILTIN([[[mpfr_inf_p]]],	[[[infinity]]])
 DEFINE_PREDICATE_BUILTIN([[[mpfr_number_p]]],	[[[an ordinary number]]])
 DEFINE_PREDICATE_BUILTIN([[[mpfr_zero_p]]],	[[[zero]]])
 DEFINE_PREDICATE_BUILTIN([[[mpfr_regular_p]]],	[[[a regular number]]])
+
+
+/** --------------------------------------------------------------------
+ ** Order predicates.
+ ** ----------------------------------------------------------------- */
+
+m4_dnl $1 - the predicate function
+m4_dnl $2 - argument description for the short doc
+m4_define([[[DEFINE_ORDER_PREDICATE_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	op1, op2;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
+  {
+    int		rv = $1(op1, op2);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
+    [[["Store 1 in MPFR_RV if the operands satisfies the comparison predicate; otherwise store 0."]]])
+]]])
+
+DEFINE_ORDER_PREDICATE_BUILTIN([[[mpfr_greater_p]]])
+DEFINE_ORDER_PREDICATE_BUILTIN([[[mpfr_greaterequal_p]]])
+DEFINE_ORDER_PREDICATE_BUILTIN([[[mpfr_less_p]]])
+DEFINE_ORDER_PREDICATE_BUILTIN([[[mpfr_lessequal_p]]])
+DEFINE_ORDER_PREDICATE_BUILTIN([[[mpfr_equal_p]]])
+DEFINE_ORDER_PREDICATE_BUILTIN([[[mpfr_lessgreater_p]]])
+DEFINE_ORDER_PREDICATE_BUILTIN([[[mpfr_unordered_p]]])
+DEFINE_ORDER_PREDICATE_BUILTIN([[[mpfr_total_order_p]]])
 
 
 /** --------------------------------------------------------------------
@@ -174,9 +208,9 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_sgn]]])
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_sgn]]],
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
-    [[["mpfr_sgn MPFR_OP"]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
     [[["Store in MPFR_RV +1, 0, -1 depending on the sign of MPFR_OP."]]])
 
 /* end of file */

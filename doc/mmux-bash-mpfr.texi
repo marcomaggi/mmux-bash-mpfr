@@ -1576,14 +1576,15 @@ mpfr_clear_and_free_shell_array OPS1
 
 
 @menu
-* comparison ternary::          Comparison functions.
+* comparison ternary::          Comparison builtins.
 * comparison predicates::       Comparison predicates.
-* comparison misc::             Miscellaneous functions.
+* comparison order::            Comparison to order.
+* comparison misc::             Miscellaneous builtins.
 @end menu
 
 @c page
 @node comparison ternary
-@section Comparison functions
+@section Comparison builtins
 
 
 @defun Builtin mpfr_cmp @vari{MPFR_OP} @varii{MPFR_OP}
@@ -1686,8 +1687,47 @@ false.  To inspect the predicate result we have to use the shell variable @env{M
 @MmuxBashMpfrDefineComparisonPredicate{mpfr_regular_p}
 
 @c page
+@node comparison order
+@section Comparison to order
+
+
+@deffn Builtin mpfr_greater_p @vari{MPFR_OP} @varii{MPFR_OP}
+@deffnx Builtin mpfr_greaterequal_p @vari{MPFR_OP} @varii{MPFR_OP}
+@deffnx Builtin mpfr_less_p @vari{MPFR_OP} @varii{MPFR_OP}
+@deffnx Builtin mpfr_lessequal_p @vari{MPFR_OP} @varii{MPFR_OP}
+@deffnx Builtin mpfr_equal_p @vari{MPFR_OP} @varii{MPFR_OP}
+@deffnx Builtin mpfr_lessgreater_p @vari{MPFR_OP} @varii{MPFR_OP}
+@deffnx Builtin mpfr_unordered_p @vari{MPFR_OP} @varii{MPFR_OP}
+@deffnx Builtin mpfr_total_order_p @vari{MPFR_OP} @varii{MPFR_OP}
+Interfaces to the C language functions @cfunc{mpfr_greater_p}, @cfunc{mpfr_greaterequal_p},
+@cfunc{mpfr_less_p}, @cfunc{mpfr_lessequal_p}, @cfunc{mpfr_equal_p}, @cfunc{mpfr_lessgreater_p},
+@cfunc{mpfr_unordered_p}, @cfunc{mpfr_total_order_p}.  When successful return true; otherwise return
+false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
+
+@example
+declare OPS
+
+mpfr_alloc_and_init_shell_array OPS 2
+@{
+    declare -n OP1='OPS[0]' OP2='OPS[1]'
+
+    mpfr_set_si @WW{OP1} 123 @WW{MPFR_RNDN}
+    mpfr_set_si @WW{OP2} 456 @WW{MPFR_RNDN}
+
+    mpfr_equal_p @WW{OP1} @WW{OP2}
+
+    if (( 1 == MPFR_RV ))
+    then # OP1 == OP2
+    else # OP1 != OP2
+    fi
+@}
+mpfr_clear_and_free_shell_array @WW{OPS}
+@end example
+@end deffn
+
+@c page
 @node comparison misc
-@section Miscellaneous functions
+@section Miscellaneous builtins
 
 
 @deffn Builtin mpfr_sgn @var{MPFR_OP}
