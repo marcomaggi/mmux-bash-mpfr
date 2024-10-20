@@ -62,6 +62,159 @@ $@{\VARNAME\:?@}
 @ref{\NODE\,\TITLE\,\TITLE\,mmux-bash-pointers}
 @end macro
 
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineNullaryBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineUnaryBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineUnarySiBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{SLONG_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineUnaryUiBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{ULONG_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineUnarySjBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{SINTMAX_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineUnaryUjBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{UINTMAX_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineUnaryZBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{MPZ_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineBinaryBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{MPFR_OP} @varii{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineBinarySiBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{MPFR_OP} @varii{SLONG_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineBinaryUiBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{MPFR_OP} @varii{ULONG_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineBinarySjBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{MPFR_OP} @varii{SINTMAX_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineBinaryUjBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{MPFR_OP} @varii{UINTMAX_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineBinaryZBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{MPFR_OP} @varii{MPZ_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineUiBinaryUiBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{ULONG_OP} @varii{ULONG_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineSiBinaryBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{SLONG_OP} @varii{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineUiBinaryBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{ULONG_OP} @varii{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefineTernaryUiBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @vari{MPFR_OP} @varii{MPFR_OP} @varii{ULONG_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
 @c page
 @c ------------------------------------------------------------
 @c Values.
@@ -1763,24 +1916,140 @@ mpfr_clear_and_free @WW{OP}
 * transcendental exponentiation::       Builtins for exponentiation.
 * transcendental trigonometric::        Builtins for trigonometric operations.
 * transcendental hyperbolic::           Builtins for hyperbolic operations.
+* transcendental special::              Builtins special operations.
+* transcendental constants::            Builtins for constant values.
 @end menu
 
 @c page
 @node transcendental logarithms
 @section Builtins for logarithms
 
+
+@MmuxDefineUnaryBuiltin{mpfr_log}
+@MmuxDefineUnaryUiBuiltin{mpfr_log_ui}
+@MmuxDefineUnaryBuiltin{mpfr_log2}
+@MmuxDefineUnaryBuiltin{mpfr_log10}
+@MmuxDefineUnaryBuiltin{mpfr_log1p}
+@MmuxDefineUnaryBuiltin{mpfr_log2p1}
+@MmuxDefineUnaryBuiltin{mpfr_log10p1}
+
 @c page
 @node transcendental exponentiation
 @section Builtins for exponentiation
+
+
+@MmuxDefineUnaryBuiltin{mpfr_exp}
+@MmuxDefineUnaryBuiltin{mpfr_exp2}
+@MmuxDefineUnaryBuiltin{mpfr_exp10}
+@MmuxDefineUnaryBuiltin{mpfr_expm1}
+@MmuxDefineUnaryBuiltin{mpfr_exp2m1}
+@MmuxDefineUnaryBuiltin{mpfr_exp10m1}
+
+@MmuxDefineBinaryBuiltin{mpfr_pow}
+@MmuxDefineBinaryBuiltin{mpfr_powr}
+@MmuxDefineBinarySiBuiltin{mpfr_pow_si}
+@MmuxDefineBinaryUiBuiltin{mpfr_pow_ui}
+@MmuxDefineBinarySjBuiltin{mpfr_pow_sj}
+@MmuxDefineBinaryUjBuiltin{mpfr_pow_uj}
+@MmuxDefineBinaryZBuiltin{mpfr_pow_z}
+@MmuxDefineUiBinaryUiBuiltin{mpfr_ui_pow_ui}
+@MmuxDefineUiBinaryBuiltin{mpfr_ui_pow}
+
+@MmuxDefineBinarySiBuiltin{mpfr_compound_si}
 
 @c page
 @node transcendental trigonometric
 @section Builtins for trigonometric operations
 
+
+@MmuxDefineUnaryBuiltin{mpfr_sin}
+@MmuxDefineUnaryBuiltin{mpfr_cos}
+@MmuxDefineUnaryBuiltin{mpfr_tan}
+
+@MmuxDefineUnaryBuiltin{mpfr_sinpi}
+@MmuxDefineUnaryBuiltin{mpfr_cospi}
+@MmuxDefineUnaryBuiltin{mpfr_tanpi}
+@MmuxDefineBinaryBuiltin{mpfr_sin_cos}
+
+@MmuxDefineUnaryBuiltin{mpfr_sec}
+@MmuxDefineUnaryBuiltin{mpfr_csc}
+@MmuxDefineUnaryBuiltin{mpfr_cot}
+
+@MmuxDefineUnaryBuiltin{mpfr_asin}
+@MmuxDefineUnaryBuiltin{mpfr_acos}
+@MmuxDefineUnaryBuiltin{mpfr_atan}
+
+@MmuxDefineBinaryUiBuiltin{mpfr_acosu}
+@MmuxDefineBinaryUiBuiltin{mpfr_asinu}
+@MmuxDefineBinaryUiBuiltin{mpfr_atanu}
+
+@MmuxDefineUnaryBuiltin{mpfr_asinpi}
+@MmuxDefineUnaryBuiltin{mpfr_acospi}
+@MmuxDefineUnaryBuiltin{mpfr_atanpi}
+
+@MmuxDefineBinaryBuiltin{mpfr_atan2}
+@MmuxDefineTernaryUiBuiltin{mpfr_atan2u}
+@MmuxDefineBinaryBuiltin{mpfr_atan2pi}
+
 @c page
 @node transcendental hyperbolic
 @section Builtins for hyperbolic operations
 
+
+@MmuxDefineUnaryBuiltin{mpfr_sinh}
+@MmuxDefineUnaryBuiltin{mpfr_cosh}
+@MmuxDefineUnaryBuiltin{mpfr_tanh}
+@MmuxDefineBinaryBuiltin{mpfr_sinh_cosh}
+
+@MmuxDefineUnaryBuiltin{mpfr_sech}
+@MmuxDefineUnaryBuiltin{mpfr_csch}
+@MmuxDefineUnaryBuiltin{mpfr_coth}
+
+@MmuxDefineUnaryBuiltin{mpfr_asinh}
+@MmuxDefineUnaryBuiltin{mpfr_acosh}
+@MmuxDefineUnaryBuiltin{mpfr_atanh}
+
+@c page
+@node transcendental special
+@section Builtins special operations
+
+
+@MmuxDefineUnaryBuiltin{mpfr_eint}
+@MmuxDefineUnaryBuiltin{mpfr_li2}
+@MmuxDefineUnaryBuiltin{mpfr_gamma}
+@MmuxDefineBinaryBuiltin{mpfr_gamma_inc}
+@MmuxDefineUnaryBuiltin{mpfr_lngamma}
+@MmuxDefineUnaryBuiltin{mpfr_digamma}
+
+@deffn Builtin mpfr_lgamma @var{MPFR_ROP} @var{SIGNVAR} @var{MPFR_OP} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_lgamma}.
+
+Store in the shell variable @var{SIGNVAR} the computed sign.
+@end deffn
+
+@MmuxDefineBinaryBuiltin{mpfr_beta}
+@MmuxDefineUnaryBuiltin{mpfr_zeta}
+@MmuxDefineUnaryUiBuiltin{mpfr_zeta_ui}
+@MmuxDefineUnaryBuiltin{mpfr_erf}
+@MmuxDefineUnaryBuiltin{mpfr_erfc}
+@MmuxDefineUnaryBuiltin{mpfr_j0}
+@MmuxDefineUnaryBuiltin{mpfr_j1}
+@MmuxDefineSiBinaryBuiltin{mpfr_jn}
+@MmuxDefineUnaryBuiltin{mpfr_y0}
+@MmuxDefineUnaryBuiltin{mpfr_y1}
+@MmuxDefineSiBinaryBuiltin{mpfr_yn}
+@MmuxDefineBinaryBuiltin{mpfr_agm}
+@MmuxDefineUnaryBuiltin{mpfr_ai}
+
+@c page
+@node transcendental constants
+@section Builtins for constant values
+
+
+@MmuxDefineNullaryBuiltin{mpfr_const_log2}
+@MmuxDefineNullaryBuiltin{mpfr_const_pi}
+@MmuxDefineNullaryBuiltin{mpfr_const_euler}
+@MmuxDefineNullaryBuiltin{mpfr_const_catalan}
 
 @c page
 @node io

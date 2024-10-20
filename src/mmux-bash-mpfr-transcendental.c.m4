@@ -127,6 +127,30 @@ DEFINE_NULLARY_BUILTIN([[[mpfr_const_pi]]])
 DEFINE_NULLARY_BUILTIN([[[mpfr_const_euler]]])
 DEFINE_NULLARY_BUILTIN([[[mpfr_const_catalan]]])
 
-//mpfr_lgamma
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_lgamma]]])
+{
+  mpfr_ptr	rop, op;
+  mpfr_rnd_t	rnd;
+  mmux_sint_t	sign;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv      = mpfr_lgamma(rop, &sign, op, rnd);
+    int		mmux_rv = mmux_sint_bind_to_variable(argv[2], sign, MMUX_BUILTIN_NAME_STR);
+
+    if (MMUX_SUCCESS == mmux_rv) {
+      return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+    } else {
+      return mmux_rv;
+    }
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(5 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP SINTVAR MPFR_OP MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,SINTVAR,OP,RND)."]]])
 
 /* end of file */
