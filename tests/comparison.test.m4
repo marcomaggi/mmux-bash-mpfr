@@ -108,6 +108,400 @@ function comparison-mpfr_nan_p-1.2 () {
 }
 
 
+# mpfr_inf_p
+
+function comparison-mpfr_inf_p-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_inf_p
+    then
+	declare -r INITVAL='123'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_inf WW(OP) +1
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_inf_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 1 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+function comparison-mpfr_inf_p-1.2 () {
+    if mmux_bash_pointers_builtin_p mpfr_inf_p
+    then
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) '123' WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_inf_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 0 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_zero_p
+
+function comparison-mpfr_zero_p-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_zero_p
+    then
+	declare -r INITVAL='123'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) 0 WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_zero_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 1 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+function comparison-mpfr_zero_p-1.2 () {
+    if mmux_bash_pointers_builtin_p mpfr_zero_p
+    then
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) '123' WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_zero_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 0 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_number_p
+
+function comparison-mpfr_number_p-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_number_p
+    then
+	declare -r INITVAL='123'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) '123' WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_number_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 1 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+function comparison-mpfr_number_p-1.2 () {
+    if mmux_bash_pointers_builtin_p mpfr_number_p
+    then
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_nan WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_number_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 0 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+function comparison-mpfr_number_p-1.3 () {
+    if mmux_bash_pointers_builtin_p mpfr_number_p
+    then
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_inf WW(OP) +1
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_number_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 0 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+function comparison-mpfr_number_p-1.4 () {
+    if mmux_bash_pointers_builtin_p mpfr_number_p
+    then
+	declare -r INITVAL='123'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) '0' WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_number_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 1 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_regular_p
+
+function comparison-mpfr_regular_p-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_regular_p
+    then
+	declare -r INITVAL='123'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) '123' WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_regular_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 1 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+function comparison-mpfr_regular_p-1.2 () {
+    if mmux_bash_pointers_builtin_p mpfr_regular_p
+    then
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_nan WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_regular_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 0 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+function comparison-mpfr_regular_p-1.3 () {
+    if mmux_bash_pointers_builtin_p mpfr_regular_p
+    then
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_inf WW(OP) +1
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_regular_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 0 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+function comparison-mpfr_regular_p-1.4 () {
+    if mmux_bash_pointers_builtin_p mpfr_regular_p
+    then
+	declare -r INITVAL='123'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) '0' WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_regular_p WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 0 == RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
 #### let's go
 
 dotest comparison-
