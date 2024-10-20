@@ -159,6 +159,8 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_cmp_f
 		      mpfr_cmp_si_2exp
 		      mpfr_cmp_ui_2exp
+		      mpfr_cmpabs
+		      mpfr_cmpabs_ui
 		      mpfr_nan_p
 		      mpfr_inf_p
 		      mpfr_zero_p

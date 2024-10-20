@@ -82,6 +82,13 @@ DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_f]]],
 			  [[[mpf_ptr]]],
 			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_MPF_PTR]]])
 
+DEFINE_COMPARISON_BUILTIN([[[mpfr_cmpabs]]],
+			  [[[mpfr_ptr]]],
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR]]])
+DEFINE_COMPARISON_BUILTIN([[[mpfr_cmpabs_ui]]],
+			  [[[mmux_ulong_t]]],
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
+
 
 /** --------------------------------------------------------------------
  ** Ternary functions 2exp.
