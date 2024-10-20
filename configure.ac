@@ -146,6 +146,7 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile]
   [src/m4/mmux-bash-mpfr-config.m4]
   [src/mmux-bash-mpfr-config.h]
+  [doc/mmux-version.texi]
   [meta/scripts/mmux-bash-mpfr.pc]
   [meta/slackware/slack-desc])
 MMUX_OUTPUT

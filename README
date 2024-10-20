@@ -19,11 +19,11 @@ Topics
 1. Introduction
 ---------------
 
-This package  implements additional  builtin commands  for the  GNU Bash
+This  package implements  loadable  builtin commands  for  the GNU  Bash
 shell; to do  so it installs a  C11 language library and  a shell script
 which is meant to be sourced in a Bash session or script.
 
-  This package implements an interface to the library MPFR:
+  This package provides an interface to the library MPFR:
 
     declare X
 
