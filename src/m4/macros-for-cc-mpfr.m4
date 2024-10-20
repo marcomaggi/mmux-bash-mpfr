@@ -85,6 +85,347 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC]]],[[[{
 }]]])
 
 
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_NULLARY_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[2]]]]);
+  {
+    int		rv = $1(rop, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_UNARY_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop, op;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = $1(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_UNARY_SI_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop;
+  mmux_slong_t	op;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_SLONG([[[op]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = $1(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_UNARY_UI_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop;
+  mmux_ulong_t	op;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[op]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = $1(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_UNARY_SJ_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr		rop;
+  mmux_sintmax_t	op;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX([[[op]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = $1(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_UNARY_UJ_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr		rop;
+  mmux_uintmax_t	op;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX([[[op]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = $1(rop, op, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_BINARY_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop, op1, op2;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = $1(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP1,OP2,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_BINARY_SI_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop, op1;
+  mmux_slong_t	op2;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_SLONG([[[op2]]],		[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = $1(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP1,OP2,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_BINARY_UI_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop, op1;
+  mmux_ulong_t	op2;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[op2]]],		[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = $1(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP1,OP2,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_BINARY_SJ_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr		rop, op1;
+  mmux_sintmax_t	op2;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = $1(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP1,OP2,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_BINARY_UJ_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr		rop, op1;
+  mmux_uintmax_t	op2;
+  mpfr_rnd_t		rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = $1(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP1,OP2,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_BINARY_Z_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop, op1;
+  mpz_ptr	op2;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = $1(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP1,OP2,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_UI_BINARY_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop, op2;
+  mmux_ulong_t	op1;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[op1]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = $1(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP1,OP2,RND)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_UI_BINARY_UI_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop;
+  mmux_ulong_t	op1;
+  mmux_ulong_t	op2;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[op1]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_ULONG([[[op2]]],		[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  {
+    int		rv = $1(rop, op1, op2, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP1 MPFR_OP2 MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP1,OP2,RND)."]]])
+]]])]]])
+
+
 # let's go
 
 # end of file

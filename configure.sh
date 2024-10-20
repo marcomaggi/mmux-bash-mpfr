@@ -16,7 +16,8 @@ fi
     --enable-maintainer-mode                    \
     --prefix="${prefix}"			\
     --libdir="${libdir}"                        \
-    CFLAGS='-O3'				\
+    CFLAGS='-O3 -fmax-errors=4'			\
+    M4FLAGS='--synclines'			\
     "$@"
 
 ### end of file
