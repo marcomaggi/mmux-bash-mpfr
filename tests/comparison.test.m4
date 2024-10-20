@@ -50,7 +50,7 @@ alias gmp_exists='false'
 function comparison-mpfr_cmp-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_cmp
     then
-	declare -r INITVAL1='123' INITVAL2='466'
+	declare -r INITVAL1='123' INITVAL2='456'
 	declare	OPS
 
 	dotest-unset-debug
@@ -71,6 +71,205 @@ function comparison-mpfr_cmp-1.1 () {
 	    fi
 
 	    if ! mpfr_cmp WW(OPS,0) WW(OPS,1)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(MPFR_RV)
+
+	    if (( 0 > RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_cmp_si
+
+function comparison-mpfr_cmp_si-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_cmp_si
+    then
+	declare -r INITVAL1='123' INITVAL2='-456'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_cmp_si WW(OP) WW(INITVAL2)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(MPFR_RV)
+
+	    if (( 0 < RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_cmp_ui
+
+function comparison-mpfr_cmp_ui-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_cmp_ui
+    then
+	declare -r INITVAL1='123' INITVAL2='456'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_cmp_ui WW(OP) WW(INITVAL2)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(MPFR_RV)
+
+	    if (( 0 > RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_cmp_d
+
+function comparison-mpfr_cmp_d-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_cmp_d
+    then
+	declare -r INITVAL1='123' INITVAL2='456.789'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_cmp_d WW(OP) WW(INITVAL2)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(MPFR_RV)
+
+	    if (( 0 > RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_cmp_ld
+
+function comparison-mpfr_cmp_ld-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_cmp_ld
+    then
+	declare -r INITVAL1='123' INITVAL2='456.789'
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_cmp_ld WW(OP) WW(INITVAL2)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(MPFR_RV)
+
+	    if (( 0 > RR(MPFR_RV) ))
+	    then return_success
+	    else return_failure
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_cmp_z
+
+function comparison-mpfr_cmp_z-1.1 () {
+    if gmp_exists && mmux_bash_pointers_builtin_p mpfr_cmp_z
+    then
+	declare -r INITVAL1='123' INITVAL2='456'
+	declare	OP OPZ
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if mpfz_alloc_and_init OPZ
+	    then mbfl_location_handler "mpz_clear_and_free RR(OPZ)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpz_set_si WW(OPZ) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_cmp_z WW(OP) WW(OPZ)
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
