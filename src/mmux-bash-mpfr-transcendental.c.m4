@@ -58,6 +58,8 @@ DEFINE_BINARY_Z_BUILTIN([[[mpfr_pow_z]]])
 DEFINE_UI_BINARY_UI_BUILTIN([[[mpfr_ui_pow_ui]]])
 DEFINE_UI_BINARY_BUILTIN([[[mpfr_ui_pow]]])
 
+DEFINE_BINARY_SI_BUILTIN([[[mpfr_compound_si]]])
+
 DEFINE_UNARY_BUILTIN([[[mpfr_sin]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_cos]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_tan]]])
@@ -75,11 +77,17 @@ DEFINE_UNARY_BUILTIN([[[mpfr_asin]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_acos]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_atan]]])
 
+DEFINE_BINARY_UI_BUILTIN([[[mpfr_acosu]]])
+DEFINE_BINARY_UI_BUILTIN([[[mpfr_asinu]]])
+DEFINE_BINARY_UI_BUILTIN([[[mpfr_atanu]]])
+
 DEFINE_UNARY_BUILTIN([[[mpfr_asinpi]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_acospi]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_atanpi]]])
 
 DEFINE_BINARY_BUILTIN([[[mpfr_atan2]]])
+DEFINE_TERNARY_UI_BUILTIN([[[mpfr_atan2u]]])
+DEFINE_BINARY_BUILTIN([[[mpfr_atan2pi]]])
 
 DEFINE_UNARY_BUILTIN([[[mpfr_sinh]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_cosh]]])
@@ -102,12 +110,15 @@ DEFINE_UNARY_BUILTIN([[[mpfr_lngamma]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_digamma]]])
 DEFINE_BINARY_BUILTIN([[[mpfr_beta]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_zeta]]])
+DEFINE_UNARY_UI_BUILTIN([[[mpfr_zeta_ui]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_erf]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_erfc]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_j0]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_j1]]])
+DEFINE_SI_BINARY_BUILTIN([[[mpfr_jn]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_y0]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_y1]]])
+DEFINE_SI_BINARY_BUILTIN([[[mpfr_yn]]])
 DEFINE_BINARY_BUILTIN([[[mpfr_agm]]])
 DEFINE_UNARY_BUILTIN([[[mpfr_ai]]])
 
@@ -116,6 +127,6 @@ DEFINE_NULLARY_BUILTIN([[[mpfr_const_pi]]])
 DEFINE_NULLARY_BUILTIN([[[mpfr_const_euler]]])
 DEFINE_NULLARY_BUILTIN([[[mpfr_const_catalan]]])
 
-
+//mpfr_lgamma
 
 /* end of file */
