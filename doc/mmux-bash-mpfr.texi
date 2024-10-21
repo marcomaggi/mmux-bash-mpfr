@@ -2441,6 +2441,12 @@ mpfr_clear_and_free_shell_array OPS
 @end example
 @end deffn
 
+
+@MmuxDefineBinaryBuiltin{mpfr_min}
+@MmuxDefineBinaryBuiltin{mpfr_max}
+
+@MmuxDefineBinaryBuiltin{mpfr_copysign}
+
 @c page
 @c ------------------------------------------------------------
 @c Appendices.

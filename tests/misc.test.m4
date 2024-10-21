@@ -241,6 +241,144 @@ function misc-mpfr_nextbelow-1.1 () {
 }
 
 
+# mpfr_min
+
+function misc-mpfr_min-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_min
+    then
+	declare -r EXPECTED_RESULT='1'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL1='1' INITVAL2='3'
+
+	    if mpfr_alloc_and_init_shell_array OPS 3
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[2]'
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    if ! mpfr_min WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_max
+
+function misc-mpfr_max-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_max
+    then
+	declare -r EXPECTED_RESULT='3'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL1='1' INITVAL2='3'
+
+	    if mpfr_alloc_and_init_shell_array OPS 3
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[2]'
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    if ! mpfr_max WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_copysign
+
+function misc-mpfr_copysign-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_copysign
+    then
+	declare -r EXPECTED_RESULT='-1'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL1='1' INITVAL2='-3'
+
+	    if mpfr_alloc_and_init_shell_array OPS 3
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[2]'
+
+	    if ! mpfr_set_si WW(OP1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    if ! mpfr_copysign WW(ROP) WW(OP1) WW(OP2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
 #### let's go
 
 dotest misc-

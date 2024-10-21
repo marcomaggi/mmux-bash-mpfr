@@ -272,7 +272,14 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_nexttoward
 		      mpfr_nextabove
 		      mpfr_nextbelow
+		      mpfr_min
+		      mpfr_max
+		      mpfr_copysign
+
 		     )
+
+
+### ------------------------------------------------------------------------
 
 declare -i IDX=
 

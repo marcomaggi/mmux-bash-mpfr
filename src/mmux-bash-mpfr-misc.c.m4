@@ -86,4 +86,10 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
     [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(OP)."]]])
 
+/* ------------------------------------------------------------------ */
+
+DEFINE_BINARY_BUILTIN([[[mpfr_min]]])
+DEFINE_BINARY_BUILTIN([[[mpfr_max]]])
+DEFINE_BINARY_BUILTIN([[[mpfr_copysign]]])
+
 /* end of file */
