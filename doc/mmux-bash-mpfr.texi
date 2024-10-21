@@ -1733,6 +1733,7 @@ mpfr_clear_and_free_shell_array OPS1
 * comparison ternary::          Comparison builtins.
 * comparison predicates::       Comparison predicates.
 * comparison order::            Comparison to order.
+* comparison approximate::      Approximate comparison.
 * comparison misc::             Miscellaneous builtins.
 @end menu
 
@@ -1878,6 +1879,125 @@ mpfr_alloc_and_init_shell_array OPS 2
 mpfr_clear_and_free_shell_array @WW{OPS}
 @end example
 @end deffn
+
+@c page
+@node comparison approximate
+@section Approximate comparison
+
+
+@menu
+* comparison approximate absmargin::     Absolute margin criterion.
+* comparison approximate relepsilon::    Relative epsilon criterion.
+@end menu
+
+@c page
+@node comparison approximate absmargin
+@subsection Absolute margin criterion
+
+
+To compare two @mpfr{} numbers with the criterion of the absolute margin, we do:
+
+@example
+declare OPS
+
+mpfr_alloc_and_init_shell_array OPS 2
+@{
+    declare -n OP1='OPS[0]' OP2='OPS[1]'
+    declare -r ABSOLUTE_MARGIN_MPFR='0.1'
+    declare -i MPFR_RV
+
+    mpfr_set_d @WW{OP1} '1.0'  @WW{MPFR_RNDN}
+    mpfr_set_d @WW{OP2} '1.02' @WW{MPFR_RNDN}
+
+    mpfr_equal_absmargin @WW{OP1} @WW{OP2}
+
+    if (( 1 == MPFR_RV ))
+    then # approximately equal
+    else # different
+    fi
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
+
+
+@deffn Builtin mpfr_equal_absmargin @vari{OP} @varii{OP}
+Compare the operands with the absolute margin criterion.  When successful return true; otherwise
+return false.  To inspect the predicate result we have to use the shell variable
+@env{MPFR_RV}.
+
+The comparison predicate is:
+
+@example
+abs(@vari{OP} - @varii{OP}) <= abs(@var{MARGIN})
+@end example
+
+@noindent
+where @var{MARGIN} is an @mpfr{} number initialised with the value in the shell variable
+@env{ABSOLUTE_MARGIN_MPFR}.
+@end deffn
+
+
+@defvar ABSOLUTE_MARGIN_MPFR
+Shell variable used to select the margin for the equality with the absolute margin criterion.  The
+variable must hold the string representation of a real number parsable with @cfunc{mpfr_set_str}
+called with base argument set to @samp{0}.
+
+When the shell variable is not set: the default value is @samp{1e-6}.
+@end defvar
+
+@c page
+@node comparison approximate relepsilon
+@subsection Relative epsilon criterion
+
+
+To compare two @mpfr{} numbers with the criterion of the relative epsilon, we do:
+
+@example
+declare OPS
+
+mpfr_alloc_and_init_shell_array OPS 2
+@{
+    declare -r RELATIVE_EPSILON_MPFR='0.1'
+    declare -i MPFR_RV
+    declare -n OP1='OPS[0]' OP2='OPS[1]'
+
+    mpfr_set_d @WW{OP1} '1.0'  @WW{MPFR_RNDN}
+    mpfr_set_d @WW{OP2} '1.02' @WW{MPFR_RNDN}
+
+    mpfr_equal_relepsilon @WW{OP1} @WW{OP2}
+
+    if (( 1 == MPFR_RV ))
+    then # approximately equal
+    else # different
+    fi
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
+
+
+@deffn Builtin mpfr_equal_relepsilon @vari{OP} @varii{OP}
+Compare the operands with the relative epsilon criterion.  When successful return true; otherwise
+return false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
+
+The comparison predicate is:
+
+@example
+abs(@vari{OP} - @varii{OP}) <= (@var{EPSILON} * max(abs(@vari{OP}), abs(@varii{OP})))
+@end example
+
+@noindent
+where @var{EPSILON} is an @mpfr{} number initialised with the value in the shell variable
+@env{RELATIVE_EPSILON_MPFR}.
+@end deffn
+
+
+@defvar RELATIVE_EPSILON_MPFR
+Shell variable used to select the epsilon for the equality with the relative epsilon criterion.  The
+variable must hold the string representation of a real number parsable with @cfunc{mpfr_set_str}
+called with base argument set to @samp{0}.
+
+When the shell variable is not set: the default value is @samp{1e-6}.
+@end defvar
 
 @c page
 @node comparison misc

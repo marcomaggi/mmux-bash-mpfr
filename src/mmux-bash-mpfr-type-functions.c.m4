@@ -145,4 +145,98 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
   }
 }
 
+
+/** --------------------------------------------------------------------
+ ** Approximate comparison.
+ ** ----------------------------------------------------------------- */
+
+int
+mmux_mpfr_equal_absmargin (mpfr_ptr op1, mpfr_ptr op2, mpfr_ptr margin)
+{
+  mpfr_t	rop, abs_rop, abs_margin;
+  int		rv;
+
+  mpfr_init(rop);
+  mpfr_init(abs_rop);
+  mpfr_init(abs_margin);
+  {
+    mpfr_sub(rop, op1, op2, MPFR_RNDN);
+    mpfr_abs(abs_rop, rop, MPFR_RNDN);
+    mpfr_abs(abs_margin, margin, MPFR_RNDN);
+    rv = mpfr_lessequal_p(abs_rop, abs_margin);
+  }
+  mpfr_clear(abs_margin);
+  mpfr_clear(abs_rop);
+  mpfr_clear(rop);
+  return rv;
+}
+mmux_bash_rv_t
+mmux_bash_mpfr_set_absmargin_from_string (mpfr_ptr margin, char const * margin_string, char const * who)
+{
+  mmux_sint_t	base = 0;
+  int		rv   = mpfr_set_str(margin, margin_string, base, MPFR_RNDN);
+
+  if (0 == rv) {
+    return MMUX_SUCCESS;
+  } else {
+    if (who) {
+      fprintf(stderr, "%s: error: invalid absmargin shell value: %s='%s'\n", who, MMUX_BASH_MPFR_MARGIN_VARNAME, margin_string);
+    }
+    return MMUX_FAILURE;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+
+int
+mmux_mpfr_equal_relepsilon (mpfr_ptr op1, mpfr_ptr op2, mpfr_ptr epsilon)
+{
+  mpfr_t	diff, abs_diff, abs_epsilon, abs_op1, abs_op2, max_abs_op, abs_margin;
+  int		rv;
+
+  mpfr_init(diff);
+  mpfr_init(abs_diff);
+  mpfr_init(abs_epsilon);
+  mpfr_init(abs_op1);
+  mpfr_init(abs_op2);
+  mpfr_init(max_abs_op);
+  mpfr_init(abs_margin);
+  {
+    mpfr_sub(diff, op1, op2, MPFR_RNDN);
+    mpfr_abs(abs_diff, diff, MPFR_RNDN);
+
+    mpfr_abs(abs_epsilon, epsilon, MPFR_RNDN);
+    mpfr_abs(abs_op1, op1, MPFR_RNDN);
+    mpfr_abs(abs_op2, op2, MPFR_RNDN);
+
+    mpfr_max(max_abs_op, abs_op1, abs_op2, MPFR_RNDN);
+    mpfr_mul(abs_margin, abs_epsilon, max_abs_op, MPFR_RNDN);
+
+    rv = mpfr_lessequal_p(abs_diff, abs_margin);
+  }
+  mpfr_clear(abs_margin);
+  mpfr_clear(max_abs_op);
+  mpfr_clear(abs_op2);
+  mpfr_clear(abs_op1);
+  mpfr_clear(abs_epsilon);
+  mpfr_clear(abs_diff);
+  mpfr_clear(diff);
+  return rv;
+}
+mmux_bash_rv_t
+mmux_bash_mpfr_set_relepsilon_from_string (mpfr_ptr epsilon, char const * epsilon_string, char const * who)
+{
+  mmux_sint_t	base = 0;
+  int		rv   = mpfr_set_str(epsilon, epsilon_string, base, MPFR_RNDN);
+
+  if (0 == rv) {
+    return MMUX_SUCCESS;
+  } else {
+    if (who) {
+      fprintf(stderr, "%s: error: invalid relepsilon shell value: %s='%s'\n", who, MMUX_BASH_MPFR_EPSILON_VARNAME, epsilon_string);
+    }
+    return MMUX_FAILURE;
+  }
+}
+
 /* end of file */

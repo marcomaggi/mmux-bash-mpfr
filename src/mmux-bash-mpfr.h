@@ -94,6 +94,17 @@ extern "C" {
  ** Constants and preprocessor macros.
  ** ----------------------------------------------------------------- */
 
+#undef  MMUX_BASH_MPFR_MARGIN_VARNAME
+#define MMUX_BASH_MPFR_MARGIN_VARNAME	"ABSOLUTE_MARGIN_MPFR"
+
+#undef  MMUX_BASH_MPFR_DEFAULT_COMPARISON_ABSOLUTE_MARGIN
+#define MMUX_BASH_MPFR_DEFAULT_COMPARISON_ABSOLUTE_MARGIN	1e-6
+
+#undef  MMUX_BASH_MPFR_EPSILON_VARNAME
+#define MMUX_BASH_MPFR_EPSILON_VARNAME	"RELATIVE_EPSILON_MPFR"
+
+#undef  MMUX_BASH_MPFR_DEFAULT_COMPARISON_RELATIVE_EPSILON
+#define MMUX_BASH_MPFR_DEFAULT_COMPARISON_RELATIVE_EPSILON	1e-6
 
 
 /** --------------------------------------------------------------------
@@ -130,6 +141,12 @@ mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_exp_bind_to_variable  (char const *
   __attribute__((__nonnull__(1)));
 mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_prec_bind_to_variable (char const * variable_name, mpfr_prec_t value, char const * who)
   __attribute__((__nonnull__(1)));
+
+mmux_bash_mpfr_decl int mmux_mpfr_equal_absmargin (mpfr_ptr op1, mpfr_ptr op2, mpfr_ptr margin);
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_bash_mpfr_set_absmargin_from_string (mpfr_ptr margin, char const * margin_string, char const * who);
+
+mmux_bash_mpfr_decl int mmux_mpfr_equal_relepsilon (mpfr_ptr op1, mpfr_ptr op2, mpfr_ptr epsilon);
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_bash_mpfr_set_relepsilon_from_string (mpfr_ptr epsilon, char const * epsilon_string, char const * who);
 
 
 /** --------------------------------------------------------------------

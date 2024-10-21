@@ -213,4 +213,98 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
     [[["Store in MPFR_RV +1, 0, -1 depending on the sign of MPFR_OP."]]])
 
+
+/** --------------------------------------------------------------------
+ ** Approximate comparison: absolute margin criterion.
+ ** ----------------------------------------------------------------- */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_absmargin]]])
+{
+  mpfr_ptr	op1, op2;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
+  {
+    mpfr_t		margin;
+    mmux_bash_rv_t	mmux_rv;
+
+    mpfr_init(margin);
+    {
+      /* Read the margin from the  shell variable "ABSOLUTE_MARGIN_MPFR", if any.  If
+	 there is no such variable: just use the default value. */
+      {
+	char const *	margin_string;
+
+	mmux_rv = mmux_bash_get_shell_variable_string_value(&margin_string, MMUX_BASH_MPFR_MARGIN_VARNAME, NULL);
+	if (MMUX_SUCCESS == mmux_rv) {
+	  mmux_rv = mmux_bash_mpfr_set_absmargin_from_string(margin, margin_string, MMUX_BUILTIN_NAME_STR);
+	  if (MMUX_SUCCESS != mmux_rv) { goto return_whatever; }
+	} else {
+	  mpfr_set_d(margin, MMUX_BASH_MPFR_DEFAULT_COMPARISON_ABSOLUTE_MARGIN, MPFR_RNDN);
+	}
+      }
+
+      {
+	int	mpfr_rv = mmux_mpfr_equal_absmargin(op1, op2, margin);
+	mmux_rv = mmux_bash_mpfr_set_MPFR_RV(mpfr_rv, MMUX_BUILTIN_NAME_STR);
+      }
+    }
+  return_whatever:
+    mpfr_clear(margin);
+    return mmux_rv;
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP1 MPFR_OP2"]]],
+    [[["Compare the operands with the absolute margin criterion."]]])
+
+
+/** --------------------------------------------------------------------
+ ** Approximate comparison: relative epsilon criterion.
+ ** ----------------------------------------------------------------- */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_relepsilon]]])
+{
+  mpfr_ptr	op1, op2;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
+  {
+    mpfr_t		epsilon;
+    mmux_bash_rv_t	mmux_rv;
+
+    mpfr_init(epsilon);
+    {
+      /* Read the  epsilon from the  shell variable "RELATIVE_EPSILON_MPFR",  if any.
+	 If there is no such variable: just use the default value. */
+      {
+	char const *	epsilon_string;
+
+	mmux_rv = mmux_bash_get_shell_variable_string_value(&epsilon_string, MMUX_BASH_MPFR_EPSILON_VARNAME, NULL);
+	if (MMUX_SUCCESS == mmux_rv) {
+	  mmux_rv = mmux_bash_mpfr_set_relepsilon_from_string(epsilon, epsilon_string, MMUX_BUILTIN_NAME_STR);
+	  if (MMUX_SUCCESS != mmux_rv) { goto return_whatever; }
+	} else {
+	  mpfr_set_d(epsilon, MMUX_BASH_MPFR_DEFAULT_COMPARISON_RELATIVE_EPSILON, MPFR_RNDN);
+	}
+      }
+
+      {
+	int	mpfr_rv = mmux_mpfr_equal_relepsilon(op1, op2, epsilon);
+	mmux_rv = mmux_bash_mpfr_set_MPFR_RV(mpfr_rv, MMUX_BUILTIN_NAME_STR);
+      }
+    }
+  return_whatever:
+    mpfr_clear(epsilon);
+    return mmux_rv;
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP1 MPFR_OP2"]]],
+    [[["Compare the operands with the relative epsilon criterion."]]])
+
 /* end of file */
