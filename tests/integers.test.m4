@@ -1,13 +1,13 @@
 #!#
 #!# Part of: MMUX Bash MPFR
-#!# Contents: tests for intgegers builtins
+#!# Contents: tests for integers builtins
 #!# Date: Oct 21, 2024
 #!#
 #!# Abstract
 #!#
 #!#	This file must be executed with one among:
 #!#
-#!#		$ make all check TESTS=tests/intgegers.test ; less tests/intgegers.log
+#!#		$ make all check TESTS=tests/integers.test ; less tests/integers.log
 #!#
 #!#	that will select these tests.
 #!#
