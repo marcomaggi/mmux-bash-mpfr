@@ -240,6 +240,26 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_const_euler
 		      mpfr_const_catalan
 
+		      mpfr_rint
+		      mpfr_ceil
+		      mpfr_floor
+		      mpfr_round
+		      mpfr_roundeven
+		      mpfr_trunc
+		      mpfr_rint_ceil
+		      mpfr_rint_floor
+		      mpfr_rint_round
+		      mpfr_rint_roundeven
+		      mpfr_rint_trunc
+		      mpfr_frac
+		      mpfr_modf
+		      mpfr_fmod
+		      mpfr_fmod_ui
+		      mpfr_remainder
+		      mpfr_fmodquo
+		      mpfr_remquo
+		      mpfr_integer_p
+
 		      mpfr_dump)
 
 declare -i IDX=

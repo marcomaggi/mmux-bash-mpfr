@@ -131,27 +131,6 @@ DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_ui_2exp]]],
  ** Predicates.
  ** ----------------------------------------------------------------- */
 
-m4_dnl $1 - the predicate function
-m4_dnl $2 - argument description for the short doc
-m4_define([[[DEFINE_PREDICATE_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
-{
-  mpfr_ptr	op;
-
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
-  {
-    int		rv = $1(op);
-    /* This is true if the predicate is satisfied. */
-    rv = (rv)? 1 : 0;
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
-  }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
-}
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
-    [[[(2 == argc)]]],
-    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
-    [[["Store 1 in MPFR_RV if OP is a representation of $2; otherwise store 0."]]])
-]]])
-
 DEFINE_PREDICATE_BUILTIN([[[mpfr_nan_p]]],	[[[not-a-number]]])
 DEFINE_PREDICATE_BUILTIN([[[mpfr_inf_p]]],	[[[infinity]]])
 DEFINE_PREDICATE_BUILTIN([[[mpfr_number_p]]],	[[[an ordinary number]]])

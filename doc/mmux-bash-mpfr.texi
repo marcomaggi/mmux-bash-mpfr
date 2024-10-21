@@ -82,6 +82,15 @@ Interface to the C language function @cfunc{\FUNC\}.
 
 @c ------------------------------------------------------------------------
 
+@macro MmuxDefineUnaryNorndBuiltin{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_ROP} @var{MPFR_OP}
+Interface to the C language function @cfunc{\FUNC\}.
+@end deffn
+
+@end macro
+
+@c ------------------------------------------------------------------------
+
 @macro MmuxDefineUnarySiBuiltin{FUNC}
 @deffn Builtin \FUNC\ @var{MPFR_ROP} @var{SLONG_OP} @var{MPFR_RND}
 Interface to the C language function @cfunc{\FUNC\}.
@@ -340,6 +349,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * comparison::                  Comparison builtins.
 * transcendental::              Transcendental builtins.
 * io::                          Input, output, printing.
+* integers::                    Integers builtins.
 
 Appendices
 
@@ -2220,6 +2230,65 @@ mpfr_just_printit_dammit @WW{OP}
 @print{} 0.123457e3
 @end example
 @end defun
+
+@c page
+@node integers
+@chapter Integers builtins
+
+
+@MmuxDefineUnaryBuiltin{mpfr_rint}
+@MmuxDefineUnaryNorndBuiltin{mpfr_ceil}
+@MmuxDefineUnaryNorndBuiltin{mpfr_floor}
+@MmuxDefineUnaryNorndBuiltin{mpfr_round}
+@MmuxDefineUnaryNorndBuiltin{mpfr_roundeven}
+@MmuxDefineUnaryNorndBuiltin{mpfr_trunc}
+
+@MmuxDefineUnaryBuiltin{mpfr_rint_ceil}
+@MmuxDefineUnaryBuiltin{mpfr_rint_floor}
+@MmuxDefineUnaryBuiltin{mpfr_rint_round}
+@MmuxDefineUnaryBuiltin{mpfr_rint_roundeven}
+@MmuxDefineUnaryBuiltin{mpfr_rint_trunc}
+
+@MmuxDefineUnaryBuiltin{mpfr_frac}
+
+@MmuxDefineUnaryBuiltin{mpfr_modf}
+@MmuxDefineUnaryBuiltin{mpfr_fmod}
+@MmuxDefineUnaryUiBuiltin{mpfr_fmod_ui}
+@MmuxDefineUnaryBuiltin{mpfr_remainder}
+
+
+@deffn Builtin mpfr_fmodquo @var{MPFR_R} @var{SLONG_QVAR} @var{MPFR_X} @var{MPFR_Y} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_fmodquo}.
+@end deffn
+
+
+@deffn Builtin mpfr_remquo @var{MPFR_R} @var{SLONG_QVAR} @var{MPFR_X} @var{MPFR_Y} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_fmodquo}.
+@end deffn
+
+
+@deffn Builtin mmux_integer_p @var{OP}
+Interface to the C language function @cfunc{mpfr_integer_p}.  When successful return true; otherwise
+return false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
+
+@example
+declare OP
+declare -i MPFR_RV
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
+
+    mpfr_integer_p @WW{OP}
+
+    if (( 1 == MPFR_RV ))
+    then # it's an integer
+    else # it is something else
+    fi
+@}
+mpfr_clear_and_free @WW{OP}
+@end example
+@end deffn
 
 @c page
 @c ------------------------------------------------------------

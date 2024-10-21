@@ -132,6 +132,27 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
 
 m4_dnl $1 - function identifier
 m4_dnl $2 - C preprocessor symbol for conditional code
+m4_define([[[DEFINE_UNARY_BUILTIN_NORND]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	rop, op;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  {
+    int		rv = $1(rop, op);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP)."]]])
+]]])]]])
+
+
+m4_dnl $1 - function identifier
+m4_dnl $2 - C preprocessor symbol for conditional code
 m4_define([[[DEFINE_UNARY_SI_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$2]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
 {
   mpfr_ptr	rop;
@@ -475,6 +496,28 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_ROP MPFR_OP1 MPFR_OP2 ULONG_OP3 MPFR_RND"]]],
     [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(ROP,OP1,OP2,OP3,RND)."]]])
 ]]])]]])
+
+
+m4_dnl $1 - the predicate function
+m4_dnl $2 - argument description for the short doc
+m4_define([[[DEFINE_PREDICATE_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_ptr	op;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
+  {
+    int		rv = $1(op);
+    /* This is true if the predicate is satisfied. */
+    rv = (rv)? 1 : 0;
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(2 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
+    [[["Store 1 in MPFR_RV if OP is a representation of $2; otherwise store 0."]]])
+]]])
 
 
 # let's go
