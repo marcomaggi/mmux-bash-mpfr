@@ -57,7 +57,7 @@ m4_dnl $1 - function/builtin identifier
 m4_define([[[DEFINE_MODQUO_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
 {
   mpfr_ptr	R, X, Y;
-  mmux_slong_t	Q;
+  mmux_slong_t	Q = 0;
   mpfr_rnd_t	rnd;
 
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[R]]],		[[[argv[1]]]]);

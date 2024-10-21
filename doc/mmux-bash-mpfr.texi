@@ -2237,6 +2237,22 @@ mpfr_just_printit_dammit @WW{OP}
 
 
 @MmuxDefineUnaryBuiltin{mpfr_rint}
+
+@example
+declare	-a OPS
+
+mpfr_alloc_and_init_shell_array OPS 2
+@{
+    declare -n ROP='OPS[0]' OP='OPS[1]'
+
+    mpfr_set_d @WW{OP} '123.456' @WW{MPFR_RNDN}
+    mpfr_rint @WW{ROP} @WW{OP} @WW{MPFR_RNDN}
+
+    mpfr_just_printit_dammit @WW{ROP}   @print{} 0.123000e3
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
+
 @MmuxDefineUnaryNorndBuiltin{mpfr_ceil}
 @MmuxDefineUnaryNorndBuiltin{mpfr_floor}
 @MmuxDefineUnaryNorndBuiltin{mpfr_round}
@@ -2257,12 +2273,30 @@ mpfr_just_printit_dammit @WW{OP}
 @MmuxDefineUnaryBuiltin{mpfr_remainder}
 
 
-@deffn Builtin mpfr_fmodquo @var{MPFR_R} @var{SLONG_QVAR} @var{MPFR_X} @var{MPFR_Y} @var{MPFR_RND}
+@deffn Builtin mpfr_fmodquo @var{MPFR_R} @var{QVAR} @var{MPFR_X} @var{MPFR_Y} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_fmodquo}.
+
+@example
+declare -a OPS
+
+mpfr_alloc_and_init_shell_array OPS 3
+@{
+    declare -n R='OPS[0]' X='OPS[1]' Y='OPS[2]'
+
+    mpfr_set_d @WW{X} '123' @WW{MPFR_RNDN}
+    mpfr_set_d @WW{Y}   '6' @WW{MPFR_RNDN}
+
+    mpfr_fmodquo @WW{R} Q @WW{X} @WW{Y} @WW{MPFR_RNDN}
+
+    mpfr_just_printit_dammit @WW{R}     @print{} 0.300000e1
+    printf 'Q=%s\n' @WW{Q}              @print{} Q=20
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
 @end deffn
 
 
-@deffn Builtin mpfr_remquo @var{MPFR_R} @var{SLONG_QVAR} @var{MPFR_X} @var{MPFR_Y} @var{MPFR_RND}
+@deffn Builtin mpfr_remquo @var{MPFR_R} @var{QVAR} @var{MPFR_X} @var{MPFR_Y} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_fmodquo}.
 @end deffn
 

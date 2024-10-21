@@ -45,6 +45,295 @@ mbfl_linker_source_library_by_stem(mmux-bash-mpfr)
 alias gmp_exists='false'
 
 
+# mpfr_rint
+
+function integers-mpfr_rint-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_rint
+    then
+	declare EXPECTED_RESULT='123'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='123.456'
+
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP='OPS[1]'
+
+	    if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_rint WW(ROP) WW(OP) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_ceil
+
+function integers-mpfr_ceil-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_ceil
+    then
+	declare EXPECTED_RESULT='124'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='123.456'
+
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP='OPS[1]'
+
+	    if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_ceil WW(ROP) WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_floor
+
+function integers-mpfr_floor-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_floor
+    then
+	declare EXPECTED_RESULT='123'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='123.456'
+
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP='OPS[1]'
+
+	    if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_floor WW(ROP) WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_round
+
+function integers-mpfr_round-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_round
+    then
+	declare EXPECTED_RESULT='123'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='123.456'
+
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP='OPS[1]'
+
+	    if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_round WW(ROP) WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_roundeven
+
+function integers-mpfr_roundeven-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_roundeven
+    then
+	declare EXPECTED_RESULT='123'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='123.456'
+
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP='OPS[1]'
+
+	    if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_roundeven WW(ROP) WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_trunc
+
+function integers-mpfr_trunc-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_trunc
+    then
+	declare EXPECTED_RESULT='123'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='123.456'
+
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP='OPS[1]'
+
+	    if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_trunc WW(ROP) WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_fmodquo
+
+function integers-mpfr_fmodquo-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_fmodquo
+    then
+	declare EXPECTED_RESULT='3'
+	declare RESULT Q
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 3
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n R='OPS[0]' X='OPS[1]' Y='OPS[2]'
+
+	    if ! mpfr_set_d WW(X) '123' WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(Y)   '6' WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_fmodquo WW(R) Q WW(X) WW(Y) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(R))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT) WW(Q)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
 # mpfr_integer_p
 
 function integers-mpfr_integer_p-1.1 () {
