@@ -49,6 +49,8 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_RND"]]],
     [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(RND)."]]])
 
+/* ------------------------------------------------------------------ */
+
 MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_default_rounding_mode]]])
 {
   mpfr_rnd_t	rnd = mpfr_get_default_rounding_mode();
@@ -58,5 +60,89 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_RNDVAR"]]],
     [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(RNDVAR)."]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_prec_round]]])
+{
+  mpfr_ptr	op;
+  mpfr_prec_t	prec;
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC([[[prec]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  {
+    int		rv = mpfr_prec_round(op, prec, rnd);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(4 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(RND)."]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_can_round]]])
+{
+  mpfr_ptr	B;
+  mpfr_exp_t	err;
+  mpfr_rnd_t	rnd1, rnd2;
+  mpfr_prec_t	prec;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[B]]],		[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[err]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd1]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd2]]],	[[[argv[4]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC([[[prec]]],	[[[argv[5]]]]);
+  {
+    int		rv = mpfr_can_round(B, err, rnd1, rnd2, prec);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(6 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_B MPFR_EXP MPFR_RND1 MPFR_RND2 MPFR_PREC"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(B,EXP,RND1,RND2,PREC)."]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_min_prec]]])
+{
+  mpfr_ptr	op;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  {
+    mpfr_prec_t		prec = mpfr_min_prec(op);
+    return mmux_mpfr_prec_bind_to_variable(argv[1], prec, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_PRECVAR MPFR_OP"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(PRECVAR,OP)."]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_print_rnd_mode]]])
+{
+  mpfr_rnd_t	rnd;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[2]]]]);
+  {
+    char const * const	s_rnd = mpfr_print_rnd_mode(rnd);
+
+    return mmux_bash_store_string_in_variable(argv[1], s_rnd, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER STRVAR MPFR_RND"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(STRVAR,RND)."]]])
 
 /* end of file */

@@ -45,53 +45,85 @@ mbfl_linker_source_library_by_stem(mmux-bash-mpfr)
 alias gmp_exists='false'
 
 
-# mpfr_get_default_rounding_mode
-# mpfr_set_default_rounding_mode
+# mpfr_prec_round
 
-function rounding-mpfr_get_default_rounding_mode-1.1 () {
+function rounding-mpfr_prec_round-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_get_default_rounding_mode
     then
-	declare -r EXPECTED_RESULT=RR(MPFR_RNDN)
-	declare RND
+	declare -r INITVAL='123.456' EXPECTED_RESULT='123.5'
 
 	dotest-unset-debug
 
 	mbfl_location_enter
 	{
-	    if ! mpfr_get_default_rounding_mode RND
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN)
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
-	    dotest-debug WW(EXPECTED_RESULT) WW(RND)
-	    dotest-equal WW(EXPECTED_RESULT) WW(RND)
+	    if ! mpfr_prec_round WW(OP) 10 WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
 	}
 	mbfl_location_leave
     else dotest-skipped
     fi
 }
 
-function rounding-mpfr_get_default_rounding_mode-1.2 () {
+
+# mpfr_min_prec
+
+function rounding-mpfr_min_prec-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_get_default_rounding_mode
     then
-	declare -r EXPECTED_RESULT=RR(MPFR_RNDZ)
-	declare RND
+	declare -r INITVAL='1' EXPECTED_RESULT='1'
+	declare PREC
 
 	dotest-unset-debug
 
 	mbfl_location_enter
 	{
-	    if ! mpfr_set_default_rounding_mode WW(MPFR_RNDZ)
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
-	    if ! mpfr_get_default_rounding_mode RND
+	    if ! mpfr_min_prec PREC WW(OP)
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
-	    dotest-debug WW(EXPECTED_RESULT) WW(RND)
-	    dotest-equal WW(EXPECTED_RESULT) WW(RND)
+	    dotest-equal WW(EXPECTED_RESULT) WW(PREC)
 	}
 	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_print_rnd_mode
+
+function rounding-mpfr_print_rnd_mode-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_get_default_rounding_mode
+    then
+	declare RESULT
+
+	if ! mpfr_print_rnd_mode RESULT WW(MPFR_RNDZ)
+	then mbfl_location_leave_then_return_failure
+	fi
+	dotest-equal 'MPFR_RNDZ' WW(RESULT)
     else dotest-skipped
     fi
 }

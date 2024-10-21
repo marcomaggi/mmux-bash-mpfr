@@ -264,6 +264,10 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 
 		      mpfr_get_default_rounding_mode
 		      mpfr_set_default_rounding_mode
+		      mpfr_prec_round
+		      mpfr_can_round
+		      mpfr_min_prec
+		      mpfr_print_rnd_mode
 		     )
 
 declare -i IDX=

@@ -692,6 +692,13 @@ Global variable holding the value of the C language constant @code{\NAME\}.
 @MmuxDefineGlobalVarConstant{MPFR_RNDF}
 @MmuxDefineGlobalVarConstant{MPFR_RNDNA}
 
+
+@defvar mpfr_prec_MAX
+@defvarx mpfr_prec_MIN
+The minimum and maximum vales for values of type @objtype{mpfr_prec_t}.  These values are the C
+language constants @code{MPFR_PREC_MAX} and @code{MPFR_PREC_MIN}.
+@end defvar
+
 @c page
 @node init
 @chapter Initialisation and finalisation
@@ -2330,7 +2337,52 @@ mpfr_clear_and_free @WW{OP}
 @chapter Rounding--related builtins
 
 
+@deffn Builtin mpfr_set_default_rounding_mode @var{MPFR_RND}
+@deffnx Builtin mpfr_get_default_rounding_mode @var{MPFR_RNDVAR}
+Interfaces to the C language functions @cfunc{mpfr_set_default_rounding_mode},
+@cfunc{mpfr_get_default_rounding_mode}.
 
+@example
+declare RND
+
+mpfr_set_default_rounding_mode @WW{MPFR_RNDZ}
+mpfr_get_default_rounding_mode RND
+@WW{RND}  @result{} [whatever MPFR_RNDZ is]
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_prec_round @var{MPFR_OP} @var{MPFR_PREC} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_prec_round}.
+@end deffn
+
+
+@deffn Builtin mpfr_can_round @var{MPFR_B} @var{MPFR_PREC} @vari{MPFR_RND} @varii{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_can_round}.
+@end deffn
+
+
+@deffn Builtin mpfr_min_prec @var{MPFR_PRECVAR} @var{OP}
+Interface to the C language function @cfunc{mpfr_min_prec}.
+
+@example
+declare OP PREC
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_si @WW{OP} 1 @WW{MPFR_RNDN}
+
+    mpfr_min_prec PREC @WW{OP}
+    @WW{PREC}   @result{} 1
+@}
+mpfr_clear_and_free @WW{OP}
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_print_rnd_mode @var{STRVAR} @var{MPFR_RND}
+interface to the C language function @cfunc{mpfr_print_rnd_mode}.
+@end deffn
 
 @c page
 @c ------------------------------------------------------------
