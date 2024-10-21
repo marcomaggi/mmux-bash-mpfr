@@ -82,6 +82,47 @@ function transcendental-mpfr_log-1.1 () {
 }
 
 
+# mpfr_y0
+
+function transcendental-mpfr_0-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_y0
+    then
+	declare -r INITVAL='1.23'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	mmux_double_y0 EXPECTED_RESULT WW(INITVAL)
+	mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
+	declare -r EXPECTED_RESULT
+
+	dotest-set-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS; dotest-debug exiting location"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_y0 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
 #### let's go
 
 dotest transcendental-
