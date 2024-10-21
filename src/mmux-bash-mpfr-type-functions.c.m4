@@ -153,21 +153,21 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
 int
 mmux_mpfr_equal_absmargin (mpfr_ptr op1, mpfr_ptr op2, mpfr_ptr margin)
 {
-  mpfr_t	rop, abs_rop, abs_margin;
+  mpfr_t	diff, abs_diff, abs_margin;
   int		rv;
 
-  mpfr_init(rop);
-  mpfr_init(abs_rop);
+  mpfr_init(diff);
+  mpfr_init(abs_diff);
   mpfr_init(abs_margin);
   {
-    mpfr_sub(rop, op1, op2, MPFR_RNDN);
-    mpfr_abs(abs_rop, rop, MPFR_RNDN);
+    mpfr_sub(diff, op1, op2, MPFR_RNDN);
+    mpfr_abs(abs_diff, diff, MPFR_RNDN);
     mpfr_abs(abs_margin, margin, MPFR_RNDN);
-    rv = mpfr_lessequal_p(abs_rop, abs_margin);
+    rv = mpfr_lessequal_p(abs_diff, abs_margin);
   }
   mpfr_clear(abs_margin);
-  mpfr_clear(abs_rop);
-  mpfr_clear(rop);
+  mpfr_clear(abs_diff);
+  mpfr_clear(diff);
   return rv;
 }
 mmux_bash_rv_t
