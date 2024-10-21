@@ -351,6 +351,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * io::                          Input, output, printing.
 * integers::                    Integers builtins.
 * rounding::                    Rounding--related builtins.
+* miscellaneous::               Miscellaneous builtins.
 
 Appendices
 
@@ -2382,6 +2383,62 @@ mpfr_clear_and_free @WW{OP}
 
 @deffn Builtin mpfr_print_rnd_mode @var{STRVAR} @var{MPFR_RND}
 interface to the C language function @cfunc{mpfr_print_rnd_mode}.
+@end deffn
+
+@c page
+@node miscellaneous
+@section Miscellaneous builtins
+
+
+@deffn Builtin mpfr_nexttoward @vari{OP} @varii{op}
+Interface to the C language function @cfunc{mpfr_nexttoward}.
+
+@example
+declare -a OPS
+
+mpfr_alloc_and_init_shell_array OPS 2
+@{
+    declare -n OP1='OPS[0]' OP2='OPS[1]'
+
+    mpfr_set_prec @WW{OP1} 1
+    mpfr_set_si @WW{OP1} 1 @WW{MPFR_RNDN}
+    mpfr_set_si @WW{OP2} 3 @WW{MPFR_RNDN}
+    mpfr_nexttoward @WW{OP1} @WW{OP2}
+
+    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.200000e1
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
+
+Stepping example:
+
+@example
+declare -a OPS
+
+mpfr_alloc_and_init_shell_array OPS 2
+@{
+    declare -n OP1='OPS[0]' OP2='OPS[1]'
+
+    mpfr_set_prec @WW{OP1} 3
+    mpfr_set_si @WW{OP2} 3 @WW{MPFR_RNDN}
+
+    mpfr_set_si @WW{OP1} 1 @WW{MPFR_RNDN}
+    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.100000e1
+
+    mpfr_nexttoward @WW{OP1} @WW{OP2}
+    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.125000e1
+
+    mpfr_nexttoward @WW{OP1} @WW{OP2}
+    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.150000e1
+
+    mpfr_nexttoward @WW{OP1} @WW{OP2}
+    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.175000e1
+
+    mpfr_nexttoward @WW{OP1} @WW{OP2}
+    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.200000e1
+@}
+mpfr_clear_and_free_shell_array OPS
+@end example
 @end deffn
 
 @c page
