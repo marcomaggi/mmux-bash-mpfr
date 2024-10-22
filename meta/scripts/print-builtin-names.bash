@@ -286,6 +286,8 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_buildopt_sharedcache_p
 		      mpfr_get_patches
 		      mpfr_buildopt_tune_case
+		      mpfr_check_range
+		      mpfr_subnormalize
 
 		      mpfr_set_exp
 		      mpfr_get_exp

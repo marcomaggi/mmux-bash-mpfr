@@ -2657,6 +2657,16 @@ Interfaces to the C language functions @cfunc{mpfr_get_emin_min}, @cfunc{mpfr_ge
 
 @ref{overview conventions, Conventions used in this documentation}.
 
+
+@deffn Builtin mpfr_check_range @var{MPFR_OP} @var{SINT_T} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_check_range}.
+@end deffn
+
+
+@deffn Builtin mpfr_subnormalize @var{MPFR_OP} @var{SINT_T} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_subnormalize}.
+@end deffn
+
 @c page
 @node build options
 @chapter Build options builtins
