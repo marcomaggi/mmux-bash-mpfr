@@ -117,6 +117,12 @@ m4_define([[[MMUX_DEFINE_MPFR_CONSTANT_VARIABLE]]],[[[
 MMUX_BASH_BUILTIN_MAIN([[[mmux_bash_mpfr_library_init]]])
 {
   {
+    mmux_bash_store_string_in_global_variable("MPFR_VERSION",		MPFR_VERSION_STRING,	MMUX_BUILTIN_NAME_STR);
+    mmux_bash_create_global_sint_variable("MPFR_VERSION_MAJOR",		MPFR_VERSION_MAJOR,	MMUX_BUILTIN_NAME_STR);
+    mmux_bash_create_global_sint_variable("MPFR_VERSION_MINOR",		MPFR_VERSION_MINOR,	MMUX_BUILTIN_NAME_STR);
+    mmux_bash_create_global_sint_variable("MPFR_VERSION_PATCHLEVEL",	MPFR_VERSION_PATCHLEVEL,MMUX_BUILTIN_NAME_STR);
+  }
+  {
     mmux_bash_create_global_sint_variable("mpfr_SIZEOF",	sizeof(__mpfr_struct),	MMUX_BUILTIN_NAME_STR);
     mmux_bash_create_global_sint_variable("mpfr_rnd_SIZEOF",	sizeof(mpfr_rnd_t),	MMUX_BUILTIN_NAME_STR);
     mmux_bash_create_global_sint_variable("mpfr_exp_SIZEOF",	sizeof(mpfr_exp_t),	MMUX_BUILTIN_NAME_STR);

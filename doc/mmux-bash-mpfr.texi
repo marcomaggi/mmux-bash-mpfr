@@ -673,9 +673,26 @@ The shell library installed by @value{PACKAGE} defines global variables to allow
 underlying C language platform.
 
 @menu
+* variables version::           @mpfr{} version numbers.
 * variables sizeof::            C language type sizes.
 * variables constants::         C language constants.
 @end menu
+
+@c page
+@node variables version
+@section @mpfr{} version numbers
+
+
+@defvar MPFR_VERSION
+A string representing @mpfr{} version number.
+@end defvar
+
+
+@defvar MPFR_VERSION_MAJOR
+@defvarx MPFR_VERSION_MINOR
+@defvarx MPFR_VERSION_PATCHLEVEL
+Exact integers representing @mpfr{} version numbers.
+@end defvar
 
 @c page
 @node variables sizeof
@@ -2596,6 +2613,19 @@ mpfr_clear_and_free @WW{OP}
 
 @deffn Builtin mpfr_setsign @var{MPFR_ROP} @var{MPFR_OP} @var{SINT_SIGN} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_setsign}.
+@end deffn
+
+
+@deffn Builtin mpfr_buildopt_tls_p
+@deffnx Builtin mpfr_buildopt_float128_p
+@deffnx Builtin mpfr_buildopt_decimal_p
+@deffnx Builtin mpfr_buildopt_gmpinternals_p
+@deffnx Builtin mpfr_buildopt_sharedcache_p
+Interfaces to the C language functions @cfunc{mpfr_buildopt_tls_p},
+@cfunc{mpfr_buildopt_float128_p}, @cfunc{mpfr_buildopt_decimal_p},
+@cfunc{mpfr_buildopt_gmpinternals_p}, @cfunc{mpfr_buildopt_sharedcache_p}.
+
+Return true if the corresponding build option has been set; otherwise return false.
 @end deffn
 
 @c page

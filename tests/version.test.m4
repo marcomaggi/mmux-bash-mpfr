@@ -55,6 +55,23 @@ function version-1.3 () {
     mbfl_string_is_digit QQ(MMUX_BASH_MPFR_PACKAGE,INTERFACE_VERSION_AGE)
 }
 
+function version-2.1 () {
+    printf 'MPFR_VERSION=%s\n' QQ(MPFR_VERSION)
+    mbfl_string_is_not_empty QQ(MPFR_VERSION)
+}
+function version-2.2 () {
+    printf 'MPFR_VERSION_MAJOR=%s\n' QQ(MPFR_VERSION_MAJOR)
+    mbfl_string_is_digit QQ(MPFR_VERSION_MAJOR)
+}
+function version-2.3 () {
+    printf 'MPFR_VERSION_MINOR=%s\n' QQ(MPFR_VERSION_MINOR)
+    mbfl_string_is_digit QQ(MPFR_VERSION_MINOR)
+}
+function version-2.4 () {
+    printf 'MPFR_VERSION_PATCHLEVEL=%s\n' QQ(MPFR_VERSION_PATCHLEVEL)
+    mbfl_string_is_digit QQ(MPFR_VERSION_PATCHLEVEL)
+}
+
 
 #### let's go
 

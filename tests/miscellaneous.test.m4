@@ -47,7 +47,7 @@ alias gmp_exists='false'
 
 # mpfr_nexttoward
 
-function misc-mpfr_nexttoward-1.1 () {
+function miscellaneous-mpfr_nexttoward-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_nexttoward
     then
 	declare EXPECTED_RESULT='2'
@@ -93,7 +93,7 @@ function misc-mpfr_nexttoward-1.1 () {
     fi
 }
 
-function misc-mpfr_nexttoward-1.2 () {
+function miscellaneous-mpfr_nexttoward-1.2 () {
     if mmux_bash_pointers_builtin_p mpfr_nexttoward
     then
 	declare EXPECTED_RESULT='2'
@@ -159,7 +159,7 @@ function misc-mpfr_nexttoward-1.2 () {
 
 # mpfr_nextabove
 
-function misc-mpfr_nextabove-1.1 () {
+function miscellaneous-mpfr_nextabove-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_nextabove
     then
 	declare EXPECTED_RESULT='2'
@@ -201,7 +201,7 @@ function misc-mpfr_nextabove-1.1 () {
 
 # mpfr_nextbelow
 
-function misc-mpfr_nextbelow-1.1 () {
+function miscellaneous-mpfr_nextbelow-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_nextbelow
     then
 	declare EXPECTED_RESULT='0.5'
@@ -243,7 +243,7 @@ function misc-mpfr_nextbelow-1.1 () {
 
 # mpfr_min
 
-function misc-mpfr_min-1.1 () {
+function miscellaneous-mpfr_min-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_min
     then
 	declare -r EXPECTED_RESULT='1'
@@ -289,7 +289,7 @@ function misc-mpfr_min-1.1 () {
 
 # mpfr_max
 
-function misc-mpfr_max-1.1 () {
+function miscellaneous-mpfr_max-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_max
     then
 	declare -r EXPECTED_RESULT='3'
@@ -335,7 +335,7 @@ function misc-mpfr_max-1.1 () {
 
 # mpfr_copysign
 
-function misc-mpfr_copysign-1.1 () {
+function miscellaneous-mpfr_copysign-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_copysign
     then
 	declare -r EXPECTED_RESULT='-1'
@@ -381,7 +381,7 @@ function misc-mpfr_copysign-1.1 () {
 
 # mpfr_set_exp
 
-function misc-mpfr_set_exp-1.1 () {
+function miscellaneous-mpfr_set_exp-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_set_exp
     then
 	declare -r EXPECTED_RESULT='2'
@@ -420,7 +420,7 @@ function misc-mpfr_set_exp-1.1 () {
 
 # mpfr_get_exp
 
-function misc-mpfr_get_exp-1.1 () {
+function miscellaneous-mpfr_get_exp-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_get_exp
     then
 	declare EXPECTED_EXP='1'
@@ -459,7 +459,7 @@ function misc-mpfr_get_exp-1.1 () {
 
 # mpfr_signbit
 
-function misc-mpfr_signbit-1.1 () {
+function miscellaneous-mpfr_signbit-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_signbit
     then
 	declare EXPECTED_EXP='0'
@@ -498,7 +498,7 @@ function misc-mpfr_signbit-1.1 () {
 
 # mpfr_setsign
 
-function misc-mpfr_setsign-1.1 () {
+function miscellaneous-mpfr_setsign-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_setsign
     then
 	declare EXPECTED_RESULT='-0.123000e3'
@@ -536,9 +536,38 @@ function misc-mpfr_setsign-1.1 () {
 }
 
 
+#### MPFR inspection
+
+function miscellaneous-mpfr_buildopt_tls_p-1.1 () {
+    mpfr_buildopt_tls_p
+    printf '%s: build option is set: %d\n' WW(FUNCNAME) $? >&2
+    true
+}
+function miscellaneous-mpfr_buildopt_float128_p-1.1 () {
+    mpfr_buildopt_float128_p
+    printf '%s: build option is set: %d\n' WW(FUNCNAME) $? >&2
+    true
+}
+function miscellaneous-mpfr_buildopt_decimal_p-1.1 () {
+    mpfr_buildopt_decimal_p
+    printf '%s: build option is set: %d\n' WW(FUNCNAME) $? >&2
+    true
+}
+function miscellaneous-mpfr_buildopt_gmpinternals_p-1.1 () {
+    mpfr_buildopt_gmpinternals_p
+    printf '%s: build option is set: %d\n' WW(FUNCNAME) $? >&2
+    true
+}
+function miscellaneous-mpfr_buildopt_sharedcache_p-1.1 () {
+    mpfr_buildopt_sharedcache_p
+    printf '%s: build option is set: %d\n' WW(FUNCNAME) $? >&2
+    true
+}
+
+
 #### let's go
 
-dotest misc-
+dotest miscellaneous-
 dotest-final-report
 
 ### end of file

@@ -279,6 +279,11 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_get_exp
 		      mpfr_signbit
 		      mpfr_setsign
+		      mpfr_buildopt_tls_p
+		      mpfr_buildopt_float128_p
+		      mpfr_buildopt_decimal_p
+		      mpfr_buildopt_gmpinternals_p
+		      mpfr_buildopt_sharedcache_p
 		     )
 
 
