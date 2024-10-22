@@ -277,6 +277,8 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_copysign
 		      mpfr_set_exp
 		      mpfr_get_exp
+		      mpfr_signbit
+		      mpfr_setsign
 		     )
 
 

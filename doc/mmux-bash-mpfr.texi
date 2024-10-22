@@ -224,6 +224,23 @@ Interface to the C language function @cfunc{\FUNC\}.
 
 @end macro
 
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefinePredicateBuiltinNoEnd{FUNC}
+@deffn Builtin \FUNC\ @var{MPFR_OP}
+Interface to the C language function @cfunc{\FUNC\}.  When successful return true; otherwise return
+false.  To check the result we have to use the shell variable @env{MPFR_RV}.
+@end macro
+
+@c ------------------------------------------------------------------------
+
+@macro MmuxDefinePredicateBuiltin{FUNC}
+@MmuxDefinePredicateBuiltinNoEndNoEnd{FUNC}
+@end deffn
+
+@end macro
+
+
 @c page
 @c ------------------------------------------------------------
 @c Values.
@@ -475,9 +492,9 @@ A string representation of a pointer referencing an instance of @objtype{__mpfr_
 @cindex MPFR_PTRVAR, builtin argument
 @cindex builtin argument MPFR_PTRVAR
 @cindex argument MPFR_PTRVAR, for builtins
-The string representation of a shell variable name: the function taking it as parameter, when
+The string representation of a shell variable name: the builtin taking it as parameter, when
 successful, will store in the variable a string representation of a pointer referencing an instance
-of @objtype{__mpfr_struct}.  If the function fails: the shell variable is left untouched.
+of @objtype{__mpfr_struct}.  If the builtin fails: the shell variable is left untouched.
 
 @item MPFR_RND
 @cindex MPFR_RND, builtin argument
@@ -491,7 +508,7 @@ A string representation of one of the @mpfr{} constants @samp{MPFR_RND*}.
 @cindex argument MPFR_RND, for builtins
 The string representation of a shell variable name: the builtin taking it as parameter, when
 successful, will store in the variable the string representation of a value of type
-@objtype{mpfr_rnd_t}.
+@objtype{mpfr_rnd_t}.  If the builtin fails: the shell variable is left untouched.
 
 @item MPFR_EXP
 @cindex MPFR_EXP, builtin argument
@@ -505,7 +522,7 @@ A string representation of a value of type @objtype{mpfr_exp_t}.
 @cindex argument MPFR_EXP, for builtins
 The string representation of a shell variable name: the builtin taking it as parameter, when
 successful, will store in the variable the string representation of a value of type
-@objtype{mpfr_exp_t}.
+@objtype{mpfr_exp_t}.  If the builtin fails: the shell variable is left untouched.
 
 @item MPFR_PREC
 @cindex MPFR_PREC, builtin argument
@@ -519,14 +536,15 @@ A string representation of a value of type @objtype{mpfr_prec_t}.
 @cindex argument MPFR_PREC, for builtins
 The string representation of a shell variable name: the builtin taking it as parameter, when
 successful, will store in the variable the string representation of a value of type
-@objtype{mpfr_prec_t}.
+@objtype{mpfr_prec_t}.  If the builtin fails: the shell variable is left untouched.
 
 @item STRVAR
 @cindex MPFR_STRVAR, builtin argument
 @cindex builtin argument MPFR_STRVAR
 @cindex argument MPFR_STRVAR, for builtins
-The string representation of a shell variable name: the function taking it as parameter, when
-successful, will store in the variable a generated string.
+The string representation of a shell variable name: the builtin taking it as parameter, when
+successful, will store in the variable a generated string.  If the builtin fails: the shell variable
+is left untouched.
 
 @item MPF_PTR
 @itemx MPF_OP
@@ -2536,8 +2554,6 @@ mpfr_clear_and_free_shell_array OPS
 @MmuxDefineBinaryBuiltin{mpfr_min}
 @MmuxDefineBinaryBuiltin{mpfr_max}
 
-@MmuxDefineBinaryBuiltin{mpfr_copysign}
-
 @deffn Builtin mpfr_set_exp @var{MPFR_OP} @var{MPFR_EXP}
 @deffnx Builtin mpfr_get_exp @var{MPFR_EXPVAR} @var{MPFR_OP}
 Interfaces to the C language functions @cfunc{mpfr_set_exp}, @cfunc{mpfr_get_exp}.
@@ -2555,6 +2571,32 @@ mpfr_clear_and_free @WW{OP}
 @end example
 @end deffn
 
+
+@MmuxDefinePredicateBuiltinNoEnd{mpfr_signbit}
+
+@example
+declare OP
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_si @WW{OP} 1 @WW{MPFR_RNDN}
+    mpfr_signbit @WW{OP}
+    if (( 0 == MPFR_RV ))
+    then # it is not set
+    else # it is set
+    fi
+@}
+mpfr_clear_and_free @WW{OP}
+@end example
+@end deffn
+
+
+@MmuxDefineBinaryBuiltin{mpfr_copysign}
+
+
+@deffn Builtin mpfr_setsign @var{MPFR_ROP} @var{MPFR_OP} @var{SINT_SIGN} @var{MPFR_RND}
+Interface to the C language function @cfunc{mpfr_setsign}.
+@end deffn
 
 @c page
 @c ------------------------------------------------------------

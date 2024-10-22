@@ -386,7 +386,7 @@ function misc-mpfr_set_exp-1.1 () {
     then
 	declare -r EXPECTED_RESULT='2'
 	declare RESULT
-	declare	-a OPS
+	declare	OP
 
 	dotest-unset-debug
 
@@ -425,7 +425,7 @@ function misc-mpfr_get_exp-1.1 () {
     then
 	declare EXPECTED_EXP='1'
 	declare EXP
-	declare	-a OPS
+	declare	OP
 
 	dotest-unset-debug
 
@@ -450,6 +450,85 @@ function misc-mpfr_get_exp-1.1 () {
 
 	    dotest-debug WW(EXPECTED_EXP) WW(EXP)
 	    dotest-equal WW(EXPECTED_EXP) WW(EXP)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_signbit
+
+function misc-mpfr_signbit-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_signbit
+    then
+	declare EXPECTED_EXP='0'
+	declare -i MPFR_RV
+	declare	OP
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='123'
+
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_signbit WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if (( 0 == MPFR_RV ))
+	    then true
+	    else false
+	    fi
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_setsign
+
+function misc-mpfr_setsign-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_setsign
+    then
+	declare EXPECTED_RESULT='-0.123000e3'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='123'
+
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    declare -n ROP='OPS[0]' OP='OPS[1]'
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_setsign WW(ROP) WW(OP) -1 WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(ROP))
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
 	}
 	mbfl_location_leave
     else dotest-skipped
