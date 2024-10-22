@@ -1855,14 +1855,14 @@ mpfr_clear_and_free_shell_array OPS1
 @ref{overview conventions, Conventions used in this documentation}.
 
 
-@defun Builtin mpfr_cmp @vari{MPFR_OP} @varii{MPFR_OP}
-@defunx Builtin mpfr_cmp_si @vari{MPFR_OP} @varii{SLONG}
-@defunx Builtin mpfr_cmp_ui @vari{MPFR_OP} @varii{ULONG}
-@defunx Builtin mpfr_cmp_d @vari{MPFR_OP} @varii{DOUBLE}
-@defunx Builtin mpfr_cmp_ld @vari{MPFR_OP} @varii{LDOUBLE}
-@defunx Builtin mpfr_cmp_z @vari{MPFR_OP} @varii{MPZ_OP}
-@defunx Builtin mpfr_cmp_q @vari{MPFR_OP} @varii{MPQ_OP}
-@defunx Builtin mpfr_cmp_f @vari{MPFR_OP} @varii{MPF_OP}
+@deffn Builtin mpfr_cmp @vari{MPFR_OP} @varii{MPFR_OP}
+@deffnx Builtin mpfr_cmp_si @vari{MPFR_OP} @varii{SLONG}
+@deffnx Builtin mpfr_cmp_ui @vari{MPFR_OP} @varii{ULONG}
+@deffnx Builtin mpfr_cmp_d @vari{MPFR_OP} @varii{DOUBLE}
+@deffnx Builtin mpfr_cmp_ld @vari{MPFR_OP} @varii{LDOUBLE}
+@deffnx Builtin mpfr_cmp_z @vari{MPFR_OP} @varii{MPZ_OP}
+@deffnx Builtin mpfr_cmp_q @vari{MPFR_OP} @varii{MPQ_OP}
+@deffnx Builtin mpfr_cmp_f @vari{MPFR_OP} @varii{MPF_OP}
 Interfaces to the C language functions @cfunc{mpfr_cmp}, @cfunc{mpfr_cmp_si}, @cfunc{mpfr_cmp_ui},
 @cfunc{mpfr_cmp_d}, @cfunc{mpfr_cmp_ld}, @cfunc{mpfr_cmp_z}, @cfunc{mpfr_cmp_q}, @cfunc{mpfr_cmp_f}.
 When successful return true; otherwise return false.  To inspect the comparison result we have to
@@ -1887,11 +1887,11 @@ mpfr_alloc_and_init_shell_array OPS 2
 @}
 mpfr_clear_and_free_shell_array @WW{OPS}
 @end example
-@end defun
+@end deffn
 
 
-@defun Builtin mpfr_cmp_si_2exp @vari{MPFR_OP} @varii{SLONG} @var{MPFR_EXP}
-@defunx Builtin mpfr_cmp_ui_2exp @vari{MPFR_OP} @varii{ULONG} @var{MPFR_EXP}
+@deffn Builtin mpfr_cmp_si_2exp @vari{MPFR_OP} @varii{SLONG} @var{MPFR_EXP}
+@deffnx Builtin mpfr_cmp_ui_2exp @vari{MPFR_OP} @varii{ULONG} @var{MPFR_EXP}
 Interfaces to the C language functions @cfunc{mpfr_cmp_si_2exp}, @cfunc{mpfr_cmp_ui_2exp}.
 
 @example
@@ -1910,7 +1910,7 @@ mpfr_alloc_and_init OP1
 @}
 mpfr_clear_and_free @WW{OP1}
 @end example
-@end defun
+@end deffn
 
 @c page
 @node comparison predicates
