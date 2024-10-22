@@ -491,11 +491,27 @@ A string representation of one of the @mpfr{} constants @samp{MPFR_RND*}.
 @cindex argument MPFR_EXP, for builtins
 A string representation of a value of type @objtype{mpfr_exp_t}.
 
+@item MPFR_EXPVAR
+@cindex MPFR_EXPVAR, builtin argument
+@cindex builtin argument MPFR_EXPVAR
+@cindex argument MPFR_EXP, for builtins
+The string representation of a shell variable name: the builtin taking it as parameter, when
+successful, will store in the variable the string representation of a value of type
+@objtype{mpfr_exp_t}.
+
 @item MPFR_PREC
 @cindex MPFR_PREC, builtin argument
 @cindex builtin argument MPFR_PREC
 @cindex argument MPFR_PREC, for builtins
 A string representation of a value of type @objtype{mpfr_prec_t}.
+
+@item MPFR_PRECVAR
+@cindex MPFR_PRECVAR, builtin argument
+@cindex builtin argument MPFR_PRECVAR
+@cindex argument MPFR_PREC, for builtins
+The string representation of a shell variable name: the builtin taking it as parameter, when
+successful, will store in the variable the string representation of a value of type
+@objtype{mpfr_prec_t}.
 
 @item STRVAR
 @cindex MPFR_STRVAR, builtin argument
@@ -1005,6 +1021,7 @@ mpfr_alloc_and_init OP
 mpfr_clear_and_free @WW{OP}
 @end example
 
+@c ------------------------------------------------------------------------
 
 @macro MmuxMpfrAssignmentBuiltin{FUNC,ARGSTEM}
 @deffn Builtin \FUNC\ @var{MPFR_ROP} @var{\ARGSTEM\} @var{MPFR_RND}
@@ -1019,6 +1036,10 @@ Interface to the C language functions @cfunc{\FUNC\}.
 @end deffn
 
 @end macro
+
+@c ------------------------------------------------------------------------
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 @MmuxMpfrAssignmentBuiltin{mpfr_set_si, SLONG}
 @MmuxMpfrAssignmentBuiltin{mpfr_set_ui, ULONG}
@@ -1341,7 +1362,10 @@ mpfr_clear_and_free_shell_array OPS
 @section Addition builtins
 
 
-@deffn Builtin mpfr_add @var{ROP} @vari{OP} @varii{OP} @var{MPFR_RND}
+@ref{overview conventions, Conventions used in this documentation}.
+
+
+@deffn Builtin mpfr_add @var{MPFR_ROP} @vari{MPFR_OP} @varii{MPFR_OP} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_add}.
 @end deffn
 
@@ -1375,7 +1399,10 @@ Interface to the C language function @cfunc{mpfr_add_q}.
 @section Multiplication builtins
 
 
-@deffn Builtin mpfr_mul @var{ROP} @vari{OP} @varii{OP} @var{MPFR_RND}
+@ref{overview conventions, Conventions used in this documentation}.
+
+
+@deffn Builtin mpfr_mul @var{MPFR_ROP} @vari{MPFR_OP} @varii{MPFR_OP} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_mul}.
 @end deffn
 
@@ -1437,7 +1464,10 @@ Interface to the C language function @cfunc{mpfr_mul_2ui}.
 @section Subtraction builtins
 
 
-@deffn Builtin mpfr_sub @var{ROP} @vari{OP} @varii{OP} @var{MPFR_RND}
+@ref{overview conventions, Conventions used in this documentation}.
+
+
+@deffn Builtin mpfr_sub @var{MPFR_ROP} @vari{MPFR_OP} @varii{MPFR_OP} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_sub}.
 @end deffn
 
@@ -1474,7 +1504,10 @@ Interface to the C language function @cfunc{mpfr_sub_q}.
 @section Division builtins
 
 
-@deffn Builtin mpfr_div @var{ROP} @vari{OP} @varii{OP} @var{MPFR_RND}
+@ref{overview conventions, Conventions used in this documentation}.
+
+
+@deffn Builtin mpfr_div @var{MPFR_ROP} @vari{MPFR_OP} @varii{MPFR_OP} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_div}.
 @end deffn
 
@@ -1539,6 +1572,9 @@ Interface to the C language function @cfunc{mpfr_div_2ui}.
 @section Powers and roots builtins
 
 
+@ref{overview conventions, Conventions used in this documentation}.
+
+
 @deffn Builtin mpfr_sqr @var{MPFR_ROP} @var{MPFR_OP} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_sqr}.
 @end deffn
@@ -1592,6 +1628,9 @@ Interface to the C language function @cfunc{mpfr_rootn_ui}.
 @c page
 @node arithmetic misc
 @section Miscellaneous builtins
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @deffn Builtin mpfr_neg @var{MPFR_ROP} @var{MPFR_OP} @var{MPFR_RND}
@@ -1761,6 +1800,9 @@ mpfr_clear_and_free_shell_array OPS1
 @section Comparison builtins
 
 
+@ref{overview conventions, Conventions used in this documentation}.
+
+
 @defun Builtin mpfr_cmp @vari{MPFR_OP} @varii{MPFR_OP}
 @defunx Builtin mpfr_cmp_si @vari{MPFR_OP} @varii{SLONG}
 @defunx Builtin mpfr_cmp_ui @vari{MPFR_OP} @varii{ULONG}
@@ -1823,6 +1865,9 @@ mpfr_clear_and_free @WW{OP1}
 @section Comparison predicates
 
 
+@ref{overview conventions, Conventions used in this documentation}.
+
+
 @deffn Builtin mpfr_nan_p @var{MPFR_OP}
 Interface to the C language function @cfunc{mpfr_nan_p}.  When successful return true; otherwise
 return false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
@@ -1863,6 +1908,9 @@ false.  To inspect the predicate result we have to use the shell variable @env{M
 @c page
 @node comparison order
 @section Comparison to order
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @deffn Builtin mpfr_greater_p @vari{MPFR_OP} @varii{MPFR_OP}
@@ -1938,6 +1986,8 @@ mpfr_alloc_and_init_shell_array OPS 2
 mpfr_clear_and_free_shell_array OPS
 @end example
 
+@ref{overview conventions, Conventions used in this documentation}.
+
 
 @deffn Builtin mpfr_equal_absmargin @vari{OP} @varii{OP}
 Compare the operands with the absolute margin criterion.  When successful return true; otherwise
@@ -1994,6 +2044,9 @@ mpfr_clear_and_free_shell_array OPS
 @end example
 
 
+@ref{overview conventions, Conventions used in this documentation}.
+
+
 @deffn Builtin mpfr_equal_relepsilon @vari{OP} @varii{OP}
 Compare the operands with the relative epsilon criterion.  When successful return true; otherwise
 return false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
@@ -2021,6 +2074,9 @@ When the shell variable is not set: the default value is @samp{1e-6}.
 @c page
 @node comparison misc
 @section Miscellaneous builtins
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @deffn Builtin mpfr_sgn @var{MPFR_OP}
@@ -2064,6 +2120,9 @@ mpfr_clear_and_free @WW{OP}
 @section Builtins for logarithms
 
 
+@ref{overview conventions, Conventions used in this documentation}.
+
+
 @MmuxDefineUnaryBuiltin{mpfr_log}
 @MmuxDefineUnaryUiBuiltin{mpfr_log_ui}
 @MmuxDefineUnaryBuiltin{mpfr_log2}
@@ -2075,6 +2134,9 @@ mpfr_clear_and_free @WW{OP}
 @c page
 @node transcendental exponentiation
 @section Builtins for exponentiation
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @MmuxDefineUnaryBuiltin{mpfr_exp}
@@ -2099,6 +2161,9 @@ mpfr_clear_and_free @WW{OP}
 @c page
 @node transcendental trigonometric
 @section Builtins for trigonometric operations
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @MmuxDefineUnaryBuiltin{mpfr_sin}
@@ -2135,6 +2200,9 @@ mpfr_clear_and_free @WW{OP}
 @section Builtins for hyperbolic operations
 
 
+@ref{overview conventions, Conventions used in this documentation}.
+
+
 @MmuxDefineUnaryBuiltin{mpfr_sinh}
 @MmuxDefineUnaryBuiltin{mpfr_cosh}
 @MmuxDefineUnaryBuiltin{mpfr_tanh}
@@ -2151,6 +2219,9 @@ mpfr_clear_and_free @WW{OP}
 @c page
 @node transcendental special
 @section Builtins special operations
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @MmuxDefineUnaryBuiltin{mpfr_eint}
@@ -2183,6 +2254,9 @@ Store in the shell variable @var{SIGNVAR} the computed sign.
 @c page
 @node transcendental constants
 @section Builtins for constant values
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @MmuxDefineNullaryBuiltin{mpfr_const_log2}
@@ -2243,6 +2317,9 @@ mpfr_just_printit_dammit @WW{OP}
 @c page
 @node integers
 @chapter Integers builtins
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @MmuxDefineUnaryBuiltin{mpfr_rint}
@@ -2338,6 +2415,9 @@ mpfr_clear_and_free @WW{OP}
 @chapter Rounding--related builtins
 
 
+@ref{overview conventions, Conventions used in this documentation}.
+
+
 @deffn Builtin mpfr_set_default_rounding_mode @var{MPFR_RND}
 @deffnx Builtin mpfr_get_default_rounding_mode @var{MPFR_RNDVAR}
 Interfaces to the C language functions @cfunc{mpfr_set_default_rounding_mode},
@@ -2390,7 +2470,10 @@ interface to the C language function @cfunc{mpfr_print_rnd_mode}.
 @section Miscellaneous builtins
 
 
-@deffn Builtin mpfr_nexttoward @vari{OP} @varii{op}
+@ref{overview conventions, Conventions used in this documentation}.
+
+
+@deffn Builtin mpfr_nexttoward @vari{MPFR_OP} @varii{MPFR_OP}
 Interface to the C language function @cfunc{mpfr_nexttoward}.
 
 @example
@@ -2446,6 +2529,12 @@ mpfr_clear_and_free_shell_array OPS
 @MmuxDefineBinaryBuiltin{mpfr_max}
 
 @MmuxDefineBinaryBuiltin{mpfr_copysign}
+
+@deffn Builtin mpfr_set_exp @var{MPFR_OP} @var{MPFR_EXP}
+@deffnx Builtin mpfr_get_exp @var{MPFR_EXPVAR} @var{MPFR_OP}
+Interfaces to the C language functions @cfunc{mpfr_set_exp}, @cfunc{mpfr_get_exp}.
+@end deffn
+
 
 @c page
 @c ------------------------------------------------------------
