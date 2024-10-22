@@ -125,7 +125,7 @@ function exponent-mpfr_get_exp-1.1 () {
 
 #### let's go
 
-dotest miscellaneous-
+dotest exponent-
 dotest-final-report
 
 ### end of file
