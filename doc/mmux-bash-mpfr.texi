@@ -2628,6 +2628,14 @@ Interfaces to the C language functions @cfunc{mpfr_buildopt_tls_p},
 Return true if the corresponding build option has been set; otherwise return false.
 @end deffn
 
+
+@deffn Builtin mpfr_get_patches
+@deffnx Builtin mpfr_buildopt_tune_case
+Interfaces to the C language functions @cfunc{mpfr_get_patches}, @cfunc{mpfr_buildopt_tune_case}.
+
+Print the string to @stdout{}.
+@end deffn
+
 @c page
 @c ------------------------------------------------------------
 @c Appendices.

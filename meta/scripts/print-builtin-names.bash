@@ -284,6 +284,8 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_buildopt_decimal_p
 		      mpfr_buildopt_gmpinternals_p
 		      mpfr_buildopt_sharedcache_p
+		      mpfr_get_patches
+		      mpfr_buildopt_tune_case
 		     )
 
 

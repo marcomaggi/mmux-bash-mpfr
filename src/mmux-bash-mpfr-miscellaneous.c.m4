@@ -178,4 +178,24 @@ DEFINE_NULLARY_PREDICATE([[[mpfr_buildopt_decimal_p]]])
 DEFINE_NULLARY_PREDICATE([[[mpfr_buildopt_gmpinternals_p]]])
 DEFINE_NULLARY_PREDICATE([[[mpfr_buildopt_sharedcache_p]]])
 
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_patches]]])
+{
+  int	rv = printf("%s\n", mpfr_get_patches());
+  return (rv >= 0)? MMUX_SUCCESS : MMUX_FAILURE;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(1 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER."]]])
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_buildopt_tune_case]]])
+{
+  int	rv = printf("%s\n", mpfr_buildopt_tune_case());
+  return (rv >= 0)? MMUX_SUCCESS : MMUX_FAILURE;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(1 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER."]]])
+
 /* end of file */

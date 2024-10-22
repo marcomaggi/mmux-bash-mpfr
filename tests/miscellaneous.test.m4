@@ -564,6 +564,13 @@ function miscellaneous-mpfr_buildopt_sharedcache_p-1.1 () {
     true
 }
 
+function miscellaneous-mpfr_get_patches-1.1 () {
+    mpfr_get_patches >&2
+}
+function miscellaneous-mpfr_buildopt_tune_case-1.1 () {
+    mpfr_buildopt_tune_case >&2
+}
+
 
 #### let's go
 
