@@ -129,7 +129,7 @@ EXTRA_DIST	+= \
 	src/mmux-bash-mpfr-init.c.m4			\
 	src/mmux-bash-mpfr-integers.c.m4		\
 	src/mmux-bash-mpfr-library.c.m4			\
-	src/mmux-bash-mpfr-misc.c.m4			\
+	src/mmux-bash-mpfr-miscellaneous.c.m4		\
 	src/mmux-bash-mpfr-output.c.m4			\
 	src/mmux-bash-mpfr-rounding.c.m4		\
 	src/mmux-bash-mpfr-transcendental.c.m4		\
@@ -144,7 +144,7 @@ MMUX_BASH_MPFR_BUILT_SOURCES	= \
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-integers.c			\
 	src/mmux-bash-mpfr-library.c			\
-	src/mmux-bash-mpfr-misc.c			\
+	src/mmux-bash-mpfr-miscellaneous.c		\
 	src/mmux-bash-mpfr-output.c			\
 	src/mmux-bash-mpfr-rounding.c			\
 	src/mmux-bash-mpfr-transcendental.c		\
@@ -177,7 +177,7 @@ libmmux_bash_mpfr_la_SOURCES	= \
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-integers.c			\
 	src/mmux-bash-mpfr-library.c			\
-	src/mmux-bash-mpfr-misc.c			\
+	src/mmux-bash-mpfr-miscellaneous.c		\
 	src/mmux-bash-mpfr-output.c			\
 	src/mmux-bash-mpfr-rounding.c			\
 	src/mmux-bash-mpfr-transcendental.c		\
@@ -208,7 +208,7 @@ EXTRA_DIST		+= \
 	tests/conversion.test.m4		\
 	tests/init.test.m4			\
 	tests/integers.test.m4			\
-	tests/misc.test.m4			\
+	tests/miscellaneous.test.m4		\
 	tests/printing.test.m4			\
 	tests/rounding.test.m4			\
 	tests/transcendental.test.m4		\
@@ -227,7 +227,7 @@ MMUX_CHECK_BUILT_TESTS	= \
 	tests/conversion.test			\
 	tests/init.test				\
 	tests/integers.test			\
-	tests/misc.test				\
+	tests/miscellaneous.test		\
 	tests/printing.test			\
 	tests/rounding.test			\
 	tests/transcendental.test		\
