@@ -13,6 +13,10 @@
 @c Local macros.
 @c ------------------------------------------------------------
 
+@macro mpfrref{NODE, TITLE}
+@ref{\NODE\,\TITLE\,\TITLE\,mpfr}
+@end macro
+
 @ifinfo
 @macro mbfl{}
 @acronym{MBFL}
@@ -622,9 +626,11 @@ shell variable @code{ERRNO} (when documented to do so), it returns false.
 If an argument to builtin is invalid: the builtin returns false and sets the shell variable
 @code{ERRNO} to @samp{EINVAL}.
 
-Many @mpfr{} C language functions return a useful(?) value; the corresponding builtin reserves the
-return value to signal if an error occurred.  @mpfr{} function's return values are stored in a shell
-variable named @code{MPFR_RV}.
+Many @mpfr{} C language functions return a value, called the ``ternary value'', @mpfrref{ternary
+value, Rounding}.  Other @mpfr{} C language functions return an integer value that is to be
+interpreted as a boolean value.  The corresponding builtin reserves the return value to signal if an
+error occurred.  Ternary values and boolean values are stored in a shell variable named
+@code{MPFR_RV}.
 
 @example
 declare -a OPS
