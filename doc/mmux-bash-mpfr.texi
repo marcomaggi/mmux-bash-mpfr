@@ -2629,7 +2629,19 @@ mpfr_clear_and_free @WW{OP}
 
 @deffn Builtin mpfr_get_emin @var{MPFR_EXPVAR}
 @deffnx Builtin mpfr_get_emax @var{MPFR_EXPVAR}
-Interfaces to the C language functions @cfunc{mpfr_get_emin}, @cfunc{mpfr_get_emax}.
+@deffnx Builtin mpfr_set_emin @var{MPFR_EXPVAR}
+@deffnx Builtin mpfr_set_emax @var{MPFR_EXPVAR}
+Interfaces to the C language functions @cfunc{mpfr_get_emin}, @cfunc{mpfr_get_emax},
+@cfunc{mpfr_set_emin}, @cfunc{mpfr_set_emax}.
+@end deffn
+
+
+@deffn Builtin mpfr_get_emin_min
+@deffnx Builtin mpfr_get_emin_max
+@deffnx Builtin mpfr_get_emax_min
+@deffnx Builtin mpfr_get_emax_max
+Interfaces to the C language functions @cfunc{mpfr_get_emin_min}, @cfunc{mpfr_get_emin_max},
+@cfunc{mpfr_get_emax_min}, @cfunc{mpfr_get_emax_max}.
 @end deffn
 
 @c page

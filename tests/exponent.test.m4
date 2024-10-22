@@ -123,6 +123,108 @@ function exponent-mpfr_get_exp-1.1 () {
 }
 
 
+# mpfr_get_emin
+
+function exponent-mpfr_get_emin-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_get_emin
+    then
+	declare -r EXPECTED_EXP=10
+	declare EXP
+
+	if ! mpfr_get_emin EXP
+	then return_failure
+	fi
+	mmux_string_is_sint WW(EXP)
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_get_emax
+
+function exponent-mpfr_get_emax-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_get_emax
+    then
+	declare -r EXPECTED_EXP=10
+	declare EXP
+
+	if ! mpfr_get_emax EXP
+	then return_failure
+	fi
+	mmux_string_is_sint WW(EXP)
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_get_emin_min
+
+function exponent-mpfr_get_emin_min-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_get_emin_min
+    then
+	declare -r EXPECTED_EXP=10
+	declare EXP
+
+	if ! mpfr_get_emin_min EXP
+	then return_failure
+	fi
+	mmux_string_is_sint WW(EXP)
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_get_emin_max
+
+function exponent-mpfr_get_emin_max-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_get_emin_max
+    then
+	declare -r EXPECTED_EXP=10
+	declare EXP
+
+	if ! mpfr_get_emin_max EXP
+	then return_failure
+	fi
+	mmux_string_is_sint WW(EXP)
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_get_emax_min
+
+function exponent-mpfr_get_emax_min-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_get_emax_min
+    then
+	declare -r EXPECTED_EXP=10
+	declare EXP
+
+	if ! mpfr_get_emax_min EXP
+	then return_failure
+	fi
+	mmux_string_is_sint WW(EXP)
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_get_emax_max
+
+function exponent-mpfr_get_emax_max-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_get_emax_max
+    then
+	declare -r EXPECTED_EXP=10
+	declare EXP
+
+	if ! mpfr_get_emax_max EXP
+	then return_failure
+	fi
+	mmux_string_is_sint WW(EXP)
+    else dotest-skipped
+    fi
+}
+
+
 #### let's go
 
 dotest exponent-

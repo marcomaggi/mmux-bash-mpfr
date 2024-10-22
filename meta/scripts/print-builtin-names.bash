@@ -166,7 +166,6 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_zero_p
 		      mpfr_number_p
 		      mpfr_regular_p
-		      mpfr_sgn
 		      mpfr_greater_p
 		      mpfr_greaterequal_p
 		      mpfr_less_p
@@ -177,6 +176,8 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_total_order_p
 		      mpfr_equal_absmargin
 		      mpfr_equal_relepsilon
+		      mpfr_min
+		      mpfr_max
 
 		      mpfr_log
 		      mpfr_log2
@@ -269,16 +270,15 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_min_prec
 		      mpfr_print_rnd_mode
 
+		      mpfr_sgn
+		      mpfr_copysign
+		      mpfr_signbit
+		      mpfr_setsign
+
 		      mpfr_nexttoward
 		      mpfr_nextabove
 		      mpfr_nextbelow
-		      mpfr_min
-		      mpfr_max
-		      mpfr_copysign
-		      mpfr_set_exp
-		      mpfr_get_exp
-		      mpfr_signbit
-		      mpfr_setsign
+
 		      mpfr_buildopt_tls_p
 		      mpfr_buildopt_float128_p
 		      mpfr_buildopt_decimal_p
@@ -286,6 +286,17 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_buildopt_sharedcache_p
 		      mpfr_get_patches
 		      mpfr_buildopt_tune_case
+
+		      mpfr_set_exp
+		      mpfr_get_exp
+		      mpfr_set_emin
+		      mpfr_set_emax
+		      mpfr_get_emin
+		      mpfr_get_emax
+		      mpfr_get_emin_min
+		      mpfr_get_emin_max
+		      mpfr_get_emax_min
+		      mpfr_get_emax_max
 		     )
 
 

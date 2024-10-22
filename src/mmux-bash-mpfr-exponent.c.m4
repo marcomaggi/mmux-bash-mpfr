@@ -69,4 +69,46 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_EXPVAR MPFR_OP"]]],
     [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(EXPVAR,OP)."]]])
 
+/* ------------------------------------------------------------------ */
+
+m4_define([[[DEFINE_EXPONENT_GETTER]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_exp_t	exp= mpfr_get_emin();
+  return mmux_mpfr_exp_bind_to_variable(argv[1], exp, MMUX_BUILTIN_NAME_STR);
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(2 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_EXPVAR"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(EXPVAR)."]]])
+]]])
+
+DEFINE_EXPONENT_GETTER([[[mpfr_get_emin]]])
+DEFINE_EXPONENT_GETTER([[[mpfr_get_emax]]])
+DEFINE_EXPONENT_GETTER([[[mpfr_get_emin_min]]])
+DEFINE_EXPONENT_GETTER([[[mpfr_get_emin_max]]])
+DEFINE_EXPONENT_GETTER([[[mpfr_get_emax_min]]])
+DEFINE_EXPONENT_GETTER([[[mpfr_get_emax_max]]])
+
+/* ------------------------------------------------------------------ */
+
+m4_define([[[DEFINE_EXPONENT_SETTER]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  mpfr_exp_t	exp;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[exp]]],	[[[argv[1]]]]);
+  {
+    int		rv = $1(exp);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(2 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_EXPVAR"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(EXPVAR)."]]])
+]]])
+
+DEFINE_EXPONENT_SETTER([[[mpfr_set_emin]]])
+DEFINE_EXPONENT_SETTER([[[mpfr_set_emax]]])
+
 /* end of file */
