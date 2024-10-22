@@ -206,11 +206,14 @@ EXTRA_DIST		+= \
 	tests/assignment.test.m4		\
 	tests/comparison.test.m4		\
 	tests/conversion.test.m4		\
+	tests/exponent.test.m4			\
 	tests/init.test.m4			\
 	tests/integers.test.m4			\
 	tests/miscellaneous.test.m4		\
 	tests/printing.test.m4			\
 	tests/rounding.test.m4			\
+	tests/sign.test.4			\
+	tests/stepping.test.m4			\
 	tests/transcendental.test.m4		\
 	tests/version.test.m4
 
@@ -225,11 +228,14 @@ MMUX_CHECK_BUILT_TESTS	= \
 	tests/assignment.test			\
 	tests/comparison.test			\
 	tests/conversion.test			\
+	tests/exponent.test			\
 	tests/init.test				\
 	tests/integers.test			\
 	tests/miscellaneous.test		\
 	tests/printing.test			\
 	tests/rounding.test			\
+	tests/sign.test				\
+	tests/stepping.test			\
 	tests/transcendental.test		\
 	tests/version.test
 

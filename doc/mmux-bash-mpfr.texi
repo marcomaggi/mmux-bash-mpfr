@@ -367,8 +367,12 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * transcendental::              Transcendental builtins.
 * io::                          Input, output, printing.
 * integers::                    Integers builtins.
-* rounding::                    Rounding--related builtins.
+* rounding::                    Rounding-related builtins.
+* stepping::                    Stepping builtins.
+* sign::                        Sign of numbers builtins.
+* exponents::                   Exponents-related builtins.
 * miscellaneous::               Miscellaneous builtins.
+* build options::               Build options builtins.
 
 Appendices
 
@@ -1990,6 +1994,10 @@ mpfr_clear_and_free_shell_array @WW{OPS}
 @end example
 @end deffn
 
+
+@MmuxDefineBinaryBuiltin{mpfr_min}
+@MmuxDefineBinaryBuiltin{mpfr_max}
+
 @c page
 @node comparison approximate
 @section Approximate comparison
@@ -2509,8 +2517,8 @@ interface to the C language function @cfunc{mpfr_print_rnd_mode}.
 @end deffn
 
 @c page
-@node miscellaneous
-@section Miscellaneous builtins
+@node stepping
+@chapter Stepping builtins
 
 
 @ref{overview conventions, Conventions used in this documentation}.
@@ -2568,25 +2576,14 @@ mpfr_clear_and_free_shell_array OPS
 @end deffn
 
 
-@MmuxDefineBinaryBuiltin{mpfr_min}
-@MmuxDefineBinaryBuiltin{mpfr_max}
-
-@deffn Builtin mpfr_set_exp @var{MPFR_OP} @var{MPFR_EXP}
-@deffnx Builtin mpfr_get_exp @var{MPFR_EXPVAR} @var{MPFR_OP}
-Interfaces to the C language functions @cfunc{mpfr_set_exp}, @cfunc{mpfr_get_exp}.
-
-@example
-declare OP
-
-mpfr_alloc_and_init OP
-@{
-    mpfr_set_si @WW{OP} 1 @WW{MPFR_RNDN}
-    mpfr_set_exp @WW{OP} 2
-    mpfr_just_printit_dammit @WW{OP}    @print{} 0.200000e1
-@}
-mpfr_clear_and_free @WW{OP}
-@end example
+@deffn Builtin mpfr_nextabove @var{MPFR_OP}
+@deffnx Builtin mpfr_nextbelow @var{MPFR_OP}
+Interfaces to the C language functions @cfunc{mpfr_nextabove}, @cfunc{mpfr_nextbelow}.
 @end deffn
+
+@c page
+@node sign
+@chapter Sign of numbers builtins
 
 
 @MmuxDefinePredicateBuiltinNoEnd{mpfr_signbit}
@@ -2614,6 +2611,45 @@ mpfr_clear_and_free @WW{OP}
 @deffn Builtin mpfr_setsign @var{MPFR_ROP} @var{MPFR_OP} @var{SINT_SIGN} @var{MPFR_RND}
 Interface to the C language function @cfunc{mpfr_setsign}.
 @end deffn
+
+@c page
+@node exponents
+@chapter Exponents--related builtins
+
+
+@deffn Builtin mpfr_set_exp @var{MPFR_OP} @var{MPFR_EXP}
+@deffnx Builtin mpfr_get_exp @var{MPFR_EXPVAR} @var{MPFR_OP}
+Interfaces to the C language functions @cfunc{mpfr_set_exp}, @cfunc{mpfr_get_exp}.
+
+@example
+declare OP
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_si @WW{OP} 1 @WW{MPFR_RNDN}
+    mpfr_set_exp @WW{OP} 2
+    mpfr_just_printit_dammit @WW{OP}    @print{} 0.200000e1
+@}
+mpfr_clear_and_free @WW{OP}
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_get_emin @var{MPFR_EXPVAR}
+@deffnx Builtin mpfr_get_emax @var{MPFR_EXPVAR}
+Interfaces to the C language functions @cfunc{mpfr_get_emin}, @cfunc{mpfr_get_emax}.
+@end deffn
+
+@c page
+@node miscellaneous
+@chapter Miscellaneous builtins
+
+
+@ref{overview conventions, Conventions used in this documentation}.
+
+@c page
+@node build options
+@chapter Build options builtins
 
 
 @deffn Builtin mpfr_buildopt_tls_p
