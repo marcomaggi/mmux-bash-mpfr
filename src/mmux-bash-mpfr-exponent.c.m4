@@ -1,11 +1,11 @@
 /*
   Part of: MMUX Bash MPFR
-  Contents: implementation of misc builtins
+  Contents: implementation of exponent builtins
   Date: Oct 21, 2024
 
   Abstract
 
-	This module implements misc builtins.
+	This module implements exponent builtins.
 
   Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
 
@@ -30,43 +30,43 @@
 
 
 /** --------------------------------------------------------------------
- ** MPFR inspection.
+ ** Exponent builtins.
  ** ----------------------------------------------------------------- */
 
-m4_define([[[DEFINE_NULLARY_PREDICATE]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_exp]]])
 {
-  return ($1())? MMUX_SUCCESS : MMUX_FAILURE;
+  mpfr_ptr	op;
+  mpfr_exp_t	exp;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[exp]]],	[[[argv[2]]]]);
+  {
+    int		rv = mpfr_set_exp(op,exp);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
-    [[[(1 == argc)]]],
-    [[["MMUX_BASH_BUILTIN_IDENTIFIER"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER."]]])
-]]])
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP MPFR_EXP"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(OP,EXP)."]]])
 
-DEFINE_NULLARY_PREDICATE([[[mpfr_buildopt_tls_p]]])
-DEFINE_NULLARY_PREDICATE([[[mpfr_buildopt_float128_p]]])
-DEFINE_NULLARY_PREDICATE([[[mpfr_buildopt_decimal_p]]])
-DEFINE_NULLARY_PREDICATE([[[mpfr_buildopt_gmpinternals_p]]])
-DEFINE_NULLARY_PREDICATE([[[mpfr_buildopt_sharedcache_p]]])
+/* ------------------------------------------------------------------ */
 
-MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_patches]]])
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_exp]]])
 {
-  int	rv = printf("%s\n", mpfr_get_patches());
-  return (rv >= 0)? MMUX_SUCCESS : MMUX_FAILURE;
+  mpfr_ptr	op;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  {
+    mpfr_exp_t		exp	= mpfr_get_exp(op);
+    return mmux_mpfr_exp_bind_to_variable(argv[1], exp, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
-    [[[(1 == argc)]]],
-    [[["MMUX_BASH_BUILTIN_IDENTIFIER"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER."]]])
-
-MMUX_BASH_BUILTIN_MAIN([[[mpfr_buildopt_tune_case]]])
-{
-  int	rv = printf("%s\n", mpfr_buildopt_tune_case());
-  return (rv >= 0)? MMUX_SUCCESS : MMUX_FAILURE;
-}
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
-    [[[(1 == argc)]]],
-    [[["MMUX_BASH_BUILTIN_IDENTIFIER"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER."]]])
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_EXPVAR MPFR_OP"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(EXPVAR,OP)."]]])
 
 /* end of file */

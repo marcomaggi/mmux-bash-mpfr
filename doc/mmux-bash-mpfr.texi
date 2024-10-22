@@ -1839,7 +1839,6 @@ mpfr_clear_and_free_shell_array OPS1
 * comparison predicates::       Comparison predicates.
 * comparison order::            Comparison to order.
 * comparison approximate::      Approximate comparison.
-* comparison misc::             Miscellaneous builtins.
 @end menu
 
 @c page
@@ -2121,36 +2120,6 @@ called with base argument set to @samp{0}.
 
 When the shell variable is not set: the default value is @samp{1e-6}.
 @end defvar
-
-@c page
-@node comparison misc
-@section Miscellaneous builtins
-
-
-@ref{overview conventions, Conventions used in this documentation}.
-
-
-@deffn Builtin mpfr_sgn @var{MPFR_OP}
-Interface to the C language function @cfunc{mpfr_sgn}.  When successful return true; otherwise
-return false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
-
-@example
-declare OP
-declare -i MPFR_RV
-
-mpfr_alloc_and_init OP
-@{
-    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
-    mpfr_sgn @WW{OP}
-
-    if (( 0 < @WW{MPFR_RV} ))
-    then # the number is positive
-    else # the number is negative or zero
-    fi
-@}
-mpfr_clear_and_free @WW{OP}
-@end example
-@end deffn
 
 @c page
 @node transcendental
@@ -2584,6 +2553,29 @@ Interfaces to the C language functions @cfunc{mpfr_nextabove}, @cfunc{mpfr_nextb
 @c page
 @node sign
 @chapter Sign of numbers builtins
+
+
+@deffn Builtin mpfr_sgn @var{MPFR_OP}
+Interface to the C language function @cfunc{mpfr_sgn}.  When successful return true; otherwise
+return false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
+
+@example
+declare OP
+declare -i MPFR_RV
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
+    mpfr_sgn @WW{OP}
+
+    if (( 0 < @WW{MPFR_RV} ))
+    then # the number is positive
+    else # the number is negative or zero
+    fi
+@}
+mpfr_clear_and_free @WW{OP}
+@end example
+@end deffn
 
 
 @MmuxDefinePredicateBuiltinNoEnd{mpfr_signbit}

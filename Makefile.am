@@ -126,12 +126,15 @@ EXTRA_DIST	+= \
 	src/mmux-bash-mpfr-assignment-builtins.c.m4	\
 	src/mmux-bash-mpfr-comparison.c.m4		\
 	src/mmux-bash-mpfr-conversion.c.m4		\
+	src/mmux-bash-mpfr-exponent.c.m4		\
 	src/mmux-bash-mpfr-init.c.m4			\
 	src/mmux-bash-mpfr-integers.c.m4		\
 	src/mmux-bash-mpfr-library.c.m4			\
 	src/mmux-bash-mpfr-miscellaneous.c.m4		\
 	src/mmux-bash-mpfr-output.c.m4			\
 	src/mmux-bash-mpfr-rounding.c.m4		\
+	src/mmux-bash-mpfr-sign.c.m4			\
+	src/mmux-bash-mpfr-stepping.c.m4		\
 	src/mmux-bash-mpfr-transcendental.c.m4		\
 	src/mmux-bash-mpfr-type-functions.c.m4
 
@@ -141,12 +144,15 @@ MMUX_BASH_MPFR_BUILT_SOURCES	= \
 	src/mmux-bash-mpfr-assignment-builtins.c	\
 	src/mmux-bash-mpfr-comparison.c			\
 	src/mmux-bash-mpfr-conversion.c			\
+	src/mmux-bash-mpfr-exponent.c			\
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-integers.c			\
 	src/mmux-bash-mpfr-library.c			\
 	src/mmux-bash-mpfr-miscellaneous.c		\
 	src/mmux-bash-mpfr-output.c			\
 	src/mmux-bash-mpfr-rounding.c			\
+	src/mmux-bash-mpfr-sign.c			\
+	src/mmux-bash-mpfr-stepping.c			\
 	src/mmux-bash-mpfr-transcendental.c		\
 	src/mmux-bash-mpfr-type-functions.c
 
@@ -174,12 +180,15 @@ libmmux_bash_mpfr_la_SOURCES	= \
 	src/mmux-bash-mpfr-assignment-builtins.c	\
 	src/mmux-bash-mpfr-comparison.c			\
 	src/mmux-bash-mpfr-conversion.c			\
+	src/mmux-bash-mpfr-exponent.c			\
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-integers.c			\
 	src/mmux-bash-mpfr-library.c			\
 	src/mmux-bash-mpfr-miscellaneous.c		\
 	src/mmux-bash-mpfr-output.c			\
 	src/mmux-bash-mpfr-rounding.c			\
+	src/mmux-bash-mpfr-sign.c			\
+	src/mmux-bash-mpfr-stepping.c			\
 	src/mmux-bash-mpfr-transcendental.c		\
 	src/mmux-bash-mpfr-type-functions.c
 
