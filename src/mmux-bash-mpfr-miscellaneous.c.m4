@@ -30,7 +30,7 @@
 
 
 /** --------------------------------------------------------------------
- ** Rounding builtins.
+ ** Miscellaneous builtins.
  ** ----------------------------------------------------------------- */
 
 MMUX_BASH_BUILTIN_MAIN([[[mpfr_nexttoward]]])
@@ -91,5 +91,43 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
 DEFINE_BINARY_BUILTIN([[[mpfr_min]]])
 DEFINE_BINARY_BUILTIN([[[mpfr_max]]])
 DEFINE_BINARY_BUILTIN([[[mpfr_copysign]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_exp]]])
+{
+  mpfr_ptr	op;
+  mpfr_exp_t	exp;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[exp]]],	[[[argv[2]]]]);
+  {
+    int		rv = mpfr_set_exp(op,exp);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP MPFR_EXP"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(OP,EXP)."]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_exp]]])
+{
+  mpfr_ptr	op;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
+  {
+    mpfr_exp_t		exp	= mpfr_get_exp(op);
+    return mmux_mpfr_exp_bind_to_variable(argv[1], exp, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_EXPVAR MPFR_OP"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(EXPVAR,OP)."]]])
 
 /* end of file */

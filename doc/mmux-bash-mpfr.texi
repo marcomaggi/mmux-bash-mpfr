@@ -485,6 +485,14 @@ of @objtype{__mpfr_struct}.  If the function fails: the shell variable is left u
 @cindex argument MPFR_RND, for builtins
 A string representation of one of the @mpfr{} constants @samp{MPFR_RND*}.
 
+@item MPFR_RNDVAR
+@cindex MPFR_RNDVAR, builtin argument
+@cindex builtin argument MPFR_RNDVAR
+@cindex argument MPFR_RND, for builtins
+The string representation of a shell variable name: the builtin taking it as parameter, when
+successful, will store in the variable the string representation of a value of type
+@objtype{mpfr_rnd_t}.
+
 @item MPFR_EXP
 @cindex MPFR_EXP, builtin argument
 @cindex builtin argument MPFR_EXP
@@ -2533,6 +2541,18 @@ mpfr_clear_and_free_shell_array OPS
 @deffn Builtin mpfr_set_exp @var{MPFR_OP} @var{MPFR_EXP}
 @deffnx Builtin mpfr_get_exp @var{MPFR_EXPVAR} @var{MPFR_OP}
 Interfaces to the C language functions @cfunc{mpfr_set_exp}, @cfunc{mpfr_get_exp}.
+
+@example
+declare OP
+
+mpfr_alloc_and_init OP
+@{
+    mpfr_set_si @WW{OP} 1 @WW{MPFR_RNDN}
+    mpfr_set_exp @WW{OP} 2
+    mpfr_just_printit_dammit @WW{OP}    @print{} 0.200000e1
+@}
+mpfr_clear_and_free @WW{OP}
+@end example
 @end deffn
 
 

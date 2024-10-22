@@ -379,6 +379,84 @@ function misc-mpfr_copysign-1.1 () {
 }
 
 
+# mpfr_set_exp
+
+function misc-mpfr_set_exp-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_set_exp
+    then
+	declare -r EXPECTED_RESULT='2'
+	declare RESULT
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='1'
+
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_exp WW(OP) 2
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    dotest-predicate mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_get_exp
+
+function misc-mpfr_get_exp-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_get_exp
+    then
+	declare EXPECTED_EXP='1'
+	declare EXP
+	declare	-a OPS
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r INITVAL='1'
+
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OP) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_get_exp EXP WW(OP)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OP))
+
+	    dotest-debug WW(EXPECTED_EXP) WW(EXP)
+	    dotest-equal WW(EXPECTED_EXP) WW(EXP)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
 #### let's go
 
 dotest misc-
