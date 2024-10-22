@@ -264,8 +264,8 @@ function mmux_bash_mpfr_library_before_unloading_hook () {
 	  mpfr_alloc_and_init_shell_array			\
 	  mpfr_clear_and_free_shell_array			\
 	  mpfr_alloc_and_init_pointers_array			\
-	  mmux_bash_pointers_library_after_loading_hook		\
-	  mmux_bash_pointers_library_before_unloading_hook
+	  mmux_bash_mpfr_library_after_loading_hook		\
+	  mmux_bash_mpfr_library_before_unloading_hook
 
     # FIXME  For a  perfect cleanup  we should  also unset  the global  variables defined  by the  C
     # language library initialisation builtin.  (Marco Maggi; Sep 15, 2024)

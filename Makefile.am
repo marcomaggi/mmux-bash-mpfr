@@ -219,6 +219,7 @@ EXTRA_DIST		+= \
 	tests/init.test.m4			\
 	tests/integers.test.m4			\
 	tests/miscellaneous.test.m4		\
+	tests/packages.test.m4			\
 	tests/printing.test.m4			\
 	tests/rounding.test.m4			\
 	tests/sign.test.4			\
@@ -241,6 +242,7 @@ MMUX_CHECK_BUILT_TESTS	= \
 	tests/init.test				\
 	tests/integers.test			\
 	tests/miscellaneous.test		\
+	tests/packages.test			\
 	tests/printing.test			\
 	tests/rounding.test			\
 	tests/sign.test				\
