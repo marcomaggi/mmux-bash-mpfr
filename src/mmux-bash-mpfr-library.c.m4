@@ -114,6 +114,10 @@ m4_define([[[MMUX_DEFINE_MPFR_CONSTANT_VARIABLE]]],[[[
 #endif
 ]]])
 
+m4_define([[[MMUX_DEFINE_MPFR_PREC_CONSTANT_VARIABLE]]],[[[{
+  mmux_mpfr_prec_bind_to_variable("$1", $1, MMUX_BUILTIN_NAME_STR);
+}]]])
+
 MMUX_BASH_BUILTIN_MAIN([[[mmux_bash_mpfr_library_init]]])
 {
   {
@@ -127,8 +131,8 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_bash_mpfr_library_init]]])
     mmux_bash_create_global_sint_variable("mpfr_rnd_SIZEOF",	sizeof(mpfr_rnd_t),	MMUX_BUILTIN_NAME_STR);
     mmux_bash_create_global_sint_variable("mpfr_exp_SIZEOF",	sizeof(mpfr_exp_t),	MMUX_BUILTIN_NAME_STR);
     mmux_bash_create_global_sint_variable("mpfr_prec_SIZEOF",	sizeof(mpfr_prec_t),	MMUX_BUILTIN_NAME_STR);
-    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_PREC_MIN]]])
-    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_PREC_MAX]]])
+    MMUX_DEFINE_MPFR_PREC_CONSTANT_VARIABLE([[[MPFR_PREC_MIN]]])
+    MMUX_DEFINE_MPFR_PREC_CONSTANT_VARIABLE([[[MPFR_PREC_MAX]]])
   }
   {
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDN]]]);
