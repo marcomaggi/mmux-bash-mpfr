@@ -180,6 +180,7 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_max
 
 		      mpfr_log
+		      mpfr_log_ui
 		      mpfr_log2
 		      mpfr_log10
 		      mpfr_log1p

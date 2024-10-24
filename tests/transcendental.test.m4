@@ -82,71 +82,31 @@ function transcendental-mpfr_log-1.1 () {
 }
 
 
-# mpfr_log
-
-function transcendental-mpfr_log-1.1 () {
-    if mmux_bash_pointers_builtin_p mpfr_log
-    then
-	declare -r INITVAL='1' EXPECTED_RESULT='0'
-	declare	-a OPS
-	declare RESULT
-
-	dotest-unset-debug
-
-	mbfl_location_enter
-	{
-	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
-	    else mbfl_location_leave_then_return_failure
-	    fi
-
-	    if ! mpfr_set_si WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
-	    then mbfl_location_leave_then_return_failure
-	    fi
-
-	    if ! mpfr_log WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
-	    then mbfl_location_leave_then_return_failure
-	    fi
-
-	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
-
-	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
-	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
-	}
-	mbfl_location_leave
-    else dotest-skipped
-    fi
-}
-
-
 # mpfr_log_ui
 
 function transcendental-mpfr_log_ui-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_log_ui
     then
-	declare -r INITVAL='1'
-	declare	-a OPS
+	declare -r INITVAL='123'
+	declare	OP
 	declare RESULT EXPECTED_RESULT
 
 	dotest-unset-debug
 
 	mbfl_location_enter
 	{
-	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    if mpfr_alloc_and_init OP
+	    then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
-	    if ! mpfr_set_si WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    if ! mpfr_log_ui WW(OP) WW(INITVAL) WW(MPFR_RNDN)
 	    then mbfl_location_leave_then_return_failure
 	    fi
 
-	    if ! mpfr_log_ui WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
-	    then mbfl_location_leave_then_return_failure
-	    fi
-
-	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+	    RESULT=$(mpfr_just_printit_dammit -n 10 WW(OP))
 	    mmux_double_log EXPECTED_RESULT WW(INITVAL)
+	    mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
 
 	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
 	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
@@ -347,9 +307,335 @@ function transcendental-mpfr_log10p1-1.1 () {
 }
 
 
+# mpfr_exp
+
+function transcendental-mpfr_exp-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_exp
+    then
+	declare -r INITVAL='1.23'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_exp WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+
+	    mmux_double_exp EXPECTED_RESULT WW(INITVAL)
+	    mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_exp2
+
+function transcendental-mpfr_exp2-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_exp2
+    then
+	declare -r INITVAL='1.23'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_exp2 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+
+	    mmux_double_exp2 EXPECTED_RESULT WW(INITVAL)
+	    mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_exp10
+
+function transcendental-mpfr_exp10-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_exp10
+    then
+	declare -r INITVAL='1.23'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_exp10 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit -n 10 WW(OPS,0))
+
+	    mmux_double_exp10 EXPECTED_RESULT WW(INITVAL)
+	    mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_expm1
+
+function transcendental-mpfr_expm1-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_expm1
+    then
+	declare -r INITVAL='1.23'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_expm1 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit -n 10 WW(OPS,0))
+
+	    mmux_double_expm1 EXPECTED_RESULT WW(INITVAL)
+	    mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_exp2m1
+
+function transcendental-mpfr_exp2m1-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_exp2m1
+    then
+	declare -r INITVAL='1.23'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_exp2m1 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit -n 10 WW(OPS,0))
+
+	    mmux_double_exp2 EXPECTED_RESULT WW(INITVAL)
+	    mmux_double_sub  EXPECTED_RESULT WW(EXPECTED_RESULT) 1
+	    mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_exp10m1
+
+function transcendental-mpfr_exp10m1-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_exp10m1
+    then
+	declare -r INITVAL='1.23'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_exp10m1 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit -n 10 WW(OPS,0))
+
+	    mmux_double_exp10 EXPECTED_RESULT WW(INITVAL)
+	    mmux_double_sub   EXPECTED_RESULT WW(EXPECTED_RESULT) 1
+	    mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_pow
+
+function transcendental-mpfr_pow-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_pow
+    then
+	declare -r INITVAL1='1.23' INITVAL2='4.56'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 3
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,1) WW(INITVAL1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,2) WW(INITVAL2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_pow WW(OPS,0) WW(OPS,1) WW(OPS,2) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit -n 10 WW(OPS,0))
+
+	    mmux_double_pow EXPECTED_RESULT WW(INITVAL1) WW(INITVAL2)
+	    mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_sin
+
+function transcendental-mpfr_sin-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_sin
+    then
+	declare -r INITVAL='1.23'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_d WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_sin WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit -n 10 WW(OPS,0))
+
+	    mmux_double_sin EXPECTED_RESULT WW(INITVAL)
+	    mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
 # mpfr_y0
 
-function transcendental-mpfr_0-1.1 () {
+function transcendental-mpfr_y0-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_y0
     then
 	declare -r INITVAL='1.23'
