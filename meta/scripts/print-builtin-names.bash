@@ -319,6 +319,11 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_nanflag_p
 		      mpfr_inexflag_p
 		      mpfr_erangeflag_p
+		      mpfr_flags_clear
+		      mpfr_flags_set
+		      mpfr_flags_test
+		      mpfr_flags_save
+		      mpfr_flags_restore
 		     )
 
 ### ------------------------------------------------------------------------

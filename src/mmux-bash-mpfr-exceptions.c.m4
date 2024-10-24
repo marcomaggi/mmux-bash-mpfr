@@ -30,7 +30,7 @@
 
 
 /** --------------------------------------------------------------------
- ** Exponent builtins.
+ ** Exceptions builtins.
  ** ----------------------------------------------------------------- */
 
 m4_define([[[DEFINE_VOID_VOID_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
@@ -81,5 +81,90 @@ DEFINE_INT_VOID_BUILTIN([[[mpfr_divby0_p]]])
 DEFINE_INT_VOID_BUILTIN([[[mpfr_nanflag_p]]])
 DEFINE_INT_VOID_BUILTIN([[[mpfr_inexflag_p]]])
 DEFINE_INT_VOID_BUILTIN([[[mpfr_erangeflag_p]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_clear]]])
+{
+  mpfr_flags_t	mask;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FLAGS([[[mask]]],	[[[argv[1]]]]);
+  {
+    MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](mask);
+    return MMUX_SUCCESS;
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(2 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGS_MASK"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(MASK)."]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_set]]])
+{
+  mpfr_flags_t	mask;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FLAGS([[[mask]]],	[[[argv[1]]]]);
+  {
+    MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](mask);
+    return MMUX_SUCCESS;
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(2 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGS_MASK"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(MASK)."]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_test]]])
+{
+  mpfr_flags_t	mask;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FLAGS([[[mask]]],	[[[argv[2]]]]);
+  {
+    mpfr_flags_t	rv = MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](mask);
+    return mmux_mpfr_flags_bind_to_variable(argv[1], rv, MMUX_BUILTIN_NAME_STR);
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGSVAR MPFR_FLAGS_MASK"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(FLAGSVAR,MASK)."]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_save]]])
+{
+  mpfr_flags_t	rv = MMUX_BASH_BUILTIN_IDENTIFIER[[[]]]();
+  return mmux_mpfr_flags_bind_to_variable(argv[1], rv, MMUX_BUILTIN_NAME_STR);
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(2 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGSVAR"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(FLAGSVAR)."]]])
+
+/* ------------------------------------------------------------------ */
+
+MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_restore]]])
+{
+  mpfr_flags_t	flags, mask;
+
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FLAGS([[[flags]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FLAGS([[[mask]]],	[[[argv[2]]]]);
+  {
+    MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](flags,mask);
+    return MMUX_SUCCESS;
+  }
+  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(3 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGSVAR MPFR_FLAGS_MASK"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER()(FLAGSVAR,MASK)."]]])
 
 /* end of file */

@@ -50,8 +50,12 @@
 @end macro
 @end ifnotinfo
 
-@macro WW{VARNAME}
+@macro RR{VARNAME}
 $@{\VARNAME\:?@}
+@end macro
+
+@macro WW{VARNAME}
+"$@{\VARNAME\:?@}"
 @end macro
 
 @macro MpfrBuiltin{NAME}
@@ -415,9 +419,9 @@ source mmux-bash-mpfr
 declare OP
 
 mpfr_alloc_and_init OP
-mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
-mpfr_just_printit_dammit @WW{OP}
-mpfr_clear_and_free @WW{OP}
+mpfr_set_d @RR{OP} '1.23' @RR{MPFR_RNDN}
+mpfr_just_printit_dammit @RR{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 
 This package depends upon the facilities of the external package @mmux{} Bash Pointers, @xref{Top,
@@ -547,6 +551,24 @@ The string representation of a shell variable name: the builtin taking it as par
 successful, will store in the variable the string representation of a value of type
 @objtype{mpfr_prec_t}.  If the builtin fails: the shell variable is left untouched.
 
+@item MPFR_FLAGS
+@itemx MPFR_FLAGS_MASK
+@cindex MPFR_FLAGS, builtin argument
+@cindex builtin argument MPFR_FLAGS
+@cindex argument MPFR_FLAGS, for builtins
+@cindex MPFR_FLAGS_MASK, builtin argument
+@cindex builtin argument MPFR_FLAGS_MASK
+@cindex argument MPFR_FLAGS_MASK, for builtins
+A string representation of a value of type @objtype{mpfr_flags_t}.
+
+@item MPFR_FLAGSVAR
+@cindex MPFR_FLAGSVAR, builtin argument
+@cindex builtin argument MPFR_FLAGSVAR
+@cindex argument MPFR_FLAGS, for builtins
+The string representation of a shell variable name: the builtin taking it as parameter, when
+successful, will store in the variable the string representation of a value of type
+@objtype{mpfr_flags_t}.  If the builtin fails: the shell variable is left untouched.
+
 @item STRVAR
 @cindex MPFR_STRVAR, builtin argument
 @cindex builtin argument MPFR_STRVAR
@@ -641,11 +663,11 @@ mpfr_alloc_and_init_shell_array OPS 3
     declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[2]'
     declare MPFR_RV
 
-    mpfr_set_si @WW{OP1} 123 @WW{MPFR_RNDN}
-    mpfr_set_si @WW{OP2} 456 @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP1} 123 @RR{MPFR_RNDN}
+    mpfr_set_si @RR{OP2} 456 @RR{MPFR_RNDN}
 
-    mpfr_add @WW{ROP} @WW{OP1} @WW{OP2} @WW{MPFR_RNDN}
-    printf '%d\n' "@WW{MPFR_RV}"  @print{} [whatever is returned by the C function mpfr_add()]
+    mpfr_add @RR{ROP} @RR{OP1} @RR{OP2} @RR{MPFR_RNDN}
+    printf '%d\n' "@RR{MPFR_RV}"  @print{} [whatever is returned by the C function mpfr_add()]
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -809,16 +831,16 @@ Interfaces to the C language functions @cfunc{mpfr_init}, @cfunc{mpfr_init2}, @c
 @example
 declare OP1 OP2
 
-mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
+mmux_libc_calloc OP 1 @RR{mpfr_SIZEOF}
 @{
-    mpfr_init @WW{OP}
+    mpfr_init @RR{OP}
     @{
-        mpfr_set_si @WW{OP} 123 @WW{MPFR_RNDN}
-        mpfr_just_printit_dammit @WW{OP}
+        mpfr_set_si @RR{OP} 123 @RR{MPFR_RNDN}
+        mpfr_just_printit_dammit @RR{OP}
     @}
-    mpfr_clear @WW{OP}
+    mpfr_clear @RR{OP}
 @}
-mmux_libc_free @WW{OP}
+mmux_libc_free @RR{OP}
 @end example
 @end deffn
 
@@ -831,20 +853,20 @@ Interfaces to the C language functions @cfunc{mpfr_inits}, @cfunc{mpfr_inits2}, 
 @example
 declare OP1 OP2
 
-mmux_libc_calloc 2 OP1 @WW{mpfr_SIZEOF}
+mmux_libc_calloc 2 OP1 @RR{mpfr_SIZEOF}
 @{
-    mmux_pointer_add OP2 @WW{OP1} @WW{mpfr_SIZEOF}
+    mmux_pointer_add OP2 @RR{OP1} @RR{mpfr_SIZEOF}
 
-    mpfr_inits @WW{OP1} @WW{OP2}
+    mpfr_inits @RR{OP1} @RR{OP2}
     @{
-        mpfr_set_si @WW{OP1} -12 @WW{MPFR_RNDN}
-        mpfr_set_ui @WW{OP2} +34 @WW{MPFR_RNDN}
-        mpfr_just_printit_dammit @WW{OP1}
-        mpfr_just_printit_dammit @WW{OP2}
+        mpfr_set_si @RR{OP1} -12 @RR{MPFR_RNDN}
+        mpfr_set_ui @RR{OP2} +34 @RR{MPFR_RNDN}
+        mpfr_just_printit_dammit @RR{OP1}
+        mpfr_just_printit_dammit @RR{OP2}
     @}
-    mpfr_clears @WW{OP1} @WW{OP2}
+    mpfr_clears @RR{OP1} @RR{OP2}
 @}
-mmux_libc_free @WW{OP1}
+mmux_libc_free @RR{OP1}
 @end example
 @end deffn
 
@@ -856,10 +878,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_si @WW{OP} 123 @WW{MPFR_RNDN}
-    mpfr_just_printit_dammit @WW{OP}
+    mpfr_set_si @RR{OP} 123 @RR{MPFR_RNDN}
+    mpfr_just_printit_dammit @RR{OP}
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 
 
@@ -893,22 +915,22 @@ To allocate with a single function call and initialise with another single funct
 declare -a OPS
 declare -i DIM=5
 
-mpfr_alloc_shell_array OPS @WW{DIM}
+mpfr_alloc_shell_array OPS @RR{DIM}
 @{
     mpfr_init_shell_array OPS
     @{
         declare -i IDX
 
         for ((IDX=0; IDX < $@{#OPS[@@]@}; ++IDX))
-        do mpfr_set_si $@{OPS[@WW{IDX}]:?@} @WW{IDX} @WW{MPFR_RNDN}
+        do mpfr_set_si $@{OPS[@RR{IDX}]:?@} @RR{IDX} @RR{MPFR_RNDN}
         done
 
         # We can access the individual numbers.
         declare -n ROP=OPS[0] OP1=OPS[1] OP2=OPS[2]
 
-        mpfr_just_printit_dammit @WW{ROP}
-        mpfr_just_printit_dammit @WW{OP1}
-        mpfr_just_printit_dammit @WW{OP2}
+        mpfr_just_printit_dammit @RR{ROP}
+        mpfr_just_printit_dammit @RR{OP1}
+        mpfr_just_printit_dammit @RR{OP2}
     @}
     mpfr_clear_shell_array OPS
 @}
@@ -921,18 +943,18 @@ To allocate and initialise with a single function call:
 declare -a OPS
 declare -i DIM=5 IDX
 
-mpfr_alloc_and_init_shell_array OPS @WW{DIM}
+mpfr_alloc_and_init_shell_array OPS @RR{DIM}
 @{
     for ((IDX=0; IDX < $@{#OPS[@@]@}; ++IDX))
-    do mpfr_set_si $@{OPS[@WW{IDX}]:?@} @WW{IDX} @WW{MPFR_RNDN}
+    do mpfr_set_si $@{OPS[@RR{IDX}]:?@} @RR{IDX} @RR{MPFR_RNDN}
     done
 
     # We can access the individual numbers.
     declare -n ROP=OPS[0] OP1=OPS[1] OP2=OPS[2]
 
-    mpfr_just_printit_dammit @WW{ROP}
-    mpfr_just_printit_dammit @WW{OP1}
-    mpfr_just_printit_dammit @WW{OP2}
+    mpfr_just_printit_dammit @RR{ROP}
+    mpfr_just_printit_dammit @RR{OP1}
+    mpfr_just_printit_dammit @RR{OP2}
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -1023,18 +1045,18 @@ declare -a OPS
 declare -i DIM=5
 declare POINTERS
 
-mpfr_alloc_and_init_shell_array OPS @WW{DIM}
+mpfr_alloc_and_init_shell_array OPS @RR{DIM}
 @{
     mpfr_alloc_and_init_pointers_array POINTERS OPS
     @{
         # do something with the pointers
         declare ROP OP
 
-        mmux_pointer_array_ref ROP @WW{POINTERS} 0
-        mmux_pointer_array_ref  OP @WW{POINTERS} 1
+        mmux_pointer_array_ref ROP @RR{POINTERS} 0
+        mmux_pointer_array_ref  OP @RR{POINTERS} 1
         # ...
     @}
-    mmux_libc_free @WW{POINTERS}
+    mmux_libc_free @RR{POINTERS}
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -1056,9 +1078,9 @@ Interfaces to the C language functions @cfunc{mpfr_set_default_prec}, @cfunc{mpf
 declare -r NEW_PREC=17
 declare PREC
 
-mpfr_set_default_prec @WW{NEW_PREC}
+mpfr_set_default_prec @RR{NEW_PREC}
 mpfr_get_default_prec PREC
-@WW{PREC}   @result{} 17
+@RR{PREC}   @result{} 17
 @end example
 @end defun
 
@@ -1080,10 +1102,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
-    mpfr_just_printit_dammit @WW{OP}
+    mpfr_set_d @RR{OP} '1.23' @RR{MPFR_RNDN}
+    mpfr_just_printit_dammit @RR{OP}
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 
 @c ------------------------------------------------------------------------
@@ -1137,10 +1159,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_str @WW{OP} @WW{STR} @WW{BASE} @WW{MPFR_RNDN}
-    mpfr_just_printit_dammit @WW{OP}
+    mpfr_set_str @RR{OP} @RR{STR} @RR{BASE} @RR{MPFR_RNDN}
+    mpfr_just_printit_dammit @RR{OP}
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 @end deffn
 
@@ -1159,10 +1181,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_inf @WW{OP} +1
-    mpfr_just_printit_dammit @WW{OP}
+    mpfr_set_inf @RR{OP} +1
+    mpfr_just_printit_dammit @RR{OP}
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 @end deffn
 
@@ -1176,10 +1198,10 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_zero @WW{OP} +1
-    mpfr_just_printit_dammit @WW{OP}
+    mpfr_set_zero @RR{OP} +1
+    mpfr_just_printit_dammit @RR{OP}
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 @end deffn
 
@@ -1217,16 +1239,16 @@ declare VAL OP MPFR_RV
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP} '123' @RR{MPFR_RNDN}
 
-    mpfr_fits_slong_p @WW{OP}
-    if (( 1 == @WW{MPFR_RV} ))
+    mpfr_fits_slong_p @RR{OP}
+    if (( 1 == @RR{MPFR_RV} ))
     then
-        mpfr_get_si VAL @WW{OP} @WW{MPFR_RNDN}
-        printf '%s\n' @WW{VAL}
+        mpfr_get_si VAL @RR{OP} @RR{MPFR_RNDN}
+        printf '%s\n' @RR{VAL}
     fi
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 
 @ref{overview conventions, Conventions used in this documentation}.
@@ -1275,16 +1297,16 @@ declare MAN EXP OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
-    mpfr_get_si VAL @WW{OP} @WW{MPFR_RNDN}
+    mpfr_set_d @RR{OP} '1.23' @RR{MPFR_RNDN}
+    mpfr_get_si VAL @RR{OP} @RR{MPFR_RNDN}
 
     mmux_double_set_format "%f"
-    mpfr_get_d_2exp MAN EXP @WW{OP} @WW{MPFR_RNDN}
+    mpfr_get_d_2exp MAN EXP @RR{OP} @RR{MPFR_RNDN}
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 
-@WW{MAN}        @result{} 0.615000
-@WW{EXP}        @result{} 1
+@RR{MAN}        @result{} 0.615000
+@RR{EXP}        @result{} 1
 @end example
 @end deffn
 
@@ -1311,12 +1333,12 @@ mpfr_alloc_and_init_shell_array OPS
     declare -n X='OPS[0]' Y='OPS[1]'
     declare EXP
 
-    mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
+    mpfr_set_d @RR{OP} '1.23' @RR{MPFR_RNDN}
 
-    mpfr_frexp EXP @WW{Y} @WW{X} @WW{MPFR_RNDN}
+    mpfr_frexp EXP @RR{Y} @RR{X} @RR{MPFR_RNDN}
 
-    printf '%s\n' @WW{EXP}              @print{} 1
-    mpfr_just_printit_dammit @WW{Y}     @print{} 0.615000e0
+    printf '%s\n' @RR{EXP}              @print{} 1
+    mpfr_just_printit_dammit @RR{Y}     @print{} 0.615000e0
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -1344,13 +1366,13 @@ declare OP MAN EXP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_d @WW{OP} '1.23' @WW{MPFR_RNDN}
-    mpfr_get_str MAN EXP @WW{BASE} @WW{NDIGITS} @WW{OP} @WW{MPFR_RNDN}
+    mpfr_set_d @RR{OP} '1.23' @RR{MPFR_RNDN}
+    mpfr_get_str MAN EXP @RR{BASE} @RR{NDIGITS} @RR{OP} @RR{MPFR_RNDN}
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 
-@WW{MAN}            @result{} 12300000000000000
-@WW{EXP}            @result{} 1
+@RR{MAN}            @result{} 12300000000000000
+@RR{EXP}            @result{} 1
 @end example
 @end deffn
 
@@ -1384,8 +1406,8 @@ Interface to the C language function @cfunc{mpfr_get_str_ndigits}.
 declare -ri BASE=10 PREC=7
 declare SIZE
 
-mpfr_get_str_ndigits SIZE @WW{BASE} @WW{PREC}
-@WW{SIZE}       @result{} 4
+mpfr_get_str_ndigits SIZE @RR{BASE} @RR{PREC}
+@RR{SIZE}       @result{} 4
 @end example
 @end deffn
 
@@ -1403,12 +1425,12 @@ mpfr_alloc_and_init_shell_array OPS 3
 @{
     declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[02]'
 
-    mpfr_set_si @WW{OP1} '123' @WW{MPFR_RNDN}
-    mpfr_set_si @WW{OP2} '456' @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP1} '123' @RR{MPFR_RNDN}
+    mpfr_set_si @RR{OP2} '456' @RR{MPFR_RNDN}
 
-    mpfr_add @WW{ROP} @WW{OP1} @WW{OP2} @WW{MPFR_RNDN}
+    mpfr_add @RR{ROP} @RR{OP1} @RR{OP2} @RR{MPFR_RNDN}
 
-    mpfr_just_printit_dammit @WW{ROP}   @print{} 0.579000e3
+    mpfr_just_printit_dammit @RR{ROP}   @print{} 0.579000e3
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -1508,12 +1530,12 @@ mpfr_alloc_and_init_shell_array OPS 3
     declare -n ROP='OPS[0]' OP1='OPS[1]'
     declare OP2=3
 
-    mpfr_set_si @WW{OP1} '5' @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP1} '5' @RR{MPFR_RNDN}
 
-    mpfr_mul_2si @WW{ROP} @WW{OP1} @WW{OP2} @WW{MPFR_RNDN}
+    mpfr_mul_2si @RR{ROP} @RR{OP1} @RR{OP2} @RR{MPFR_RNDN}
 
     # 5 * 2^3 = 5 * 8 = 40
-    mpfr_just_printit_dammit @WW{ROP}   @print{} 0.400000e2
+    mpfr_just_printit_dammit @RR{ROP}   @print{} 0.400000e2
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -1616,12 +1638,12 @@ mpfr_alloc_and_init_shell_array OPS 3
     declare -n ROP='OPS[0]' OP1='OPS[1]'
     declare OP2=3
 
-    mpfr_set_si @WW{OP1} '40' @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP1} '40' @RR{MPFR_RNDN}
 
-    mpfr_div_2si @WW{ROP} @WW{OP1} @WW{OP2} @WW{MPFR_RNDN}
+    mpfr_div_2si @RR{ROP} @RR{OP1} @RR{OP2} @RR{MPFR_RNDN}
 
     # 40 / 2^3 = 40 / 8 = 5
-    mpfr_just_printit_dammit @WW{ROP}   @print{} 0.500000e1
+    mpfr_just_printit_dammit @RR{ROP}   @print{} 0.500000e1
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -1665,11 +1687,11 @@ mpfr_alloc_and_init_shell_array OPS 2
 @{
     declare -n ROP='OPS[0]' OP='OPS[1]'
 
-    mpfr_set_si @WW{OP} 100 @WW{MPFR_RNDN}
-    mpfr_rec_sqrt @WW{ROP} @WW{OP} @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP} 100 @RR{MPFR_RNDN}
+    mpfr_rec_sqrt @RR{ROP} @RR{OP} @RR{MPFR_RNDN}
 
     # 1 / sqrt(100) = 1 / 10 = 0.1
-    mpfr_just_printit_dammit @WW{ROP}   @print{} 0.100000e0
+    mpfr_just_printit_dammit @RR{ROP}   @print{} 0.100000e0
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -1728,14 +1750,14 @@ mpfr_alloc_and_init_shell_array OPS 4
 @{
     declare -n ROP='OPS[0]' OP1='OPS[1]' OP2='OPS[2]' OP3='OPS[3]'
 
-    mpfr_set_si @WW{OP1} 11 @WW{MPFR_RNDN}
-    mpfr_set_si @WW{OP2} 22 @WW{MPFR_RNDN}
-    mpfr_set_si @WW{OP3} 33 @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP1} 11 @RR{MPFR_RNDN}
+    mpfr_set_si @RR{OP2} 22 @RR{MPFR_RNDN}
+    mpfr_set_si @RR{OP3} 33 @RR{MPFR_RNDN}
 
     # (11 * 22) + 33
-    mpfr_fma @WW{ROP} @WW{OP1} @WW{OP2} @WW{OP3} @WW{MPFR_RNDN}
+    mpfr_fma @RR{ROP} @RR{OP1} @RR{OP2} @RR{OP3} @RR{MPFR_RNDN}
 
-    mpfr_just_printit_dammit @WW{ROP}   @print{} 0.275000e3
+    mpfr_just_printit_dammit @RR{ROP}   @print{} 0.275000e3
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -1775,25 +1797,25 @@ declare -a OPS
 declare -i DIM=5
 declare POINTERS
 
-mpfr_alloc_and_init_shell_array OPS @WW{DIM}
+mpfr_alloc_and_init_shell_array OPS @RR{DIM}
 @{
     mpfr_alloc_and_init_pointers_array POINTERS OPS
     @{
         mpfr_alloc_and_init ROP
         @{
-            mpfr_set_si $@{OPS[0]:?@} 11 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS[1]:?@} 22 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS[2]:?@} 33 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS[3]:?@} 44 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS[4]:?@} 55 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS[0]:?@} 11 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS[1]:?@} 22 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS[2]:?@} 33 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS[3]:?@} 44 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS[4]:?@} 55 @RR{MPFR_RNDN}
 
-            mpfr_sum @WW{ROP} @WW{POINTERS} @WW{DIM} @WW{MPFR_RNDN}
+            mpfr_sum @RR{ROP} @RR{POINTERS} @RR{DIM} @RR{MPFR_RNDN}
 
-            mpfr_just_printit_dammit @WW{ROP}
+            mpfr_just_printit_dammit @RR{ROP}
         @}
-        mpfr_clear_and_free @WW{ROP}
+        mpfr_clear_and_free @RR{ROP}
     @}
-    mmux_libc_free @WW{POINTERS}
+    mmux_libc_free @RR{POINTERS}
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -1813,34 +1835,34 @@ declare -a OPS1 OPS2
 declare -i DIM=5
 declare POINTERS1 POINTERS2
 
-mpfr_alloc_and_init_shell_array OPS1 @WW{DIM}
-mpfr_alloc_and_init_shell_array OPS2 @WW{DIM}
+mpfr_alloc_and_init_shell_array OPS1 @RR{DIM}
+mpfr_alloc_and_init_shell_array OPS2 @RR{DIM}
 @{
     mpfr_alloc_and_init_pointers_array POINTERS1 OPS1
     mpfr_alloc_and_init_pointers_array POINTERS2 OPS2
     @{
         mpfr_alloc_and_init ROP
         @{
-            mpfr_set_si $@{OPS1[0]:?@} 11 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS1[1]:?@} 22 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS1[2]:?@} 33 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS1[3]:?@} 44 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS1[4]:?@} 55 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS1[0]:?@} 11 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS1[1]:?@} 22 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS1[2]:?@} 33 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS1[3]:?@} 44 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS1[4]:?@} 55 @RR{MPFR_RNDN}
 
-            mpfr_set_si $@{OPS2[0]:?@} 66 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS2[1]:?@} 77 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS2[2]:?@} 88 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS2[3]:?@} 99 @WW{MPFR_RNDN}
-            mpfr_set_si $@{OPS2[4]:?@} 10 @WW{MPFR_RNDN}
+            mpfr_set_si $@{OPS2[0]:?@} 66 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS2[1]:?@} 77 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS2[2]:?@} 88 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS2[3]:?@} 99 @RR{MPFR_RNDN}
+            mpfr_set_si $@{OPS2[4]:?@} 10 @RR{MPFR_RNDN}
 
-            mpfr_dot @WW{ROP} @WW{POINTERS1} @WW{POINTERS2} @WW{DIM} @WW{MPFR_RNDN}
+            mpfr_dot @RR{ROP} @RR{POINTERS1} @RR{POINTERS2} @RR{DIM} @RR{MPFR_RNDN}
 
-            mpfr_just_printit_dammit @WW{ROP}
+            mpfr_just_printit_dammit @RR{ROP}
         @}
-        mpfr_clear_and_free @WW{ROP}
+        mpfr_clear_and_free @RR{ROP}
     @}
-    mmux_libc_free @WW{POINTERS2}
-    mmux_libc_free @WW{POINTERS1}
+    mmux_libc_free @RR{POINTERS2}
+    mmux_libc_free @RR{POINTERS1}
 @}
 mpfr_clear_and_free_shell_array OPS2
 mpfr_clear_and_free_shell_array OPS1
@@ -1887,17 +1909,17 @@ mpfr_alloc_and_init_shell_array OPS 2
 @{
     declare -n OP1='OPS[0]' OP2='OPS[1]'
 
-    mpfr_set_si @WW{OP1} 123 @WW{MPFR_RNDN}
-    mpfr_set_si @WW{OP2} 456 @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP1} 123 @RR{MPFR_RNDN}
+    mpfr_set_si @RR{OP2} 456 @RR{MPFR_RNDN}
 
-    mpfr_cmp @WW{OP1} @WW{OP2}
+    mpfr_cmp @RR{OP1} @RR{OP2}
 
     if (( MPFR_RV < 0 ))
     then # OP1 <  OP2
     else # OP1 >= OP2
     fi
 @}
-mpfr_clear_and_free_shell_array @WW{OPS}
+mpfr_clear_and_free_shell_array @RR{OPS}
 @end example
 @end deffn
 
@@ -1911,16 +1933,16 @@ declare OP1 OP2=100 EXPON=3
 
 mpfr_alloc_and_init OP1
 @{
-    mpfr_set_si @WW{OP} 800 @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP} 800 @RR{MPFR_RNDN}
 
-    mpfr_cmp_si_2exp @WW{OP1} @WW{OP2} @WW{EXPON}
+    mpfr_cmp_si_2exp @RR{OP1} @RR{OP2} @RR{EXPON}
 
     if (( 0 == MPFR_RV ))
     then # OP1 == OP2 * 2^EXPON
     else # otherwise
     fi
 @}
-mpfr_clear_and_free @WW{OP1}
+mpfr_clear_and_free @RR{OP1}
 @end example
 @end deffn
 
@@ -1942,16 +1964,16 @@ declare -i MPFR_RV
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP} '123' @RR{MPFR_RNDN}
 
-    mpfr_nan_p @WW{OP}
+    mpfr_nan_p @RR{OP}
 
     if (( 1 == MPFR_RV ))
     then # it is nan
     else # it is not nan
     fi
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 @end deffn
 
@@ -1997,17 +2019,17 @@ mpfr_alloc_and_init_shell_array OPS 2
 @{
     declare -n OP1='OPS[0]' OP2='OPS[1]'
 
-    mpfr_set_si @WW{OP1} 123 @WW{MPFR_RNDN}
-    mpfr_set_si @WW{OP2} 456 @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP1} 123 @RR{MPFR_RNDN}
+    mpfr_set_si @RR{OP2} 456 @RR{MPFR_RNDN}
 
-    mpfr_equal_p @WW{OP1} @WW{OP2}
+    mpfr_equal_p @RR{OP1} @RR{OP2}
 
     if (( 1 == MPFR_RV ))
     then # OP1 == OP2
     else # OP1 != OP2
     fi
 @}
-mpfr_clear_and_free_shell_array @WW{OPS}
+mpfr_clear_and_free_shell_array @RR{OPS}
 @end example
 @end deffn
 
@@ -2041,10 +2063,10 @@ mpfr_alloc_and_init_shell_array OPS 2
     declare -r ABSOLUTE_MARGIN_MPFR='0.1'
     declare -i MPFR_RV
 
-    mpfr_set_d @WW{OP1} '1.0'  @WW{MPFR_RNDN}
-    mpfr_set_d @WW{OP2} '1.02' @WW{MPFR_RNDN}
+    mpfr_set_d @RR{OP1} '1.0'  @RR{MPFR_RNDN}
+    mpfr_set_d @RR{OP2} '1.02' @RR{MPFR_RNDN}
 
-    mpfr_equal_absmargin @WW{OP1} @WW{OP2}
+    mpfr_equal_absmargin @RR{OP1} @RR{OP2}
 
     if (( 1 == MPFR_RV ))
     then # approximately equal
@@ -2098,10 +2120,10 @@ mpfr_alloc_and_init_shell_array OPS 2
     declare -i MPFR_RV
     declare -n OP1='OPS[0]' OP2='OPS[1]'
 
-    mpfr_set_d @WW{OP1} '1.0'  @WW{MPFR_RNDN}
-    mpfr_set_d @WW{OP2} '1.02' @WW{MPFR_RNDN}
+    mpfr_set_d @RR{OP1} '1.0'  @RR{MPFR_RNDN}
+    mpfr_set_d @RR{OP2} '1.02' @RR{MPFR_RNDN}
 
-    mpfr_equal_relepsilon @WW{OP1} @WW{OP2}
+    mpfr_equal_relepsilon @RR{OP1} @RR{OP2}
 
     if (( 1 == MPFR_RV ))
     then # approximately equal
@@ -2318,9 +2340,9 @@ Printing an initialised but unset number:
 @example
 declare OP
 
-mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
-mpfr_init @WW{OP}
-mpfr_dump @WW{OP}   @print{} @@NaN@@
+mmux_libc_calloc OP 1 @RR{mpfr_SIZEOF}
+mpfr_init @RR{OP}
+mpfr_dump @RR{OP}   @print{} @@NaN@@
 @end example
 
 Printing an initialised and set number:
@@ -2328,10 +2350,10 @@ Printing an initialised and set number:
 @example
 declare OP
 
-mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
-mpfr_init @WW{OP}
-mpfr_set_d @WW{OP} '2.0'
-mpfr_dump @WW{OP}
+mmux_libc_calloc OP 1 @RR{mpfr_SIZEOF}
+mpfr_init @RR{OP}
+mpfr_set_d @RR{OP} '2.0'
+mpfr_dump @RR{OP}
 @print{} 0.10000000000000000000000000000000000000000000000000000E2
 @end example
 @end deffn
@@ -2344,10 +2366,10 @@ the format is meant to resemble the standard @samp{%.6e}.
 @example
 declare OP
 
-mmux_libc_calloc OP 1 @WW{mpfr_SIZEOF}
-mpfr_init @WW{OP}
-mpfr_set_d @WW{OP} '123.4567890' @WW{MPFR_RNDN}
-mpfr_just_printit_dammit @WW{OP}
+mmux_libc_calloc OP 1 @RR{mpfr_SIZEOF}
+mpfr_init @RR{OP}
+mpfr_set_d @RR{OP} '123.4567890' @RR{MPFR_RNDN}
+mpfr_just_printit_dammit @RR{OP}
 @print{} 0.123457e3
 @end example
 @end defun
@@ -2369,10 +2391,10 @@ mpfr_alloc_and_init_shell_array OPS 2
 @{
     declare -n ROP='OPS[0]' OP='OPS[1]'
 
-    mpfr_set_d @WW{OP} '123.456' @WW{MPFR_RNDN}
-    mpfr_rint @WW{ROP} @WW{OP} @WW{MPFR_RNDN}
+    mpfr_set_d @RR{OP} '123.456' @RR{MPFR_RNDN}
+    mpfr_rint @RR{ROP} @RR{OP} @RR{MPFR_RNDN}
 
-    mpfr_just_printit_dammit @WW{ROP}   @print{} 0.123000e3
+    mpfr_just_printit_dammit @RR{ROP}   @print{} 0.123000e3
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -2407,13 +2429,13 @@ mpfr_alloc_and_init_shell_array OPS 3
 @{
     declare -n R='OPS[0]' X='OPS[1]' Y='OPS[2]'
 
-    mpfr_set_d @WW{X} '123' @WW{MPFR_RNDN}
-    mpfr_set_d @WW{Y}   '6' @WW{MPFR_RNDN}
+    mpfr_set_d @RR{X} '123' @RR{MPFR_RNDN}
+    mpfr_set_d @RR{Y}   '6' @RR{MPFR_RNDN}
 
-    mpfr_fmodquo @WW{R} Q @WW{X} @WW{Y} @WW{MPFR_RNDN}
+    mpfr_fmodquo @RR{R} Q @RR{X} @RR{Y} @RR{MPFR_RNDN}
 
-    mpfr_just_printit_dammit @WW{R}     @print{} 0.300000e1
-    printf 'Q=%s\n' @WW{Q}              @print{} Q=20
+    mpfr_just_printit_dammit @RR{R}     @print{} 0.300000e1
+    printf 'Q=%s\n' @RR{Q}              @print{} Q=20
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -2435,16 +2457,16 @@ declare -i MPFR_RV
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP} '123' @RR{MPFR_RNDN}
 
-    mpfr_integer_p @WW{OP}
+    mpfr_integer_p @RR{OP}
 
     if (( 1 == MPFR_RV ))
     then # it's an integer
     else # it is something else
     fi
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 @end deffn
 
@@ -2464,9 +2486,9 @@ Interfaces to the C language functions @cfunc{mpfr_set_default_rounding_mode},
 @example
 declare RND
 
-mpfr_set_default_rounding_mode @WW{MPFR_RNDZ}
+mpfr_set_default_rounding_mode @RR{MPFR_RNDZ}
 mpfr_get_default_rounding_mode RND
-@WW{RND}  @result{} [whatever MPFR_RNDZ is]
+@RR{RND}  @result{} [whatever MPFR_RNDZ is]
 @end example
 @end deffn
 
@@ -2489,12 +2511,12 @@ declare OP PREC
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_si @WW{OP} 1 @WW{MPFR_RNDN}
+    mpfr_set_si @RR{OP} 1 @RR{MPFR_RNDN}
 
-    mpfr_min_prec PREC @WW{OP}
-    @WW{PREC}   @result{} 1
+    mpfr_min_prec PREC @RR{OP}
+    @RR{PREC}   @result{} 1
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 @end deffn
 
@@ -2521,12 +2543,12 @@ mpfr_alloc_and_init_shell_array OPS 2
 @{
     declare -n OP1='OPS[0]' OP2='OPS[1]'
 
-    mpfr_set_prec @WW{OP1} 1
-    mpfr_set_si @WW{OP1} 1 @WW{MPFR_RNDN}
-    mpfr_set_si @WW{OP2} 3 @WW{MPFR_RNDN}
-    mpfr_nexttoward @WW{OP1} @WW{OP2}
+    mpfr_set_prec @RR{OP1} 1
+    mpfr_set_si @RR{OP1} 1 @RR{MPFR_RNDN}
+    mpfr_set_si @RR{OP2} 3 @RR{MPFR_RNDN}
+    mpfr_nexttoward @RR{OP1} @RR{OP2}
 
-    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.200000e1
+    mpfr_just_printit_dammit @RR{OP1}   @print{} 0.200000e1
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -2540,23 +2562,23 @@ mpfr_alloc_and_init_shell_array OPS 2
 @{
     declare -n OP1='OPS[0]' OP2='OPS[1]'
 
-    mpfr_set_prec @WW{OP1} 3
-    mpfr_set_si @WW{OP2} 3 @WW{MPFR_RNDN}
+    mpfr_set_prec @RR{OP1} 3
+    mpfr_set_si @RR{OP2} 3 @RR{MPFR_RNDN}
 
-    mpfr_set_si @WW{OP1} 1 @WW{MPFR_RNDN}
-    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.100000e1
+    mpfr_set_si @RR{OP1} 1 @RR{MPFR_RNDN}
+    mpfr_just_printit_dammit @RR{OP1}   @print{} 0.100000e1
 
-    mpfr_nexttoward @WW{OP1} @WW{OP2}
-    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.125000e1
+    mpfr_nexttoward @RR{OP1} @RR{OP2}
+    mpfr_just_printit_dammit @RR{OP1}   @print{} 0.125000e1
 
-    mpfr_nexttoward @WW{OP1} @WW{OP2}
-    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.150000e1
+    mpfr_nexttoward @RR{OP1} @RR{OP2}
+    mpfr_just_printit_dammit @RR{OP1}   @print{} 0.150000e1
 
-    mpfr_nexttoward @WW{OP1} @WW{OP2}
-    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.175000e1
+    mpfr_nexttoward @RR{OP1} @RR{OP2}
+    mpfr_just_printit_dammit @RR{OP1}   @print{} 0.175000e1
 
-    mpfr_nexttoward @WW{OP1} @WW{OP2}
-    mpfr_just_printit_dammit @WW{OP1}   @print{} 0.200000e1
+    mpfr_nexttoward @RR{OP1} @RR{OP2}
+    mpfr_just_printit_dammit @RR{OP1}   @print{} 0.200000e1
 @}
 mpfr_clear_and_free_shell_array OPS
 @end example
@@ -2573,6 +2595,9 @@ Interfaces to the C language functions @cfunc{mpfr_nextabove}, @cfunc{mpfr_nextb
 @chapter Sign of numbers builtins
 
 
+@ref{overview conventions, Conventions used in this documentation}.
+
+
 @deffn Builtin mpfr_sgn @var{MPFR_OP}
 Interface to the C language function @cfunc{mpfr_sgn}.  When successful return true; otherwise
 return false.  To inspect the predicate result we have to use the shell variable @env{MPFR_RV}.
@@ -2583,15 +2608,15 @@ declare -i MPFR_RV
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_si @WW{OP} '123' @WW{MPFR_RNDN}
-    mpfr_sgn @WW{OP}
+    mpfr_set_si @RR{OP} '123' @RR{MPFR_RNDN}
+    mpfr_sgn @RR{OP}
 
-    if (( 0 < @WW{MPFR_RV} ))
+    if (( 0 < @RR{MPFR_RV} ))
     then # the number is positive
     else # the number is negative or zero
     fi
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 @end deffn
 
@@ -2603,14 +2628,14 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_si @WW{OP} 1 @WW{MPFR_RNDN}
-    mpfr_signbit @WW{OP}
+    mpfr_set_si @RR{OP} 1 @RR{MPFR_RNDN}
+    mpfr_signbit @RR{OP}
     if (( 0 == MPFR_RV ))
     then # it is not set
     else # it is set
     fi
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 @end deffn
 
@@ -2627,6 +2652,9 @@ Interface to the C language function @cfunc{mpfr_setsign}.
 @chapter Exponents--related builtins
 
 
+@ref{overview conventions, Conventions used in this documentation}.
+
+
 @deffn Builtin mpfr_set_exp @var{MPFR_OP} @var{MPFR_EXP}
 @deffnx Builtin mpfr_get_exp @var{MPFR_EXPVAR} @var{MPFR_OP}
 Interfaces to the C language functions @cfunc{mpfr_set_exp}, @cfunc{mpfr_get_exp}.
@@ -2636,11 +2664,11 @@ declare OP
 
 mpfr_alloc_and_init OP
 @{
-    mpfr_set_si @WW{OP} 1 @WW{MPFR_RNDN}
-    mpfr_set_exp @WW{OP} 2
-    mpfr_just_printit_dammit @WW{OP}    @print{} 0.200000e1
+    mpfr_set_si @RR{OP} 1 @RR{MPFR_RNDN}
+    mpfr_set_exp @RR{OP} 2
+    mpfr_just_printit_dammit @RR{OP}    @print{} 0.200000e1
 @}
-mpfr_clear_and_free @WW{OP}
+mpfr_clear_and_free @RR{OP}
 @end example
 @end deffn
 
@@ -2665,6 +2693,9 @@ Interfaces to the C language functions @cfunc{mpfr_get_emin_min}, @cfunc{mpfr_ge
 @c page
 @node exceptions
 @chapter Exception--related bulitins
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @deffn Builtin void mpfr_clear_underflow
@@ -2702,27 +2733,65 @@ Interfaces to the corresponding C functions.
 @end deffn
 
 
-@deffn Builtin mpfr_flags_clear @var{SINT_MASK}
-Interfaces to the C language function @cfunc{mpfr_flags_clear}.
-@end deffn
-
-
-@deffn Builtin mpfr_flags_set @var{SINT_MASK}
+@deffn Builtin mpfr_flags_set @var{MPFR_FLAGS_MASK}
 Interfaces to the C language function @cfunc{mpfr_flags_set}.
+
+@example
+declare -r SET_MASK=$(( MPFR_FLAGS_NAN | MPFR_FLAGS_ERANGE ))
+declare -r GET_MASK=WW(MPFR_FLAGS_NAN)
+declare FLAGS
+
+mpfr_clear_flags
+mpfr_flags_set @RR{SET_MASK}
+mpfr_flags_test FLAGS @RR{GET_MASK}
+@RR{FLAGS}      @result{} [whatever $MPFR_FLAGS_NAN is]
+@end example
 @end deffn
 
 
-@deffn Builtin mpfr_flags_test @var{FLAGSVAR} @var{MASK}
+@deffn Builtin mpfr_flags_test @var{MPFR_FLAGSVAR} @var{MPFR_FLAGS_MASK}
 Interfaces to the C language function @cfunc{mpfr_flags_test}.
 @end deffn
 
 
-@deffn Builtin mpfr_flags_save @var{FLAGSVAR}
-Interfaces to the C language function @cfunc{mpfr_flags_save}.
+@deffn Builtin mpfr_flags_clear @var{MPFR_FLAGS_MASK}
+Interfaces to the C language function @cfunc{mpfr_flags_clear}.
+
+@example
+declare -r SET_MASK=$(( MPFR_FLAGS_NAN | MPFR_FLAGS_ERANGE ))
+declare -r CLEAR_MASK=@RR{MPFR_FLAGS_NAN}
+declare -r GET_MASK=@RR{SET_MASK}
+declare FLAGS
+
+mpfr_flags_set @RR{SET_MASK}
+mpfr_flags_clear @RR{CLEAR_MASK}
+mpfr_flags_test FLAGS @RR{GET_MASK}
+@RR{FLAGS}      @result{} [whatever $MPFR_FLAGS_ERANGE is]
+@end example
 @end deffn
 
 
-@deffn Builtin mpfr_flags_restore @var{FLAGS} @var{MASK}
+@deffn Builtin mpfr_flags_save @var{MPFR_FLAGSVAR}
+Interfaces to the C language function @cfunc{mpfr_flags_save}.
+
+@example
+declare -r SET_MASK=$(( MPFR_FLAGS_NAN | MPFR_FLAGS_ERANGE ))
+declare    SAVED_FLAGS
+declare -r RESTORE_MASK=@RR{MPFR_FLAGS_ERANGE}
+declare -r GET_MASK=@RR{SET_MASK}
+declare    FLAGS
+
+mpfr_flags_set @RR{SET_MASK}
+mpfr_flags_save SAVED_FLAGS
+mpfr_clear_flags
+mpfr_flags_restore @RR{SAVED_FLAGS} @RR{RESTORE_MASK}
+mpfr_flags_test FLAGS @RR{GET_MASK}
+@RR{FLAGS}      @result{} [whatever $MPFR_FLAGS_ERANGE is]
+@end example
+@end deffn
+
+
+@deffn Builtin mpfr_flags_restore @var{MPFR_FLAGS} @var{MPFR_FLAGS_MASK}
 Interfaces to the C language function @cfunc{mpfr_flags_restore}.
 @end deffn
 
@@ -2746,6 +2815,9 @@ Interface to the C language function @cfunc{mpfr_subnormalize}.
 @c page
 @node build options
 @chapter Build options builtins
+
+
+@ref{overview conventions, Conventions used in this documentation}.
 
 
 @deffn Builtin mpfr_buildopt_tls_p

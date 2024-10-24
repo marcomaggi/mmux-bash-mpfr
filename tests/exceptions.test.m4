@@ -50,16 +50,8 @@ alias gmp_exists='false'
 function exceptions-mpfr_set_underflow-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_set_underflow
     then
-	declare -r EXPECTED_RESULT='2'
-	declare RESULT
-	declare	OP
-
-	dotest-unset-debug
-
 	mbfl_location_enter
 	{
-	    declare -r INITVAL='1'
-
 	    if mpfr_set_underflow
 	    then mbfl_location_handler 'mpfr_clear_underflow'
 	    else mbfl_location_leave_then_return_failure
@@ -78,16 +70,8 @@ function exceptions-mpfr_set_underflow-1.1 () {
 function exceptions-mpfr_set_overflow-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_set_overflow
     then
-	declare -r EXPECTED_RESULT='2'
-	declare RESULT
-	declare	OP
-
-	dotest-unset-debug
-
 	mbfl_location_enter
 	{
-	    declare -r INITVAL='1'
-
 	    if mpfr_set_overflow
 	    then mbfl_location_handler 'mpfr_clear_overflow'
 	    else mbfl_location_leave_then_return_failure
@@ -106,16 +90,8 @@ function exceptions-mpfr_set_overflow-1.1 () {
 function exceptions-mpfr_set_divby0-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_set_divby0
     then
-	declare -r EXPECTED_RESULT='2'
-	declare RESULT
-	declare	OP
-
-	dotest-unset-debug
-
 	mbfl_location_enter
 	{
-	    declare -r INITVAL='1'
-
 	    if mpfr_set_divby0
 	    then mbfl_location_handler 'mpfr_clear_divby0'
 	    else mbfl_location_leave_then_return_failure
@@ -134,16 +110,8 @@ function exceptions-mpfr_set_divby0-1.1 () {
 function exceptions-mpfr_set_nanflag-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_set_nanflag
     then
-	declare -r EXPECTED_RESULT='2'
-	declare RESULT
-	declare	OP
-
-	dotest-unset-debug
-
 	mbfl_location_enter
 	{
-	    declare -r INITVAL='1'
-
 	    if mpfr_set_nanflag
 	    then mbfl_location_handler 'mpfr_clear_nanflag'
 	    else mbfl_location_leave_then_return_failure
@@ -162,16 +130,8 @@ function exceptions-mpfr_set_nanflag-1.1 () {
 function exceptions-mpfr_set_inexflag-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_set_inexflag
     then
-	declare -r EXPECTED_RESULT='2'
-	declare RESULT
-	declare	OP
-
-	dotest-unset-debug
-
 	mbfl_location_enter
 	{
-	    declare -r INITVAL='1'
-
 	    if mpfr_set_inexflag
 	    then mbfl_location_handler 'mpfr_clear_inexflag'
 	    else mbfl_location_leave_then_return_failure
@@ -190,22 +150,165 @@ function exceptions-mpfr_set_inexflag-1.1 () {
 function exceptions-mpfr_set_erangeflag-1.1 () {
     if mmux_bash_pointers_builtin_p mpfr_set_erangeflag
     then
-	declare -r EXPECTED_RESULT='2'
-	declare RESULT
-	declare	OP
-
-	dotest-unset-debug
-
 	mbfl_location_enter
 	{
-	    declare -r INITVAL='1'
-
 	    if mpfr_set_erangeflag
 	    then mbfl_location_handler 'mpfr_clear_erangeflag'
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
 	    dotest-predicate mpfr_erangeflag_p
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_flags_set, mpfr_flags_test
+
+function exceptions-mpfr_flags_set-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_flags_clear
+    then
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r SET_MASK=$(( MPFR_FLAGS_NAN | MPFR_FLAGS_ERANGE ))
+	    declare -r GET_MASK=WW(MPFR_FLAGS_NAN)
+	    declare -r EXPECTED_FLAGS=WW(MPFR_FLAGS_NAN)
+	    declare FLAGS
+
+	    if ! mpfr_clear_flags
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if mpfr_flags_set WW(SET_MASK)
+	    then mbfl_location_handler 'mpfr_clear_flags'
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_flags_test FLAGS WW(GET_MASK)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(EXPECTED_FLAGS) WW(FLAGS)
+	    dotest-equal WW(EXPECTED_FLAGS) WW(FLAGS)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_flags_clear
+
+function exceptions-mpfr_flags_clear-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_flags_clear
+    then
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r SET_MASK=$(( MPFR_FLAGS_NAN | MPFR_FLAGS_ERANGE ))
+	    declare -r GET_MASK=WW(SET_MASK)
+	    declare -r CLEAR_MASK=WW(SET_MASK)
+	    declare -r EXPECTED_FLAGS=0
+	    declare FLAGS
+
+	    if mpfr_flags_set WW(SET_MASK)
+	    then mbfl_location_handler 'mpfr_clear_flags'
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_flags_clear WW(CLEAR_MASK)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_flags_test FLAGS WW(GET_MASK)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(EXPECTED_FLAGS) WW(FLAGS)
+	    dotest-equal WW(EXPECTED_FLAGS) WW(FLAGS)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+function exceptions-mpfr_flags_clear-1.2 () {
+    if mmux_bash_pointers_builtin_p mpfr_flags_clear
+    then
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r SET_MASK=$(( MPFR_FLAGS_NAN | MPFR_FLAGS_ERANGE ))
+	    declare -r GET_MASK=WW(SET_MASK)
+	    declare -r CLEAR_MASK=WW(MPFR_FLAGS_NAN)
+	    declare -r EXPECTED_FLAGS=WW(MPFR_FLAGS_ERANGE)
+	    declare FLAGS
+
+	    if mpfr_flags_set WW(SET_MASK)
+	    then mbfl_location_handler 'mpfr_clear_flags'
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_flags_clear WW(CLEAR_MASK)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_flags_test FLAGS WW(GET_MASK)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(EXPECTED_FLAGS) WW(FLAGS)
+	    dotest-equal WW(EXPECTED_FLAGS) WW(FLAGS)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_flags_save, mpfr_flags_restore
+
+function exceptions-mpfr_flags_save-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_flags_save
+    then
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    declare -r SET_MASK=$(( MPFR_FLAGS_NAN | MPFR_FLAGS_ERANGE ))
+	    declare -r RESTORE_MASK=WW(MPFR_FLAGS_ERANGE)
+	    declare -r GET_MASK=$(( MPFR_FLAGS_NAN | MPFR_FLAGS_ERANGE ))
+	    declare -r EXPECTED_FLAGS=WW(MPFR_FLAGS_ERANGE)
+	    declare FLAGS SAVED_FLAGS
+
+	    if mpfr_flags_set WW(SET_MASK)
+	    then mbfl_location_handler 'mpfr_clear_flags'
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_flags_save SAVED_FLAGS
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_clear_flags
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_flags_restore WW(SAVED_FLAGS) WW(RESTORE_MASK)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_flags_test FLAGS WW(GET_MASK)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    dotest-debug WW(EXPECTED_FLAGS) WW(FLAGS)
+	    dotest-equal WW(EXPECTED_FLAGS) WW(FLAGS)
 	}
 	mbfl_location_leave
     else dotest-skipped
