@@ -375,6 +375,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * stepping::                    Stepping builtins.
 * sign::                        Sign of numbers builtins.
 * exponents::                   Exponents-related builtins.
+* exceptions::                  Exception-related bulitins.
 * miscellaneous::               Miscellaneous builtins.
 * build options::               Build options builtins.
 
@@ -763,10 +764,21 @@ Global variable holding the value of the C language constant @code{\NAME\}.
 @MmuxDefineGlobalVarConstant{MPFR_RNDNA}
 
 
-@defvar mpfr_prec_MAX
-@defvarx mpfr_prec_MIN
+@defvar MPFR_PREC_MAX
+@defvarx MPFR_PREC_MIN
 The minimum and maximum vales for values of type @objtype{mpfr_prec_t}.  These values are the C
 language constants @code{MPFR_PREC_MAX} and @code{MPFR_PREC_MIN}.
+@end defvar
+
+
+@defvar MPFR_FLAGS_UNDERFLOW
+@defvarx MPFR_FLAGS_OVERFLOW
+@defvarx MPFR_FLAGS_NAN
+@defvarx MPFR_FLAGS_INEXACT
+@defvarx MPFR_FLAGS_ERANGE
+@defvarx MPFR_FLAGS_DIVBY0
+@defvarx MPFR_FLAGS_ALL
+Exact integers representing exception flags.
 @end defvar
 
 @c page
@@ -2648,6 +2660,70 @@ Interfaces to the C language functions @cfunc{mpfr_get_emin}, @cfunc{mpfr_get_em
 @deffnx Builtin mpfr_get_emax_max
 Interfaces to the C language functions @cfunc{mpfr_get_emin_min}, @cfunc{mpfr_get_emin_max},
 @cfunc{mpfr_get_emax_min}, @cfunc{mpfr_get_emax_max}.
+@end deffn
+
+@c page
+@node exceptions
+@chapter Exception--related bulitins
+
+
+@deffn Builtin void mpfr_clear_underflow
+@deffnx Builtin void mpfr_clear_overflow
+@deffnx Builtin void mpfr_clear_divby0
+@deffnx Builtin void mpfr_clear_nanflag
+@deffnx Builtin void mpfr_clear_inexflag
+@deffnx Builtin void mpfr_clear_erangeflag
+Interfaces to the corresponding C functions.
+@end deffn
+
+
+@deffn Builtin void mpfr_clear_flags
+Interfaces to the corresponding C functions.
+@end deffn
+
+
+@deffn Builtin void mpfr_set_underflow
+@deffnx Builtin void mpfr_set_overflow
+@deffnx Builtin void mpfr_set_divby0
+@deffnx Builtin void mpfr_set_nanflag
+@deffnx Builtin void mpfr_set_inexflag
+@deffnx Builtin void mpfr_set_erangeflag
+Interfaces to the corresponding C functions.
+@end deffn
+
+
+@deffn Builtin int mpfr_underflow_p
+@deffnx Builtin int mpfr_overflow_p
+@deffnx Builtin int mpfr_divby0_p
+@deffnx Builtin int mpfr_nanflag_p
+@deffnx Builtin int mpfr_inexflag_p
+@deffnx Builtin int mpfr_erangeflag_p
+Interfaces to the corresponding C functions.
+@end deffn
+
+
+@deffn Builtin mpfr_flags_clear @var{SINT_MASK}
+Interfaces to the C language function @cfunc{mpfr_flags_clear}.
+@end deffn
+
+
+@deffn Builtin mpfr_flags_set @var{SINT_MASK}
+Interfaces to the C language function @cfunc{mpfr_flags_set}.
+@end deffn
+
+
+@deffn Builtin mpfr_flags_test @var{FLAGSVAR} @var{MASK}
+Interfaces to the C language function @cfunc{mpfr_flags_test}.
+@end deffn
+
+
+@deffn Builtin mpfr_flags_save @var{FLAGSVAR}
+Interfaces to the C language function @cfunc{mpfr_flags_save}.
+@end deffn
+
+
+@deffn Builtin mpfr_flags_restore @var{FLAGS} @var{MASK}
+Interfaces to the C language function @cfunc{mpfr_flags_restore}.
 @end deffn
 
 @c page

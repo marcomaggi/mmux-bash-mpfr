@@ -299,8 +299,27 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_get_emin_max
 		      mpfr_get_emax_min
 		      mpfr_get_emax_max
-		     )
 
+		      mpfr_clear_underflow
+		      mpfr_clear_overflow
+		      mpfr_clear_divby0
+		      mpfr_clear_nanflag
+		      mpfr_clear_inexflag
+		      mpfr_clear_erangeflag
+		      mpfr_clear_flags
+		      mpfr_set_underflow
+		      mpfr_set_overflow
+		      mpfr_set_divby0
+		      mpfr_set_nanflag
+		      mpfr_set_inexflag
+		      mpfr_set_erangeflag
+		      mpfr_underflow_p
+		      mpfr_overflow_p
+		      mpfr_divby0_p
+		      mpfr_nanflag_p
+		      mpfr_inexflag_p
+		      mpfr_erangeflag_p
+		     )
 
 ### ------------------------------------------------------------------------
 

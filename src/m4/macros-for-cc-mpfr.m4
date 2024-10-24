@@ -84,6 +84,13 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC]]],[[[{
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
+# $1 - name of the target variable
+# $2 - expression evaluating to the string to parse
+m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FLAGS]]],[[[{
+  int  mmux_retval = mmux_mpfr_flags_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
+  if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
+}]]])
+
 
 m4_dnl $1 - function identifier
 m4_dnl $2 - C preprocessor symbol for conditional code

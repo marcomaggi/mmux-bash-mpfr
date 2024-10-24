@@ -29,8 +29,8 @@
 
 #### macros
 
-MBFL_DEFINE_QQ_MACRO
-MBFL_DEFINE_UNDERSCORE_MACRO_FOR_SLOTS
+MBFL_DEFINE_SPECIAL_MACROS
+MBFL_DEFINE_UNDERSCORE_MACRO
 
 
 #### setup
@@ -76,7 +76,7 @@ function exponent-mpfr_set_exp-1.1 () {
 	    RESULT=$(mpfr_just_printit_dammit WW(OP))
 
 	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
-	    dotest-predicate mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	    dotest-equal-according-to mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
 	}
 	mbfl_location_leave
     else dotest-skipped

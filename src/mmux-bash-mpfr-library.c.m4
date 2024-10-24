@@ -127,8 +127,8 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_bash_mpfr_library_init]]])
     mmux_bash_create_global_sint_variable("mpfr_rnd_SIZEOF",	sizeof(mpfr_rnd_t),	MMUX_BUILTIN_NAME_STR);
     mmux_bash_create_global_sint_variable("mpfr_exp_SIZEOF",	sizeof(mpfr_exp_t),	MMUX_BUILTIN_NAME_STR);
     mmux_bash_create_global_sint_variable("mpfr_prec_SIZEOF",	sizeof(mpfr_prec_t),	MMUX_BUILTIN_NAME_STR);
-    mmux_bash_create_global_sint_variable("mpfr_prec_MIN",	MPFR_PREC_MIN,		MMUX_BUILTIN_NAME_STR);
-    mmux_bash_create_global_sint_variable("mpfr_prec_MAX",	MPFR_PREC_MIN,		MMUX_BUILTIN_NAME_STR);
+    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_PREC_MIN]]])
+    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_PREC_MAX]]])
   }
   {
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDN]]]);
@@ -138,6 +138,15 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_bash_mpfr_library_init]]])
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDA]]]);
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDF]]]);
     MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_RNDNA]]]);
+  }
+  {
+    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_FLAGS_UNDERFLOW]]])
+    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_FLAGS_OVERFLOW]]])
+    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_FLAGS_NAN]]])
+    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_FLAGS_INEXACT]]])
+    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_FLAGS_ERANGE]]])
+    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_FLAGS_DIVBY0]]])
+    MMUX_DEFINE_MPFR_CONSTANT_VARIABLE([[[MPFR_FLAGS_ALL]]])
   }
   return MMUX_SUCCESS;
 }

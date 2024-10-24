@@ -83,7 +83,27 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
   } else
 ]]])
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sintmax_t)) {
-    return mmux_sintmax_parse(p_value, s_value, who);
+    return mmux_sintmax_parse((mmux_sintmax_t *)p_value, s_value, who);
+  } else {
+    return MMUX_FAILURE;
+  }
+}
+mmux_bash_rv_t
+mmux_mpfr_flags_parse (mpfr_flags_t * p_value, char const * const s_value, char const * const who)
+{
+  if (sizeof(mpfr_flags_t) == sizeof(mmux_uint_t)) {
+    return mmux_uint_parse((mmux_uint_t *)p_value, s_value, who);
+  } else
+  if (sizeof(mpfr_flags_t) == sizeof(mmux_ulong_t)) {
+    return mmux_ulong_parse((mmux_ulong_t *)p_value, s_value, who);
+  } else
+MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_ULLONG]]],[[[
+  if (sizeof(mpfr_flags_t) == sizeof(mmux_ullong_t)) {
+    return mmux_ullong_parse((mmux_ullong_t *)p_value, s_value, who);
+  } else
+]]])
+  if (sizeof(mpfr_flags_t) == sizeof(mmux_uintmax_t)) {
+    return mmux_uintmax_parse((mmux_uintmax_t *)p_value, s_value, who);
   } else {
     return MMUX_FAILURE;
   }
@@ -119,7 +139,7 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
   } else
 ]]])
   if (sizeof(mpfr_exp_t) == sizeof(mmux_sintmax_t)) {
-    return mmux_sint_bind_to_variable(variable_name, (mmux_sintmax_t) value, who);
+    return mmux_sintmax_bind_to_variable(variable_name, (mmux_sintmax_t) value, who);
   } else {
     return MMUX_FAILURE;
   }
@@ -139,7 +159,27 @@ MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_SLLONG]]],[[[
   } else
 ]]])
   if (sizeof(mpfr_prec_t) == sizeof(mmux_sintmax_t)) {
-    return mmux_sint_bind_to_variable(variable_name, (mmux_sintmax_t) value, who);
+    return mmux_sintmax_bind_to_variable(variable_name, (mmux_sintmax_t) value, who);
+  } else {
+    return MMUX_FAILURE;
+  }
+}
+mmux_bash_rv_t
+mmux_mpfr_flags_bind_to_variable (char const * variable_name, mpfr_flags_t value, char const * who)
+{
+  if (sizeof(mpfr_flags_t) == sizeof(mmux_uint_t)) {
+    return mmux_uint_bind_to_variable(variable_name, (mmux_uint_t) value, who);
+  } else
+  if (sizeof(mpfr_flags_t) == sizeof(mmux_ulong_t)) {
+    return mmux_ulong_bind_to_variable(variable_name, (mmux_ulong_t) value, who);
+  } else
+MMUX_BASH_CONDITIONAL_CODE([[[MMUX_HAVE_TYPE_ULLONG]]],[[[
+  if (sizeof(mpfr_flags_t) == sizeof(mmux_ullong_t)) {
+    return mmux_ullong_bind_to_variable(variable_name, (mmux_ullong_t) value, who);
+  } else
+]]])
+  if (sizeof(mpfr_flags_t) == sizeof(mmux_uintmax_t)) {
+    return mmux_uintmax_bind_to_variable(variable_name, (mmux_uintmax_t) value, who);
   } else {
     return MMUX_FAILURE;
   }

@@ -126,6 +126,7 @@ EXTRA_DIST	+= \
 	src/mmux-bash-mpfr-assignment-builtins.c.m4	\
 	src/mmux-bash-mpfr-comparison.c.m4		\
 	src/mmux-bash-mpfr-conversion.c.m4		\
+	src/mmux-bash-mpfr-exceptions.c.m4		\
 	src/mmux-bash-mpfr-exponent.c.m4		\
 	src/mmux-bash-mpfr-init.c.m4			\
 	src/mmux-bash-mpfr-integers.c.m4		\
@@ -144,6 +145,7 @@ MMUX_BASH_MPFR_BUILT_SOURCES	= \
 	src/mmux-bash-mpfr-assignment-builtins.c	\
 	src/mmux-bash-mpfr-comparison.c			\
 	src/mmux-bash-mpfr-conversion.c			\
+	src/mmux-bash-mpfr-exceptions.c			\
 	src/mmux-bash-mpfr-exponent.c			\
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-integers.c			\
@@ -180,6 +182,7 @@ libmmux_bash_mpfr_la_SOURCES	= \
 	src/mmux-bash-mpfr-assignment-builtins.c	\
 	src/mmux-bash-mpfr-comparison.c			\
 	src/mmux-bash-mpfr-conversion.c			\
+	src/mmux-bash-mpfr-exceptions.c			\
 	src/mmux-bash-mpfr-exponent.c			\
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-integers.c			\
@@ -215,6 +218,7 @@ EXTRA_DIST		+= \
 	tests/assignment.test.m4		\
 	tests/comparison.test.m4		\
 	tests/conversion.test.m4		\
+	tests/exceptions.test.m4		\
 	tests/exponent.test.m4			\
 	tests/init.test.m4			\
 	tests/integers.test.m4			\
@@ -238,6 +242,7 @@ MMUX_CHECK_BUILT_TESTS	= \
 	tests/assignment.test			\
 	tests/comparison.test			\
 	tests/conversion.test			\
+	tests/exceptions.test			\
 	tests/exponent.test			\
 	tests/init.test				\
 	tests/integers.test			\

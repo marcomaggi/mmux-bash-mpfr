@@ -129,6 +129,8 @@ mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_exp_parse (mpfr_exp_t * p_value, ch
   __attribute__((__nonnull__(1,2)));
 mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_prec_parse (mpfr_prec_t * p_value, char const * const s_value, char const * const who)
   __attribute__((__nonnull__(1,2)));
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_flags_parse (mpfr_flags_t * p_value, char const * const s_value, char const * const who)
+  __attribute__((__nonnull__(1,2)));
 
 mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_ptr_array_parse (mpfr_ptr ** p_value, char const * const s_value, char const * const who)
   __attribute__((__nonnull__(1,2)));
@@ -140,6 +142,8 @@ mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_rnd_bind_to_variable  (char const *
 mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_exp_bind_to_variable  (char const * variable_name, mpfr_exp_t  value, char const * who)
   __attribute__((__nonnull__(1)));
 mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_prec_bind_to_variable (char const * variable_name, mpfr_prec_t value, char const * who)
+  __attribute__((__nonnull__(1)));
+mmux_bash_mpfr_decl mmux_bash_rv_t mmux_mpfr_flags_bind_to_variable (char const * variable_name, mpfr_flags_t value, char const * who)
   __attribute__((__nonnull__(1)));
 
 mmux_bash_mpfr_decl int mmux_mpfr_equal_absmargin (mpfr_ptr op1, mpfr_ptr op2, mpfr_ptr margin);
