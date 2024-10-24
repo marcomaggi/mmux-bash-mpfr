@@ -82,6 +82,271 @@ function transcendental-mpfr_log-1.1 () {
 }
 
 
+# mpfr_log
+
+function transcendental-mpfr_log-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_log
+    then
+	declare -r INITVAL='1' EXPECTED_RESULT='0'
+	declare	-a OPS
+	declare RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_log WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_log_ui
+
+function transcendental-mpfr_log_ui-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_log_ui
+    then
+	declare -r INITVAL='1'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_log_ui WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+	    mmux_double_log EXPECTED_RESULT WW(INITVAL)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_log2
+
+function transcendental-mpfr_log2-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_log2
+    then
+	declare -r INITVAL='1'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_log2 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+	    mmux_double_log2 EXPECTED_RESULT WW(INITVAL)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_log10
+
+function transcendental-mpfr_log10-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_log10
+    then
+	declare -r INITVAL='1'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_log10 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+	    mmux_double_log10 EXPECTED_RESULT WW(INITVAL)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_log1p
+
+function transcendental-mpfr_log1p-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_log1p
+    then
+	declare -r INITVAL='1'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_log1p WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+	    mmux_double_log1p EXPECTED_RESULT WW(INITVAL)
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_log2p1
+
+function transcendental-mpfr_log2p1-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_log2p1
+    then
+	declare -r INITVAL='1'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_log2p1 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+	    mmux_double_log2 EXPECTED_RESULT $(( 1 + WW(INITVAL) ))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
+# mpfr_log10p1
+
+function transcendental-mpfr_log10p1-1.1 () {
+    if mmux_bash_pointers_builtin_p mpfr_log10p1
+    then
+	declare -r INITVAL='1'
+	declare	-a OPS
+	declare RESULT EXPECTED_RESULT
+
+	dotest-unset-debug
+
+	mbfl_location_enter
+	{
+	    if mpfr_alloc_and_init_shell_array OPS 2
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
+	    else mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_set_si WW(OPS,1) WW(INITVAL) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    if ! mpfr_log10p1 WW(OPS,0) WW(OPS,1) WW(MPFR_RNDN)
+	    then mbfl_location_leave_then_return_failure
+	    fi
+
+	    RESULT=$(mpfr_just_printit_dammit WW(OPS,0))
+	    mmux_double_log10 EXPECTED_RESULT $(( 1 + WW(INITVAL) ))
+
+	    dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	    mmux_double_equal_absmargin WW(EXPECTED_RESULT) WW(RESULT)
+	}
+	mbfl_location_leave
+    else dotest-skipped
+    fi
+}
+
+
 # mpfr_y0
 
 function transcendental-mpfr_0-1.1 () {
@@ -95,12 +360,12 @@ function transcendental-mpfr_0-1.1 () {
 	mmux_double_reformat EXPECTED_RESULT '%f' WW(EXPECTED_RESULT)
 	declare -r EXPECTED_RESULT
 
-	dotest-set-debug
+	dotest-unset-debug
 
 	mbfl_location_enter
 	{
 	    if mpfr_alloc_and_init_shell_array OPS 2
-	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS; dotest-debug exiting location"
+	    then mbfl_location_handler "mpfr_clear_and_free_shell_array OPS"
 	    else mbfl_location_leave_then_return_failure
 	    fi
 
