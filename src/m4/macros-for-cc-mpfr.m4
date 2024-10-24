@@ -91,6 +91,13 @@ m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FLAGS]]],[[[{
   if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
 }]]])
 
+# $1 - name of the target variable
+# $2 - expression evaluating to the string to parse
+m4_define([[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FREE_CACHE]]],[[[{
+  int  mmux_retval = mmux_mpfr_free_cache_parse(&$1, $2, MMUX_BUILTIN_NAME_STR);
+  if (MMUX_SUCCESS != mmux_retval) { goto mmux_error_parsing_builtin_argument; }
+}]]])
+
 
 m4_dnl $1 - function identifier
 m4_dnl $2 - C preprocessor symbol for conditional code
@@ -524,6 +531,30 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
     [[["Store 1 in MPFR_RV if OP is a representation of $2; otherwise store 0."]]])
+]]])
+
+
+m4_define([[[DEFINE_VOID_VOID_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  $1();
+  return MMUX_SUCCESS;
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(1 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER()."]]])
+]]])
+
+
+m4_define([[[DEFINE_INT_VOID_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
+{
+  int	rv = $1();
+  return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+}
+MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
+    [[[(1 == argc)]]],
+    [[["MMUX_BASH_BUILTIN_IDENTIFIER"]]],
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER()."]]])
 ]]])
 
 

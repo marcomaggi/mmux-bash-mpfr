@@ -324,7 +324,11 @@ declare -ga BUILTINS=(mmux_bash_mpfr_library_init
 		      mpfr_flags_test
 		      mpfr_flags_save
 		      mpfr_flags_restore
-		     )
+
+		      mpfr_free_cache
+		      mpfr_free_pool
+		      mpfr_mp_memory_cleanup
+		      mpfr_free_cache2)
 
 ### ------------------------------------------------------------------------
 

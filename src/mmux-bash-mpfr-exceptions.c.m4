@@ -33,32 +33,6 @@
  ** Exceptions builtins.
  ** ----------------------------------------------------------------- */
 
-m4_define([[[DEFINE_VOID_VOID_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
-{
-  $1();
-  return MMUX_SUCCESS;
-}
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
-    [[[(1 == argc)]]],
-    [[["MMUX_BASH_BUILTIN_IDENTIFIER"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER()."]]])
-]]])
-
-/* ------------------------------------------------------------------ */
-
-m4_define([[[DEFINE_INT_VOID_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
-{
-  int	rv = $1();
-  return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
-}
-MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
-    [[[(1 == argc)]]],
-    [[["MMUX_BASH_BUILTIN_IDENTIFIER"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER()."]]])
-]]])
-
-/* ------------------------------------------------------------------ */
-
 DEFINE_VOID_VOID_BUILTIN([[[mpfr_clear_underflow]]])
 DEFINE_VOID_VOID_BUILTIN([[[mpfr_clear_overflow]]])
 DEFINE_VOID_VOID_BUILTIN([[[mpfr_clear_divby0]]])

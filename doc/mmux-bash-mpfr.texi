@@ -380,6 +380,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * sign::                        Sign of numbers builtins.
 * exponents::                   Exponents-related builtins.
 * exceptions::                  Exception-related bulitins.
+* memory::                      Memory-related bulitins.
 * miscellaneous::               Miscellaneous builtins.
 * build options::               Build options builtins.
 
@@ -568,6 +569,12 @@ A string representation of a value of type @objtype{mpfr_flags_t}.
 The string representation of a shell variable name: the builtin taking it as parameter, when
 successful, will store in the variable the string representation of a value of type
 @objtype{mpfr_flags_t}.  If the builtin fails: the shell variable is left untouched.
+
+@item MPFR_FREE_CACHE
+@cindex MPFR_FREE_CACHE, builtin argument
+@cindex builtin argument MPFR_FREE_CACHE
+@cindex argument MPFR_FREE_CACHE, for builtins
+A string representation of a value of type @objtype{mpfr_free_cache_t}.
 
 @item STRVAR
 @cindex MPFR_STRVAR, builtin argument
@@ -801,6 +808,12 @@ language constants @code{MPFR_PREC_MAX} and @code{MPFR_PREC_MIN}.
 @defvarx MPFR_FLAGS_DIVBY0
 @defvarx MPFR_FLAGS_ALL
 Exact integers representing exception flags.
+@end defvar
+
+
+@defvar MPFR_FREE_LOCAL_CACHE
+@defvarx MPFR_FREE_GLOBAL_CACHE
+Exact integers representing free--cache directives.
 @end defvar
 
 @c page
@@ -2793,6 +2806,33 @@ mpfr_flags_test FLAGS @RR{GET_MASK}
 
 @deffn Builtin mpfr_flags_restore @var{MPFR_FLAGS} @var{MPFR_FLAGS_MASK}
 Interfaces to the C language function @cfunc{mpfr_flags_restore}.
+@end deffn
+
+@c page
+@node memory
+@chapter Memory-related bulitins
+
+
+@ref{overview conventions, Conventions used in this documentation}.
+
+
+@deffn Builtin mpfr_free_cache
+Interface to the C language function @cfunc{mpfr_free_cache}.
+@end deffn
+
+
+@deffn Builtin mpfr_free_pool
+Interface to the C language function @cfunc{mpfr_free_pool}.
+@end deffn
+
+
+@deffn Builtin mpfr_mp_memory_cleanup
+Interface to the C language function @cfunc{mpfr_mp_memory_cleanup}.
+@end deffn
+
+
+@deffn Builtin mpfr_free_cache2 @var{MPFR_FREE_CACHE}
+Interface to the C language function @cfunc{mpfr_free_cache2}.
 @end deffn
 
 @c page

@@ -131,6 +131,7 @@ EXTRA_DIST	+= \
 	src/mmux-bash-mpfr-init.c.m4			\
 	src/mmux-bash-mpfr-integers.c.m4		\
 	src/mmux-bash-mpfr-library.c.m4			\
+	src/mmux-bash-mpfr-memory.c.m4			\
 	src/mmux-bash-mpfr-miscellaneous.c.m4		\
 	src/mmux-bash-mpfr-output.c.m4			\
 	src/mmux-bash-mpfr-rounding.c.m4		\
@@ -150,6 +151,7 @@ MMUX_BASH_MPFR_BUILT_SOURCES	= \
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-integers.c			\
 	src/mmux-bash-mpfr-library.c			\
+	src/mmux-bash-mpfr-memory.c			\
 	src/mmux-bash-mpfr-miscellaneous.c		\
 	src/mmux-bash-mpfr-output.c			\
 	src/mmux-bash-mpfr-rounding.c			\
@@ -187,6 +189,7 @@ libmmux_bash_mpfr_la_SOURCES	= \
 	src/mmux-bash-mpfr-init.c			\
 	src/mmux-bash-mpfr-integers.c			\
 	src/mmux-bash-mpfr-library.c			\
+	src/mmux-bash-mpfr-memory.c			\
 	src/mmux-bash-mpfr-miscellaneous.c		\
 	src/mmux-bash-mpfr-output.c			\
 	src/mmux-bash-mpfr-rounding.c			\
@@ -222,6 +225,7 @@ EXTRA_DIST		+= \
 	tests/exponent.test.m4			\
 	tests/init.test.m4			\
 	tests/integers.test.m4			\
+	tests/memory.test.m4			\
 	tests/miscellaneous.test.m4		\
 	tests/packages.test.m4			\
 	tests/printing.test.m4			\
@@ -246,6 +250,7 @@ MMUX_CHECK_BUILT_TESTS	= \
 	tests/exponent.test			\
 	tests/init.test				\
 	tests/integers.test			\
+	tests/memory.test			\
 	tests/miscellaneous.test		\
 	tests/packages.test			\
 	tests/printing.test			\
