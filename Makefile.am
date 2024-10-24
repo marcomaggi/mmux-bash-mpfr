@@ -226,7 +226,7 @@ EXTRA_DIST		+= \
 	tests/packages.test.m4			\
 	tests/printing.test.m4			\
 	tests/rounding.test.m4			\
-	tests/sign.test.4			\
+	tests/sign.test.m4			\
 	tests/stepping.test.m4			\
 	tests/transcendental.test.m4		\
 	tests/version.test.m4
