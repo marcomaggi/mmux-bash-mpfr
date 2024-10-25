@@ -72,7 +72,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_clear]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGS_MASK"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(MASK)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](MASK)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -90,7 +90,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_set]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGS_MASK"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(MASK)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](MASK)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -108,7 +108,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_test]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGSVAR MPFR_FLAGS_MASK"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(FLAGSVAR,MASK)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](FLAGSVAR,MASK)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -120,7 +120,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_save]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGSVAR"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(FLAGSVAR)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](FLAGSVAR)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -139,6 +139,6 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_restore]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_FLAGSVAR MPFR_FLAGS_MASK"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER()(FLAGSVAR,MASK)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](FLAGSVAR,MASK)."]]])
 
 /* end of file */

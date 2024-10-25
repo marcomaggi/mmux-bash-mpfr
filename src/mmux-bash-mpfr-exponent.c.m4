@@ -49,7 +49,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_exp]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP MPFR_EXP"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(OP,EXP)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](OP,EXP)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -67,7 +67,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_exp]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_EXPVAR MPFR_OP"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(EXPVAR,OP)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](EXPVAR,OP)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -79,7 +79,7 @@ m4_define([[[DEFINE_EXPONENT_GETTER]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_EXPVAR"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(EXPVAR)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](EXPVAR)."]]])
 ]]])
 
 DEFINE_EXPONENT_GETTER([[[mpfr_get_emin]]])
@@ -105,7 +105,7 @@ m4_define([[[DEFINE_EXPONENT_SETTER]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_EXPVAR"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(EXPVAR)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](EXPVAR)."]]])
 ]]])
 
 DEFINE_EXPONENT_SETTER([[[mpfr_set_emin]]])

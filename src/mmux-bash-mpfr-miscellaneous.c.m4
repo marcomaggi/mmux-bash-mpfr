@@ -92,7 +92,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_check_range]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(4 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP SINT_T MPFR_RND"]]],
-    [[["Computer MMUX_BASH_BUILTIN_IDENTIFIER(OP,T,RND)."]]])
+    [[["Computer MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](OP,T,RND)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -114,7 +114,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_subnormalize]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(4 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP SINT_T MPFR_RND"]]],
-    [[["Computer MMUX_BASH_BUILTIN_IDENTIFIER(OP,T,RND)."]]])
+    [[["Computer MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](OP,T,RND)."]]])
 
 
 /* end of file */

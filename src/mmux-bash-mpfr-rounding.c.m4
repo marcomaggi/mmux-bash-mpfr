@@ -47,7 +47,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_default_rounding_mode]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_RND"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(RND)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](RND)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -59,7 +59,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_default_rounding_mode]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_RNDVAR"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(RNDVAR)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](RNDVAR)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -81,7 +81,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_prec_round]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(4 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_RND"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(RND)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](RND)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -106,7 +106,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_can_round]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(6 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_B MPFR_EXP MPFR_RND1 MPFR_RND2 MPFR_PREC"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(B,EXP,RND1,RND2,PREC)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](B,EXP,RND1,RND2,PREC)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -124,7 +124,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_min_prec]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_PRECVAR MPFR_OP"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(PRECVAR,OP)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](PRECVAR,OP)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -143,6 +143,6 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_print_rnd_mode]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER STRVAR MPFR_RND"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(STRVAR,RND)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](STRVAR,RND)."]]])
 
 /* end of file */

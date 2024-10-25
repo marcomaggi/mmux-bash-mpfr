@@ -48,7 +48,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_nexttoward]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP1 MPFR_OP2"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(OP1,OP2)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](OP1,OP2)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -66,7 +66,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_nextabove]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(OP)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](OP)."]]])
 
 /* ------------------------------------------------------------------ */
 
@@ -84,6 +84,6 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_nextbelow]]])
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
     [[["MMUX_BASH_BUILTIN_IDENTIFIER MPFR_OP"]]],
-    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER(OP)."]]])
+    [[["Compute MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](OP)."]]])
 
 /* end of file */
