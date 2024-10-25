@@ -155,7 +155,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_str]]])
 
     str = mpfr_get_str(NULL, &exp, base, ndigits, op, rnd);
     if (str) {
-      int	rv = mmux_bash_store_string_in_variable(argv[1], str, MMUX_BUILTIN_NAME_STR);
+      int	rv = mmux_string_bind_to_bash_variable(argv[1], str, MMUX_BUILTIN_NAME_STR);
       mpfr_free_str(str);
       if (MMUX_SUCCESS != rv) {
 	return rv;
