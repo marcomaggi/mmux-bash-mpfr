@@ -2936,6 +2936,7 @@ to the shared library to reuse some of its facilities.  @ref{overview linking} f
 * shared library config::       Library configuration.
 * shared library parsers::      Parser functions.
 * shared library binders::      Binding values to shell variables.
+* shared library misc::         Miscellaneous functions.
 @end menu
 
 @c page
@@ -3121,6 +3122,29 @@ Bind to the shell variable @var{variable_name} a string representation of @var{v
 
 @deftypefun mmux_bash_rv_t mmux_mpfr_free_cache_bind_to_variable (char const * @var{variable_name}, mpfr_free_cache_t @var{value}, char const * @var{who})
 Bind to the shell variable @var{variable_name} a string representation of @var{value}.
+@end deftypefun
+
+@c page
+@node shared library misc
+@appendixsec Miscellaneous functions
+
+
+@deftypefun mmux_bash_rv_t mmux_bash_mpfr_set_MPFR_RV (int @var{value}, char const * const @var{who})
+Bind to the shell variable @env{MPFR_RV} a string representation of @var{value}.  When successful
+return @code{MMUX_SUCCESS}; otherwise the shell variable is left untouched and the return value is
+@code{MMUX_FAILURE}.
+
+If an error occurs and @var{who} is not @cnull{}: an error message is printed to @stderr{} and
+@var{who} is used as name of the entity that signals the error.  @var{who} is usually a builtin
+name.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mpfr_just_printit_dammit (mpfr_ptr @var{op})
+Print on @stdout{} a string representation of @var{op}.  When successful return @code{MMUX_SUCCESS};
+otherwise return @code{MMUX_FAILURE}.
+
+The string representation is built in base @math{10} and number of digits @math{6}.
 @end deftypefun
 
 @c page
