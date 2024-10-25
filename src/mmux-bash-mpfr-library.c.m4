@@ -121,7 +121,7 @@ m4_define([[[MMUX_DEFINE_MPFR_PREC_CONSTANT_VARIABLE]]],[[[{
 MMUX_BASH_BUILTIN_MAIN([[[mmux_bash_mpfr_library_init]]])
 {
   {
-    mmux_bash_store_string_in_global_variable("MPFR_VERSION",		MPFR_VERSION_STRING,	MMUX_BUILTIN_NAME_STR);
+    mmux_string_bind_to_bash_global_variable("MPFR_VERSION",		MPFR_VERSION_STRING,	MMUX_BUILTIN_NAME_STR);
     mmux_bash_create_global_sint_variable("MPFR_VERSION_MAJOR",		MPFR_VERSION_MAJOR,	MMUX_BUILTIN_NAME_STR);
     mmux_bash_create_global_sint_variable("MPFR_VERSION_MINOR",		MPFR_VERSION_MINOR,	MMUX_BUILTIN_NAME_STR);
     mmux_bash_create_global_sint_variable("MPFR_VERSION_PATCHLEVEL",	MPFR_VERSION_PATCHLEVEL,MMUX_BUILTIN_NAME_STR);

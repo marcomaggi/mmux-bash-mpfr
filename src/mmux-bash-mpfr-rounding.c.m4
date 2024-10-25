@@ -136,7 +136,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_print_rnd_mode]]])
   {
     char const * const	s_rnd = mpfr_print_rnd_mode(rnd);
 
-    return mmux_bash_store_string_in_variable(argv[1], s_rnd, MMUX_BUILTIN_NAME_STR);
+    return mmux_string_bind_to_bash_variable(argv[1], s_rnd, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
