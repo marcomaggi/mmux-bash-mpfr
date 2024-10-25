@@ -2915,21 +2915,27 @@ Print the string to @stdout{}.
 
 @value{PACKAGE} installs a shared library:
 
-@center @file{libmmux-bash-mpfr.so}
+@example
+libmmux-bash-mpfr.so
+@end example
 
 @noindent
 and C language headers:
 
-@center @file{mmux-bash-mpfr.h}
-@center @file{mmux-bash-mpfr-config.h}
+@example
+mmux-bash-mpfr.h
+mmux-bash-mpfr-config.h
+@end example
 
 @noindent
-we can write code that links to the shared library to reuse some of its facilities.  @ref{overview
-linking} for details.
+it is enough to include the main header file @file{mmux-bash-mpfr.h}.  We can write code that links
+to the shared library to reuse some of its facilities.  @ref{overview linking} for details.
 
 @menu
 * shared library version::      Version functions.
 * shared library config::       Library configuration.
+* shared library parsers::      Parser functions.
+* shared library binders::      Binding values to shell variables.
 @end menu
 
 @c page
@@ -2999,6 +3005,123 @@ This means the builtins operating on such type are defined and available.
 Defined and set to @samp{1} if @value{PACKAGE} supports the C language type @objtype{_Float128}.
 This means the builtins operating on such type are defined and available.
 @end defvr
+
+@c page
+@node shared library parsers
+@appendixsec Parser functions
+
+
+For all the following functions:
+
+@itemize
+@item
+When successful the result of parsing is stored in the variable referenced by @var{p_value}, then
+the function returns @code{MMUX_SUCCESS}; otherwise @var{p_value} is left untouched and the function
+returns @code{MMUX_FAILURE}.
+
+@item
+If an error occurs and @var{who} is not @cnull{}: an error message is printed to @stderr{} and
+@var{who} is used as name of the entity that signals the error.  @var{who} is usually a builtin
+name.
+@end itemize
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_ptr_parse (mpfr_ptr * @var{p_value}, char const * @var{s_value}, char const * @var{who})
+Parse the @asciiz{} string referenced by @var{s_value} and covert it into a C language value of type
+@objtype{mpfr_ptr}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_rnd_parse (mpfr_rnd_t * @var{p_value}, char const * @var{s_value}, char const * @var{who})
+Parse the @asciiz{} string referenced by @var{s_value} and covert it into a C language value of type
+@objtype{mpfr_rnd_t}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_exp_parse (mpfr_exp_t * @var{p_value}, char const * @var{s_value}, char const * @var{who})
+Parse the @asciiz{} string referenced by @var{s_value} and covert it into a C language value of type
+@objtype{mpfr_exp_t}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_prec_parse (mpfr_prec_t * @var{p_value}, char const * @var{s_value}, char const * @var{who})
+Parse the @asciiz{} string referenced by @var{s_value} and covert it into a C language value of type
+@objtype{mpfr_prec_t}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_flags_parse (mpfr_flags_t * @var{p_value}, char const * @var{s_value}, char const * @var{who})
+Parse the @asciiz{} string referenced by @var{s_value} and covert it into a C language value of type
+@objtype{mpfr_flags_t}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_free_cache_parse (mpfr_free_cache_t * @var{p_value}, char const * @var{s_value}, char const * @var{who})
+Parse the @asciiz{} string referenced by @var{s_value} and covert it into a C language value of type
+@objtype{mpfr_free_cache_t}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_ptr_array_parse (mpfr_ptr ** @var{p_value}, char const * @var{s_value}, char const * @var{who})
+Parse the @asciiz{} string referenced by @var{s_value} and covert it into a C language value of type
+@objtype{mpfr_ptr *}.
+
+This function is meant to parse string representations of pointer values into pointers to arrays of
+@mpfr{} numbers.
+@end deftypefun
+
+@c page
+@node shared library binders
+@section Binding values to shell variables
+
+
+For all the following functions:
+
+@itemize
+@item
+The argument @var{variable_name} must reference an @asciiz{} string representing a valid Bash
+variable name.
+
+@item
+When successful a string representation of @var{value} is bound to the shell variable, then the
+function returns @code{MMUX_SUCCESS}; otherwise the shell variable is left untouched and the
+function returns @code{MMUX_FAILURE}.
+
+@item
+If an error occurs and @var{who} is not @cnull{}: an error message is printed to @stderr{} and
+@var{who} is used as name of the entity that signals the error.  @var{who} is usually a builtin
+name.
+@end itemize
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_ptr_bind_to_variable (char const * @var{variable_name}, mpfr_ptr @var{value}, char const * @var{who})
+Bind to the shell variable @var{variable_name} a string representation of @var{value}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_rnd_bind_to_variable (char const * @var{variable_name}, mpfr_rnd_t @var{value}, char const * @var{who})
+Bind to the shell variable @var{variable_name} a string representation of @var{value}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_exp_bind_to_variable (char const * @var{variable_name}, mpfr_exp_t @var{value}, char const * @var{who})
+Bind to the shell variable @var{variable_name} a string representation of @var{value}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_prec_bind_to_variable (char const * @var{variable_name}, mpfr_prec_t @var{value}, char const * @var{who})
+Bind to the shell variable @var{variable_name} a string representation of @var{value}.
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_flags_bind_to_variable (char const * @var{variable_name}, mpfr_flags_t @var{value}, char const * @var{who}Bind to the shell variable @var{variable_name} a string representation of @var{value}.
+)
+@end deftypefun
+
+
+@deftypefun mmux_bash_rv_t mmux_mpfr_free_cache_bind_to_variable (char const * @var{variable_name}, mpfr_free_cache_t @var{value}, char const * @var{who})
+Bind to the shell variable @var{variable_name} a string representation of @var{value}.
+@end deftypefun
 
 @c page
 @node references
