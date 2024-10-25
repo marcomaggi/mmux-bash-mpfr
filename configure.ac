@@ -7,7 +7,7 @@ AC_INIT([MMUX Bash MPFR],[MMUX_PACKAGE_VERSION],
   [mrc.mgg@gmail.com],
   [mmux-bash-mpfr],[http://github.com/marcomaggi/mmux-bash-mpfr])
 MMUX_INIT
-MMUX_LIBTOOL_LIBRARY_VERSIONS([mmux_bash_mpfr],1,0,0)
+MMUX_LIBTOOL_LIBRARY_VERSIONS([mmux_bash_mpfr],0,0,0)
 AC_REVISION([0.1])
 AC_COPYRIGHT([Copyright (c) 2024 Marco Maggi <mrc.mgg@gmail.com>
 
