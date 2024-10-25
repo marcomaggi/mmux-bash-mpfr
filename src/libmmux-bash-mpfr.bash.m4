@@ -27,6 +27,8 @@
 
 #page
 #### package
+mmux_package_require_by_descriptor MMUX_BASH_PACKAGES_PACKAGE 0
+mmux_package_require_by_descriptor MMUX_BASH_POINTERS_PACKAGE 0
 
 declare -gA MMUX_BASH_MPFR_PACKAGE=([PACKAGING_VERSION]='0'
 				    [PACKAGE_NAME]='MMUX Bash MPFR'
