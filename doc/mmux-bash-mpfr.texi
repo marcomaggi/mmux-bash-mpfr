@@ -420,8 +420,10 @@ source mmux-bash-mpfr
 declare OP
 
 mpfr_alloc_and_init OP
-mpfr_set_d @RR{OP} '1.23' @RR{MPFR_RNDN}
-mpfr_just_printit_dammit @RR{OP}
+@{
+    mpfr_set_d @RR{OP} '1.23' @RR{MPFR_RNDN}
+    mpfr_just_printit_dammit @RR{OP}
+@}
 mpfr_clear_and_free @RR{OP}
 @end example
 
@@ -430,6 +432,7 @@ This package depends upon the facilities of the external package @mmux{} Bash Po
 
 @menu
 * overview install::            Installed files.
+* overview usage::              Using the shell library.
 * overview linking::            Linking code with the library.
 * overview conventions::        Conventions used in this documentation.
 * overview retvals::            Return values of @mpfr{} functions.
@@ -468,6 +471,23 @@ could be:
 
 @noindent
 we can write code that links to the shared library to reuse some of its facilities.
+
+@c page
+@node overview usage
+@section Using the shell library
+
+
+To use the shell library we have to first source its dependencies; so the preamble of a shell script
+should be:
+
+@example
+source mmux-bash-packages
+source mmux-bash-pointers
+source mmux-bash-mpfr
+@end example
+
+@noindent
+shell libraries must be loaded in the correct order.
 
 @c page
 @c external documents
