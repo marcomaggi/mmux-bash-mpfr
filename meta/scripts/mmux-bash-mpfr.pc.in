@@ -23,7 +23,7 @@ MMUX_BASH_PACKAGES_REQUIRED="mmux-bash-packages(0.0.0):mmux-bash-pointers(0.1.0)
 Name: @PACKAGE_NAME@
 Description: GNU Bash builtins extension binding MPFR
 Version: @MMUX_PKG_CONFIG_VERSION@
-Requires: bash >= 5, mpfr >= 4.2, gmp 6.3, mmux-bash-pointer >= 0.1
+Requires: bash >= 5, mpfr >= 4.2, mmux-bash-pointers >= 0.1
 Libs: -L${libdir} -lmmux-bash-mpfr
 Cflags: -I${includedir}
 
