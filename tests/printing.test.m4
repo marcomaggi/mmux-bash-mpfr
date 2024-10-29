@@ -46,60 +46,656 @@ mbfl_linker_source_library_by_stem(mmux-bash-mpfr)
 #### just printing
 
 function mpfr-just-printit-dammit-1.1 () {
-    declare -r EXPECTED_RESULT='0.123457e3'
+    declare -r EXPECTED_RESULT='0.123457e3' INITVAL='123.4567890'
     declare OP RESULT
 
     dotest-unset-debug
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
-	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	if mpfr_init WW(OP)
-	then mbfl_location_handler "mpfr_clear WW(OP)"
-	else mbfl_location_leave_then_return_failure
-	fi
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( RESULT=$(mpfr_just_printit_dammit WW(OP)) )
 
-	if ! mpfr_set_d WW(OP) '123.4567890' WW(MPFR_RNDN)
-	then mbfl_location_leave_then_return_failure
-	fi
-
-	RESULT=$(mpfr_just_printit_dammit WW(OP))
 	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
 	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
     }
     mbfl_location_leave
 }
 function mpfr-just-printit-dammit-1.2 () {
-    declare -r EXPECTED_RESULT='-0.123457e3'
+    declare -r EXPECTED_RESULT='-0.123457e3' INITVAL='-123.4567890'
     declare OP RESULT
 
     dotest-unset-debug
 
     mbfl_location_enter
     {
-	if mmux_libc_calloc OP 1 WW(mpfr_SIZEOF)
-	then mbfl_location_handler "mmux_libc_free WW(OP)"
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
 	else mbfl_location_leave_then_return_failure
 	fi
 
-	if mpfr_init WW(OP)
-	then mbfl_location_handler "mpfr_clear WW(OP)"
-	else mbfl_location_leave_then_return_failure
-	fi
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
 
-	if ! mpfr_set_d WW(OP) '-123.4567890' WW(MPFR_RNDN)
-	then mbfl_location_leave_then_return_failure
-	fi
-
-	RESULT=$(mpfr_just_printit_dammit WW(OP))
+	mbfl_location_leave_when_failure( RESULT=$(mpfr_just_printit_dammit WW(OP)) )
 	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
 	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
     }
     mbfl_location_leave
+}
+function mpfr-just-printit-dammit-1.3 () {
+    declare -r EXPECTED_RESULT='0.000000e0' INITVAL='0'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+
+	mbfl_location_leave_when_failure( RESULT=$(mpfr_just_printit_dammit WW(OP)) )
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+### ------------------------------------------------------------------------
+
+function mpfr-just-printit-dammit-2.1 () {
+    declare -r EXPECTED_RESULT='@NaN@' INITVAL='NaN'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+
+	mbfl_location_leave_when_failure( RESULT=$(mpfr_just_printit_dammit WW(OP)) )
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-2.2 () {
+    declare -r EXPECTED_RESULT='@NaN@' INITVAL='-NaN'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+
+	mbfl_location_leave_when_failure( RESULT=$(mpfr_just_printit_dammit WW(OP)) )
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+### ------------------------------------------------------------------------
+
+function mpfr-just-printit-dammit-3.1 () {
+    declare -r EXPECTED_RESULT='+@Inf@' INITVAL='Inf'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+
+	mbfl_location_leave_when_failure( RESULT=$(mpfr_just_printit_dammit WW(OP)) )
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-3.2 () {
+    declare -r EXPECTED_RESULT='-@Inf@' INITVAL='-Inf'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+
+	mbfl_location_leave_when_failure( RESULT=$(mpfr_just_printit_dammit WW(OP)) )
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-3.3 () {
+    declare -r EXPECTED_RESULT='+@Inf@' INITVAL='+Inf'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+
+	mbfl_location_leave_when_failure( RESULT=$(mpfr_just_printit_dammit WW(OP)) )
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+### ------------------------------------------------------------------------
+
+# Correct use of the end-of-options marker "--" on the command line.
+#
+function sub-mpfr-just-printit-dammit-4.1 () {
+    declare -r EXPECTED_RESULT='+@Inf@' INITVAL='+Inf'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( RESULT=$(mpfr_just_printit_dammit -- WW(OP)) )
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+### ------------------------------------------------------------------------
+
+# Print the result into an output variable.
+#
+function mpfr-just-printit-dammit-5.1 () {
+    declare -r EXPECTED_RESULT='0.123457e3' INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -v RESULT WW(OP) )
+
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+### ------------------------------------------------------------------------
+
+# Select base 2.
+#
+function mpfr-just-printit-dammit-6.1 () {
+    declare -r EXPECTED_RESULT='0.100000e2' INITVAL='2'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -v RESULT -b 2 WW(OP) )
+
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+# Select base 16.
+#
+function mpfr-just-printit-dammit-6.2 () {
+    declare -r EXPECTED_RESULT='0.f00000e1' INITVAL='15'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -v RESULT -b 16 WW(OP) )
+
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+# Select base -16.
+#
+function mpfr-just-printit-dammit-6.3 () {
+    declare -r EXPECTED_RESULT='0.F00000E1' INITVAL='15'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -v RESULT -b -16 WW(OP) )
+
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+### ------------------------------------------------------------------------
+
+# Select ndigits 3.
+#
+function mpfr-just-printit-dammit-7.1 () {
+    declare -r EXPECTED_RESULT='0.123e3' INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -v RESULT -n 3 WW(OP) )
+
+	dotest-debug WW(EXPECTED_RESULT) WW(RESULT)
+	dotest-equal WW(EXPECTED_RESULT) WW(RESULT)
+    }
+    mbfl_location_leave
+}
+
+### ------------------------------------------------------------------------
+### errors
+
+# Invalid output variable name.
+#
+function sub-mpfr-just-printit-dammit-999.001 () {
+    declare -r EXPECTED_RESULT='0.123457e3' INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -v '123' WW(OP) )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.001 () {
+    ! sub-mpfr-just-printit-dammit-999.001
+}
+
+### ------------------------------------------------------------------------
+
+# Invalid base: not an exact integer.
+#
+function sub-mpfr-just-printit-dammit-999.002 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -b 'ciao' WW(OP) )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.002 () {
+    ! sub-mpfr-just-printit-dammit-999.002
+}
+
+### ------------------------------------------------------------------------
+
+# Invalid base: not in range.
+#
+function sub-mpfr-just-printit-dammit-999.003 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -b '999' WW(OP) )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.003 () {
+    ! sub-mpfr-just-printit-dammit-999.003
+}
+
+### ------------------------------------------------------------------------
+
+# Invalid ndigits: not an exact integer.
+#
+function sub-mpfr-just-printit-dammit-999.004 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -n 'ciao' WW(OP) )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.004 () {
+    ! sub-mpfr-just-printit-dammit-999.004
+}
+
+### ------------------------------------------------------------------------
+
+# Invalid ndigits: not in range.
+#
+function sub-mpfr-just-printit-dammit-999.005 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -n '-999' WW(OP) )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.005 () {
+    ! sub-mpfr-just-printit-dammit-999.005
+}
+
+### ------------------------------------------------------------------------
+
+# Invalid command line option to getopts.
+#
+function sub-mpfr-just-printit-dammit-999.006 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -Z WW(OP) )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.006 () {
+    ! sub-mpfr-just-printit-dammit-999.006
+}
+
+### ------------------------------------------------------------------------
+
+# Command line option to getopts "-b" requires an argument.
+#
+function sub-mpfr-just-printit-dammit-999.007 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -b )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.007 () {
+    ! sub-mpfr-just-printit-dammit-999.007
+}
+
+### ------------------------------------------------------------------------
+
+# Command line option to getopts "-b" requires an argument, but the end-of-options marker was found.
+#
+function sub-mpfr-just-printit-dammit-999.008 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -b -- WW(OP) )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.008 () {
+    ! sub-mpfr-just-printit-dammit-999.008
+}
+
+### ------------------------------------------------------------------------
+
+# Command line option to getopts "-n" requires an argument.
+#
+function sub-mpfr-just-printit-dammit-999.009 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -n )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.009 () {
+    ! sub-mpfr-just-printit-dammit-999.009
+}
+
+### ------------------------------------------------------------------------
+
+# Command line option to getopts "-n" requires an argument, but the end-of-options marker was found.
+#
+function sub-mpfr-just-printit-dammit-999.010 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -n -- WW(OP) )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.010 () {
+    ! sub-mpfr-just-printit-dammit-999.010
+}
+
+### ------------------------------------------------------------------------
+
+# Command line option to getopts "-v" requires an argument.
+#
+function sub-mpfr-just-printit-dammit-999.011 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -v )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.011 () {
+    ! sub-mpfr-just-printit-dammit-999.011
+}
+
+### ------------------------------------------------------------------------
+
+# Command line option to getopts "-v" requires an argument, but the end-of-options marker was found.
+#
+function sub-mpfr-just-printit-dammit-999.012 () {
+    declare -r INITVAL='123.4567890'
+    declare OP RESULT
+
+    dotest-unset-debug
+
+    mbfl_location_enter
+    {
+	if mpfr_alloc_and_init OP
+	then mbfl_location_handler "mpfr_clear_and_free RR(OP)"
+	else mbfl_location_leave_then_return_failure
+	fi
+
+	mbfl_location_leave_when_failure( mpfr_set_d WW(OP) WW(INITVAL) WW(MPFR_RNDN) )
+	mbfl_location_leave_when_failure( mpfr_just_printit_dammit -v -- WW(OP) )
+    }
+    mbfl_location_leave
+}
+function mpfr-just-printit-dammit-999.012 () {
+    ! sub-mpfr-just-printit-dammit-999.012
+}
+
+### ------------------------------------------------------------------------
+
+# Missing pointer to MPFR argument.
+#
+function mpfr-just-printit-dammit-999.013 () {
+    ! mpfr_just_printit_dammit
+}
+
+### ------------------------------------------------------------------------
+
+# Argument is not a pointer.
+#
+function mpfr-just-printit-dammit-999.014 () {
+    ! mpfr_just_printit_dammit 'ciao'
 }
 
 
