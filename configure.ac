@@ -106,7 +106,7 @@ MMUX_AUTOCONF_SAVE_SHELL_VARIABLE_WHILE_APPENDING([CFLAGS],[" $MPFR_CFLAGS"],
       AC_CHECK_FUNCS([mpfr_set_ld mpfr_set_float128 mpfr_set_decimal64 mpfr_set_decimal128])])])
 
 MMUX_DEFINE_OMNIBUS_CONFIG_VARIABLE([MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE],
-  [Defined and set to 1 if support for 'long double' is enabled in MFPR.],
+  [Defined and set to 1 if support for 'long double' is enabled in MPFR.],
   [AS_IF([mmux_test_variable_is_yes([ac_cv_func_mpfr_set_ld])],
          [AS_VAR_SET([MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE],[1])])])
 AC_MSG_CHECKING([for MMUX Bash MPFR supporting 'long double'])
