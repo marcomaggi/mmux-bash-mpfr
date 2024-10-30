@@ -23,7 +23,8 @@ This  package implements  loadable  builtin commands  for  the GNU  Bash
 shell; to do  so it installs a  C11 language library and  a shell script
 which is meant to be sourced in a Bash session or script.
 
-  This package provides an interface to the library MPFR:
+  This  package   provides  an  interface  to   the  Multiple  Precision
+Floating-Point Reliable Library, MPFR:
 
     declare X
 
