@@ -1,13 +1,13 @@
 #!#
 #!# Part of: MMUX Bash MPFR
-#!# Contents: tests for setter builtins
+#!# Contents: tests for assignment builtins
 #!# Date: Sep 15, 2024
 #!#
 #!# Abstract
 #!#
 #!#	This file must be executed with one among:
 #!#
-#!#		$ make all check TESTS=tests/setters.test ; less tests/setters.log
+#!#		$ make all check TESTS=tests/assignment.test ; less tests/assignment.log
 #!#
 #!#	that will select these tests.
 #!#
