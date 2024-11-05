@@ -54,7 +54,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
 MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_default_rounding_mode]]])
 {
   mpfr_rnd_t	rnd = mpfr_get_default_rounding_mode();
-  return mmux_mpfr_rnd_bind_to_variable(argv[1], rnd, MMUX_BUILTIN_NAME_STR);
+  return mmux_mpfr_rnd_bind_to_bash_variable(argv[1], rnd, MMUX_BUILTIN_NAME_STR);
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
@@ -117,7 +117,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_min_prec]]])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
   {
     mpfr_prec_t		prec = mpfr_min_prec(op);
-    return mmux_mpfr_prec_bind_to_variable(argv[1], prec, MMUX_BUILTIN_NAME_STR);
+    return mmux_mpfr_prec_bind_to_bash_variable(argv[1], prec, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }

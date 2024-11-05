@@ -101,7 +101,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_test]]])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FLAGS([[[mask]]],	[[[argv[2]]]]);
   {
     mpfr_flags_t	rv = MMUX_BASH_BUILTIN_IDENTIFIER[[[]]](mask);
-    return mmux_mpfr_flags_bind_to_variable(argv[1], rv, MMUX_BUILTIN_NAME_STR);
+    return mmux_mpfr_flags_bind_to_bash_variable(argv[1], rv, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -115,7 +115,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
 MMUX_BASH_BUILTIN_MAIN([[[mpfr_flags_save]]])
 {
   mpfr_flags_t	rv = MMUX_BASH_BUILTIN_IDENTIFIER[[[]]]();
-  return mmux_mpfr_flags_bind_to_variable(argv[1], rv, MMUX_BUILTIN_NAME_STR);
+  return mmux_mpfr_flags_bind_to_bash_variable(argv[1], rv, MMUX_BUILTIN_NAME_STR);
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],

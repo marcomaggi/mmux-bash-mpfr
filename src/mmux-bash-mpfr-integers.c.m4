@@ -68,7 +68,7 @@ m4_define([[[DEFINE_MODQUO_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
     int			rv = $1(R, &Q, X, Y, rnd);
     mmux_bash_rv_t	mmux_rv;
 
-    mmux_rv = mmux_sint_bind_to_variable(argv[2], Q, MMUX_BUILTIN_NAME_STR);
+    mmux_rv = mmux_sint_bind_to_bash_variable(argv[2], Q, MMUX_BUILTIN_NAME_STR);
     if (MMUX_SUCCESS == mmux_rv) {
       return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
     } else {

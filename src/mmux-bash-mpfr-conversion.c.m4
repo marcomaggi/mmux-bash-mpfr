@@ -45,7 +45,7 @@ MMUX_BASH_BUILTIN_MAIN([[[$1]]])
     mmux_$2_t	value;
 
     value = $1(op, rnd);
-    return mmux_$2_bind_to_variable(argv[1], value, MMUX_BUILTIN_NAME_STR);
+    return mmux_$2_bind_to_bash_variable(argv[1], value, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -86,11 +86,11 @@ MMUX_BASH_BUILTIN_MAIN([[[$1]]])
     int			rv;
 
     value	= $1(&exp, op, rnd);
-    rv = mmux_$2_bind_to_variable(argv[1], value, MMUX_BUILTIN_NAME_STR);
+    rv = mmux_$2_bind_to_bash_variable(argv[1], value, MMUX_BUILTIN_NAME_STR);
     if (MMUX_SUCCESS != rv) {
       return rv;
     } else {
-      return mmux_slong_bind_to_variable(argv[2], exp, MMUX_BUILTIN_NAME_STR);
+      return mmux_slong_bind_to_bash_variable(argv[2], exp, MMUX_BUILTIN_NAME_STR);
     }
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
@@ -121,7 +121,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_frexp]]])
     rv_mpfr = mpfr_frexp(&exp, op1, op2, rnd);
     rv      = mmux_bash_mpfr_set_MPFR_RV(rv_mpfr, MMUX_BUILTIN_NAME_STR);
     if (MMUX_SUCCESS == rv) {
-      return mmux_mpfr_exp_bind_to_variable(argv[1], exp, MMUX_BUILTIN_NAME_STR);
+      return mmux_mpfr_exp_bind_to_bash_variable(argv[1], exp, MMUX_BUILTIN_NAME_STR);
     } else {
       return rv;
     }
@@ -160,7 +160,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_str]]])
       if (MMUX_SUCCESS != rv) {
 	return rv;
       } else {
-	return mmux_mpfr_exp_bind_to_variable (argv[2], exp, MMUX_BUILTIN_NAME_STR);
+	return mmux_mpfr_exp_bind_to_bash_variable (argv[2], exp, MMUX_BUILTIN_NAME_STR);
       }
     }
     /* If  the  generation of  a  value  for "str"  fails:  the  input arugments  are
@@ -220,7 +220,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_z_2exp]]])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[3]]]]);
   {
     mpfr_exp_t	exp = mpfr_get_z_2exp(rop, op);
-    return mmux_mpfr_exp_bind_to_variable(argv[1], exp, MMUX_BUILTIN_NAME_STR);
+    return mmux_mpfr_exp_bind_to_bash_variable(argv[1], exp, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -304,7 +304,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_str_ndigits]]])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PREC([[[prec]]],	[[[argv[3]]]]);
   {
     mmux_ssize_t	rv = mpfr_get_str_ndigits(B, prec);
-    return mmux_ssize_bind_to_variable(argv[1], rv, MMUX_BUILTIN_NAME_STR);
+    return mmux_ssize_bind_to_bash_variable(argv[1], rv, MMUX_BUILTIN_NAME_STR);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }

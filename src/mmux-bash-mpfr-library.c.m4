@@ -62,7 +62,7 @@ mmux_bash_mpfr_version_interface_age (void)
 mmux_bash_rv_t
 mmux_bash_mpfr_set_MPFR_RV (int value, char const * const caller_name)
 {
-  return mmux_sint_bind_to_variable("MPFR_RV", value, caller_name);
+  return mmux_sint_bind_to_bash_variable("MPFR_RV", value, caller_name);
 }
 
 mmux_bash_rv_t
@@ -115,7 +115,7 @@ m4_define([[[MMUX_DEFINE_MPFR_CONSTANT_VARIABLE]]],[[[
 ]]])
 
 m4_define([[[MMUX_DEFINE_MPFR_PREC_CONSTANT_VARIABLE]]],[[[{
-  mmux_mpfr_prec_bind_to_variable("$1", $1, MMUX_BUILTIN_NAME_STR);
+  mmux_mpfr_prec_bind_to_bash_variable("$1", $1, MMUX_BUILTIN_NAME_STR);
 }]]])
 
 MMUX_BASH_BUILTIN_MAIN([[[mmux_bash_mpfr_library_init]]])

@@ -138,7 +138,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_lgamma]]])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
   {
     int		rv      = mpfr_lgamma(rop, &sign, op, rnd);
-    int		mmux_rv = mmux_sint_bind_to_variable(argv[2], sign, MMUX_BUILTIN_NAME_STR);
+    int		mmux_rv = mmux_sint_bind_to_bash_variable(argv[2], sign, MMUX_BUILTIN_NAME_STR);
 
     if (MMUX_SUCCESS == mmux_rv) {
       return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
