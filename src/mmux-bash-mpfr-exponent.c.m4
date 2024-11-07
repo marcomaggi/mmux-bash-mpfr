@@ -42,7 +42,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_exp]]])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[exp]]],	[[[argv[2]]]]);
   {
     int		rv = mpfr_set_exp(op,exp);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -60,7 +60,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_exp]]])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
   {
     mpfr_exp_t		exp	= mpfr_get_exp(op);
-    return mmux_mpfr_exp_bind_to_bash_variable(argv[1], exp, MMUX_BUILTIN_NAME_STR);
+    return mmux_mpfr_exp_bind_to_bash_variable(argv[1], exp, MMUX_BASH_BUILTIN_STRING_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -74,7 +74,7 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
 m4_define([[[DEFINE_EXPONENT_GETTER]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
 {
   mpfr_exp_t	exp= mpfr_get_emin();
-  return mmux_mpfr_exp_bind_to_bash_variable(argv[1], exp, MMUX_BUILTIN_NAME_STR);
+  return mmux_mpfr_exp_bind_to_bash_variable(argv[1], exp, MMUX_BASH_BUILTIN_STRING_NAME);
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
@@ -98,7 +98,7 @@ m4_define([[[DEFINE_EXPONENT_SETTER]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[exp]]],	[[[argv[1]]]]);
   {
     int		rv = $1(exp);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }

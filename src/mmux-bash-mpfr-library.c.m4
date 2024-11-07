@@ -110,27 +110,27 @@ mpfr_just_printit_dammit (mpfr_ptr op)
 
 m4_define([[[MMUX_DEFINE_MPFR_CONSTANT_VARIABLE]]],[[[
 #if ((defined MMUX_HAVE_$1) && (1 == MMUX_HAVE_$1))
-  mmux_bash_create_global_sint_variable("$1",	$1,	MMUX_BUILTIN_NAME_STR);
+  mmux_bash_create_global_sint_variable("$1",	$1,	MMUX_BASH_BUILTIN_STRING_NAME);
 #endif
 ]]])
 
 m4_define([[[MMUX_DEFINE_MPFR_PREC_CONSTANT_VARIABLE]]],[[[{
-  mmux_mpfr_prec_bind_to_bash_variable("$1", $1, MMUX_BUILTIN_NAME_STR);
+  mmux_mpfr_prec_bind_to_bash_variable("$1", $1, MMUX_BASH_BUILTIN_STRING_NAME);
 }]]])
 
 MMUX_BASH_BUILTIN_MAIN([[[mmux_bash_mpfr_library_init]]])
 {
   {
-    mmux_string_bind_to_bash_global_variable("MPFR_VERSION",		MPFR_VERSION_STRING,	MMUX_BUILTIN_NAME_STR);
-    mmux_bash_create_global_sint_variable("MPFR_VERSION_MAJOR",		MPFR_VERSION_MAJOR,	MMUX_BUILTIN_NAME_STR);
-    mmux_bash_create_global_sint_variable("MPFR_VERSION_MINOR",		MPFR_VERSION_MINOR,	MMUX_BUILTIN_NAME_STR);
-    mmux_bash_create_global_sint_variable("MPFR_VERSION_PATCHLEVEL",	MPFR_VERSION_PATCHLEVEL,MMUX_BUILTIN_NAME_STR);
+    mmux_string_bind_to_bash_global_variable("MPFR_VERSION",		MPFR_VERSION_STRING,	MMUX_BASH_BUILTIN_STRING_NAME);
+    mmux_bash_create_global_sint_variable("MPFR_VERSION_MAJOR",		MPFR_VERSION_MAJOR,	MMUX_BASH_BUILTIN_STRING_NAME);
+    mmux_bash_create_global_sint_variable("MPFR_VERSION_MINOR",		MPFR_VERSION_MINOR,	MMUX_BASH_BUILTIN_STRING_NAME);
+    mmux_bash_create_global_sint_variable("MPFR_VERSION_PATCHLEVEL",	MPFR_VERSION_PATCHLEVEL,MMUX_BASH_BUILTIN_STRING_NAME);
   }
   {
-    mmux_bash_create_global_sint_variable("mpfr_SIZEOF",	sizeof(__mpfr_struct),	MMUX_BUILTIN_NAME_STR);
-    mmux_bash_create_global_sint_variable("mpfr_rnd_SIZEOF",	sizeof(mpfr_rnd_t),	MMUX_BUILTIN_NAME_STR);
-    mmux_bash_create_global_sint_variable("mpfr_exp_SIZEOF",	sizeof(mpfr_exp_t),	MMUX_BUILTIN_NAME_STR);
-    mmux_bash_create_global_sint_variable("mpfr_prec_SIZEOF",	sizeof(mpfr_prec_t),	MMUX_BUILTIN_NAME_STR);
+    mmux_bash_create_global_sint_variable("mpfr_SIZEOF",	sizeof(__mpfr_struct),	MMUX_BASH_BUILTIN_STRING_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_rnd_SIZEOF",	sizeof(mpfr_rnd_t),	MMUX_BASH_BUILTIN_STRING_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_exp_SIZEOF",	sizeof(mpfr_exp_t),	MMUX_BASH_BUILTIN_STRING_NAME);
+    mmux_bash_create_global_sint_variable("mpfr_prec_SIZEOF",	sizeof(mpfr_prec_t),	MMUX_BASH_BUILTIN_STRING_NAME);
     MMUX_DEFINE_MPFR_PREC_CONSTANT_VARIABLE([[[MPFR_PREC_MIN]]])
     MMUX_DEFINE_MPFR_PREC_CONSTANT_VARIABLE([[[MPFR_PREC_MAX]]])
   }

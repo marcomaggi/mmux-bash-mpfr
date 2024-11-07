@@ -174,7 +174,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_default_prec]]])
   mpfr_prec_t	prec;
 
   prec = mpfr_get_default_prec();
-  return mmux_mpfr_prec_bind_to_bash_variable(argv[1], prec, MMUX_BUILTIN_NAME_STR);
+  return mmux_mpfr_prec_bind_to_bash_variable(argv[1], prec, MMUX_BASH_BUILTIN_STRING_NAME);
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_get_default_prec]]],
     [[[(2 == argc)]]],
@@ -211,7 +211,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_get_prec]]])
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[2]]]]);
 
   prec = mpfr_get_prec(op);
-  return mmux_mpfr_prec_bind_to_bash_variable(argv[1], prec, MMUX_BUILTIN_NAME_STR);
+  return mmux_mpfr_prec_bind_to_bash_variable(argv[1], prec, MMUX_BASH_BUILTIN_STRING_NAME);
 
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }

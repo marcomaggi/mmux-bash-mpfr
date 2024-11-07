@@ -46,7 +46,7 @@ m4_define([[[DEFINE_COMPARISON_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$4]]]
   $3([[[op2]]],						[[[argv[2]]]]);
   {
     int		rv = $1(op1, op2);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -109,7 +109,7 @@ m4_define([[[DEFINE_COMPARISON_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$4]]]
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[expon]]],	[[[argv[3]]]]);
   {
     int		rv = $1(op1, op2, expon);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -152,7 +152,7 @@ m4_define([[[DEFINE_ORDER_PREDICATE_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
   {
     int		rv = $1(op1, op2);
-    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BUILTIN_NAME_STR);
+    return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
   MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
@@ -203,7 +203,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_absmargin]]])
 
 	mmux_rv = mmux_bash_get_shell_variable_string_value(&margin_string, MMUX_BASH_MPFR_MARGIN_VARNAME, NULL);
 	if (MMUX_SUCCESS == mmux_rv) {
-	  mmux_rv = mmux_bash_mpfr_set_absmargin_from_string(margin, margin_string, MMUX_BUILTIN_NAME_STR);
+	  mmux_rv = mmux_bash_mpfr_set_absmargin_from_string(margin, margin_string, MMUX_BASH_BUILTIN_STRING_NAME);
 	  if (MMUX_SUCCESS != mmux_rv) { goto return_whatever; }
 	} else {
 	  mpfr_set_d(margin, MMUX_BASH_MPFR_DEFAULT_COMPARISON_ABSOLUTE_MARGIN, MPFR_RNDN);
@@ -212,7 +212,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_absmargin]]])
 
       {
 	int	mpfr_rv = mmux_mpfr_equal_absmargin(op1, op2, margin);
-	mmux_rv = mmux_bash_mpfr_set_MPFR_RV(mpfr_rv, MMUX_BUILTIN_NAME_STR);
+	mmux_rv = mmux_bash_mpfr_set_MPFR_RV(mpfr_rv, MMUX_BASH_BUILTIN_STRING_NAME);
       }
     }
   return_whatever:
@@ -250,7 +250,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_relepsilon]]])
 
 	mmux_rv = mmux_bash_get_shell_variable_string_value(&epsilon_string, MMUX_BASH_MPFR_EPSILON_VARNAME, NULL);
 	if (MMUX_SUCCESS == mmux_rv) {
-	  mmux_rv = mmux_bash_mpfr_set_relepsilon_from_string(epsilon, epsilon_string, MMUX_BUILTIN_NAME_STR);
+	  mmux_rv = mmux_bash_mpfr_set_relepsilon_from_string(epsilon, epsilon_string, MMUX_BASH_BUILTIN_STRING_NAME);
 	  if (MMUX_SUCCESS != mmux_rv) { goto return_whatever; }
 	} else {
 	  mpfr_set_d(epsilon, MMUX_BASH_MPFR_DEFAULT_COMPARISON_RELATIVE_EPSILON, MPFR_RNDN);
@@ -259,7 +259,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_relepsilon]]])
 
       {
 	int	mpfr_rv = mmux_mpfr_equal_relepsilon(op1, op2, epsilon);
-	mmux_rv = mmux_bash_mpfr_set_MPFR_RV(mpfr_rv, MMUX_BUILTIN_NAME_STR);
+	mmux_rv = mmux_bash_mpfr_set_MPFR_RV(mpfr_rv, MMUX_BASH_BUILTIN_STRING_NAME);
       }
     }
   return_whatever:
