@@ -592,7 +592,8 @@ AC_DEFUN([MMUX_CC_CHECK_COMMON_HEADERS],
   [AC_HEADER_ASSERT
    AC_HEADER_STDBOOL
    AC_HEADER_SYS_WAIT
-   AC_CHECK_HEADERS([complex.h ctype.h errno.h fcntl.h float.h limits.h math.h regex.h stddef.h wchar.h sys/ioctl.h])
+   AC_CHECK_HEADERS([complex.h ctype.h errno.h fcntl.h float.h limits.h math.h regex.h stddef.h stdarg.h
+                     time.h wchar.h sys/ioctl.h sys/time.h sys/resource.h])
    AC_CACHE_SAVE])
 
 
@@ -671,6 +672,10 @@ AC_INCLUDES_DEFAULT([
 #  include <math.h>
 #endif
 
+#ifdef HAVE_NET_IF_H
+#  include <net/if.h>
+#endif
+
 #ifdef HAVE_NETDB_H
 #  include <netdb.h>
 #endif
@@ -683,8 +688,16 @@ AC_INCLUDES_DEFAULT([
 #  include <pwd.h>
 #endif
 
+#ifdef HAVE_UTIME_H
+#  include <utime.h>
+#endif
+
 #ifdef HAVE_SIGNAL_H
 #  include <signal.h>
+#endif
+
+#ifdef HAVE_STDARG_H
+#  include <stdarg.h>
 #endif
 
 #ifdef HAVE_STDBOOL_H
@@ -875,6 +888,9 @@ AC_DEFUN([MMUX_CC_CHECK_STANDARD_TYPES],
    MMUX_CC_CHECK_TYPE_COMPLEXF
    MMUX_CC_CHECK_TYPE_COMPLEXD
    MMUX_CC_CHECK_TYPE_COMPLEXLD
+
+   AC_SYS_LARGEFILE
+   AC_SYS_YEAR2038
 
    AC_TYPE_INT8_T
    AC_TYPE_INT16_T
@@ -1166,6 +1182,9 @@ AC_DEFUN([MMUX_CC_INSPECT_STANDARD_FEATURE_TYPES],
    MMUX_CC_DETERMINE_TYPE_SIZEOF([GID],        [gid_t])
    MMUX_CC_DETERMINE_TYPE_SIZEOF([WCHAR],      [wchar_t])
    MMUX_CC_DETERMINE_TYPE_SIZEOF([WINT],       [wint_t])
+   MMUX_CC_DETERMINE_TYPE_SIZEOF([TIME],       [time_t])
+   MMUX_CC_DETERMINE_TYPE_SIZEOF([SOCKLEN],    [socklen_t])
+   MMUX_CC_DETERMINE_TYPE_SIZEOF([RLIM],       [rlim_t])
 
    MMUX_CC_DETERMINE_SIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([SSIZE],        [ssize_t])
    MMUX_CC_DETERMINE_SIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([SINTMAX],      [intmax_t])
@@ -1174,6 +1193,7 @@ AC_DEFUN([MMUX_CC_INSPECT_STANDARD_FEATURE_TYPES],
    MMUX_CC_DETERMINE_SIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([PID],          [pid_t])
    MMUX_CC_DETERMINE_SIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([PTRDIFF],      [ptrdiff_t])
    MMUX_CC_DETERMINE_SIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([WCHAR],        [wchar_t])
+   MMUX_CC_DETERMINE_SIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([TIME],         [time_t])
 
    MMUX_CC_DETERMINE_UNSIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([USIZE],      [size_t])
    MMUX_CC_DETERMINE_UNSIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([UINTMAX],    [uintmax_t])
@@ -1181,7 +1201,9 @@ AC_DEFUN([MMUX_CC_INSPECT_STANDARD_FEATURE_TYPES],
    MMUX_CC_DETERMINE_UNSIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([MODE],       [mode_t])
    MMUX_CC_DETERMINE_UNSIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([UID],        [uid_t])
    MMUX_CC_DETERMINE_UNSIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([GID],        [gid_t])
-   MMUX_CC_DETERMINE_UNSIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([WINT],       [wint_t])])
+   MMUX_CC_DETERMINE_UNSIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([WINT],       [wint_t])
+   MMUX_CC_DETERMINE_UNSIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([SOCKLEN],    [socklen_t])
+   MMUX_CC_DETERMINE_UNSIGNED_INTEGER_ALIAS_FOR_CUSTOM_TYPE([RLIM],       [rlim_t])])
 
 
 # Synopsis:
