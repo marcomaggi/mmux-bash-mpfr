@@ -217,48 +217,48 @@ src/%.$(OBJEXT): \
 #### tests
 
 EXTRA_DIST		+= \
-	tests/arithmetic.test.m4		\
-	tests/assignment.test.m4		\
-	tests/comparison.test.m4		\
-	tests/conversion.test.m4		\
-	tests/exceptions.test.m4		\
-	tests/exponent.test.m4			\
-	tests/init.test.m4			\
-	tests/integers.test.m4			\
-	tests/memory.test.m4			\
-	tests/miscellaneous.test.m4		\
-	tests/packages.test.m4			\
-	tests/printing.test.m4			\
-	tests/rounding.test.m4			\
-	tests/sign.test.m4			\
-	tests/stepping.test.m4			\
-	tests/transcendental.test.m4		\
-	tests/version.test.m4
+	tests/test-arithmetic.bash.m4		\
+	tests/test-assignment.bash.m4		\
+	tests/test-comparison.bash.m4		\
+	tests/test-conversion.bash.m4		\
+	tests/test-exceptions.bash.m4		\
+	tests/test-exponent.bash.m4		\
+	tests/test-init.bash.m4			\
+	tests/test-integers.bash.m4		\
+	tests/test-memory.bash.m4		\
+	tests/test-miscellaneous.bash.m4	\
+	tests/test-packages.bash.m4		\
+	tests/test-printing.bash.m4		\
+	tests/test-rounding.bash.m4		\
+	tests/test-sign.bash.m4			\
+	tests/test-stepping.bash.m4		\
+	tests/test-transcendental.bash.m4	\
+	tests/test-version.bash.m4
 
 # For some reason GNU Automake does not want "TEST_EXTENSIONS" to be
 # inside a conditional; so we put it here.
-TEST_EXTENSIONS		= .test
+TEST_EXTENSIONS		= .bash
 
 if WANT_MBFL_TESTING_ENABLED
 
 MMUX_CHECK_BUILT_TESTS	= \
-	tests/arithmetic.test			\
-	tests/assignment.test			\
-	tests/comparison.test			\
-	tests/conversion.test			\
-	tests/exceptions.test			\
-	tests/exponent.test			\
-	tests/init.test				\
-	tests/integers.test			\
-	tests/memory.test			\
-	tests/miscellaneous.test		\
-	tests/packages.test			\
-	tests/printing.test			\
-	tests/rounding.test			\
-	tests/sign.test				\
-	tests/stepping.test			\
-	tests/transcendental.test		\
-	tests/version.test
+	tests/test-arithmetic.bash		\
+	tests/test-assignment.bash		\
+	tests/test-comparison.bash		\
+	tests/test-conversion.bash		\
+	tests/test-exceptions.bash		\
+	tests/test-exponent.bash		\
+	tests/test-init.bash			\
+	tests/test-integers.bash		\
+	tests/test-memory.bash			\
+	tests/test-miscellaneous.bash		\
+	tests/test-packages.bash		\
+	tests/test-printing.bash		\
+	tests/test-rounding.bash		\
+	tests/test-sign.bash			\
+	tests/test-stepping.bash		\
+	tests/test-transcendental.bash		\
+	tests/test-version.bash
 
 TESTS			=  $(MMUX_CHECK_BUILT_TESTS)
 check_SCRIPTS		=  $(MMUX_CHECK_BUILT_TESTS)
@@ -266,10 +266,9 @@ CLEANFILES		+= $(MMUX_CHECK_BUILT_TESTS)
 
 ## --------------------------------------------------------------------
 
-MBFL_TESTS_VERBENV	= TESTSUCCESS=yes; export TESTSUCCESS; TESTSTART=yes; export TESTSTART;
-
-# This environment  setting is used  both to compile  ".test.m4" files
-# and to run ".test" files.
+# This environment  setting is used  both to compile  ".bash.m4" files
+# and to run ".bash" files.
+#
 MBFL_TESTS_ENV		= export MBFL_LIBRARY_PATH=$(builddir)/src:$(MBFL_LIBRARY_PATH);
 # We  set TMPDIR  because  if the  "/tmp" directory  is  mounted on  a
 # separate partition with "noexec"  attribute: tests for executability
@@ -284,18 +283,24 @@ MBFL_TESTS_FLAGS	= $(MBFLPP_GENERAL_FLAGS)
 
 MBFL_TESTS_PREREQUISITES= $(MMUX_LIBRARY) libmmux-bash-mpfr.la
 
+tests/test-%.bash: tests/test-%.bash.m4 $(MBFL_TESTS_PREREQUISITES)
+	$(MBFL_TESTS_COMPILE) $(MBFL_TESTS_FLAGS) --output=$@ $<
+
+## ------------------------------------------------------------------------
+
+MBFL_TESTS_RUN_VERBENV	= TESTSUCCESS=yes; export TESTSUCCESS; TESTSTART=yes; export TESTSTART;
+MBFL_TESTS_RUN_ENV	= $(MBFL_TESTS_ENV)
 # Read "Parallel Test Harness" in the documentation of GNU Automake to
 # understand how to use this interface for "make check".
 #
 # We must make sure that this ends with a semicolon!!!
-AM_TESTS_ENVIRONMENT	= $(MBFL_TESTS_VERBENV) $(MBFL_TESTS_ENV)
-TEST_LOG_COMPILER	= $(BASH_PROGRAM)
+AM_TESTS_ENVIRONMENT	= $(MBFL_TESTS_RUN_VERBENV) $(MBFL_TESTS_RUN_ENV)
+# This variable name is  composed with the template "%s_LOG_COMPILER",
+# where "%s" must be the test file extension.
+BASH_LOG_COMPILER	= $(BASH_PROGRAM)
 AM_TEST_LOG_FLAGS	= $(MBFLFLAGS)
 
 ## --------------------------------------------------------------------
-
-tests/%.test: tests/%.test.m4 $(MBFL_TESTS_PREREQUISITES)
-	$(MBFL_TESTS_COMPILE) $(MBFL_TESTS_FLAGS) $< >$@
 
 endif
 
