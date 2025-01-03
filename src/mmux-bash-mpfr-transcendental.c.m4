@@ -7,7 +7,7 @@
 
 	This module implements transcendental builtins.
 
-  Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
+  Copyright (C) 2024, 2025 Marco Maggi <mrc.mgg@gmail.com>
 
   This program is free  software: you can redistribute it and/or  modify it under the
   terms  of  the  GNU General  Public  License  as  published  by the  Free  Software
@@ -133,9 +133,9 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_lgamma]]])
   mpfr_rnd_t	rnd;
   mmux_sint_t	sign;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[3]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[rop]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op]]],	[[[3]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_RND([[[rnd]]],	[[[4]]]);
   {
     int		rv      = mpfr_lgamma(rop, &sign, op, rnd);
     int		mmux_rv = mmux_sint_bind_to_bash_variable(argv[2], sign, MMUX_BASH_BUILTIN_STRING_NAME);
@@ -146,7 +146,6 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_lgamma]]])
       return mmux_rv;
     }
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(5 == argc)]]],

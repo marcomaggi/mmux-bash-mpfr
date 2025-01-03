@@ -7,7 +7,7 @@
 
 	This module implements stepping builtins.
 
-  Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
+  Copyright (C) 2024, 2025 Marco Maggi <mrc.mgg@gmail.com>
 
   This program is free  software: you can redistribute it and/or  modify it under the
   terms  of  the  GNU General  Public  License  as  published  by the  Free  Software
@@ -37,13 +37,12 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_nexttoward]]])
 {
   mpfr_ptr	op1, op2;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op1]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op2]]],	[[[2]]]);
   {
     mpfr_nexttoward(op1, op2);
     return MMUX_SUCCESS;
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
@@ -56,12 +55,11 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_nextabove]]])
 {
   mpfr_ptr	op;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op]]],	[[[1]]]);
   {
     mpfr_nextabove(op);
     return MMUX_SUCCESS;
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],
@@ -74,12 +72,11 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_nextbelow]]])
 {
   mpfr_ptr	op;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op]]],	[[[1]]]);
   {
     mpfr_nextbelow(op);
     return MMUX_SUCCESS;
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],

@@ -7,7 +7,7 @@
 
 	This module implements integers builtins.
 
-  Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
+  Copyright (C) 2024, 2025 Marco Maggi <mrc.mgg@gmail.com>
 
   This program is free  software: you can redistribute it and/or  modify it under the
   terms  of  the  GNU General  Public  License  as  published  by the  Free  Software
@@ -60,10 +60,10 @@ m4_define([[[DEFINE_MODQUO_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
   mmux_slong_t	Q = 0;
   mpfr_rnd_t	rnd;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[R]]],		[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[X]]],		[[[argv[3]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[Y]]],		[[[argv[4]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[5]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[R]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[X]]],	[[[3]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[Y]]],	[[[4]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_RND([[[rnd]]],	[[[5]]]);
   {
     int			rv = $1(R, &Q, X, Y, rnd);
     mmux_bash_rv_t	mmux_rv;
@@ -75,7 +75,6 @@ m4_define([[[DEFINE_MODQUO_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]])
       return mmux_rv;
     }
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(6 == argc)]]],

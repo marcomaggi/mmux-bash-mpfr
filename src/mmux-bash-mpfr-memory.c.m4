@@ -7,7 +7,7 @@
 
 	This module implements memory builtins.
 
-  Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
+  Copyright (C) 2024, 2025 Marco Maggi <mrc.mgg@gmail.com>
 
   This program is free  software: you can redistribute it and/or  modify it under the
   terms  of  the  GNU General  Public  License  as  published  by the  Free  Software
@@ -43,12 +43,11 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_free_cache2]]])
 {
   mpfr_free_cache_t	way;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_FREE_CACHE([[[way]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_FREE_CACHE([[[way]]],	[[[1]]]);
   {
     mpfr_free_cache2(way);
     return MMUX_SUCCESS;
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(2 == argc)]]],

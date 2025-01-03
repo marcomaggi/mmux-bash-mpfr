@@ -7,7 +7,7 @@
 
 	This module implements misc builtins.
 
-  Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
+  Copyright (C) 2024, 2025 Marco Maggi <mrc.mgg@gmail.com>
 
   This program is free  software: you can redistribute it and/or  modify it under the
   terms  of  the  GNU General  Public  License  as  published  by the  Free  Software
@@ -80,14 +80,13 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_check_range]]])
   mmux_sint_t	T;
   mpfr_rnd_t	rnd;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_SINT([[[T]]],		[[[argv[2]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT([[[T]]],		[[[2]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_RND([[[rnd]]],	[[[3]]]);
   {
     int		rv = mpfr_check_range(op, T, rnd);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(4 == argc)]]],
@@ -102,14 +101,13 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_subnormalize]]])
   mmux_sint_t	T;
   mpfr_rnd_t	rnd;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_SINT([[[T]]],		[[[argv[2]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT([[[T]]],		[[[2]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_RND([[[rnd]]],	[[[3]]]);
   {
     int		rv = mpfr_subnormalize(op, T, rnd);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(4 == argc)]]],

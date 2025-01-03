@@ -40,14 +40,13 @@ MMUX_BASH_BUILTIN_MAIN([[[$1]]])
   $2		op;
   mpfr_rnd_t	rnd;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
-  $4([[[op]]],						[[[argv[2]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[rop]]],	[[[1]]]);
+  $4([[[op]]],						[[[2]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_RND([[[rnd]]],	[[[3]]]);
   {
     int		rv = $1(rop, op, rnd);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[[(4 == argc)]]],
@@ -55,28 +54,28 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[["Set an already initialised number MPFR_ROP to the given operand $3."]]])
 ]]])]]])
 
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_si]]], [[[mmux_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ui]]],	[[[mmux_ulong_t]]],  [[[ULONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_sj]]], [[[mmux_sintmax_t]]],[[[SINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_uj]]],	[[[mmux_uintmax_t]]],[[[UINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_flt]]],[[[mmux_float_t]]],  [[[FLOAT]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_d]]],	[[[mmux_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ld]]],	[[[mmux_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_si]]], [[[mmux_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_SLONG]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ui]]],	[[[mmux_ulong_t]]],  [[[ULONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_ULONG]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_sj]]], [[[mmux_sintmax_t]]],[[[SINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINTMAX]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_uj]]],	[[[mmux_uintmax_t]]],[[[UINTMAX]]], [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_UINTMAX]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_flt]]],[[[mmux_float_t]]],  [[[FLOAT]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_FLOAT]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_d]]],	[[[mmux_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_DOUBLE]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_ld]]],	[[[mmux_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_LDOUBLE]]],
 			     [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_float128]]],   [[[mmux_float128_t]]],  [[[FLOAT128]]],
-			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_FLOAT128]]], [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_FLOAT128]]])
+			     [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_FLOAT128]]], [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_FLOAT128]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_decimal64]]],	[[[mmux_decimal64_t]]], [[[DECIMAL64]]],
-			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL64]]], [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL64]]])
+			     [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_DECIMAL64]]], [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL64]]])
 
 MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_decimal128]]],	[[[mmux_decimal128_t]]],[[[DECIMAL128]]],
-			     [[[MMUX_BASH_PARSE_BUILTIN_ARG_DECIMAL128]]], [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL128]]])
+			     [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_DECIMAL128]]], [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_DECIMAL128]]])
 
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_q]]],	[[[mpq_ptr]]],	[[[MPQ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPQ_PTR]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_f]]],	[[[mpf_ptr]]],	[[[MPF_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPF_PTR]]])
-MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set]]],	[[[mpfr_ptr]]],	[[[MPFR_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPZ_PTR]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_q]]],	[[[mpq_ptr]]],	[[[MPQ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPQ_PTR]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set_f]]],	[[[mpf_ptr]]],	[[[MPF_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPF_PTR]]])
+MMUX_BASH_DEFINE_MPFR_SETTER([[[mpfr_set]]],	[[[mpfr_ptr]]],	[[[MPFR_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR]]])
 
 
 /** --------------------------------------------------------------------
@@ -90,15 +89,14 @@ m4_define([[[MMUX_BASH_DEFINE_MPFR_2EXP_SETTER]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$
   mpfr_exp_t	exp;
   mpfr_rnd_t	rnd;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
-  $4([[[mant]]],					[[[argv[2]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[exp]]],	[[[argv[3]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[rop]]],	[[[1]]]);
+  $4([[[mant]]],					[[[2]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_EXP([[[exp]]],	[[[3]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_RND([[[rnd]]],	[[[3]]]);
   {
     int		rv = $1(rop, mant, exp, rnd);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[[(5 == argc)]]],
@@ -106,11 +104,11 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[["Set an already initialised MPFR number to the given $3."]]])
 ]]])
 
-MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_si_2exp]]], [[[mmux_slong_t]]],  [[[SLONG]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
-MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_ui_2exp]]], [[[mmux_ulong_t]]],  [[[ULONG]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
-MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_sj_2exp]]], [[[mmux_sintmax_t]]],[[[SINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_SINTMAX]]])
-MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_uj_2exp]]], [[[mmux_uintmax_t]]],[[[UINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_UINTMAX]]])
-MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_z_2exp]]],  [[[mpz_ptr]]],            [[[MPZ_PTR]]],[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_si_2exp]]], [[[mmux_slong_t]]],  [[[SLONG]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_SLONG]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_ui_2exp]]], [[[mmux_ulong_t]]],  [[[ULONG]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_ULONG]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_sj_2exp]]], [[[mmux_sintmax_t]]],[[[SINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINTMAX]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_uj_2exp]]], [[[mmux_uintmax_t]]],[[[UINTMAX]]],[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_UINTMAX]]])
+MMUX_BASH_DEFINE_MPFR_2EXP_SETTER([[[mpfr_set_z_2exp]]],  [[[mpz_ptr]]],       [[[MPZ_PTR]]],[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPZ_PTR]]])
 
 
 /** --------------------------------------------------------------------
@@ -124,14 +122,13 @@ MMUX_BASH_BUILTIN_MAIN([[[$1]]])
   $2		op;
   mpfr_rnd_t	rnd;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
-  $4([[[op]]],						[[[argv[2]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[rop]]],	[[[1]]]);
+  $4([[[op]]],						[[[2]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_RND([[[rnd]]],	[[[3]]]);
   {
     int		rv = $1(rop, op, rnd);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[[(4 == argc)]]],
@@ -139,16 +136,16 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[$1]]],
     [[["Initialise then set a MPFR number to the given operand $3."]]])
 ]]])]]])
 
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_si]]],[[[mmux_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ui]]],[[[mmux_ulong_t]]],  [[[ULONG]]],	 [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_d]]],	[[[mmux_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ld]]],[[[mmux_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_si]]],[[[mmux_slong_t]]],  [[[SLONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_SLONG]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ui]]],[[[mmux_ulong_t]]],  [[[ULONG]]],   [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_ULONG]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_d]]],	[[[mmux_double_t]]], [[[DOUBLE]]],  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_DOUBLE]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_ld]]],[[[mmux_ldouble_t]]],[[[LDOUBLE]]], [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_LDOUBLE]]],
 			 [[[MMUX_BASH_MPFR_HAVE_CC_TYPE_LDOUBLE]]])
 
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_q]]],	[[[mpq_ptr]]],	[[[MPQ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPQ_PTR]]])
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_f]]],	[[[mpf_ptr]]],	[[[MPF_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPF_PTR]]])
-DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set]]],	[[[mpfr_ptr]]],	[[[MPFR_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_z]]],	[[[mpz_ptr]]],	[[[MPZ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPZ_PTR]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_q]]],	[[[mpq_ptr]]],	[[[MPQ_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPQ_PTR]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set_f]]],	[[[mpf_ptr]]],	[[[MPF_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPF_PTR]]])
+DEFINE_MPFR_INIT_AND_SET([[[mpfr_init_set]]],	[[[mpfr_ptr]]],	[[[MPFR_PTR]]],	[[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR]]])
 
 
 /** --------------------------------------------------------------------
@@ -162,15 +159,14 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_str]]])
   int		base;
   mpfr_rnd_t	rnd;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_BASH_PARM([[[str]]],	[[[argv[2]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_SINT([[[base]]],		[[[argv[3]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[rop]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_BASH_PARM([[[str]]],	[[[2]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT([[[base]]],	[[[3]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_RND([[[rnd]]],	[[[4]]]);
   {
       int	rv = mpfr_set_str(rop, str, base, rnd);
       return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_str]]],
     [[[(5 == argc)]]],
@@ -194,10 +190,9 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_nan]]])
 {
   mpfr_ptr	op;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op]]],	[[[1]]]);
   mpfr_set_nan(op);
   return MMUX_SUCCESS;
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_nan]]],
     [[[(2 == argc)]]],
@@ -211,12 +206,11 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_inf]]])
   mpfr_ptr	op;
   int		sign;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_SINT([[[sign]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT([[[sign]]],	[[[2]]]);
 
   mpfr_set_inf(op, sign);
   return MMUX_SUCCESS;
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_inf]]],
     [[[(3 == argc)]]],
@@ -230,12 +224,11 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_zero]]])
   mpfr_ptr	op;
   int		sign;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_SINT([[[sign]]],		[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT([[[sign]]],	[[[2]]]);
 
   mpfr_set_zero(op, sign);
   return MMUX_SUCCESS;
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_set_zero]]],
     [[[(3 == argc)]]],
@@ -248,13 +241,11 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_swap]]])
 {
   mpfr_ptr	op1, op2;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op1]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op2]]],	[[[2]]]);
 
   mpfr_swap(op1, op2);
   return MMUX_SUCCESS;
-
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[mpfr_swap]]],
     [[[(3 == argc)]]],

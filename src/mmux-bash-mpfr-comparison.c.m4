@@ -7,7 +7,7 @@
 
 	This module implements comparison builtins.
 
-  Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
+  Copyright (C) 2024, 2025 Marco Maggi <mrc.mgg@gmail.com>
 
   This program is free  software: you can redistribute it and/or  modify it under the
   terms  of  the  GNU General  Public  License  as  published  by the  Free  Software
@@ -42,13 +42,12 @@ m4_define([[[DEFINE_COMPARISON_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$4]]]
   mpfr_ptr	op1;
   $2		 op2;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
-  $3([[[op2]]],						[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op1]]],	[[[1]]]);
+  $3([[[op2]]],						[[[2]]]);
   {
     int		rv = $1(op1, op2);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
@@ -58,36 +57,36 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
 
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp]]],
 			  [[[mpfr_ptr]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR]]])
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_si]]],
 			  [[[mmux_slong_t]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_SLONG]]])
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_ui]]],
 			  [[[mmux_ulong_t]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_ULONG]]])
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_d]]],
 			  [[[mmux_double_t]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_DOUBLE]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_DOUBLE]]])
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_ld]]],
 			  [[[mmux_ldouble_t]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_LDOUBLE]]],
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_LDOUBLE]]],
 			  [[[MMUX_HAVE_CC_TYPE_LDOUBLE]]])
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_z]]],
 			  [[[mpz_ptr]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_MPZ_PTR]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPZ_PTR]]])
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_q]]],
 			  [[[mpq_ptr]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_MPQ_PTR]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPQ_PTR]]])
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_f]]],
 			  [[[mpf_ptr]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_MPF_PTR]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPF_PTR]]])
 
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmpabs]]],
 			  [[[mpfr_ptr]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR]]])
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmpabs_ui]]],
 			  [[[mmux_ulong_t]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_ULONG]]])
 
 
 /** --------------------------------------------------------------------
@@ -104,14 +103,13 @@ m4_define([[[DEFINE_COMPARISON_BUILTIN]]],[[[MMUX_BASH_CONDITIONAL_CODE([[[$4]]]
   $2		op2;
   mpfr_exp_t	expon;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
-  $3([[[op2]]],						[[[argv[2]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_EXP([[[expon]]],	[[[argv[3]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op1]]],	[[[1]]]);
+  $3([[[op2]]],						[[[2]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_EXP([[[expon]]],	[[[3]]]);
   {
     int		rv = $1(op1, op2, expon);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(4 == argc)]]],
@@ -121,10 +119,10 @@ MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
 
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_si_2exp]]],
 			  [[[mmux_slong_t]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_SLONG]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_SLONG]]])
 DEFINE_COMPARISON_BUILTIN([[[mpfr_cmp_ui_2exp]]],
 			  [[[mmux_ulong_t]]],
-			  [[[MMUX_BASH_PARSE_BUILTIN_ARG_ULONG]]])
+			  [[[MMUX_BASH_PARSE_BUILTIN_ARGNUM_ULONG]]])
 
 
 /** --------------------------------------------------------------------
@@ -148,13 +146,12 @@ m4_define([[[DEFINE_ORDER_PREDICATE_BUILTIN]]],[[[MMUX_BASH_BUILTIN_MAIN([[[$1]]
 {
   mpfr_ptr	op1, op2;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op1]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op2]]],	[[[2]]]);
   {
     int		rv = $1(op1, op2);
     return mmux_bash_mpfr_set_MPFR_RV(rv, MMUX_BASH_BUILTIN_STRING_NAME);
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
@@ -188,8 +185,8 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_absmargin]]])
 {
   mpfr_ptr	op1, op2;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op1]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op2]]],	[[[2]]]);
   {
     mpfr_t		margin;
     mmux_bash_rv_t	mmux_rv;
@@ -219,7 +216,6 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_absmargin]]])
     mpfr_clear(margin);
     return mmux_rv;
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
@@ -235,8 +231,8 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_relepsilon]]])
 {
   mpfr_ptr	op1, op2;
 
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op1]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[op2]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op1]]],	[[[1]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_MPFR_PTR([[[op2]]],	[[[2]]]);
   {
     mpfr_t		epsilon;
     mmux_bash_rv_t	mmux_rv;
@@ -266,7 +262,6 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_equal_relepsilon]]])
     mpfr_clear(epsilon);
     return mmux_rv;
   }
-  MMUX_BASH_BUILTIN_ARG_PARSER_ERROR_BRANCH;
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
     [[[(3 == argc)]]],
