@@ -7,7 +7,7 @@
 
 	This module implements assignment builtins.
 
-  Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
+  Copyright (C) 2024, 2025 Marco Maggi <mrc.mgg@gmail.com>
 
   This program is free  software: you can redistribute it and/or  modify it under the
   terms  of  the  GNU General  Public  License  as  published  by the  Free  Software
@@ -163,7 +163,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mpfr_set_str]]])
   mpfr_rnd_t	rnd;
 
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_PTR([[[rop]]],	[[[argv[1]]]]);
-  MMUX_BASH_PARSE_BUILTIN_ARG_ASCIIZ_PTR([[[str]]],	[[[argv[2]]]]);
+  MMUX_BASH_PARSE_BUILTIN_ARG_BASH_PARM([[[str]]],	[[[argv[2]]]]);
   MMUX_BASH_PARSE_BUILTIN_ARG_SINT([[[base]]],		[[[argv[3]]]]);
   MMUX_BASH_PARSE_BUILTIN_ARG_MPFR_RND([[[rnd]]],	[[[argv[4]]]]);
   {
